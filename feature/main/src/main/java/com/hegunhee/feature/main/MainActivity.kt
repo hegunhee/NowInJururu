@@ -1,4 +1,4 @@
-package com.hegunhee.nowinjururu
+package com.hegunhee.feature.main
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
