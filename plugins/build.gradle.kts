@@ -28,5 +28,9 @@ gradlePlugin{
             id = "hegunhee.android"
             implementationClass = "com.hegunhee.plugins.AndroidPlugin"
         }
+        register("AndroidFetaure"){
+            id = "hegunhee.android.feature"
+            implementationClass = "com.hegunhee.plugins.feature.AndroidFeaturePlugin"
+        }
     }
 }
