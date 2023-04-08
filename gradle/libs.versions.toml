@@ -12,6 +12,8 @@ ext-junit = "1.1.5"
 espresso-core = "3.5.1"
 
 [libraries]
+androidGradlePlugin = { module = "com.android.tools.build:gradle", version.ref = "androidGradleVersion" }
+kotlinGradlePlugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlinGradleVersion" }
 
 core-ktx = {module = "androidx.core:core-ktx",version.ref = "core"}
 appcompat = {module = "androidx.appcompat:appcompat",version.ref = "appcompat"}
