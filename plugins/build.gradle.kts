@@ -17,3 +17,12 @@ dependencies{
     compileOnly(libs.androidGradlePlugin)
     compileOnly(libs.kotlinGradlePlugin)
 }
+
+gradlePlugin{
+    plugins{
+        register("androidApplication"){
+            id = "hegunhee.android.application"
+            implementationClass = "com.hegunhee.plugins.AndroidApplicationPlugin"
+        }
+    }
+}
