@@ -24,5 +24,9 @@ gradlePlugin{
             id = "hegunhee.android.application"
             implementationClass = "com.hegunhee.plugins.AndroidApplicationPlugin"
         }
+        register("Android"){
+            id = "hegunhee.android"
+            implementationClass = "com.hegunhee.plugins.AndroidPlugin"
+        }
     }
 }
