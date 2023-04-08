@@ -36,6 +36,8 @@ fun Project.setupAndroid(){
             jvmTarget = JavaVersion.VERSION_11.toString()
         }
 
+        defaultConfig.targetSdk = 33
+
     }
 }
 
