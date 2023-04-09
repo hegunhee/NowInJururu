@@ -17,3 +17,4 @@ rootProject.name = "NowInJururu"
 include(":app")
 include(":feature:main")
 include(":domain")
+include(":data")
