@@ -11,6 +11,12 @@ junit = "4.13.2"
 ext-junit = "1.1.5"
 espresso-core = "3.5.1"
 
+coroutine = "1.6.4"
+
+kotlin-libs = "1.7.10"
+javax-inject = "1"
+
+
 [libraries]
 androidGradlePlugin = { module = "com.android.tools.build:gradle", version.ref = "androidGradleVersion" }
 kotlinGradlePlugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlinGradleVersion" }
@@ -23,3 +29,8 @@ constraint-layout = {module = "androidx.constraintlayout:constraintlayout",versi
 junit = {module = "junit:junit",version.ref = "junit"}
 ext-junit = {module = "androidx.test.ext:junit",version.ref = "ext-junit"}
 espresso-core = {module = "androidx.test.espresso:espresso-core", version.ref = "espresso-core"}
+
+coroutine-core = {module = "org.jetbrains.kotlinx:kotlinx-coroutines-core",version.ref = "coroutine"}
+
+javax-inject = {module ="javax.inject:javax.inject",version.ref ="javax-inject"}
+kotlin-stdlib = {module ="org.jetbrains.kotlin:kotlin-stdlib",version.ref = "kotlin-libs"}
