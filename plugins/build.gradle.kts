@@ -16,6 +16,7 @@ java {
 dependencies{
     compileOnly(libs.androidGradlePlugin)
     compileOnly(libs.kotlinGradlePlugin)
+    compileOnly(libs.hiltGradlePlugin)
 }
 
 gradlePlugin{
@@ -31,6 +32,10 @@ gradlePlugin{
         register("AndroidFetaure"){
             id = "hegunhee.android.feature"
             implementationClass = "com.hegunhee.plugins.feature.AndroidFeaturePlugin"
+        }
+        register("AndroidHilt"){
+            id = "hegunhee.android.hilt"
+            implementationClass = "com.hegunhee.plugins.AndroidHiltPlugin"
         }
     }
 }
