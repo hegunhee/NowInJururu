@@ -4,7 +4,7 @@ plugins {
 
 android{
     defaultConfig{
-        applicationId = "com.hegunhee.routiner"
+        applicationId = "com.hegunhee.nowinjururu"
         versionCode = 1
         versionName = "1.0"
     }
