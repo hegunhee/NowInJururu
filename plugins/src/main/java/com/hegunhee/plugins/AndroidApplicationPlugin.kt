@@ -37,6 +37,9 @@ class AndroidApplicationPlugin : Plugin<Project> {
                 add("implementation",libs.findLibrary("junit").get())
                 add("androidTestImplementation",libs.findLibrary("ext-junit").get())
                 add("androidTestImplementation",libs.findLibrary("espresso-core").get())
+
+                add("implementation",libs.findBundle("retrofit2").get())
+                add("implementation",libs.findBundle("moshi").get())
             }
         }
     }
