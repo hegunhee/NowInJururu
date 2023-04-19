@@ -1,6 +1,20 @@
+import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
+
 plugins {
     id("hegunhee.android")
     id("hegunhee.android.hilt")
+}
+
+val properties = gradleLocalProperties(rootDir)
+val clientId : String = properties.getProperty("clientId")
+val clientSecret : String = properties.getProperty("clientSecret")
+android{
+    buildTypes{
+        getByName("debug"){
+            buildConfigField("String", "clientId", clientId)
+            buildConfigField("String", "clientSecret", clientSecret)
+        }
+    }
 }
 
 dependencies {
