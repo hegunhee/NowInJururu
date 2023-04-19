@@ -18,6 +18,10 @@ dagger = "2.44.2"
 kotlin-libs = "1.7.10"
 javax-inject = "1"
 
+retrofit = "2.9.0"
+gson = "2.5.0"
+moshi = "1.9.3"
+
 
 [libraries]
 androidGradlePlugin = { module = "com.android.tools.build:gradle", version.ref = "androidGradleVersion" }
@@ -41,3 +45,14 @@ daggerHiltAndroidCompiler = { module = "com.google.dagger:hilt-android-compiler"
 
 javax-inject = {module ="javax.inject:javax.inject",version.ref ="javax-inject"}
 kotlin-stdlib = {module ="org.jetbrains.kotlin:kotlin-stdlib",version.ref = "kotlin-libs"}
+
+retrofit2-retrofit = {module = "com.squareup.retrofit2:retrofit",version.ref ="retrofit"}
+retrofit2-gson = {module = "com.squareup.retrofit2:converter-gson",version.ref = "gson"}
+retrofit2-moshi = {module = "com.squareup.retrofit2:converter-moshi",version.ref = "retrofit"}
+
+moshi = {module = "com.squareup.moshi:moshi",version.ref = "moshi"}
+moshi-kotlin = {module = "com.squareup.moshi:moshi-kotlin",version.ref = "moshi"}
+
+[bundles]
+retrofit2 = ["retrofit2-retrofit","retrofit2-gson","retrofit2-moshi"]
+moshi = ["moshi","moshi-kotlin"]
