@@ -10,6 +10,6 @@ data class AuthToken(
     @Json(name = "token_type") val tokenType : String
 ) {
     fun getFormattedToken() : String{
-        return "$tokenType $accessToken"
+        return "${tokenType.replaceFirst('b','B')} $accessToken"
     }
 }
