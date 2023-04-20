@@ -39,7 +39,28 @@ class TwitchStreamDataResponseUnitTest {
                 println(it.toString())
                 assert(false)
             }
+        }
+    }
 
+    @Test
+    fun `empty stream data is emptyList`() {
+        runBlocking {
+            runCatching {
+                val token = tokenApi.getAuthToken()
+                println("Bearer $token")
+                streamDataApi.getStreamData(Authorization = token.getFormattedToken())
+            }.onSuccess {
+                println("authToken = $it")
+                if(it.streamData.isEmpty()){
+                    println(it.streamData.toString())
+                    assert(true)
+                }else{
+                    assert(false)
+                }
+            }.onFailure {
+                println(it.toString())
+                assert(false)
+            }
         }
     }
 }
