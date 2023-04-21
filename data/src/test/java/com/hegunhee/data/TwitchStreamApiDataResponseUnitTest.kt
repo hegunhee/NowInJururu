@@ -12,7 +12,7 @@ import org.junit.Test
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 
-class TwitchStreamDataResponseUnitTest {
+class TwitchStreamApiDataResponseUnitTest {
 
     private lateinit var moshi : Moshi
     private lateinit var tokenApi : TwitchAuthTokenApi
@@ -57,8 +57,8 @@ class TwitchStreamDataResponseUnitTest {
                 streamDataApi.getStreamData(Authorization = token.getFormattedToken())
             }.onSuccess {
                 println("authToken = $it")
-                if(it.streamData.isEmpty()){
-                    println(it.streamData.toString())
+                if(it.streamApiData.isEmpty()){
+                    println(it.streamApiData.toString())
                     assert(true)
                 }else{
                     assert(false)
