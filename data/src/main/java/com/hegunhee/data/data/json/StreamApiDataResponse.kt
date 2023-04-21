@@ -4,7 +4,7 @@ import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
-data class StreamDataResponse(
-    @Json(name = "data")val streamData: List<StreamData> = emptyList(),
+data class StreamApiDataResponse(
+    @Json(name = "data")val streamApiData: List<StreamApiData> = emptyList(),
     @Json(name = "pagination")val pagination: Pagination?
 )

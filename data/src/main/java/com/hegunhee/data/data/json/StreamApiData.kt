@@ -4,14 +4,14 @@ import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
-data class StreamData(
+data class StreamApiData(
     @Json(name = "game_id")val gameId: String,
     @Json(name = "game_name")val gameName: String,
     @Json(name = "id")val id: String,
     @Json(name = "is_mature")val isMature: Boolean,
     @Json(name = "language")val language: String,
     @Json(name = "started_at")val startedAt: String,
-    @Json(name = "tag_ids")val tagIds: List<Any> = emptyList(),
+    @Json(name = "tag_ids")val deprecatedTagIds: List<Any> = emptyList(),
     @Json(name = "tags")val tags: List<String> = emptyList(),
     @Json(name = "thumbnail_url")val thumbnailUrl: String,
     @Json(name = "title")val title: String,
