@@ -26,6 +26,7 @@ class AndroidFeaturePlugin : Plugin<Project>{
                 add("androidTestImplementation",libs.findLibrary("ext-junit").get())
                 add("androidTestImplementation",libs.findLibrary("espresso-core").get())
                 add("implementation",libs.findBundle("lifecycleScope").get())
+                add("implementation",libs.findLibrary("picasso").get())
             }
         }
     }
