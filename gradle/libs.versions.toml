@@ -12,6 +12,7 @@ ext-junit = "1.1.5"
 espresso-core = "3.5.1"
 
 coroutine = "1.6.4"
+lifecycleScope = "2.4.0"
 
 dagger = "2.44.2"
 
@@ -39,6 +40,9 @@ espresso-core = {module = "androidx.test.espresso:espresso-core", version.ref = 
 
 coroutine-core = {module = "org.jetbrains.kotlinx:kotlinx-coroutines-core",version.ref = "coroutine"}
 
+viewModel-lifecycleScope = {module = "androidx.lifecycle:lifecycle-viewmodel-ktx",version.ref="lifecycleScope"}
+lifecycle-lifecycleScope = {module = "androidx.lifecycle:lifecycle-runtime-ktx",version.ref="lifecycleScope"}
+
 daggerHiltAndroid = { module = "com.google.dagger:hilt-android", version.ref = "dagger" }
 daggerHiltAndroidCompiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "dagger" }
 
@@ -56,3 +60,5 @@ moshi-kotlin = {module = "com.squareup.moshi:moshi-kotlin",version.ref = "moshi"
 [bundles]
 retrofit2 = ["retrofit2-retrofit","retrofit2-gson","retrofit2-moshi"]
 moshi = ["moshi","moshi-kotlin"]
+
+lifecycleScope = ["viewModel-lifecycleScope","lifecycle-lifecycleScope"]
