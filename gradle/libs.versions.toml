@@ -23,6 +23,8 @@ retrofit = "2.9.0"
 gson = "2.5.0"
 moshi = "1.9.3"
 
+picasso = "2.8"
+
 
 [libraries]
 androidGradlePlugin = { module = "com.android.tools.build:gradle", version.ref = "androidGradleVersion" }
@@ -56,6 +58,8 @@ retrofit2-moshi = {module = "com.squareup.retrofit2:converter-moshi",version.ref
 
 moshi = {module = "com.squareup.moshi:moshi",version.ref = "moshi"}
 moshi-kotlin = {module = "com.squareup.moshi:moshi-kotlin",version.ref = "moshi"}
+
+picasso = {module = "com.squareup.picasso:picasso",version.ref="picasso"}
 
 [bundles]
 retrofit2 = ["retrofit2-retrofit","retrofit2-gson","retrofit2-moshi"]
