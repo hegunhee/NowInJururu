@@ -34,6 +34,13 @@ fun Project.setupAndroid(){
             targetCompatibility = JavaVersion.VERSION_11
         }
 
+        dataBinding{
+            enable = true
+        }
+        viewBinding{
+            enable = true
+        }
+
         kotlinOptions {
             jvmTarget = JavaVersion.VERSION_11.toString()
         }
