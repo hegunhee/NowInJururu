@@ -9,28 +9,43 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.TextView
 import androidx.annotation.RequiresApi
+import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.lifecycleScope
 import com.hegunhee.domain.Test.TestUseCase
+import com.hegunhee.domain.usecase.GetStreamDataUseCase
+import com.hegunhee.feature.main.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
+    private lateinit var viewDataBinding : ActivityMainBinding
+
     @Inject lateinit var testUseCase : TestUseCase
+
+    @Inject lateinit var getStreamDataUseCase : GetStreamDataUseCase
 
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        viewDataBinding = DataBindingUtil.setContentView<ActivityMainBinding>(this,R.layout.activity_main)
         Log.d("TEST!!!",testUseCase().toString())
-        val button = findViewById<TextView>(R.id.tv1)
-        button.setOnClickListener {
-            val intent = packageManager.getLaunchIntentForPackage("tv.twitch.android.app")
-            if(intent != null){
-                it
-            }else{
-                it
-            }
+        lifecycleScope.launchWhenStarted {
+            Log.d("TEST!!!",getStreamDataUseCase().getOrNull()!!.toString())
+        }
+
+
+
+//        button.setOnClickListener {
+//            val intent = packageManager.getLaunchIntentForPackage("tv.twitch.android.app")
+//            if(intent != null){
+//                it
+//            }else{
+//                it
+//            }
 //            Intent(Intent.ACTION_VIEW).apply {
 //                data = Uri.parse("twitch://stream/cotton__123")
 //                startActivity(this)
@@ -59,7 +74,5 @@ class MainActivity : AppCompatActivity() {
 ////                elseIntent.data = Uri.parse("market://details?id=tv.twitch.android.app")
 ////                startActivity(elseIntent)
 //            }
-        }
-
     }
 }
