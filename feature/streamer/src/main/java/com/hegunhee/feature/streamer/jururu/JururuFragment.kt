@@ -23,7 +23,7 @@ class JururuFragment : Fragment() {
         viewDataBinding = FragmentJururuBinding.bind(root).apply {
 
         }
-        return super.onCreateView(inflater, container, savedInstanceState)
+        return root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
