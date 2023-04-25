@@ -13,7 +13,7 @@ class DefaultRepository @Inject constructor(private val dataSource: RemoteDataSo
             val token = dataSource.getAuthToken().getFormattedToken()
             val response = dataSource.getStreamDataResponse(userId = userId,token = token)
             if(response.streamApiData.isEmpty()){
-                StreamDataType.EmptyData
+                StreamDataType.EmptyData("","","")
             }else{
                 response.streamApiData[0].toStreamData()
             }
