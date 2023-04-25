@@ -33,6 +33,6 @@ class JururuFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        streamerAdapter.submitList(listOf<StreamDataType>(StreamDataType.EmptyData,StreamDataType.EmptyData,StreamDataType.EmptyData,StreamDataType.EmptyData,StreamDataType.EmptyData))
+        streamerAdapter.submitList(listOf<StreamDataType>(StreamerAdapter.JururuStreamInfo))
     }
 }
