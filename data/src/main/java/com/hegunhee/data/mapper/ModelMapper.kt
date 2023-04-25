@@ -18,6 +18,6 @@ fun StreamApiData.toStreamData(): StreamData {
         userId = userId,
         userLogin = userLogin,
         userName = userName,
-        viewerCount = viewerCount
+        viewerCount = viewerCount.toString()
     )
 }
