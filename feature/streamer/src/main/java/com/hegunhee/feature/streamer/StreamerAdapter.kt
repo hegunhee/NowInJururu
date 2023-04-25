@@ -27,7 +27,6 @@ class StreamerAdapter() : ListAdapter<StreamDataType,StreamerAdapter.StreamerAda
         override fun bindView(data: StreamDataType) {
             val emptyData = data as StreamDataType.EmptyData
             binding.streamerInfo = emptyData
-//            }
         }
     }
 
@@ -52,10 +51,6 @@ class StreamerAdapter() : ListAdapter<StreamDataType,StreamerAdapter.StreamerAda
             is StreamDataType.StreamData -> R.layout.item_live_streamer
             is StreamDataType.EmptyData -> R.layout.item_un_live_streamer
         }
-    }
-
-    companion object {
-         val JururuStreamInfo = StreamDataType.EmptyData(userLogin = "cotton__123", userName = "주르르",profileUrl = "https://static-cdn.jtvnw.net/jtv_user_pictures/919e1ba0-e13e-49ae-a660-181817e3970d-profile_image-70x70.png")
     }
 }
 
