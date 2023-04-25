@@ -19,7 +19,7 @@ sealed class StreamDataType() {
         val userId: String,
         val userLogin: String,
         val userName: String,
-        val viewerCount: Int
+        val viewerCount: String
     ) : StreamDataType()
 
     data class EmptyData(val userLogin : String,val userName : String,val profileUrl : String) : StreamDataType()
