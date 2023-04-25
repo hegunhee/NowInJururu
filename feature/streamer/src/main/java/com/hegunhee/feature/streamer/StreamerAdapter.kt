@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.DiffUtil
 import com.hegunhee.domain.model.StreamDataType
 import com.hegunhee.feature.streamer.databinding.ItemLiveStreamerBinding
 import com.hegunhee.feature.streamer.databinding.ItemUnLiveStreamerBinding
+import com.squareup.picasso.Picasso
 
 class StreamerAdapter() : ListAdapter<StreamDataType,StreamerAdapter.StreamerAdapterViewHolder>(DiffUtil) {
 
@@ -19,13 +20,14 @@ class StreamerAdapter() : ListAdapter<StreamDataType,StreamerAdapter.StreamerAda
 
     inner class LiveStreamerViewHolder(private val binding : ItemLiveStreamerBinding) : StreamerAdapterViewHolder(binding.root){
         override fun bindView(memo: StreamDataType) {
-
         }
     }
 
     inner class UnLiveStreamerViewHolder(private val binding : ItemUnLiveStreamerBinding) : StreamerAdapterViewHolder(binding.root){
-        override fun bindView(memo: StreamDataType) {
-
+        override fun bindView(data: StreamDataType) {
+            val emptyData = data as StreamDataType.EmptyData
+            binding.streamerInfo = emptyData
+//            }
         }
     }
 
@@ -52,6 +54,9 @@ class StreamerAdapter() : ListAdapter<StreamDataType,StreamerAdapter.StreamerAda
         }
     }
 
+    companion object {
+         val JururuStreamInfo = StreamDataType.EmptyData(userLogin = "cotton__123", userName = "주르르",profileUrl = "https://static-cdn.jtvnw.net/jtv_user_pictures/919e1ba0-e13e-49ae-a660-181817e3970d-profile_image-70x70.png")
+    }
 }
 
 internal object DiffUtil : DiffUtil.ItemCallback<StreamDataType>(){

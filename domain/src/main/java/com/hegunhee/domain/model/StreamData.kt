@@ -22,7 +22,8 @@ sealed class StreamDataType() {
         val viewerCount: Int
     ) : StreamDataType()
 
-    object EmptyData : StreamDataType() {
+    data class EmptyData(val userLogin : String,val userName : String,val profileUrl : String) : StreamDataType(
+    ) {
         override fun toString(): String {
             return "EmptyData"
         }
