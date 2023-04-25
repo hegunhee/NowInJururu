@@ -19,7 +19,9 @@ class StreamerAdapter() : ListAdapter<StreamDataType,StreamerAdapter.StreamerAda
     }
 
     inner class LiveStreamerViewHolder(private val binding : ItemLiveStreamerBinding) : StreamerAdapterViewHolder(binding.root){
-        override fun bindView(memo: StreamDataType) {
+        override fun bindView(data: StreamDataType) {
+            val streamData = data as StreamDataType.StreamData
+            binding.streamData = streamData
         }
     }
 

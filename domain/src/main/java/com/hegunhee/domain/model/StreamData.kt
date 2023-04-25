@@ -25,6 +25,7 @@ sealed class StreamDataType() {
     data class EmptyData(val userLogin : String,val userName : String,val profileUrl : String) : StreamDataType()
 
     companion object {
-        val TestJururuUnLiveStreamInfo = StreamDataType.EmptyData(userLogin = "cotton__123", userName = "주르르",profileUrl = "https://static-cdn.jtvnw.net/jtv_user_pictures/919e1ba0-e13e-49ae-a660-181817e3970d-profile_image-70x70.png")
+        val TestJururuLiveStreamInfo = StreamData("123123","발로란트","123123",false,"ko","", listOf("게임","뭐시깽이","뭐시깽이"),"https://static-cdn.jtvnw.net/previews-ttv/live_user_hangyeol8008-300x300.jpg%22","콘르르","live","123213123","cotton__123","주르르","1231")
+        val TestJururuUnLiveStreamInfo = EmptyData(userLogin = "cotton__123", userName = "주르르",profileUrl = "https://static-cdn.jtvnw.net/jtv_user_pictures/919e1ba0-e13e-49ae-a660-181817e3970d-profile_image-70x70.png")
     }
 }
