@@ -19,4 +19,16 @@ class DefaultRepository @Inject constructor(private val dataSource: RemoteDataSo
             }
         }
     }
+
+    override suspend fun getJururuStreamData(jururuId: String): Result<StreamDataType> {
+        return runCatching {
+            val token = dataSource.getAuthToken().getFormattedToken()
+            val response = dataSource.getStreamDataResponse(userId = jururuId,token)
+            if(response.streamApiData.isEmpty()){
+                StreamDataType.EmptyData(userLogin = "cotton__123",userName ="주르르",profileUrl = StreamDataType.TestJururuProfileUrl)
+            }else{
+                response.streamApiData[0].toStreamData()
+            }
+        }
+    }
 }
