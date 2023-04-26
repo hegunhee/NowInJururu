@@ -12,7 +12,7 @@ fun StreamApiData.toStreamData(): StreamData {
         language = language,
         startedAt = startedAt,
         tags = tags,
-        thumbnailUrl = thumbnailUrl,
+        thumbnailUrl = thumbnailUrl.toThumbNailSize(),
         title = title,
         type = type,
         userId = userId,
@@ -20,4 +20,11 @@ fun StreamApiData.toStreamData(): StreamData {
         userName = userName,
         viewerCount = viewerCount.toString()
     )
+}
+
+fun String.toThumbNailSize() : String{
+    return this.replace("{width}","100").replace("{height}","100")
+}
+fun String.toSmallProfileSize() : String {
+    return this.replace("{width}","30").replace("{height}","30")
 }
