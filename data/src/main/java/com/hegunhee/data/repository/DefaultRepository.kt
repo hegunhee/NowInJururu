@@ -8,10 +8,10 @@ import javax.inject.Inject
 
 class DefaultRepository @Inject constructor(private val dataSource: RemoteDataSource) : Repository {
 
-    override suspend fun getStreamData(userId : String): Result<StreamDataType> {
+    override suspend fun getStreamData(userLogin : String): Result<StreamDataType> {
         return runCatching {
             val token = dataSource.getAuthToken().getFormattedToken()
-            val response = dataSource.getStreamDataResponse(userId = userId,token = token)
+            val response = dataSource.getStreamDataResponse(userLogin = userLogin,token = token)
             if(response.streamApiData.isEmpty()){
                 StreamDataType.EmptyData("","","")
             }else{
@@ -23,7 +23,7 @@ class DefaultRepository @Inject constructor(private val dataSource: RemoteDataSo
     override suspend fun getJururuStreamData(jururuId: String): Result<StreamDataType> {
         return runCatching {
             val token = dataSource.getAuthToken().getFormattedToken()
-            val response = dataSource.getStreamDataResponse(userId = jururuId,token)
+            val response = dataSource.getStreamDataResponse(userLogin = jururuId,token = token)
             if(response.streamApiData.isEmpty()){
                 StreamDataType.EmptyData(userLogin = "cotton__123",userName ="주르르",profileUrl = StreamDataType.TestJururuProfileUrl)
             }else{

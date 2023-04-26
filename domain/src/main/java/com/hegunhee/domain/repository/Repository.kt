@@ -4,7 +4,7 @@ import com.hegunhee.domain.model.StreamDataType
 
 interface Repository {
 
-    suspend fun getStreamData(userId: String = "cotton__123") : Result<StreamDataType>
+    suspend fun getStreamData(userLogin: String = "cotton__123") : Result<StreamDataType>
 
-    suspend fun getJururuStreamData(jururuId : String = "cotton__123") : Result<StreamDataType>
+    suspend fun getJururuStreamData(jururuId : String = "mawang0216") : Result<StreamDataType>
 }
