@@ -9,5 +9,5 @@ interface RemoteDataSource {
     suspend fun getAuthToken() : AuthToken
 
 
-    suspend fun getStreamDataResponse(userId : String = "cotton__123",token : String) : StreamApiDataResponse
+    suspend fun getStreamDataResponse(userLogin : String,token : String) : StreamApiDataResponse
 }
