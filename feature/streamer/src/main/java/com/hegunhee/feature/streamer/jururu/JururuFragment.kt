@@ -6,15 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
-import com.hegunhee.domain.model.StreamDataType
+import com.hegunhee.feature.common.twitch.*
 import com.hegunhee.feature.streamer.R
 import com.hegunhee.feature.streamer.StreamerAdapter
 import com.hegunhee.feature.streamer.databinding.FragmentJururuBinding
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -30,7 +27,7 @@ class JururuFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val root = inflater.inflate(R.layout.fragment_jururu,container,false)
-        streamerAdapter = StreamerAdapter()
+        streamerAdapter = StreamerAdapter(viewModel)
         viewDataBinding = FragmentJururuBinding.bind(root).apply {
             JururuRecyclerView.adapter = streamerAdapter
             lifecycleOwner = viewLifecycleOwner
@@ -49,6 +46,17 @@ class JururuFragment : Fragment() {
             launch {
                 viewModel.jururuStreamData.collect{
                     streamerAdapter.submitList(listOf(it))
+                }
+            }
+            launch {
+                viewModel.navigateStreamerTwitch.collect{ streamerLogin ->
+                    runCatching {
+                        requireContext().isInstalledTwitchAppOrException()
+                    }.onSuccess {
+                        requireContext().openStreamerStream(streamerLogin)
+                    }.onFailure {
+                        requireContext().openPlayStore()
+                    }
                 }
             }
         }
