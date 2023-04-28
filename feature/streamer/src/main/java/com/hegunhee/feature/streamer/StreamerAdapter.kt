@@ -11,7 +11,7 @@ import com.hegunhee.feature.streamer.databinding.ItemLiveStreamerBinding
 import com.hegunhee.feature.streamer.databinding.ItemUnLiveStreamerBinding
 import com.squareup.picasso.Picasso
 
-class StreamerAdapter() : ListAdapter<StreamDataType,StreamerAdapter.StreamerAdapterViewHolder>(DiffUtil) {
+class StreamerAdapter(private val actionHandler : StreamActionHandler) : ListAdapter<StreamDataType,StreamerAdapter.StreamerAdapterViewHolder>(DiffUtil) {
 
     sealed class StreamerAdapterViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
         abstract fun bindView(memo: StreamDataType)
@@ -22,6 +22,7 @@ class StreamerAdapter() : ListAdapter<StreamDataType,StreamerAdapter.StreamerAda
         override fun bindView(data: StreamDataType) {
             val streamData = data as StreamDataType.StreamData
             binding.streamData = streamData
+            binding.actionHandler = actionHandler
         }
     }
 
@@ -29,6 +30,7 @@ class StreamerAdapter() : ListAdapter<StreamDataType,StreamerAdapter.StreamerAda
         override fun bindView(data: StreamDataType) {
             val emptyData = data as StreamDataType.EmptyData
             binding.streamerInfo = emptyData
+            binding.actionHandler = actionHandler
         }
     }
 
