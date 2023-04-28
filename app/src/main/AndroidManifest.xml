@@ -4,6 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET"/>
+    <queries>
+        <package android:name="tv.twitch.android.app"/>
+    </queries>
 
     <application
         android:name=".JururuApplication"
