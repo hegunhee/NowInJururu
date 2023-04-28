@@ -6,6 +6,11 @@
     <data>
 
         <variable
+            name="actionHandler"
+            type ="com.hegunhee.feature.streamer.StreamActionHandler"
+            />
+
+        <variable
             name="streamerInfo"
             type="com.hegunhee.domain.model.StreamDataType.EmptyData" />
     </data>
@@ -13,7 +18,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp">
+        android:layout_marginBottom="10dp"
+        android:onClick="@{() -> actionHandler.onClickTwitchStreamerItem(streamerInfo.userLogin)}">
 
         <ImageView
             android:id="@+id/profileImage"

@@ -6,13 +6,19 @@
     <data>
 
         <variable
+            name="actionHandler"
+            type ="com.hegunhee.feature.streamer.StreamActionHandler"
+            />
+
+        <variable
             name="streamData"
             type="com.hegunhee.domain.model.StreamDataType.StreamData" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:onClick="@{() -> actionHandler.onClickTwitchStreamerItem(streamData.userLogin)}">
 
         <ImageView
             android:id="@+id/thumbNailImage"
