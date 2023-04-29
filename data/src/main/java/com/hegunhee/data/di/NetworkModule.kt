@@ -3,7 +3,7 @@ package com.hegunhee.data.di
 import com.hegunhee.data.network.TwitchAuthTokenApi
 import com.hegunhee.data.network.TwitchAuthTokenBaseUrl
 import com.hegunhee.data.network.TwitchStreamDataApi
-import com.hegunhee.data.network.TwitchStreamDataBaseUrl
+import com.hegunhee.data.network.TwitchGetBaseUrl
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
@@ -40,7 +40,7 @@ class NetworkModule {
         moshi : Moshi
     ) : TwitchStreamDataApi{
         return Retrofit.Builder()
-            .baseUrl(TwitchStreamDataBaseUrl)
+            .baseUrl(TwitchGetBaseUrl)
             .addConverterFactory(MoshiConverterFactory.create(moshi))
             .build()
             .create(TwitchStreamDataApi::class.java)
