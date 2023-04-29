@@ -3,7 +3,7 @@ package com.hegunhee.data
 import com.hegunhee.data.network.TwitchAuthTokenApi
 import com.hegunhee.data.network.TwitchAuthTokenBaseUrl
 import com.hegunhee.data.network.TwitchStreamDataApi
-import com.hegunhee.data.network.TwitchStreamDataBaseUrl
+import com.hegunhee.data.network.TwitchGetBaseUrl
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import kotlinx.coroutines.runBlocking
@@ -25,7 +25,7 @@ class TwitchStreamApiDataResponseUnitTest {
             .addConverterFactory(MoshiConverterFactory.create(moshi))
             .build()
             .create(TwitchAuthTokenApi::class.java)
-        streamDataApi = Retrofit.Builder().baseUrl(TwitchStreamDataBaseUrl)
+        streamDataApi = Retrofit.Builder().baseUrl(TwitchGetBaseUrl)
             .addConverterFactory(MoshiConverterFactory.create(moshi))
             .build()
             .create(TwitchStreamDataApi::class.java)
@@ -37,7 +37,7 @@ class TwitchStreamApiDataResponseUnitTest {
             runCatching {
                 val token = tokenApi.getAuthToken()
                 println("Bearer $token")
-                streamDataApi.getStreamData(Authorization = token.getFormattedToken())
+                streamDataApi.getStreamData(authorization = token.getFormattedToken(), userLogin = "cotton__123")
             }.onSuccess {
                 println("authToken = $it")
                 assert(true)
@@ -54,7 +54,7 @@ class TwitchStreamApiDataResponseUnitTest {
             runCatching {
                 val token = tokenApi.getAuthToken()
                 println("Bearer $token")
-                streamDataApi.getStreamData(Authorization = token.getFormattedToken())
+                streamDataApi.getStreamData(authorization = token.getFormattedToken(), userLogin = "cotton__123")
             }.onSuccess {
                 println("authToken = $it")
                 if(it.streamApiData.isEmpty()){

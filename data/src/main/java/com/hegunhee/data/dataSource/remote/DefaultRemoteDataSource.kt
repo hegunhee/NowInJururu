@@ -13,7 +13,7 @@ class DefaultRemoteDataSource @Inject constructor(private val twitchAuthTokenApi
     }
 
     override suspend fun getStreamDataResponse(userLogin : String, token: String): StreamApiDataResponse {
-        return twitchStreamDataApi.getStreamData(userLogin = userLogin,Authorization = token)
+        return twitchStreamDataApi.getStreamData(userLogin = userLogin,authorization = token)
     }
 
 
