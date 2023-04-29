@@ -11,7 +11,7 @@ interface TwitchStreamDataApi {
     @GET("streams")
     suspend fun getStreamData(
         @Header("client-id") clientId : String = BuildConfig.clientId,
-        @Header("Authorization") Authorization : String,
+        @Header("Authorization") authorization : String,
         @Query("user_login") userLogin : String
     ) : StreamApiDataResponse
 }

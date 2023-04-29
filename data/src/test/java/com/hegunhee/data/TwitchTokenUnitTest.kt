@@ -2,8 +2,6 @@ package com.hegunhee.data
 
 import com.hegunhee.data.network.TwitchAuthTokenApi
 import com.hegunhee.data.network.TwitchAuthTokenBaseUrl
-import com.hegunhee.data.network.TwitchStreamDataApi
-import com.hegunhee.data.network.TwitchStreamDataBaseUrl
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import kotlinx.coroutines.runBlocking
