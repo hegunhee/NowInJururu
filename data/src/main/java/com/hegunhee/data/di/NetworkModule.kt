@@ -1,9 +1,6 @@
 package com.hegunhee.data.di
 
-import com.hegunhee.data.network.TwitchAuthTokenApi
-import com.hegunhee.data.network.TwitchAuthTokenBaseUrl
-import com.hegunhee.data.network.TwitchStreamDataApi
-import com.hegunhee.data.network.TwitchGetBaseUrl
+import com.hegunhee.data.network.*
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
@@ -44,5 +41,17 @@ class NetworkModule {
             .addConverterFactory(MoshiConverterFactory.create(moshi))
             .build()
             .create(TwitchStreamDataApi::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun provideTwitchSearchDataApi(
+        moshi : Moshi
+    ) : TwitchSearchDataApi{
+        return Retrofit.Builder()
+            .baseUrl(TwitchGetBaseUrl)
+            .addConverterFactory(MoshiConverterFactory.create(moshi))
+            .build()
+            .create(TwitchSearchDataApi::class.java)
     }
 }
