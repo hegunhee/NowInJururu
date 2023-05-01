@@ -1,10 +1,10 @@
 package com.hegunhee.data.mapper
 
 import com.hegunhee.data.data.json.StreamApiData
-import com.hegunhee.domain.model.StreamDataType.StreamData
+import com.hegunhee.domain.model.StreamDataType
 
-fun StreamApiData.toStreamData(): StreamData {
-    return StreamData(
+fun StreamApiData.toStreamData(): StreamDataType.StreamData {
+    return StreamDataType.StreamData(
         gameId = gameId,
         gameName = gameName,
         id = id,
@@ -22,9 +22,9 @@ fun StreamApiData.toStreamData(): StreamData {
     )
 }
 
-fun String.toThumbNailSize() : String{
-    return this.replace("{width}","100").replace("{height}","100")
+fun String.toThumbNailSize(size : Int = 100) : String{
+    return this.replace("{width}","$size").replace("{height}","$size")
 }
-fun String.toSmallProfileSize() : String {
-    return this.replace("{width}","30").replace("{height}","30")
+fun String.toSmallProfileSize(size : Int = 30) : String {
+    return this.replace("{width}","$size").replace("{height}","$size")
 }
