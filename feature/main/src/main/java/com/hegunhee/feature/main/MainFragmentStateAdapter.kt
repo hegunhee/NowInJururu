@@ -12,8 +12,8 @@ enum class MainTab(
     val fragment :() -> Fragment,
     val menuRes : Int
 ){
-    MEMO({ JururuFragment() }, R.id.jururu),
-    STATICS({ StreamerFragment() },R.id.streamer),
+    JURURU({ JururuFragment() }, R.id.jururu),
+    STREAMER({ StreamerFragment() },R.id.streamer),
     SEARCH({ SearchFragment() },R.id.search);
 
     companion object {
