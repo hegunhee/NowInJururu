@@ -15,3 +15,7 @@ fun SearchApiData.toSearchData(): SearchData {
         title = title
     )
 }
+
+fun List<SearchApiData>.toSearchDataList() : List<SearchData> {
+    return this.map { it.toSearchData() }
+}
