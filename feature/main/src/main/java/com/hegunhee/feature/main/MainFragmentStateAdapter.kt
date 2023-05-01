@@ -6,13 +6,15 @@ import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.hegunhee.feature.streamer.StreamerFragment
 import com.hegunhee.feature.streamer.jururu.JururuFragment
+import com.hegunhee.feature.search.SearchFragment
 
 enum class MainTab(
     val fragment :() -> Fragment,
     val menuRes : Int
 ){
     MEMO({ JururuFragment() }, R.id.jururu),
-    STATICS({ StreamerFragment() },R.id.streamer);
+    STATICS({ StreamerFragment() },R.id.streamer),
+    SEARCH({ SearchFragment() },R.id.search);
 
     companion object {
         fun getFragment(position: Int) = values()[position].fragment.invoke()
