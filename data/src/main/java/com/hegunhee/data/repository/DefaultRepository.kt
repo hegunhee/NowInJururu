@@ -1,7 +1,9 @@
 package com.hegunhee.data.repository
 
 import com.hegunhee.data.dataSource.remote.RemoteDataSource
+import com.hegunhee.data.mapper.toSearchDataList
 import com.hegunhee.data.mapper.toStreamData
+import com.hegunhee.domain.model.SearchData
 import com.hegunhee.domain.model.StreamDataType
 import com.hegunhee.domain.repository.Repository
 import javax.inject.Inject
@@ -30,5 +32,14 @@ class DefaultRepository @Inject constructor(private val dataSource: RemoteDataSo
                 response.streamApiData[0].toStreamData()
             }
         }
+    }
+
+    override suspend fun getSearchStreamerDataList(streamerName: String): Result<List<SearchData>> {
+        return runCatching {
+            val token = dataSource.getAuthToken().getFormattedToken()
+            val response = dataSource.getSearchDataResponse(streamerName = streamerName, token = token)
+            response.searchApiDataList.toSearchDataList()
+        }
+
     }
 }
