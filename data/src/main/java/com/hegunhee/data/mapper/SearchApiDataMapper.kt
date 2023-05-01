@@ -7,7 +7,7 @@ import com.hegunhee.domain.model.SearchData
 fun SearchApiData.toSearchData(): SearchData {
     return SearchData(
         streamerLogin = broadcasterLogin,
-        streamerId = displayName,
+        streamerName = displayName,
         gameName = gameName,
         isLive = isLive,
         tags = tags,
