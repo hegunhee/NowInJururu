@@ -22,6 +22,7 @@ class SearchFragment : Fragment(){
     ): View? {
         val root = inflater.inflate(R.layout.fragment_search,container,false)
         viewDataBinding = FragmentSearchBinding.bind(root).apply {
+            viewModel = this@SearchFragment.viewModel
             lifecycleOwner = viewLifecycleOwner
         }
         return root
