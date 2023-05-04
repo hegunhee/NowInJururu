@@ -1,4 +1,4 @@
-package com.hegunhee.feature.streamer
+package com.hegunhee.feature.common.bindingAdapter
 
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
