@@ -5,6 +5,7 @@
     <data>
 
 
+        <import type="android.view.View"/>
         <variable
             name="viewModel"
             type="com.hegunhee.feature.search.SearchViewModel" />
@@ -43,6 +44,7 @@
             app:layout_constraintTop_toBottomOf="@id/searchEditText"
             app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginBottom="30dp"
+            android:visibility="@{viewModel.isEmptySearchResult ? View.INVISIBLE : View.VISIBLE}"
             android:text="@{viewModel.searchResult.toString()}"
             />
 
@@ -51,7 +53,8 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:text="검색 결과가 존재하지 않습니다."
-            android:visibility="gone"
+            android:gravity="center"
+            android:visibility="@{viewModel.isEmptySearchResult ? View.VISIBLE : View.INVISIBLE}"
             app:layout_constraintTop_toTopOf="@id/SearchResult"
             app:layout_constraintStart_toStartOf="@id/SearchResult"
             app:layout_constraintEnd_toEndOf="@id/SearchResult"
