@@ -17,16 +17,18 @@ class SearchViewModel @Inject constructor(private val getSearchStreamerDataListU
 
     val searchResult : MutableStateFlow<List<SearchData>> = MutableStateFlow(emptyList())
 
+    val isEmptySearchResult : MutableStateFlow<Boolean> = MutableStateFlow(false)
+
     fun onClickSearchButton() = viewModelScope.launch{
         if(searchQuery.value.isBlank()){
             return@launch
         }
         getSearchStreamerDataListUseCase(searchQuery.value)
             .onSuccess {
-                Log.d("TEST!!",it.toString())
                 searchResult.value = it
+                isEmptySearchResult.value = it.isEmpty()
             }.onFailure {
-                Log.d("TEST!!",it.toString())
+                isEmptySearchResult.value = true
             }
     }
 }
