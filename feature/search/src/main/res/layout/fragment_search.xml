@@ -35,8 +35,8 @@
             android:onClick="@{() -> viewModel.onClickSearchButton()}"
             />
 
-        <TextView
-            android:id="@+id/SearchResult"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/SearchResultRecyclerView"
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layout_constraintStart_toStartOf="@id/searchEditText"
@@ -45,7 +45,6 @@
             app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginBottom="30dp"
             android:visibility="@{viewModel.isEmptySearchResult ? View.INVISIBLE : View.VISIBLE}"
-            android:text="@{viewModel.searchResult.toString()}"
             />
 
         <TextView
@@ -55,10 +54,10 @@
             android:text="검색 결과가 존재하지 않습니다."
             android:gravity="center"
             android:visibility="@{viewModel.isEmptySearchResult ? View.VISIBLE : View.INVISIBLE}"
-            app:layout_constraintTop_toTopOf="@id/SearchResult"
-            app:layout_constraintStart_toStartOf="@id/SearchResult"
-            app:layout_constraintEnd_toEndOf="@id/SearchResult"
-            app:layout_constraintBottom_toBottomOf="@id/SearchResult"
+            app:layout_constraintTop_toTopOf="@id/SearchResultRecyclerView"
+            app:layout_constraintStart_toStartOf="@id/SearchResultRecyclerView"
+            app:layout_constraintEnd_toEndOf="@id/SearchResultRecyclerView"
+            app:layout_constraintBottom_toBottomOf="@id/SearchResultRecyclerView"
             />
 
 
