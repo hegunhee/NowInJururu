@@ -11,7 +11,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class SearchViewModel @Inject constructor(private val getSearchStreamerDataListUseCase: GetSearchStreamerDataListUseCase) : ViewModel() {
+class SearchViewModel @Inject constructor(private val getSearchStreamerDataListUseCase: GetSearchStreamerDataListUseCase) : ViewModel(), SearchActionHandler {
 
     val searchQuery : MutableStateFlow<String> = MutableStateFlow("")
 
