@@ -31,4 +31,8 @@ class SearchViewModel @Inject constructor(private val getSearchStreamerDataListU
                 isEmptySearchResult.value = true
             }
     }
+
+    override fun onClickStreamerItem() {
+        TODO("Not yet implemented")
+    }
 }
