@@ -7,6 +7,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import com.hegunhee.feature.common.twitch.isInstalledTwitchAppOrException
+import com.hegunhee.feature.common.twitch.openPlayStore
+import com.hegunhee.feature.common.twitch.openStreamerStream
 import com.hegunhee.feature.search.databinding.FragmentSearchBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
@@ -44,6 +47,17 @@ class SearchFragment : Fragment(){
             launch {
                 viewModel.searchResult.collect{
                     searchAdapter.submitList(it)
+                }
+            }
+            launch {
+                viewModel.navigateStreamerTwitch.collect{ streamerLogin ->
+                    runCatching {
+                        requireContext().isInstalledTwitchAppOrException()
+                    }.onSuccess {
+                        requireContext().openStreamerStream(streamerLogin)
+                    }.onFailure {
+                        requireContext().openPlayStore()
+                    }
                 }
             }
         }
