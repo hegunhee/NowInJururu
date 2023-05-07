@@ -2,5 +2,5 @@ package com.hegunhee.feature.search
 
 interface SearchActionHandler {
 
-    fun onClickStreamerItem()
+    fun onClickStreamerItem(streamerLogin : String)
 }

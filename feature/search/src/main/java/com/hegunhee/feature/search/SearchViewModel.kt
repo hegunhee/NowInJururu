@@ -32,7 +32,7 @@ class SearchViewModel @Inject constructor(private val getSearchStreamerDataListU
             }
     }
 
-    override fun onClickStreamerItem() {
-        TODO("Not yet implemented")
+    override fun onClickStreamerItem(streamerLogin : String) {
+
     }
 }
