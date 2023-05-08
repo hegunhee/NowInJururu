@@ -58,6 +58,7 @@
             android:id="@+id/bookMarkButton"
             android:layout_width="100dp"
             android:layout_height="40dp"
+            android:onClick="@{() -> actionHandler.onClickBookMarkStreamer(streamerInfo.streamerLogin)}"
             android:text="즐겨찾기"
             android:textSize="13dp"
             app:layout_constraintBottom_toBottomOf="parent"
