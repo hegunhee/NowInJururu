@@ -43,4 +43,10 @@ class SearchViewModel @Inject constructor(private val getSearchStreamerDataListU
             _navigateStreamerTwitch.emit(streamerLogin)
         }
     }
+
+    override fun onClickBookMarkStreamer(streamerLogin: String) {
+        viewModelScope.launch {
+            // Save StreamerLogin In RoomDB OR Server
+        }
+    }
 }
