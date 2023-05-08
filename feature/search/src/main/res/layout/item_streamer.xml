@@ -8,13 +8,13 @@
 
         <variable
             name="actionHandler"
-            type ="com.hegunhee.feature.search.SearchActionHandler"
-            />
+            type="com.hegunhee.feature.search.SearchActionHandler" />
 
         <variable
             name="streamerInfo"
             type="com.hegunhee.domain.model.SearchData" />
     </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -24,50 +24,46 @@
 
         <ImageView
             android:id="@+id/profileImageView"
-            app:layout_constraintTop_toTopOf="parent"
             android:layout_width="100dp"
             android:layout_height="80dp"
-            app:setImage="@{streamerInfo.profileUrl}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            />
+            app:layout_constraintTop_toTopOf="parent"
+            app:setImage="@{streamerInfo.profileUrl}" />
 
         <TextView
             android:id="@+id/streamerNameTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="@id/profileImageView"
-            app:layout_constraintStart_toEndOf="@id/profileImageView"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
             android:text="@{streamerInfo.streamerName}"
             android:textSize="20dp"
-            android:layout_marginStart="10dp"
             android:textStyle="bold"
-            android:layout_marginTop="5dp"
-            tools:text="주르르"
-            />
+            app:layout_constraintStart_toEndOf="@id/profileImageView"
+            app:layout_constraintTop_toTopOf="@id/profileImageView"
+            tools:text="주르르" />
 
         <TextView
             android:id="@+id/streamerLoginTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/streamerNameTextView"
-            app:layout_constraintStart_toStartOf="@id/streamerNameTextView"
-            android:textSize="13dp"
             android:text="@{streamerInfo.streamerLogin}"
-            tools:text="cotton__123"
-            />
+            android:textSize="13dp"
+            app:layout_constraintStart_toStartOf="@id/streamerNameTextView"
+            app:layout_constraintTop_toBottomOf="@id/streamerNameTextView"
+            tools:text="cotton__123" />
 
         <Button
             android:id="@+id/bookMarkButton"
             android:layout_width="100dp"
             android:layout_height="40dp"
-            app:layout_constraintStart_toStartOf="@id/streamerNameTextView"
-            app:layout_constraintTop_toBottomOf="@id/streamerLoginTextView"
-            app:layout_constraintBottom_toBottomOf="parent"
             android:text="즐겨찾기"
             android:textSize="13dp"
-            />
-        
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@id/streamerNameTextView"
+            app:layout_constraintTop_toBottomOf="@id/streamerLoginTextView" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
