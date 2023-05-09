@@ -27,4 +27,7 @@ dependencies {
 
     implementation(libs.bundles.retrofit2)
     implementation(libs.bundles.moshi)
+
+    implementation(libs.room.runtime)
+    kapt(libs.room.compiler)
 }
