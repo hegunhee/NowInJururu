@@ -40,6 +40,8 @@ class AndroidApplicationPlugin : Plugin<Project> {
 
                 add("implementation",libs.findBundle("retrofit2").get())
                 add("implementation",libs.findBundle("moshi").get())
+                add("implementation",libs.findLibrary("room-runtime").get())
+                add("kapt",libs.findLibrary("room-compiler").get())
             }
         }
     }
