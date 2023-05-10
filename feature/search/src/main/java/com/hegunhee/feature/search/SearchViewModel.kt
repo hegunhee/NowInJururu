@@ -4,7 +4,9 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.hegunhee.domain.model.SearchData
+import com.hegunhee.domain.model.StreamerData
 import com.hegunhee.domain.usecase.GetSearchStreamerDataListUseCase
+import com.hegunhee.domain.usecase.InsertStreamerDataUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -14,7 +16,10 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class SearchViewModel @Inject constructor(private val getSearchStreamerDataListUseCase: GetSearchStreamerDataListUseCase) : ViewModel(), SearchActionHandler {
+class SearchViewModel @Inject constructor(
+    private val getSearchStreamerDataListUseCase: GetSearchStreamerDataListUseCase,
+    private val insertStreamerDataUseCase: InsertStreamerDataUseCase
+) : ViewModel(), SearchActionHandler {
 
     val searchQuery : MutableStateFlow<String> = MutableStateFlow("")
 
@@ -46,7 +51,7 @@ class SearchViewModel @Inject constructor(private val getSearchStreamerDataListU
 
     override fun onClickBookMarkStreamer(streamerLogin: String) {
         viewModelScope.launch {
-            // Save StreamerLogin In RoomDB OR Server
+            insertStreamerDataUseCase(StreamerData(streamerLogin))
         }
     }
 }
