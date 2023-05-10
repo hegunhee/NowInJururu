@@ -42,6 +42,7 @@ class AndroidApplicationPlugin : Plugin<Project> {
                 add("implementation",libs.findBundle("moshi").get())
                 add("implementation",libs.findLibrary("room-runtime").get())
                 add("kapt",libs.findLibrary("room-compiler").get())
+                add("implementation",libs.findLibrary("room-ktx").get())
             }
         }
     }

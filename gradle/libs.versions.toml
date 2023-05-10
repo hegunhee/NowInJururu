@@ -66,6 +66,7 @@ moshi-kotlin = {module = "com.squareup.moshi:moshi-kotlin",version.ref = "moshi"
 
 room-runtime = {module = "androidx.room:room-runtime",version.ref = "room"}
 room-compiler = {module = "androidx.room:room-compiler",version.ref = "room"}
+room-ktx = {module = "androidx.room:room-ktx",version.ref="room"}
 
 picasso = {module = "com.squareup.picasso:picasso",version.ref="picasso"}
 
