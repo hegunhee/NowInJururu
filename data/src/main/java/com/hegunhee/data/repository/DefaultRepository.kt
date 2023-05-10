@@ -1,19 +1,25 @@
 package com.hegunhee.data.repository
 
+import com.hegunhee.data.dataSource.local.LocalDataSource
 import com.hegunhee.data.dataSource.remote.RemoteDataSource
 import com.hegunhee.data.mapper.toSearchDataList
 import com.hegunhee.data.mapper.toStreamData
+import com.hegunhee.data.mapper.toStreamerEntity
 import com.hegunhee.domain.model.SearchData
 import com.hegunhee.domain.model.StreamDataType
+import com.hegunhee.domain.model.StreamerData
 import com.hegunhee.domain.repository.Repository
 import javax.inject.Inject
 
-class DefaultRepository @Inject constructor(private val dataSource: RemoteDataSource) : Repository {
+class DefaultRepository @Inject constructor(
+    private val remoteDataSource: RemoteDataSource,
+    private val localDataSource : LocalDataSource
+) : Repository {
 
     override suspend fun getStreamData(userLogin : String): Result<StreamDataType> {
         return runCatching {
-            val token = dataSource.getAuthToken().getFormattedToken()
-            val response = dataSource.getStreamDataResponse(userLogin = userLogin,token = token)
+            val token = remoteDataSource.getAuthToken().getFormattedToken()
+            val response = remoteDataSource.getStreamDataResponse(userLogin = userLogin,token = token)
             if(response.streamApiData.isEmpty()){
                 StreamDataType.EmptyData("","","")
             }else{
@@ -24,8 +30,8 @@ class DefaultRepository @Inject constructor(private val dataSource: RemoteDataSo
 
     override suspend fun getJururuStreamData(jururuId: String): Result<StreamDataType> {
         return runCatching {
-            val token = dataSource.getAuthToken().getFormattedToken()
-            val response = dataSource.getStreamDataResponse(userLogin = jururuId,token = token)
+            val token = remoteDataSource.getAuthToken().getFormattedToken()
+            val response = remoteDataSource.getStreamDataResponse(userLogin = jururuId,token = token)
             if(response.streamApiData.isEmpty()){
                 StreamDataType.EmptyData(userLogin = "cotton__123",userName ="주르르",profileUrl = StreamDataType.TestJururuProfileUrl)
             }else{
@@ -36,10 +42,15 @@ class DefaultRepository @Inject constructor(private val dataSource: RemoteDataSo
 
     override suspend fun getSearchStreamerDataList(streamerName: String): Result<List<SearchData>> {
         return runCatching {
-            val token = dataSource.getAuthToken().getFormattedToken()
-            val response = dataSource.getSearchDataResponse(streamerName = streamerName, token = token)
+            val token = remoteDataSource.getAuthToken().getFormattedToken()
+            val response = remoteDataSource.getSearchDataResponse(streamerName = streamerName, token = token)
             response.searchApiDataList.toSearchDataList()
         }
+    }
 
+    override suspend fun insertStreamer(streamerData: StreamerData) {
+        runCatching {
+            localDataSource.insertStreamer(streamerData.toStreamerEntity())
+        }
     }
 }
