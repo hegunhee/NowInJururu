@@ -44,7 +44,8 @@ class DefaultRepository @Inject constructor(
         return runCatching {
             val token = remoteDataSource.getAuthToken().getFormattedToken()
             val response = remoteDataSource.getSearchDataResponse(streamerName = streamerName, token = token)
-            response.searchApiDataList.toSearchDataList()
+            val loadedStreamerLoginData = localDataSource.getAllStreamerList().map { it.streamerLogin }
+            response.searchApiDataList.toSearchDataList().filterNot { loadedStreamerLoginData.contains(it.streamerLogin)}
         }
     }
 
