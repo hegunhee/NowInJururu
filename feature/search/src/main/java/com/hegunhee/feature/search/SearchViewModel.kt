@@ -31,16 +31,7 @@ class SearchViewModel @Inject constructor(
     val navigateStreamerTwitch : SharedFlow<String> = _navigateStreamerTwitch.asSharedFlow()
 
     fun onClickSearchButton() = viewModelScope.launch{
-        if(searchQuery.value.isBlank()){
-            return@launch
-        }
-        getSearchStreamerDataListUseCase(searchQuery.value)
-            .onSuccess {
-                searchResult.value = it
-                isEmptySearchResult.value = it.isEmpty()
-            }.onFailure {
-                isEmptySearchResult.value = true
-            }
+        getSearchDataList(searchQuery.value)
     }
 
     override fun onClickStreamerItem(streamerLogin : String) {
@@ -52,6 +43,20 @@ class SearchViewModel @Inject constructor(
     override fun onClickBookMarkStreamer(streamerLogin: String) {
         viewModelScope.launch {
             insertStreamerDataUseCase(StreamerData(streamerLogin))
+            getSearchDataList(searchQuery.value)
         }
+    }
+
+    private suspend fun getSearchDataList(searchQuery : String) {
+        if(searchQuery.isBlank()){
+            return
+        }
+        getSearchStreamerDataListUseCase(searchQuery)
+            .onSuccess {
+                searchResult.value = it
+                isEmptySearchResult.value = it.isEmpty()
+            }.onFailure {
+                isEmptySearchResult.value = true
+            }
     }
 }
