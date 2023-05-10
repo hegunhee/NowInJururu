@@ -2,6 +2,7 @@ package com.hegunhee.domain.repository
 
 import com.hegunhee.domain.model.SearchData
 import com.hegunhee.domain.model.StreamDataType
+import com.hegunhee.domain.model.StreamerData
 
 interface Repository {
 
@@ -10,4 +11,6 @@ interface Repository {
     suspend fun getJururuStreamData(jururuId : String = "mawang0216") : Result<StreamDataType>
 
     suspend fun getSearchStreamerDataList(streamerName : String) : Result<List<SearchData>>
+
+    suspend fun insertStreamer(streamerData: StreamerData)
 }
