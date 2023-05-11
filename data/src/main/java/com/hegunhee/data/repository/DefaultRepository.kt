@@ -23,7 +23,7 @@ class DefaultRepository @Inject constructor(
             if(response.streamApiData.isEmpty()){
                 StreamDataType.EmptyData("","","")
             }else{
-                response.streamApiData[0].toStreamData()
+                response.streamApiData[0].toStreamData("")
             }
         }
     }
@@ -31,11 +31,12 @@ class DefaultRepository @Inject constructor(
     override suspend fun getJururuStreamData(jururuId: String): Result<StreamDataType> {
         return runCatching {
             val token = remoteDataSource.getAuthToken().getFormattedToken()
-            val response = remoteDataSource.getStreamDataResponse(userLogin = jururuId,token = token)
-            if(response.streamApiData.isEmpty()){
-                StreamDataType.EmptyData(userLogin = "cotton__123",userName ="주르르",profileUrl = StreamDataType.TestJururuProfileUrl)
+            val jururuInfo = remoteDataSource.getStreamerDataResponse(streamerLogin = arrayOf<String>(jururuId),token = token).streamerApiDataList[0]
+            val jururuStreamDataResponse = remoteDataSource.getStreamDataResponse(userLogin = jururuInfo.login,token = token)
+            if(jururuStreamDataResponse.streamApiData.isEmpty()){
+                StreamDataType.EmptyData(userLogin = jururuInfo.login,userName =jururuInfo.display_name,profileUrl = jururuInfo.profile_image_url)
             }else{
-                response.streamApiData[0].toStreamData()
+                jururuStreamDataResponse.streamApiData[0].toStreamData(jururuInfo.profile_image_url)
             }
         }
     }
