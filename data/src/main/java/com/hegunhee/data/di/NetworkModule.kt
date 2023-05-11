@@ -54,4 +54,16 @@ class NetworkModule {
             .build()
             .create(TwitchSearchDataApi::class.java)
     }
+
+    @Singleton
+    @Provides
+    fun provideTwitchStreamerDataApi(
+        moshi : Moshi
+    ) : TwitchStreamerDataApi {
+        return Retrofit.Builder()
+            .baseUrl(TwitchGetBaseUrl)
+            .addConverterFactory(MoshiConverterFactory.create(moshi))
+            .build()
+            .create(TwitchStreamerDataApi::class.java)
+    }
 }
