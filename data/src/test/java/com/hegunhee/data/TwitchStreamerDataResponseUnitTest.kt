@@ -52,4 +52,27 @@ class TwitchStreamerDataResponseUnitTest {
             }
         }
     }
+
+    @Test
+    fun `test two streamer data (cotton__123, viichan6)` () {
+        runBlocking {
+            runCatching {
+                val streamer = listOf<String>("cotton__123","viichan6")
+                val token = tokenApi.getAuthToken().getFormattedToken()
+                println(streamer)
+                streamerApi.getStreamerData(authorization = token,userLogin =streamer.toTypedArray())
+            }.onSuccess {response ->
+                println(response.toString())
+                val displayNameList = response.streamerApiDataList.map { it.display_name }
+                if(displayNameList[0] == "주르르" && displayNameList[1] == "비챤_"){
+                    assert(true)
+                }else{
+                    assert(false)
+                }
+            }.onFailure {
+                println(it.message)
+                assert(false)
+            }
+        }
+    }
 }
