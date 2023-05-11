@@ -34,9 +34,9 @@ class DefaultRepository @Inject constructor(
             val jururuInfo = remoteDataSource.getStreamerDataResponse(streamerLogin = arrayOf<String>(jururuId),token = token).streamerApiDataList[0]
             val jururuStreamDataResponse = remoteDataSource.getStreamDataResponse(userLogin = jururuInfo.login,token = token)
             if(jururuStreamDataResponse.streamApiData.isEmpty()){
-                StreamDataType.EmptyData(userLogin = jururuInfo.login,userName =jururuInfo.display_name,profileUrl = jururuInfo.profile_image_url)
+                StreamDataType.EmptyData(userLogin = jururuInfo.login,userName =jururuInfo.displayName,profileUrl = jururuInfo.profileImageUrl)
             }else{
-                jururuStreamDataResponse.streamApiData[0].toStreamData(jururuInfo.profile_image_url)
+                jururuStreamDataResponse.streamApiData[0].toStreamData(jururuInfo.profileImageUrl)
             }
         }
     }
