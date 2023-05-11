@@ -14,17 +14,19 @@ import com.squareup.moshi.JsonClass
     "offline_image_url": "https://static-cdn.jtvnw.net/jtv_user_pictures/aea85c64-5e28-4d15-81a1-db1a7a3cc1ec-channel_offline_image-1920x1080.png",
     "view_count": 4886771,
     "created_at": "2018-03-08T09:14:34Z"
+
+    broadcaster_type의 경우 "" 혹은 "partner" 두가지가 존재함
  */
 @JsonClass(generateAdapter = true)
 data class StreamerApiData(
     @Json(name = "id") val id: String,
     @Json(name = "login") val login: String,
     @Json(name = "type") val type: String,
-    @Json(name = "display_name") val display_name: String,
-    @Json(name = "broadcaster_type") val broadcaster_type: String,
+    @Json(name = "display_name") val displayName: String,
+    @Json(name = "broadcaster_type") val broadcasterType: String,
     @Json(name = "description") val description: String,
-    @Json(name = "profile_image_url") val profile_image_url: String,
-    @Json(name = "offline_image_url") val offline_image_url: String,
-    @Json(name = "view_count") val deprecated_view_count: Int,
-    @Json(name = "created_at") val created_at: String
+    @Json(name = "profile_image_url") val profileImageUrl: String,
+    @Json(name = "offline_image_url") val offlineImageUrl: String,
+    @Json(name = "view_count") val deprecatedViewCount: Int,
+    @Json(name = "created_at") val createdAt: String
 )
