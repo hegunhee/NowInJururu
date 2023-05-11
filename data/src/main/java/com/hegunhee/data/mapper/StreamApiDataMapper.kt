@@ -3,7 +3,7 @@ package com.hegunhee.data.mapper
 import com.hegunhee.data.data.json.StreamApiData
 import com.hegunhee.domain.model.StreamDataType
 
-fun StreamApiData.toStreamData(): StreamDataType.StreamData {
+fun StreamApiData.toStreamData(profileUrl : String): StreamDataType.StreamData {
     return StreamDataType.StreamData(
         gameId = gameId,
         gameName = gameName,
@@ -13,6 +13,7 @@ fun StreamApiData.toStreamData(): StreamDataType.StreamData {
         startedAt = startedAt,
         tags = tags,
         thumbnailUrl = thumbnailUrl.toThumbNailSize(),
+        profileUrl = profileUrl,
         title = title,
         type = type,
         userId = userId,
