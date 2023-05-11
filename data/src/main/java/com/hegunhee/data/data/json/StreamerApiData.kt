@@ -25,6 +25,6 @@ data class StreamerApiData(
     @Json(name = "description") val description: String,
     @Json(name = "profile_image_url") val profile_image_url: String,
     @Json(name = "offline_image_url") val offline_image_url: String,
-    @Json(name = "view_count") val view_count: Int,
+    @Json(name = "view_count") val deprecated_view_count: Int,
     @Json(name = "created_at") val created_at: String
 )
