@@ -21,10 +21,12 @@ class TwitchStreamerDataResponseUnitTest {
     @Before
     fun initMoshiAndApi() {
         moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
+
         tokenApi = Retrofit.Builder().baseUrl(TwitchAuthTokenBaseUrl)
             .addConverterFactory(MoshiConverterFactory.create(moshi))
             .build()
             .create(TwitchAuthTokenApi::class.java)
+
         streamerApi = Retrofit.Builder().baseUrl(TwitchGetBaseUrl)
             .addConverterFactory(MoshiConverterFactory.create(moshi))
             .build()
@@ -32,12 +34,11 @@ class TwitchStreamerDataResponseUnitTest {
     }
 
     @Test
-    fun `test one streamer data (Jururu)`() {
+    fun `one streamer data (cotton__123)`() {
         runBlocking {
             runCatching {
                 val streamer = listOf<String>("cotton__123")
                 val token = tokenApi.getAuthToken().getFormattedToken()
-                println(streamer)
                 streamerApi.getStreamerData(authorization = token,userLogin =streamer.toTypedArray())
             }.onSuccess {response ->
                 println(response.toString())
@@ -54,12 +55,11 @@ class TwitchStreamerDataResponseUnitTest {
     }
 
     @Test
-    fun `test two streamer data (cotton__123, viichan6)` () {
+    fun `two streamer data (cotton__123, viichan6)` () {
         runBlocking {
             runCatching {
                 val streamer = listOf<String>("cotton__123","viichan6")
                 val token = tokenApi.getAuthToken().getFormattedToken()
-                println(streamer)
                 streamerApi.getStreamerData(authorization = token,userLogin =streamer.toTypedArray())
             }.onSuccess {response ->
                 println(response.toString())
