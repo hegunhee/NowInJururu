@@ -7,7 +7,7 @@ import javax.inject.Inject
 
 class InsertStreamerDataUseCase @Inject constructor(private val repository: Repository) {
 
-    suspend operator fun invoke(streamerData: StreamerData) {
-        repository.insertStreamer(streamerData)
+    suspend operator fun invoke(streamerData: StreamerData) : Result<Unit> {
+        return repository.insertStreamer(streamerData)
     }
 }
