@@ -41,6 +41,25 @@ class DefaultRepository @Inject constructor(
         }
     }
 
+    override suspend fun getStreamDataList(): Result<List<StreamDataType>> {
+        return runCatching {
+            val token = remoteDataSource.getAuthToken().getFormattedToken()
+            val loadedStreamerLoginArray = localDataSource.getAllStreamerList().map { it.streamerLogin }.toTypedArray()
+            if(loadedStreamerLoginArray.isEmpty()){
+                return@runCatching emptyList<StreamDataType>()
+            }
+            val streamerInfoList = remoteDataSource.getStreamerDataResponse(streamerLogin = loadedStreamerLoginArray,token = token).streamerApiDataList
+            streamerInfoList.map{ streamerInfo ->
+                val streamData = remoteDataSource.getStreamDataResponse(userLogin = streamerInfo.login,token = token).streamApiData
+                return@map if(streamData.isNotEmpty()){
+                    streamData[0].toStreamData(streamerInfo.profileImageUrl)
+                }else{
+                    StreamDataType.EmptyData(userLogin = streamerInfo.login,userName = streamerInfo.displayName,profileUrl = streamerInfo.profileImageUrl)
+                }
+            }
+        }
+    }
+
     override suspend fun getSearchStreamerDataList(streamerName: String): Result<List<SearchData>> {
         return runCatching {
             val token = remoteDataSource.getAuthToken().getFormattedToken()
