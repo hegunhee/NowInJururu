@@ -30,6 +30,9 @@ class SearchViewModel @Inject constructor(
     private val _navigateStreamerTwitch : MutableSharedFlow<String> = MutableSharedFlow()
     val navigateStreamerTwitch : SharedFlow<String> = _navigateStreamerTwitch.asSharedFlow()
 
+    private val _toastMessage : MutableSharedFlow<String> = MutableSharedFlow()
+    val toastMessage : SharedFlow<String> = _toastMessage.asSharedFlow()
+
     fun onClickSearchButton() = viewModelScope.launch{
         getSearchDataList(searchQuery.value)
     }
@@ -43,7 +46,11 @@ class SearchViewModel @Inject constructor(
     override fun onClickBookMarkStreamer(streamerLogin: String) {
         viewModelScope.launch {
             insertStreamerDataUseCase(StreamerData(streamerLogin))
-            getSearchDataList(searchQuery.value)
+                .onSuccess {
+                    getSearchDataList(searchQuery.value)
+                }.onFailure {
+                    _toastMessage.emit("저장에 실패했습니다. 잠시후에 시도해주세요")
+                }
         }
     }
 
