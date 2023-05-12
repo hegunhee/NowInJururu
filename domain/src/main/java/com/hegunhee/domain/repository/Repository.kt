@@ -10,7 +10,9 @@ interface Repository {
 
     suspend fun getJururuStreamData(jururuId : String = "cotton__123") : Result<StreamDataType>
 
+    suspend fun getStreamDataList() : Result<List<StreamDataType>>
+
     suspend fun getSearchStreamerDataList(streamerName : String) : Result<List<SearchData>>
 
-    suspend fun insertStreamer(streamerData: StreamerData)
+    suspend fun insertStreamer(streamerData: StreamerData) : Result<Unit>
 }
