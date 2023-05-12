@@ -50,8 +50,8 @@ class DefaultRepository @Inject constructor(
         }
     }
 
-    override suspend fun insertStreamer(streamerData: StreamerData) {
-        runCatching {
+    override suspend fun insertStreamer(streamerData: StreamerData) : Result<Unit> {
+        return runCatching {
             localDataSource.insertStreamer(streamerData.toStreamerEntity())
         }
     }
