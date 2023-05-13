@@ -16,18 +16,6 @@ class DefaultRepository @Inject constructor(
     private val localDataSource : LocalDataSource
 ) : Repository {
 
-    override suspend fun getStreamData(userLogin : String): Result<StreamDataType> {
-        return runCatching {
-            val token = remoteDataSource.getAuthToken().getFormattedToken()
-            val response = remoteDataSource.getStreamDataResponse(userLogin = userLogin,token = token)
-            if(response.streamApiData.isEmpty()){
-                StreamDataType.EmptyData("","","")
-            }else{
-                response.streamApiData[0].toStreamData("")
-            }
-        }
-    }
-
     override suspend fun getJururuStreamData(jururuId: String): Result<StreamDataType> {
         return runCatching {
             val token = remoteDataSource.getAuthToken().getFormattedToken()

@@ -6,8 +6,6 @@ import com.hegunhee.domain.model.StreamerData
 
 interface Repository {
 
-    suspend fun getStreamData(userLogin: String = "cotton__123") : Result<StreamDataType>
-
     suspend fun getJururuStreamData(jururuId : String = "cotton__123") : Result<StreamDataType>
 
     suspend fun getStreamDataList() : Result<List<StreamDataType>>
