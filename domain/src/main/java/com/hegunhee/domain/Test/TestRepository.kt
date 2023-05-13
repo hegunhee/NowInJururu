@@ -1,6 +1,8 @@
 package com.hegunhee.domain.Test
 
+import com.hegunhee.domain.model.StreamDataType
+
 interface TestRepository {
 
-    fun testGetFive() : Int
+    suspend fun getStreamData(userLogin: String = "cotton__123") : Result<StreamDataType>
 }

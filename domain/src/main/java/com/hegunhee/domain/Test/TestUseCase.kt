@@ -1,11 +1,12 @@
 package com.hegunhee.domain.Test
 
+import com.hegunhee.domain.model.StreamDataType
 import javax.inject.Inject
 
 
 class TestUseCase @Inject constructor(private val repository: TestRepository){
 
-    operator fun invoke() : Int{
-        return repository.testGetFive()
+    suspend operator fun invoke() : Result<StreamDataType> {
+        return repository.getStreamData()
     }
 }
