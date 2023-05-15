@@ -50,13 +50,7 @@ class JururuFragment : Fragment() {
             }
             launch {
                 viewModel.navigateStreamerTwitch.collect{ streamerLogin ->
-                    runCatching {
-                        requireContext().isInstalledTwitchAppOrException()
-                    }.onSuccess {
-                        requireContext().openStreamerStream(streamerLogin)
-                    }.onFailure {
-                        requireContext().openPlayStore()
-                    }
+                    requireContext().handleOpenTwitchApp(streamerLogin)
                 }
             }
         }

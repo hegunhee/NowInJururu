@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import com.hegunhee.feature.common.twitch.handleOpenTwitchApp
 import com.hegunhee.feature.common.twitch.isInstalledTwitchAppOrException
 import com.hegunhee.feature.common.twitch.openPlayStore
 import com.hegunhee.feature.common.twitch.openStreamerStream
@@ -51,13 +52,7 @@ class StreamerFragment : Fragment() {
             }
             launch {
                 viewModel.navigateStreamerTwitch.collect{ streamerLogin ->
-                    runCatching {
-                        requireContext().isInstalledTwitchAppOrException()
-                    }.onSuccess {
-                        requireContext().openStreamerStream(streamerLogin)
-                    }.onFailure {
-                        requireContext().openPlayStore()
-                    }
+                    requireContext().handleOpenTwitchApp(streamerLogin)
                 }
 
             }
