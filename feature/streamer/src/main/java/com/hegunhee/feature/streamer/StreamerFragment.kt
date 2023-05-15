@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import com.hegunhee.feature.streamer.databinding.FragmentStreamerBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -12,6 +13,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class StreamerFragment : Fragment() {
 
     private lateinit var viewDataBinding : FragmentStreamerBinding
+    private val viewModel : StreamerViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
