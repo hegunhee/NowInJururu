@@ -17,18 +17,18 @@ fun Context.handleOpenTwitchApp(streamerLogin : String) {
     }
 }
 
-fun Context.isInstalledTwitchAppOrException() : PackageInfo {
+private fun Context.isInstalledTwitchAppOrException() : PackageInfo {
     return packageManager.getPackageInfo(getString(R.string.twitchPackageName), PackageManager.PackageInfoFlags.of(0L))
 }
 
-fun Context.openStreamerStream(streamerLogin : String) {
+private fun Context.openStreamerStream(streamerLogin : String) {
     Intent(Intent.ACTION_VIEW).apply {
         data = streamerLogin.toStreamerUri(this@openStreamerStream)
         startActivity(this)
     }
 }
 
-fun Context.openPlayStore() {
+private fun Context.openPlayStore() {
     Intent(Intent.ACTION_VIEW).apply {
         data = Uri.parse(getString(R.string.playStoreTwitchDeepLink))
         startActivity(this)
