@@ -7,6 +7,16 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import com.hegunhee.feature.common.R
 
+fun Context.handleOpenTwitchApp(streamerLogin : String) {
+    runCatching {
+        isInstalledTwitchAppOrException()
+    }.onSuccess {
+        openStreamerStream(streamerLogin)
+    }.onFailure {
+        openPlayStore()
+    }
+}
+
 fun Context.isInstalledTwitchAppOrException() : PackageInfo {
     return packageManager.getPackageInfo(getString(R.string.twitchPackageName), PackageManager.PackageInfoFlags.of(0L))
 }
