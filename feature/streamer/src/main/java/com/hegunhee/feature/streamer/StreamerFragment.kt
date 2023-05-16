@@ -46,15 +46,14 @@ class StreamerFragment : Fragment() {
     private fun observeData() {
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             launch {
-                viewModel.streamDataList.collect{
-                    streamerAdapter.submitList(it)
+                viewModel.streamDataList.collect{ streamDataList ->
+                    streamerAdapter.submitList(streamDataList)
                 }
             }
             launch {
                 viewModel.navigateStreamerTwitch.collect{ streamerLogin ->
                     requireContext().handleOpenTwitchApp(streamerLogin)
                 }
-
             }
         }
     }
