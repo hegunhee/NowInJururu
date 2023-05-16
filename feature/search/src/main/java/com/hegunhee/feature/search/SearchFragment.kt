@@ -9,12 +9,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.hegunhee.feature.common.twitch.handleOpenTwitchApp
-import com.hegunhee.feature.common.twitch.isInstalledTwitchAppOrException
-import com.hegunhee.feature.common.twitch.openPlayStore
-import com.hegunhee.feature.common.twitch.openStreamerStream
 import com.hegunhee.feature.search.databinding.FragmentSearchBinding
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
