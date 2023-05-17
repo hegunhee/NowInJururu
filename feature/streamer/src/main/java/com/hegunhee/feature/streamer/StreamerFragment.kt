@@ -5,8 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import com.hegunhee.feature.common.fragmentResultKeys.streamRequestKey
 import com.hegunhee.feature.common.twitch.handleOpenTwitchApp
 import com.hegunhee.feature.streamer.databinding.FragmentStreamerBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -36,6 +38,9 @@ class StreamerFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.fetchBookmarkedStreamData()
+        setFragmentResultListener(streamRequestKey) { requestKey, bundle ->
+            viewModel.fetchBookmarkedStreamData()
+        }
         observeData()
     }
 
