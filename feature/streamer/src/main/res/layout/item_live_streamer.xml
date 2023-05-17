@@ -46,7 +46,7 @@
             android:id="@+id/profileImage"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            app:setImage="@{streamData.thumbnailUrl}"
+            app:setImage="@{streamData.profileUrl}"
             android:layout_marginStart="10dp"
             app:layout_constraintTop_toTopOf="@id/thumbNailImage"
             app:layout_constraintStart_toEndOf="@id/thumbNailImage"/>
