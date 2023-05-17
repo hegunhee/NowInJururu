@@ -33,6 +33,9 @@ class SearchViewModel @Inject constructor(
     private val _toastMessage : MutableSharedFlow<String> = MutableSharedFlow()
     val toastMessage : SharedFlow<String> = _toastMessage.asSharedFlow()
 
+    private val _isBookMarkSuccess : MutableSharedFlow<Unit> = MutableSharedFlow<Unit>()
+    val isBookMarkSuccess : SharedFlow<Unit> =  _isBookMarkSuccess.asSharedFlow()
+
     fun onClickSearchButton() = viewModelScope.launch{
         getSearchDataList(searchQuery.value)
     }
@@ -48,6 +51,7 @@ class SearchViewModel @Inject constructor(
             insertStreamerDataUseCase(StreamerData(streamerLogin))
                 .onSuccess {
                     getSearchDataList(searchQuery.value)
+                    _isBookMarkSuccess.emit(Unit)
                 }.onFailure {
                     _toastMessage.emit("저장에 실패했습니다. 잠시후에 시도해주세요")
                 }
