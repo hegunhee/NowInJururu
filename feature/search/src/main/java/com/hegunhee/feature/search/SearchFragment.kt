@@ -5,9 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import com.hegunhee.feature.common.fragmentResultKeys.streamRequestKey
 import com.hegunhee.feature.common.twitch.handleOpenTwitchApp
 import com.hegunhee.feature.search.databinding.FragmentSearchBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -57,6 +60,15 @@ class SearchFragment : Fragment(){
                     Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
                 }
             }
+            launch {
+                viewModel.isBookMarkSuccess.collect{
+                    callRefreshStreamData()
+                }
+            }
         }
+    }
+
+    private fun callRefreshStreamData() {
+        setFragmentResult(streamRequestKey, bundleOf())
     }
 }
