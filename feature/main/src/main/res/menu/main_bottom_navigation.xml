@@ -5,18 +5,18 @@
         android:id="@+id/jururu"
         android:enabled="true"
         android:icon="@drawable/ic_star_24"
-        android:title="주르르" />
+        android:title="@string/Jururu" />
 
     <item
         android:id="@+id/streamer"
         android:enabled="true"
         android:icon="@drawable/ic_streamer_24"
-        android:title="스트리머"/>
+        android:title="@string/streamer"/>
 
     <item
         android:id="@+id/search"
         android:enabled="true"
         android:icon="@drawable/ic_search_24"
-        android:title="찾기"
+        android:title="@string/search"
         />
 </menu>
