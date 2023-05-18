@@ -1,2 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <dimen name="header_start_margin">20dp</dimen>
+    <dimen name="header_top_margin">10dp</dimen>
+    <dimen name="header_bottom_margin">10dp</dimen>
+</resources>
