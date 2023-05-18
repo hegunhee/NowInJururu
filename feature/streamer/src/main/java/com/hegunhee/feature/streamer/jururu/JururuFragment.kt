@@ -29,7 +29,7 @@ class JururuFragment : Fragment() {
         val root = inflater.inflate(R.layout.fragment_jururu,container,false)
         streamerAdapter = StreamerAdapter(viewModel)
         viewDataBinding = FragmentJururuBinding.bind(root).apply {
-            JururuRecyclerView.adapter = streamerAdapter
+            jururuRecyclerview.adapter = streamerAdapter
             lifecycleOwner = viewLifecycleOwner
         }
         return root

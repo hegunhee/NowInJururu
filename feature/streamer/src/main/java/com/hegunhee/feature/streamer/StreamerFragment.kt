@@ -29,7 +29,7 @@ class StreamerFragment : Fragment() {
         val root = inflater.inflate(R.layout.fragment_streamer,container,false)
         streamerAdapter = StreamerAdapter(viewModel)
         viewDataBinding = FragmentStreamerBinding.bind(root).apply {
-            streamerRecyclerView.adapter = streamerAdapter
+            streamerRecyclerview.adapter = streamerAdapter
             lifecycleOwner = viewLifecycleOwner
         }
         return root
