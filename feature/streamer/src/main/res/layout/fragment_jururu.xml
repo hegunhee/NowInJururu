@@ -18,9 +18,10 @@
             android:layout_marginStart="@dimen/header_start_margin"
             android:layout_marginTop="@dimen/header_top_margin"
             android:layout_marginBottom="@dimen/header_bottom_margin"
-            android:text="Jururu"
-            android:textColor="@color/white"
-            android:textSize="20sp"
+            android:text="@string/Jururu"
+            android:textColor="@color/black"
+            android:textSize="@dimen/header_text_size"
+            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
