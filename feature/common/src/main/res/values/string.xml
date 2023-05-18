@@ -5,4 +5,5 @@
     <string name="playStoreTwitchDeepLink">market://details?id=tv.twitch.android.app</string>
 
     <string name="Jururu">주르르</string>
+    <string name="book_mark">즐겨찾기</string>
 </resources>
