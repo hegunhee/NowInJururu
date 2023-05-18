@@ -32,7 +32,7 @@ class SearchFragment : Fragment(){
         searchAdapter = SearchAdapter(viewModel)
         viewDataBinding = FragmentSearchBinding.bind(root).apply {
             viewModel = this@SearchFragment.viewModel
-            this.SearchResultRecyclerView.adapter = searchAdapter
+            this.searchResultRecyclerView.adapter = searchAdapter
             lifecycleOwner = viewLifecycleOwner
         }
         return root
