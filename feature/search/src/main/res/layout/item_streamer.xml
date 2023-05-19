@@ -18,14 +18,15 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
         android:onClick="@{() -> actionHandler.onClickStreamerItem(streamerInfo.streamerLogin)}">
 
         <ImageView
             android:id="@+id/profile_image_view"
-            android:layout_width="100dp"
-            android:layout_height="80dp"
+            android:layout_width="@dimen/search_profile_image_width_size"
+            android:layout_height="@dimen/search_profile_image_height_size"
+            android:layout_marginStart="@dimen/item_start_margin"
+            android:layout_marginTop="@dimen/item_top_margin"
+            android:layout_marginBottom="@dimen/item_bottom_margin"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
