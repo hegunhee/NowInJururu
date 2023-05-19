@@ -22,15 +22,15 @@
 
         <ImageView
             android:id="@+id/thumb_nail_image_view"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="@dimen/live_thumb_nail_image_width_size"
+            android:layout_height="@dimen/live_thumb_nail_image_height_size"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginStart="@dimen/item_start_margin"
             android:layout_marginTop="@dimen/item_top_margin"
             android:layout_marginBottom="@dimen/item_bottom_margin"
-            app:setImage="@{streamData.thumbnailUrl}"
-            />
+            app:setImage="@{streamData.thumbnailUrl}" />
         
         <TextView
             android:id="@+id/viewer_counter"
