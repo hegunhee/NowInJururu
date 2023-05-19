@@ -5,6 +5,7 @@
     <dimen name="header_bottom_margin">10dp</dimen>
 
     <dimen name="header_text_size">40sp</dimen>
+    <dimen name="streamer_name_text_size">20sp</dimen>
 
     <dimen name="item_start_margin">@dimen/header_start_margin</dimen>
     <dimen name="item_end_margin">@dimen/item_start_margin</dimen>
