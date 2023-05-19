@@ -34,13 +34,16 @@
         
         <TextView
             android:id="@+id/viewer_counter"
+        <ImageView
+            android:id="@+id/live_dot_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="@id/thumb_nail_image_view"
+            android:layout_marginStart="@dimen/live_dot_start_margin"
+            android:layout_marginEnd="@dimen/live_dot_end_margin"
+            android:layout_marginBottom="@dimen/live_dot_bottom_margin"
+            android:src="@drawable/ic_live_dot_15"
             app:layout_constraintBottom_toBottomOf="@id/thumb_nail_image_view"
-            android:layout_marginStart="4dp"
-            android:layout_marginBottom="4dp"
-            android:textSize="15dp"
+            app:layout_constraintStart_toStartOf="@id/thumb_nail_image_view" />
             android:text="@{streamData.viewerCount}"
             android:textColor="@color/white"
             />
