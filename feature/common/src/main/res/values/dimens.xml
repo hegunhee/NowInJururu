@@ -15,4 +15,7 @@
     <dimen name="item_between_start_margin">10dp</dimen>
 
     <dimen name="item_menu_width_size">30dp</dimen>
+
+    <dimen name="un_live_profile_image_width_size">50dp</dimen>
+    <dimen name="un_live_profile_image_height_size">50dp</dimen>
 </resources>
