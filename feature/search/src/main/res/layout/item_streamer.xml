@@ -49,8 +49,10 @@
             android:id="@+id/streamer_login_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/item_between_small_top_margin"
             android:text="@{streamerInfo.streamerLogin}"
-            android:textSize="13dp"
+            android:textColor="@color/black"
+            android:textSize="@dimen/stream_title_text_size"
             app:layout_constraintStart_toStartOf="@id/streamer_name_text"
             app:layout_constraintTop_toBottomOf="@id/streamer_name_text"
             tools:text="cotton__123" />
