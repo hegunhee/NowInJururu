@@ -28,4 +28,7 @@
 
     <dimen name="un_live_profile_image_width_size">50dp</dimen>
     <dimen name="un_live_profile_image_height_size">50dp</dimen>
+
+    <dimen name="search_profile_image_width_size">100dp</dimen>
+    <dimen name="search_profile_image_height_size">100dp</dimen>
 </resources>
