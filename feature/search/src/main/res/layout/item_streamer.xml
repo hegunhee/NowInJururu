@@ -23,7 +23,7 @@
         android:onClick="@{() -> actionHandler.onClickStreamerItem(streamerInfo.streamerLogin)}">
 
         <ImageView
-            android:id="@+id/profileImageView"
+            android:id="@+id/profile_image_view"
             android:layout_width="100dp"
             android:layout_height="80dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -32,7 +32,7 @@
             app:setImage="@{streamerInfo.profileUrl}" />
 
         <TextView
-            android:id="@+id/streamerNameTextView"
+            android:id="@+id/streamer_name_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
@@ -40,30 +40,30 @@
             android:text="@{streamerInfo.streamerName}"
             android:textSize="20dp"
             android:textStyle="bold"
-            app:layout_constraintStart_toEndOf="@id/profileImageView"
-            app:layout_constraintTop_toTopOf="@id/profileImageView"
+            app:layout_constraintStart_toEndOf="@id/profile_image_view"
+            app:layout_constraintTop_toTopOf="@id/profile_image_view"
             tools:text="주르르" />
 
         <TextView
-            android:id="@+id/streamerLoginTextView"
+            android:id="@+id/streamer_login_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{streamerInfo.streamerLogin}"
             android:textSize="13dp"
-            app:layout_constraintStart_toStartOf="@id/streamerNameTextView"
-            app:layout_constraintTop_toBottomOf="@id/streamerNameTextView"
+            app:layout_constraintStart_toStartOf="@id/streamer_name_text"
+            app:layout_constraintTop_toBottomOf="@id/streamer_name_text"
             tools:text="cotton__123" />
 
         <Button
-            android:id="@+id/bookMarkButton"
+            android:id="@+id/bookmark_button"
             android:layout_width="100dp"
             android:layout_height="40dp"
             android:onClick="@{() -> actionHandler.onClickBookMarkStreamer(streamerInfo.streamerLogin)}"
             android:text="즐겨찾기"
             android:textSize="13dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@id/streamerNameTextView"
-            app:layout_constraintTop_toBottomOf="@id/streamerLoginTextView" />
+            app:layout_constraintStart_toStartOf="@id/streamer_name_text"
+            app:layout_constraintTop_toBottomOf="@id/streamer_login_text" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
