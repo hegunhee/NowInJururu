@@ -14,6 +14,10 @@
 
     <dimen name="item_between_start_margin">10dp</dimen>
 
+    <dimen name="live_dot_start_margin">2dp</dimen>
+    <dimen name="live_dot_bottom_margin">2dp</dimen>
+    <dimen name="live_dot_end_margin">2dp</dimen>
+
     <dimen name="item_menu_width_size">30dp</dimen>
 
     <dimen name="live_thumb_nail_image_width_size">80dp</dimen>
