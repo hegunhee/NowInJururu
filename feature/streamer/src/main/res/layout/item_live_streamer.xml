@@ -85,6 +85,16 @@
             app:layout_constraintStart_toStartOf="@id/profile_image_view"
             app:layout_constraintTop_toBottomOf="@id/profile_image_view" />
 
+        <TextView
+            android:id="@+id/game_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{streamData.gameName}"
+            android:textColor="@color/black"
+            android:textSize="@dimen/stream_title_text_size"
+            app:layout_constraintStart_toStartOf="@id/profile_image_view"
+            app:layout_constraintTop_toBottomOf="@id/stream_title" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
