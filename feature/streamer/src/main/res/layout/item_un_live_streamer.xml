@@ -43,6 +43,16 @@
             android:layout_marginStart="10dp"
             />
 
+        <ImageView
+            android:id="@+id/menu_image_view"
+            android:layout_width="@dimen/item_menu_width_size"
+            android:layout_height="0dp"
+            android:layout_marginEnd="@dimen/item_end_margin"
+            android:src="@drawable/ic_menu_24"
+            app:layout_constraintBottom_toBottomOf="@id/profileImage"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/profileImage" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>
