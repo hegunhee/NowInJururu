@@ -31,9 +31,7 @@
             android:layout_marginTop="@dimen/item_top_margin"
             android:layout_marginBottom="@dimen/item_bottom_margin"
             app:setImage="@{streamData.thumbnailUrl}" />
-        
-        <TextView
-            android:id="@+id/viewer_counter"
+
         <ImageView
             android:id="@+id/live_dot_image"
             android:layout_width="wrap_content"
@@ -44,9 +42,16 @@
             android:src="@drawable/ic_live_dot_15"
             app:layout_constraintBottom_toBottomOf="@id/thumb_nail_image_view"
             app:layout_constraintStart_toStartOf="@id/thumb_nail_image_view" />
+
+        <TextView
+            android:id="@+id/viewer_counter"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:text="@{streamData.viewerCount}"
             android:textColor="@color/white"
-            />
+            app:layout_constraintBottom_toBottomOf="@id/live_dot_image"
+            app:layout_constraintStart_toEndOf="@id/live_dot_image"
+            app:layout_constraintTop_toTopOf="@id/live_dot_image" />
 
         <ImageView
             android:id="@+id/profile_image_view"
