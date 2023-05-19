@@ -32,17 +32,19 @@
             app:layout_constraintStart_toStartOf="parent"/>
 
         <TextView
-            android:id="@+id/streamerName"
+            android:id="@+id/streamer_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="@id/profileImage"
-            app:layout_constraintBottom_toBottomOf="@id/profileImage"
-            app:layout_constraintStart_toEndOf="@id/profileImage"
+            android:layout_marginStart="@dimen/item_between_start_margin"
             android:gravity="center"
             android:text="@{streamerInfo.userName}"
-            android:textSize="20dp"
-            android:layout_marginStart="10dp"
-            />
+            android:textColor="@color/black"
+            android:textSize="@dimen/streamer_name_text_size"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/profileImage"
+            app:layout_constraintStart_toEndOf="@id/profileImage"
+            app:layout_constraintTop_toTopOf="@id/profileImage"
+            tools:text="테스트" />
 
         <ImageView
             android:id="@+id/menu_image_view"
