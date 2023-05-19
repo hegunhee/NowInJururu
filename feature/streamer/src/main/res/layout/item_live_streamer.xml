@@ -55,10 +55,10 @@
 
         <ImageView
             android:id="@+id/profile_image_view"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
             app:setImage="@{streamData.profileUrl}"
-            android:layout_marginStart="10dp"
+            android:layout_marginStart="@dimen/item_between_start_margin"
             app:layout_constraintTop_toTopOf="@id/thumb_nail_image_view"
             app:layout_constraintStart_toEndOf="@id/thumb_nail_image_view"/>
 
