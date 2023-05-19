@@ -5,4 +5,11 @@
     <dimen name="header_bottom_margin">10dp</dimen>
 
     <dimen name="header_text_size">40sp</dimen>
+
+    <dimen name="item_start_margin">@dimen/header_start_margin</dimen>
+    <dimen name="item_end_margin">@dimen/item_start_margin</dimen>
+    <dimen name="item_top_margin">@dimen/header_top_margin</dimen>
+    <dimen name="item_bottom_margin">@dimen/header_bottom_margin</dimen>
+
+    <dimen name="item_menu_width_size">30dp</dimen>
 </resources>
