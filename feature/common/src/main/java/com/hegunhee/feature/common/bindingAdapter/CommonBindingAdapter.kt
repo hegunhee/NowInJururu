@@ -6,10 +6,11 @@ import com.squareup.picasso.Picasso
 
 @BindingAdapter("setImage")
 fun ImageView.setImage(url : String){
-    if(url.isNotEmpty()){
+    if(url.isNotEmpty() && this.width != 0 && this.height != 0){
         Picasso
             .get()
             .load(url)
+            .resize(this.width,this.height)
             .into(this)
     }
 
