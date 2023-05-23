@@ -73,7 +73,11 @@
             android:textColor="@color/black"
             app:layout_constraintBottom_toBottomOf="@id/profile_image_view"
             app:layout_constraintStart_toEndOf="@id/profile_image_view"
-            app:layout_constraintTop_toTopOf="@id/profile_image_view" />
+            app:layout_constraintTop_toTopOf="@id/profile_image_view"
+            tools:text="주르르"
+            app:layout_constraintEnd_toStartOf="@id/menu_image_view"
+            android:maxLines="1"
+            android:ellipsize="end"/>
 
         <ImageView
             android:id="@+id/menu_image_view"
