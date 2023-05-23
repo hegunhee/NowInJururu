@@ -34,10 +34,9 @@
 
         <TextView
             android:id="@+id/streamer_name"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/item_between_start_margin"
-            android:gravity="center"
             android:text="@{streamerInfo.userName}"
             android:textColor="@color/black"
             android:textSize="@dimen/streamer_name_text_size"
