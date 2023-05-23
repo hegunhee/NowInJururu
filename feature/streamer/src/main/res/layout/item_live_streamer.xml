@@ -91,16 +91,20 @@
 
         <TextView
             android:id="@+id/stream_title"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/item_between_small_top_margin"
-            android:gravity="center"
+            android:layout_marginEnd="@dimen/item_end_margin"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:text="@{streamData.title}"
+            android:textColor="@color/black"
             android:textSize="@dimen/stream_title_text_size"
             android:textStyle="bold"
-            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@id/profile_image_view"
-            app:layout_constraintTop_toBottomOf="@id/profile_image_view" />
+            app:layout_constraintTop_toBottomOf="@id/profile_image_view"
+            tools:text="방송입니다." />
 
         <TextView
             android:id="@+id/game_text"
