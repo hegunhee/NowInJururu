@@ -44,7 +44,10 @@
             app:layout_constraintBottom_toBottomOf="@id/profile_image_view"
             app:layout_constraintStart_toEndOf="@id/profile_image_view"
             app:layout_constraintTop_toTopOf="@id/profile_image_view"
-            tools:text="테스트" />
+            tools:text="테스트"
+            android:ellipsize="end"
+            android:maxLines="1"
+            app:layout_constraintEnd_toStartOf="@id/menu_image_view"/>
 
         <ImageView
             android:id="@+id/menu_image_view"
