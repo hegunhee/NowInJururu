@@ -2,6 +2,8 @@ package com.hegunhee.feature.common.bindingAdapter
 
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
+import androidx.recyclerview.widget.RecyclerView
+import com.hegunhee.feature.common.adapter.TagAdapter
 import com.squareup.picasso.Picasso
 
 @BindingAdapter("setImage")
@@ -14,4 +16,12 @@ fun ImageView.setImage(url : String){
             .into(this)
     }
 
+}
+
+@BindingAdapter("setTags")
+fun RecyclerView.setTag(tags :List<String>){
+
+    adapter = TagAdapter().apply {
+        submitList(tags)
+    }
 }
