@@ -16,4 +16,8 @@ class DefaultLocalDataSource @Inject constructor(private val streamerDao : Strea
     override suspend fun getAllStreamerList(): List<StreamerEntity> {
         return streamerDao.getAllStreamerEntityList()
     }
+
+    override suspend fun deleteStreamer(streamerEntity: StreamerEntity) {
+        streamerDao.deleteStreamer(streamerEntity)
+    }
 }

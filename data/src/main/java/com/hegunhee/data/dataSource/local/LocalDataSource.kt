@@ -9,4 +9,6 @@ interface LocalDataSource {
     suspend fun updateStreamer(streamerEntity: StreamerEntity)
 
     suspend fun getAllStreamerList(): List<StreamerEntity>
+
+    suspend fun deleteStreamer(streamerEntity: StreamerEntity)
 }
