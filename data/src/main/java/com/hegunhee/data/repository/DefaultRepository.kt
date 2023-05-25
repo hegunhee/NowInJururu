@@ -62,4 +62,10 @@ class DefaultRepository @Inject constructor(
             localDataSource.insertStreamer(streamerData.toStreamerEntity())
         }
     }
+
+    override suspend fun deleteStreamer(streamerData: StreamerData): Result<Unit> {
+        return kotlin.runCatching {
+            localDataSource.deleteStreamer(streamerData.toStreamerEntity())
+        }
+    }
 }
