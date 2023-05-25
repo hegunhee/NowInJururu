@@ -13,4 +13,6 @@ interface Repository {
     suspend fun getSearchStreamerDataList(streamerName : String) : Result<List<SearchData>>
 
     suspend fun insertStreamer(streamerData: StreamerData) : Result<Unit>
+
+    suspend fun deleteStreamer(streamerData: StreamerData) : Result<Unit>
 }
