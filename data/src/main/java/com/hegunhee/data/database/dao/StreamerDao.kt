@@ -1,6 +1,7 @@
 package com.hegunhee.data.database.dao
 
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
@@ -18,5 +19,8 @@ interface StreamerDao {
 
     @Query("SELECT * FROM StreamerEntity")
     suspend fun getAllStreamerEntityList() : List<StreamerEntity>
+
+    @Delete
+    suspend fun deleteStreamer(streamerEntity : StreamerEntity)
     
 }
