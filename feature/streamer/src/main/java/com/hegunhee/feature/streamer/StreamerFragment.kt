@@ -8,9 +8,11 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.hegunhee.feature.common.fragmentResultKeys.streamRequestKey
 import com.hegunhee.feature.common.twitch.handleOpenTwitchApp
 import com.hegunhee.feature.streamer.databinding.FragmentStreamerBinding
+import com.hegunhee.feature.streamer.more.MoreBottomDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -54,6 +56,16 @@ class StreamerFragment : Fragment() {
             launch {
                 viewModel.navigateStreamerTwitch.collect{ streamerLogin ->
                     requireContext().handleOpenTwitchApp(streamerLogin)
+                }
+            }
+            launch {
+                viewModel.showMoreBottomSheetDialog.collect{ streamerLogin ->
+                    val dialog = MoreBottomDialogFragment().apply {
+                        val bundle = Bundle()
+                        bundle.putString("streamerLogin",streamerLogin)
+                        arguments = bundle
+                    }
+                    dialog.show(parentFragmentManager,"moreDialog")
                 }
             }
         }
