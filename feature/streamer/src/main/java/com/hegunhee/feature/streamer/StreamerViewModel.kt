@@ -20,6 +20,9 @@ class StreamerViewModel @Inject constructor(
     private val _navigateStreamerTwitch : MutableSharedFlow<String> = MutableSharedFlow()
     val navigateStreamerTwitch : SharedFlow<String> = _navigateStreamerTwitch.asSharedFlow()
 
+    private val _showMoreBottomSheetDialog : MutableSharedFlow<String> = MutableSharedFlow()
+    val showMoreBottomSheetDialog : SharedFlow<String> = _showMoreBottomSheetDialog.asSharedFlow()
+
     fun fetchBookmarkedStreamData() = viewModelScope.launch{
         getBookmarkedStreamDataListUseCase()
             .onSuccess {
@@ -32,6 +35,13 @@ class StreamerViewModel @Inject constructor(
     override fun onClickTwitchStreamerItem(streamerLogin: String) {
         viewModelScope.launch {
             _navigateStreamerTwitch.emit(streamerLogin)
+        }
+    }
+
+    override fun onClickMoreMenuButton(streamerLogin: String) {
+        viewModelScope.launch {
+            _showMoreBottomSheetDialog.emit(streamerLogin)
+
         }
     }
 }
