@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.hegunhee.feature.common.fragmentResultKeys.streamRequestKey
 import com.hegunhee.feature.streamer.R
@@ -30,6 +31,7 @@ class MoreBottomDialogFragment() : BottomSheetDialogFragment() {
         }
         viewDataBinding = DialogMoreBinding.bind(root).apply {
             viewModel = this@MoreBottomDialogFragment.viewModel
+            lifecycleOwner = viewLifecycleOwner
         }
         return root
     }
