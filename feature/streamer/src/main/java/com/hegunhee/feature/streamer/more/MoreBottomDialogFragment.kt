@@ -36,6 +36,7 @@ class MoreBottomDialogFragment() : BottomSheetDialogFragment() {
 
     companion object{
         const val streamerLoginBundleKey = "StreamerLogin"
+        const val TAG = "MoreBottomDialogFragment"
         fun getInstance(streamerLogin : String) : MoreBottomDialogFragment{
             val bundle = Bundle()
             bundle.getString(streamerLoginBundleKey,streamerLogin)
