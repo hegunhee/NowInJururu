@@ -8,10 +8,12 @@ import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Inject
 
 @HiltViewModel
-class MoreViewModel @Inject constructor() : ViewModel(), MoreMenuActionHandler {
+class MoreViewModel @Inject constructor(
+    private val deleteStreamerDataUseCase: DeleteStreamerDataUseCase
+) : ViewModel(), MoreMenuActionHandler {
 
     val streamerLogin : MutableStateFlow<String> = MutableStateFlow<String>("")
-    
+
     fun fetchData(streamerName : String) {
         streamerLogin.value = streamerName
     }
