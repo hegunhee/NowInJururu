@@ -34,4 +34,8 @@ class JururuViewModel @Inject constructor(private val getJururuStreamDataUseCase
             _navigateStreamerTwitch.emit(streamerLogin)
         }
     }
+
+    override fun onClickMoreMenuButton(streamerLogin: String) {
+
+    }
 }
