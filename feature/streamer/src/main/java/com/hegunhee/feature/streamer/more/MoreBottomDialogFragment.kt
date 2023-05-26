@@ -8,7 +8,9 @@ import androidx.fragment.app.viewModels
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.hegunhee.feature.streamer.R
 import com.hegunhee.feature.streamer.databinding.DialogMoreBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MoreBottomDialogFragment() : BottomSheetDialogFragment() {
 
     private lateinit var viewDataBinding : DialogMoreBinding
