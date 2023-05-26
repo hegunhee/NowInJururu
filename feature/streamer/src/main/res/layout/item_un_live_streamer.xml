@@ -57,7 +57,8 @@
             android:src="@drawable/ic_menu_24"
             app:layout_constraintBottom_toBottomOf="@id/profile_image_view"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/profile_image_view" />
+            app:layout_constraintTop_toTopOf="@id/profile_image_view"
+            android:onClick="@{() -> actionHandler.onClickMoreMenuButton(streamerInfo.userLogin)}"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
