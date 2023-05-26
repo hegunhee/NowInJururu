@@ -17,8 +17,8 @@ class MoreViewModel @Inject constructor(
 
     val streamerLogin : MutableStateFlow<String> = MutableStateFlow<String>("")
 
-    private val _navigateDismissDialog : MutableSharedFlow<Unit> = MutableSharedFlow<Unit>()
-    val navigateDismissDialog : SharedFlow<Unit> = _navigateDismissDialog.asSharedFlow()
+    private val _isSuccessDeleteStreamer : MutableSharedFlow<Unit> = MutableSharedFlow<Unit>()
+    val isSuccessDeleteStreamer : SharedFlow<Unit> = _isSuccessDeleteStreamer.asSharedFlow()
 
     fun fetchData(streamerName : String) {
         streamerLogin.value = streamerName
@@ -28,7 +28,7 @@ class MoreViewModel @Inject constructor(
         viewModelScope.launch {
             deleteStreamerDataUseCase(StreamerData(streamerLogin.value))
                 .onSuccess {
-                    _navigateDismissDialog.emit(Unit)
+                    _isSuccessDeleteStreamer.emit(Unit)
                 }.onFailure {
 
                 }
