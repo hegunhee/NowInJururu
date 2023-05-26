@@ -39,7 +39,7 @@ class MoreBottomDialogFragment() : BottomSheetDialogFragment() {
         const val TAG = "MoreBottomDialogFragment"
         fun getInstance(streamerLogin : String) : MoreBottomDialogFragment{
             val bundle = Bundle()
-            bundle.getString(streamerLoginBundleKey,streamerLogin)
+            bundle.putString(streamerLoginBundleKey,streamerLogin)
             return MoreBottomDialogFragment().apply {
                 arguments = bundle
             }
