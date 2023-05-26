@@ -6,9 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.hegunhee.feature.common.fragmentResultKeys.streamRequestKey
 import com.hegunhee.feature.streamer.R
 import com.hegunhee.feature.streamer.databinding.DialogMoreBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MoreBottomDialogFragment() : BottomSheetDialogFragment() {
@@ -34,6 +36,18 @@ class MoreBottomDialogFragment() : BottomSheetDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        observeData()
+    }
+
+    private fun observeData() {
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+            launch {
+                viewModel.navigateDismissDialog.collect{
+                    parentFragmentManager.setFragmentResult(streamRequestKey,Bundle.EMPTY)
+                    dismissAllowingStateLoss()
+                }
+            }
+        }
     }
 
     companion object{
