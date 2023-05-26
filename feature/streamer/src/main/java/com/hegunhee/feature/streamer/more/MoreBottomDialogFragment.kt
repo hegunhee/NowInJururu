@@ -52,6 +52,10 @@ class MoreBottomDialogFragment() : BottomSheetDialogFragment() {
         }
     }
 
+    private fun isArgumentEmpty() : Boolean {
+        return arguments?.getString(streamerLoginBundleKey) == null
+    }
+
     companion object{
         const val streamerLoginBundleKey = "StreamerLogin"
         const val TAG = "MoreBottomDialogFragment"
