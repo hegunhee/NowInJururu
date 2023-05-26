@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -23,12 +24,16 @@ class MoreBottomDialogFragment() : BottomSheetDialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val root = inflater.inflate(R.layout.dialog_more,container,false)
+        if(isArgumentEmpty()){
+            Toast.makeText(requireContext(), getString(R.string.empty_streamer_argument), Toast.LENGTH_SHORT).show()
+            dismissAllowingStateLoss()
+        }
         arguments?.let {
             it.getString(streamerLoginBundleKey)?.let { streamerName ->
                 viewModel.fetchData(streamerName)
             }
         }
+        val root = inflater.inflate(R.layout.dialog_more,container,false)
         viewDataBinding = DialogMoreBinding.bind(root).apply {
             viewModel = this@MoreBottomDialogFragment.viewModel
             lifecycleOwner = viewLifecycleOwner
