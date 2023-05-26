@@ -49,9 +49,15 @@ class MoreBottomDialogFragment() : BottomSheetDialogFragment() {
     private fun observeData() {
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             launch {
-                viewModel.isSuccessDeleteStreamer.collect{
-                    parentFragmentManager.setFragmentResult(streamRequestKey,Bundle.EMPTY)
-                    dismissAllowingStateLoss()
+                viewModel.isSuccessDeleteStreamer.collect{ isSuccess ->
+                    if(isSuccess){
+                        parentFragmentManager.setFragmentResult(streamRequestKey,Bundle.EMPTY)
+                        dismissAllowingStateLoss()
+                    }else{
+                        Toast.makeText(requireContext(), getString(R.string.delete_streamer_failure), Toast.LENGTH_SHORT).show()
+                        dismissAllowingStateLoss()
+                    }
+
                 }
             }
         }
