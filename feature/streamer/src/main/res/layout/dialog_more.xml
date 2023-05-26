@@ -21,7 +21,11 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:text="@{viewModel.streamerLogin + `님을 즐겨찾기 취소합니다.`}"
-            tools:text="테스트입니다."/>
+            tools:text="테스트입니다."
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:textSize="@dimen/streamer_name_text_size"
+            android:onClick="@{() -> viewModel.onClickDeleteStreamerButton()}"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
