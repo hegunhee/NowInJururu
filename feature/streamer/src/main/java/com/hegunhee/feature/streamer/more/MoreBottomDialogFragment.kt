@@ -49,7 +49,7 @@ class MoreBottomDialogFragment() : BottomSheetDialogFragment() {
     private fun observeData() {
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             launch {
-                viewModel.navigateDismissDialog.collect{
+                viewModel.isSuccessDeleteStreamer.collect{
                     parentFragmentManager.setFragmentResult(streamRequestKey,Bundle.EMPTY)
                     dismissAllowingStateLoss()
                 }
