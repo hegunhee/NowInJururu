@@ -20,7 +20,7 @@ class MoreBottomDialogFragment() : BottomSheetDialogFragment() {
     ): View? {
         val root = inflater.inflate(R.layout.dialog_more,container,false)
         arguments?.let {
-            it.getString("streamerLogin")?.let { streamerName ->
+            it.getString(streamerLoginBundleKey)?.let { streamerName ->
                 viewModel.fetchData(streamerName)
             }
         }
@@ -32,5 +32,16 @@ class MoreBottomDialogFragment() : BottomSheetDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+    }
+
+    companion object{
+        const val streamerLoginBundleKey = "StreamerLogin"
+        fun getInstance(streamerLogin : String) : MoreBottomDialogFragment{
+            val bundle = Bundle()
+            bundle.getString(streamerLoginBundleKey,streamerLogin)
+            return MoreBottomDialogFragment().apply {
+                arguments = bundle
+            }
+        }
     }
 }

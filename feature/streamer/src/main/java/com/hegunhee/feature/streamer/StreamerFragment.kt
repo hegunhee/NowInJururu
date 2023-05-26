@@ -60,12 +60,8 @@ class StreamerFragment : Fragment() {
             }
             launch {
                 viewModel.showMoreBottomSheetDialog.collect{ streamerLogin ->
-                    val dialog = MoreBottomDialogFragment().apply {
-                        val bundle = Bundle()
-                        bundle.putString("streamerLogin",streamerLogin)
-                        arguments = bundle
-                    }
-                    dialog.show(parentFragmentManager,"moreDialog")
+                    val moreBottomSheetDialog = MoreBottomDialogFragment.getInstance(streamerLogin)
+                    moreBottomSheetDialog.show(parentFragmentManager,"moreDialog")
                 }
             }
         }
