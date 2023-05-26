@@ -2,4 +2,6 @@
 <resources>
 
     <string name="empty_streamer_argument">스트리머 정보를 불러오지 못했습니다</string>
+
+    <string name="delete_streamer_failure">스트리머 삭제에 실패했습니다.</string>
 </resources>
