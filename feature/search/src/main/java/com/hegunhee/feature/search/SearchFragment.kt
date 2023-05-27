@@ -69,6 +69,6 @@ class SearchFragment : Fragment(){
     }
 
     private fun callRefreshStreamData() {
-        setFragmentResult(streamRequestKey, bundleOf())
+        setFragmentResult(streamRequestKey, Bundle.EMPTY)
     }
 }
