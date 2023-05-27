@@ -12,14 +12,16 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:minHeight="100dp"
+        style="@style/borderBottomSheetStyle">
 
         <TextView
             android:id="@+id/unfollow_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             android:text="@{viewModel.streamerLogin + `님을 즐겨찾기 취소합니다.`}"
             tools:text="테스트입니다."
             android:textColor="@color/black"
