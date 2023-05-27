@@ -20,14 +20,16 @@
             android:id="@+id/unfollow_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:onClick="@{() -> viewModel.onClickDeleteStreamerButton()}"
             android:text="@{viewModel.streamerLogin + `님을 즐겨찾기 취소합니다.`}"
-            tools:text="테스트입니다."
             android:textColor="@color/black"
-            android:textStyle="bold"
             android:textSize="@dimen/streamer_name_text_size"
-            android:onClick="@{() -> viewModel.onClickDeleteStreamerButton()}"/>
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="테스트입니다." />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
