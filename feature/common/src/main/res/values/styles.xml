@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="borderBottomSheetStyle"
+        parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@drawable/border_menu</item>
+        <item name="backgroundTint">@color/white</item>
+        <item name="android:height">100dp</item>
+    </style>
+
+</resources>
