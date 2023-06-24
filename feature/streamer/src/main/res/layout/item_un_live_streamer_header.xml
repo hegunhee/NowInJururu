@@ -29,13 +29,14 @@
             android:id="@+id/offline_count_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="@id/offline_header_text"
+            android:layout_marginStart="@dimen/item_between_small_start_margin"
+            android:text="@{size}"
+            android:textColor="@color/violet"
+            android:textSize="20sp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@id/offline_header_text"
             app:layout_constraintStart_toEndOf="@id/offline_header_text"
-            android:text="@{size}"
-            android:textSize="15sp"
-            android:textStyle="bold"
-            android:textColor="@color/violet" />
+            app:layout_constraintTop_toTopOf="@id/offline_header_text" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
