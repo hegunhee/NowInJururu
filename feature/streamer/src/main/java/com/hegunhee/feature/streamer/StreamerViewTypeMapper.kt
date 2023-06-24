@@ -3,31 +3,16 @@ package com.hegunhee.feature.streamer
 import com.hegunhee.domain.model.StreamDataType
 
 fun List<StreamDataType>.toStreamViewTypeData() : List<StreamerViewType> {
-    val groupDataType = this.groupBy { it is StreamDataType.StreamData }.values.toList()
+    val streamData = this
     val streamerViewTypeList = mutableListOf<StreamerViewType>()
-    if(groupDataType.isNotEmpty()){
-        if(groupDataType.size == 1){
-            when(groupDataType[0][0]) {
-                is StreamDataType.StreamData -> {
-                    streamerViewTypeList.add(StreamerViewType.LiveStreamerHeader(groupDataType[0].size))
-                    val liveStreamList = groupDataType[0].filterIsInstance<StreamDataType.StreamData>().map { it.toLiveStreamer() }
-                    streamerViewTypeList.addAll(liveStreamList)
-                }
-                is StreamDataType.EmptyData -> {
-                    streamerViewTypeList.add(StreamerViewType.UnLiveStreamerHeader(groupDataType[0].size))
-                    val unLiveStreamList = groupDataType[0].filterIsInstance<StreamDataType.EmptyData>().map { it.toUnLiveStreamer() }
-                    streamerViewTypeList.addAll(unLiveStreamList)
-                }
-            }
-        }else if(groupDataType.size == 2) {
-            streamerViewTypeList.add(StreamerViewType.LiveStreamerHeader(groupDataType[0].size))
-            val liveStreamList = groupDataType[0].filterIsInstance<StreamDataType.StreamData>().map { it.toLiveStreamer() }
-            streamerViewTypeList.addAll(liveStreamList)
-            streamerViewTypeList.add(StreamerViewType.UnLiveStreamerHeader(groupDataType[1].size))
-            val unLiveStreamList = groupDataType[1].filterIsInstance<StreamDataType.EmptyData>().map { it.toUnLiveStreamer() }
-            streamerViewTypeList.addAll(unLiveStreamList)
-        }
+    if(streamData.any { it is StreamDataType.StreamData }) {
+        streamerViewTypeList.add(StreamerViewType.LiveStreamerHeader(streamData.filterIsInstance<StreamDataType.StreamData>().size))
     }
+    streamerViewTypeList.addAll(streamData.filterIsInstance<StreamDataType.StreamData>().map { it.toLiveStreamer() })
+    if(streamData.any{it is StreamDataType.EmptyData}){
+        streamerViewTypeList.add(StreamerViewType.UnLiveStreamerHeader(streamData.filterIsInstance<StreamDataType.EmptyData>().size))
+    }
+    streamerViewTypeList.addAll(streamData.filterIsInstance<StreamDataType.EmptyData>().map { it.toUnLiveStreamer() })
     return streamerViewTypeList
 }
 
