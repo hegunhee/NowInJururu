@@ -12,14 +12,14 @@
             />
 
         <variable
-            name="streamData"
-            type="com.hegunhee.domain.model.StreamDataType.StreamData" />
+            name="liveStreamData"
+            type="com.hegunhee.feature.streamer.StreamerViewType.LiveStreamer" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="@{() -> actionHandler.onClickTwitchStreamerItem(streamData.userLogin)}">
+        android:onClick="@{() -> actionHandler.onClickTwitchStreamerItem(liveStreamData.userLogin)}">
 
         <ImageView
             android:id="@+id/thumb_nail_image_view"
@@ -30,7 +30,7 @@
             android:layout_marginStart="@dimen/item_start_margin"
             android:layout_marginTop="@dimen/item_top_margin"
             android:layout_marginBottom="@dimen/item_bottom_margin"
-            app:setImage="@{streamData.thumbnailUrl}" />
+            app:setImage="@{liveStreamData.thumbnailUrl}" />
 
         <ImageView
             android:id="@+id/live_dot_image"
@@ -47,7 +47,7 @@
             android:id="@+id/viewer_counter"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@{streamData.viewerCount}"
+            android:text="@{liveStreamData.viewerCount}"
             android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="@id/live_dot_image"
             app:layout_constraintStart_toEndOf="@id/live_dot_image"
@@ -57,7 +57,7 @@
             android:id="@+id/profile_image_view"
             android:layout_width="20dp"
             android:layout_height="20dp"
-            app:setImage="@{streamData.profileUrl}"
+            app:setImage="@{liveStreamData.profileUrl}"
             android:layout_marginStart="@dimen/item_between_start_margin"
             app:layout_constraintTop_toTopOf="@id/thumb_nail_image_view"
             app:layout_constraintStart_toEndOf="@id/thumb_nail_image_view"/>
@@ -67,7 +67,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/item_between_small_start_margin"
-            android:text="@{streamData.userName}"
+            android:text="@{liveStreamData.userName}"
             android:textStyle="bold"
             android:textColor="@color/black"
             app:layout_constraintBottom_toBottomOf="@id/profile_image_view"
@@ -87,7 +87,7 @@
             app:layout_constraintBottom_toBottomOf="@id/profile_image_view"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/profile_image_view"
-            android:onClick="@{() -> actionHandler.onClickMoreMenuButton(streamData.userLogin)}"/>
+            android:onClick="@{() -> actionHandler.onClickMoreMenuButton(liveStreamData.userLogin)}"/>
 
         <TextView
             android:id="@+id/stream_title"
@@ -97,7 +97,7 @@
             android:layout_marginEnd="@dimen/item_end_margin"
             android:ellipsize="end"
             android:maxLines="1"
-            android:text="@{streamData.title}"
+            android:text="@{liveStreamData.title}"
             android:textColor="@color/black"
             android:textSize="@dimen/stream_title_text_size"
             android:textStyle="bold"
@@ -113,7 +113,7 @@
             android:layout_marginEnd="@dimen/item_end_margin"
             android:ellipsize="end"
             android:maxLines="1"
-            android:text="@{streamData.gameName}"
+            android:text="@{liveStreamData.gameName}"
             android:textColor="@color/black"
             android:textSize="@dimen/stream_title_text_size"
             app:layout_constraintEnd_toEndOf="parent"
@@ -132,7 +132,7 @@
             app:layout_constraintEnd_toEndOf="@id/game_text"
             app:layout_constraintStart_toStartOf="@id/profile_image_view"
             app:layout_constraintTop_toBottomOf="@id/game_text"
-            app:setTags="@{streamData.tags}"/>
+            app:setTags="@{liveStreamData.tags}"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
