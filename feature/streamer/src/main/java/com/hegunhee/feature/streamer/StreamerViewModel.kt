@@ -14,8 +14,8 @@ class StreamerViewModel @Inject constructor(
     private val getBookmarkedStreamDataListUseCase: GetBookmarkedStreamDataListUseCase
 ) : ViewModel(), StreamActionHandler {
 
-    private val _streamDataList : MutableStateFlow<List<StreamerViewType>> = MutableStateFlow(emptyList())
-    val streamDataList : StateFlow<List<StreamerViewType>> = _streamDataList.asStateFlow()
+    private val _streamDataList : MutableStateFlow<List<StreamDataType>> = MutableStateFlow(emptyList())
+    val streamDataList : StateFlow<List<StreamDataType>> = _streamDataList.asStateFlow()
 
     private val _navigateStreamerTwitch : MutableSharedFlow<String> = MutableSharedFlow()
     val navigateStreamerTwitch : SharedFlow<String> = _navigateStreamerTwitch.asSharedFlow()
@@ -26,7 +26,7 @@ class StreamerViewModel @Inject constructor(
     fun fetchBookmarkedStreamData() = viewModelScope.launch{
         getBookmarkedStreamDataListUseCase()
             .onSuccess {
-                _streamDataList.emit(it.toStreamViewTypeData())
+                _streamDataList.emit(it)
             }.onFailure {
 
             }
