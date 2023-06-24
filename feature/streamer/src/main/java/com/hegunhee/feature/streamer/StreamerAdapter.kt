@@ -8,36 +8,62 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.DiffUtil
 import com.hegunhee.domain.model.StreamDataType
 import com.hegunhee.feature.streamer.databinding.ItemLiveStreamerBinding
+import com.hegunhee.feature.streamer.databinding.ItemLiveStreamerHeaderBinding
 import com.hegunhee.feature.streamer.databinding.ItemUnLiveStreamerBinding
+import com.hegunhee.feature.streamer.databinding.ItemUnLiveStreamerHeaderBinding
 import com.squareup.picasso.Picasso
 
-class StreamerAdapter(private val actionHandler : StreamActionHandler) : ListAdapter<StreamDataType,StreamerAdapter.StreamerAdapterViewHolder>(DiffUtil) {
+class StreamerAdapter(private val actionHandler : StreamActionHandler) : ListAdapter<StreamerViewType,StreamerAdapter.StreamerAdapterViewHolder>(DiffUtil) {
 
     sealed class StreamerAdapterViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
-        abstract fun bindView(memo: StreamDataType)
+        abstract fun bindView(data: StreamerViewType)
 
     }
 
+    inner class LiveStreamerHeaderViewHolder(private val binding : ItemLiveStreamerHeaderBinding) : StreamerAdapterViewHolder(binding.root) {
+        override fun bindView(data: StreamerViewType) {
+            val liveHeader = data as StreamerViewType.LiveStreamerHeader
+            binding.size = liveHeader.size.toString()
+            binding.executePendingBindings()
+        }
+    }
+
+    inner class UnLiveStreamerHeaderViewHolder(private val binding : ItemUnLiveStreamerHeaderBinding) : StreamerAdapterViewHolder(binding.root) {
+        override fun bindView(data: StreamerViewType) {
+            val unLiveHeader = data as StreamerViewType.UnLiveStreamerHeader
+            binding.size = unLiveHeader.size.toString()
+            binding.executePendingBindings()
+        }
+    }
+
     inner class LiveStreamerViewHolder(private val binding : ItemLiveStreamerBinding) : StreamerAdapterViewHolder(binding.root){
-        override fun bindView(data: StreamDataType) {
-            val streamData = data as StreamDataType.StreamData
-            binding.streamData = streamData
+        override fun bindView(data: StreamerViewType) {
+            val liveStreamData = data as StreamerViewType.LiveStreamer
+            binding.liveStreamData = liveStreamData
             binding.actionHandler = actionHandler
+            binding.executePendingBindings()
         }
     }
 
     inner class UnLiveStreamerViewHolder(private val binding : ItemUnLiveStreamerBinding) : StreamerAdapterViewHolder(binding.root){
-        override fun bindView(data: StreamDataType) {
-            val emptyData = data as StreamDataType.EmptyData
-            binding.streamerInfo = emptyData
+        override fun bindView(data: StreamerViewType) {
+            val unLiveStreamData = data as StreamerViewType.UnLiveStreamer
+            binding.unLiveStreamData = unLiveStreamData
             binding.actionHandler = actionHandler
+            binding.executePendingBindings()
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StreamerAdapterViewHolder {
         return when(viewType){
+            R.layout.item_live_streamer_header -> {
+                LiveStreamerHeaderViewHolder(ItemLiveStreamerHeaderBinding.inflate(LayoutInflater.from(parent.context),parent,false))
+            }
             R.layout.item_live_streamer ->{
                 LiveStreamerViewHolder(ItemLiveStreamerBinding.inflate(LayoutInflater.from(parent.context),parent,false))
+            }
+            R.layout.item_un_live_streamer_header -> {
+                UnLiveStreamerHeaderViewHolder(ItemUnLiveStreamerHeaderBinding.inflate(LayoutInflater.from(parent.context),parent,false))
             }
             R.layout.item_un_live_streamer -> {
                 UnLiveStreamerViewHolder(ItemUnLiveStreamerBinding.inflate(LayoutInflater.from(parent.context),parent,false))
@@ -52,19 +78,21 @@ class StreamerAdapter(private val actionHandler : StreamActionHandler) : ListAda
 
     override fun getItemViewType(position: Int): Int {
         return when (getItem(position)){
-            is StreamDataType.StreamData -> R.layout.item_live_streamer
-            is StreamDataType.EmptyData -> R.layout.item_un_live_streamer
+            is StreamerViewType.LiveStreamerHeader -> R.layout.item_live_streamer_header
+            is StreamerViewType.LiveStreamer -> R.layout.item_live_streamer
+            is StreamerViewType.UnLiveStreamerHeader -> R.layout.item_un_live_streamer_header
+            is StreamerViewType.UnLiveStreamer -> R.layout.item_un_live_streamer
         }
     }
 }
 
-internal object DiffUtil : DiffUtil.ItemCallback<StreamDataType>(){
+internal object DiffUtil : DiffUtil.ItemCallback<StreamerViewType>(){
 
-    override fun areItemsTheSame(oldItem: StreamDataType, newItem: StreamDataType): Boolean {
+    override fun areItemsTheSame(oldItem: StreamerViewType, newItem: StreamerViewType): Boolean {
         return oldItem == newItem
     }
 
-    override fun areContentsTheSame(oldItem: StreamDataType, newItem: StreamDataType): Boolean {
+    override fun areContentsTheSame(oldItem: StreamerViewType, newItem: StreamerViewType): Boolean {
         return oldItem == newItem
     }
 
