@@ -7,10 +7,12 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import com.hegunhee.domain.model.StreamDataType
 import com.hegunhee.feature.common.twitch.*
 import com.hegunhee.feature.streamer.R
 import com.hegunhee.feature.streamer.StreamerAdapter
 import com.hegunhee.feature.streamer.databinding.FragmentJururuBinding
+import com.hegunhee.feature.streamer.toStreamViewTypeData
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -45,7 +47,7 @@ class JururuFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             launch {
                 viewModel.jururuStreamData.collect{
-                    streamerAdapter.submitList(listOf(it))
+                    streamerAdapter.submitList(listOf<StreamDataType>(it).toStreamViewTypeData())
                 }
             }
             launch {
