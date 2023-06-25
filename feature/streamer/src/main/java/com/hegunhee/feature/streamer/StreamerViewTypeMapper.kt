@@ -5,10 +5,10 @@ import com.hegunhee.domain.model.StreamDataType
 fun List<StreamDataType>.toStreamViewTypeData() : List<StreamerViewType> {
     val streamData = this
     val streamerViewTypeList = mutableListOf<StreamerViewType>()
-    if(streamData.any { it is StreamDataType.StreamData }) {
-        streamerViewTypeList.add(StreamerViewType.LiveStreamerHeader(streamData.filterIsInstance<StreamDataType.StreamData>().size))
+    if(streamData.any { it is StreamDataType.OnlineData }) {
+        streamerViewTypeList.add(StreamerViewType.LiveStreamerHeader(streamData.filterIsInstance<StreamDataType.OnlineData>().size))
     }
-    streamerViewTypeList.addAll(streamData.filterIsInstance<StreamDataType.StreamData>().map { it.toLiveStreamer() })
+    streamerViewTypeList.addAll(streamData.filterIsInstance<StreamDataType.OnlineData>().map { it.toLiveStreamer() })
     if(streamData.any{it is StreamDataType.EmptyData}){
         streamerViewTypeList.add(StreamerViewType.UnLiveStreamerHeader(streamData.filterIsInstance<StreamDataType.EmptyData>().size))
     }
@@ -16,7 +16,7 @@ fun List<StreamDataType>.toStreamViewTypeData() : List<StreamerViewType> {
     return streamerViewTypeList
 }
 
-fun StreamDataType.StreamData.toLiveStreamer() : StreamerViewType.LiveStreamer {
+fun StreamDataType.OnlineData.toLiveStreamer() : StreamerViewType.LiveStreamer {
     return StreamerViewType.LiveStreamer(
         gameId = gameId,
         gameName = gameName,

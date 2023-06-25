@@ -26,7 +26,7 @@ class JururuViewModel @Inject constructor(private val getJururuStreamDataUseCase
         viewModelScope.launch {
             getJururuStreamDataUseCase()
                 .onSuccess {
-                    if(it is StreamDataType.StreamData) {
+                    if(it is StreamDataType.OnlineData) {
                         _jururuStreamData.emit(it.toLiveStreamer())
                     }else if(it is StreamDataType.EmptyData){
                         _jururuStreamData.emit(it.toUnLiveStreamer())

@@ -5,7 +5,7 @@ package com.hegunhee.domain.model
  */
 
 sealed class StreamDataType() {
-    data class StreamData(
+    data class OnlineData(
         val gameId: String,
         val gameName: String,
         val id: String,
@@ -27,7 +27,7 @@ sealed class StreamDataType() {
 
     companion object {
         val TestJururuProfileUrl = "https://static-cdn.jtvnw.net/jtv_user_pictures/919e1ba0-e13e-49ae-a660-181817e3970d-profile_image-70x70.png"
-        val TestJururuLiveStreamInfo = StreamData("123123","발로란트","123123",false,"ko","", listOf("게임","뭐시깽이","뭐시깽이"),"https://static-cdn.jtvnw.net/previews-ttv/live_user_hangyeol8008-300x300.jpg%22",TestJururuProfileUrl,"콘르르","live","123213123","cotton__123","주르르","1231")
+        val TestJururuLiveStreamInfo = OnlineData("123123","발로란트","123123",false,"ko","", listOf("게임","뭐시깽이","뭐시깽이"),"https://static-cdn.jtvnw.net/previews-ttv/live_user_hangyeol8008-300x300.jpg%22",TestJururuProfileUrl,"콘르르","live","123213123","cotton__123","주르르","1231")
         val TestJururuUnLiveStreamInfo = EmptyData(userLogin = "cotton__123", userName = "주르르",profileUrl = this.TestJururuProfileUrl)
 
     }
