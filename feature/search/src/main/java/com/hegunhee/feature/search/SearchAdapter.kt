@@ -1,7 +1,6 @@
 package com.hegunhee.feature.search
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -31,7 +30,7 @@ class SearchAdapter(private val actionHandler: SearchActionHandler) : ListAdapte
 
 internal object DiffUtil : DiffUtil.ItemCallback<SearchData>() {
     override fun areItemsTheSame(oldItem: SearchData, newItem: SearchData): Boolean {
-        return oldItem.streamerLogin == newItem.streamerLogin
+        return oldItem.streamerId == newItem.streamerId
     }
 
     override fun areContentsTheSame(oldItem: SearchData, newItem: SearchData): Boolean {

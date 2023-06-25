@@ -18,7 +18,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="@{() -> actionHandler.onClickStreamerItem(streamerInfo.streamerLogin)}">
+        android:onClick="@{() -> actionHandler.onClickStreamerItem(streamerInfo.streamerId)}">
 
         <ImageView
             android:id="@+id/profile_image_view"
@@ -50,7 +50,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/item_between_small_top_margin"
-            android:text="@{streamerInfo.streamerLogin}"
+            android:text="@{streamerInfo.streamerId}"
             android:textColor="@color/black"
             android:textSize="@dimen/stream_title_text_size"
             app:layout_constraintStart_toStartOf="@id/streamer_name_text"
@@ -61,7 +61,7 @@
             android:id="@+id/bookmark_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="@{() -> actionHandler.onClickBookMarkStreamer(streamerInfo.streamerLogin)}"
+            android:onClick="@{() -> actionHandler.onClickBookMarkStreamer(streamerInfo.streamerId)}"
             android:text="즐겨찾기"
             android:textSize="13sp"
             app:layout_constraintBottom_toBottomOf="parent"
