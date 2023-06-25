@@ -9,10 +9,10 @@ fun List<StreamDataType>.toStreamViewTypeData() : List<StreamerViewType> {
         streamerViewTypeList.add(StreamerViewType.LiveStreamerHeader(streamData.filterIsInstance<StreamDataType.OnlineData>().size))
     }
     streamerViewTypeList.addAll(streamData.filterIsInstance<StreamDataType.OnlineData>().map { it.toLiveStreamer() })
-    if(streamData.any{it is StreamDataType.EmptyData}){
-        streamerViewTypeList.add(StreamerViewType.UnLiveStreamerHeader(streamData.filterIsInstance<StreamDataType.EmptyData>().size))
+    if(streamData.any{it is StreamDataType.OfflineData}){
+        streamerViewTypeList.add(StreamerViewType.UnLiveStreamerHeader(streamData.filterIsInstance<StreamDataType.OfflineData>().size))
     }
-    streamerViewTypeList.addAll(streamData.filterIsInstance<StreamDataType.EmptyData>().map { it.toUnLiveStreamer() })
+    streamerViewTypeList.addAll(streamData.filterIsInstance<StreamDataType.OfflineData>().map { it.toUnLiveStreamer() })
     return streamerViewTypeList
 }
 
@@ -36,7 +36,7 @@ fun StreamDataType.OnlineData.toLiveStreamer() : StreamerViewType.LiveStreamer {
     )
 }
 
-fun StreamDataType.EmptyData.toUnLiveStreamer() : StreamerViewType.UnLiveStreamer {
+fun StreamDataType.OfflineData.toUnLiveStreamer() : StreamerViewType.UnLiveStreamer {
     return StreamerViewType.UnLiveStreamer(
         userLogin = userLogin,
         userName = userName,
