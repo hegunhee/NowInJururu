@@ -33,13 +33,13 @@
             app:setImage="@{onlineStreamData.thumbnailUrl}" />
 
         <ImageView
-            android:id="@+id/live_dot_image"
+            android:id="@+id/online_dot_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/live_dot_start_margin"
-            android:layout_marginEnd="@dimen/live_dot_end_margin"
-            android:layout_marginBottom="@dimen/live_dot_bottom_margin"
-            android:src="@drawable/ic_live_dot_15"
+            android:layout_marginStart="@dimen/online_dot_start_margin"
+            android:layout_marginEnd="@dimen/online_dot_end_margin"
+            android:layout_marginBottom="@dimen/online_dot_bottom_margin"
+            android:src="@drawable/ic_online_dot_15"
             app:layout_constraintBottom_toBottomOf="@id/thumb_nail_image_view"
             app:layout_constraintStart_toStartOf="@id/thumb_nail_image_view" />
 
@@ -49,9 +49,9 @@
             android:layout_height="wrap_content"
             android:text="@{onlineStreamData.viewerCount}"
             android:textColor="@color/white"
-            app:layout_constraintBottom_toBottomOf="@id/live_dot_image"
-            app:layout_constraintStart_toEndOf="@id/live_dot_image"
-            app:layout_constraintTop_toTopOf="@id/live_dot_image" />
+            app:layout_constraintBottom_toBottomOf="@id/online_dot_image"
+            app:layout_constraintStart_toEndOf="@id/online_dot_image"
+            app:layout_constraintTop_toTopOf="@id/online_dot_image" />
 
         <ImageView
             android:id="@+id/profile_image_view"
