@@ -17,8 +17,8 @@ fun StreamApiData.toStreamData(profileUrl : String): StreamDataType.OnlineData {
         title = title,
         type = type,
         userId = userId,
-        userLogin = userLogin,
-        userName = userName,
+        userLogin = streamerId,
+        userName = streamerName,
         viewerCount = viewerCount.toString()
     )
 }
