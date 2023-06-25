@@ -13,7 +13,7 @@
 
         <variable
             name="liveStreamData"
-            type="com.hegunhee.feature.streamer.StreamerViewType.LiveStreamer" />
+            type="com.hegunhee.feature.streamer.StreamerViewType.OnlineStreamer" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
