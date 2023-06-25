@@ -23,11 +23,11 @@
 
     <dimen name="item_menu_width_size">30dp</dimen>
 
-    <dimen name="live_thumb_nail_image_width_size">80dp</dimen>
-    <dimen name="live_thumb_nail_image_height_size">60dp</dimen>
+    <dimen name="online_thumb_nail_image_width_size">80dp</dimen>
+    <dimen name="online_thumb_nail_image_height_size">60dp</dimen>
 
-    <dimen name="un_live_profile_image_width_size">50dp</dimen>
-    <dimen name="un_live_profile_image_height_size">50dp</dimen>
+    <dimen name="offline_profile_image_width_size">50dp</dimen>
+    <dimen name="offline_profile_image_height_size">50dp</dimen>
 
     <dimen name="search_profile_image_width_size">100dp</dimen>
     <dimen name="search_profile_image_height_size">100dp</dimen>

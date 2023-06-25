@@ -22,8 +22,8 @@
 
         <ImageView
             android:id="@+id/profile_image_view"
-            android:layout_width="@dimen/un_live_profile_image_width_size"
-            android:layout_height="@dimen/un_live_profile_image_height_size"
+            android:layout_width="@dimen/offline_profile_image_width_size"
+            android:layout_height="@dimen/offline_profile_image_height_size"
             android:layout_marginStart="@dimen/header_start_margin"
             android:layout_marginTop="@dimen/header_top_margin"
             android:layout_marginBottom="@dimen/header_bottom_margin"
