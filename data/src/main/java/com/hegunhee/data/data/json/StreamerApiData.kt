@@ -20,9 +20,9 @@ import com.squareup.moshi.JsonClass
 @JsonClass(generateAdapter = true)
 data class StreamerApiData(
     @Json(name = "id") val id: String,
-    @Json(name = "login") val login: String,
+    @Json(name = "login") val streamerId: String,
     @Json(name = "type") val type: String,
-    @Json(name = "display_name") val displayName: String,
+    @Json(name = "display_name") val streamerName: String,
     @Json(name = "broadcaster_type") val broadcasterType: String,
     @Json(name = "description") val description: String,
     @Json(name = "profile_image_url") val profileImageUrl: String,
