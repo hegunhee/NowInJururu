@@ -38,8 +38,8 @@ fun StreamDataType.OnlineData.toOnlineStreamer() : StreamerViewType.OnlineStream
 
 fun StreamDataType.OfflineData.toOfflineStreamer() : StreamerViewType.OfflineStreamer {
     return StreamerViewType.OfflineStreamer(
-        userLogin = userLogin,
-        userName = userName,
+        userLogin = streamerId,
+        userName = streamerName,
         profileUrl = profileUrl
     )
 }

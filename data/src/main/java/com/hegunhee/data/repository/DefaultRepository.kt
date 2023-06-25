@@ -22,7 +22,7 @@ class DefaultRepository @Inject constructor(
             val jururuInfo = remoteDataSource.getStreamerDataResponse(streamerLogin = arrayOf<String>(jururuId),token = token).streamerApiDataList[0]
             val jururuStreamDataResponse = remoteDataSource.getStreamDataResponse(userLogin = jururuInfo.streamerId,token = token)
             if(jururuStreamDataResponse.streamApiData.isEmpty()){
-                StreamDataType.OfflineData(userLogin = jururuInfo.streamerId,userName =jururuInfo.streamerName,profileUrl = jururuInfo.profileImageUrl)
+                StreamDataType.OfflineData(streamerId = jururuInfo.streamerId,streamerName =jururuInfo.streamerName,profileUrl = jururuInfo.profileImageUrl)
             }else{
                 jururuStreamDataResponse.streamApiData[0].toStreamData(jururuInfo.profileImageUrl)
             }
@@ -42,7 +42,7 @@ class DefaultRepository @Inject constructor(
                 return@map if(streamData.isNotEmpty()){
                     streamData[0].toStreamData(streamerInfo.profileImageUrl)
                 }else{
-                    StreamDataType.OfflineData(userLogin = streamerInfo.streamerId,userName = streamerInfo.streamerName,profileUrl = streamerInfo.profileImageUrl)
+                    StreamDataType.OfflineData(streamerId = streamerInfo.streamerId,streamerName = streamerInfo.streamerName,profileUrl = streamerInfo.profileImageUrl)
                 }
             }
         }
