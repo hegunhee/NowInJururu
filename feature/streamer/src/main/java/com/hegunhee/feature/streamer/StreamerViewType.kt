@@ -3,9 +3,9 @@ package com.hegunhee.feature.streamer
 
 sealed class StreamerViewType {
 
-    data class LiveStreamerHeader(val size : Int) : StreamerViewType()
+    data class OnlineStreamerHeader(val size : Int) : StreamerViewType()
 
-    data class LiveStreamer(
+    data class OnlineStreamer(
         val gameId: String,
         val gameName: String,
         val id: String,
@@ -23,7 +23,7 @@ sealed class StreamerViewType {
         val viewerCount: String
     ) : StreamerViewType()
 
-    data class UnLiveStreamerHeader(val size : Int) : StreamerViewType()
+    data class OfflineStreamerHeader(val size : Int) : StreamerViewType()
 
-    data class UnLiveStreamer(val userLogin : String,val userName : String,val profileUrl : String) : StreamerViewType()
+    data class OfflineStreamer(val userLogin : String, val userName : String, val profileUrl : String) : StreamerViewType()
 }

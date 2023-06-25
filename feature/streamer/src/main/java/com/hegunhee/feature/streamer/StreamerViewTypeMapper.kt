@@ -6,18 +6,18 @@ fun List<StreamDataType>.toStreamViewTypeData() : List<StreamerViewType> {
     val streamData = this
     val streamerViewTypeList = mutableListOf<StreamerViewType>()
     if(streamData.any { it is StreamDataType.OnlineData }) {
-        streamerViewTypeList.add(StreamerViewType.LiveStreamerHeader(streamData.filterIsInstance<StreamDataType.OnlineData>().size))
+        streamerViewTypeList.add(StreamerViewType.OnlineStreamerHeader(streamData.filterIsInstance<StreamDataType.OnlineData>().size))
     }
-    streamerViewTypeList.addAll(streamData.filterIsInstance<StreamDataType.OnlineData>().map { it.toLiveStreamer() })
+    streamerViewTypeList.addAll(streamData.filterIsInstance<StreamDataType.OnlineData>().map { it.toOnlineStreamer() })
     if(streamData.any{it is StreamDataType.OfflineData}){
-        streamerViewTypeList.add(StreamerViewType.UnLiveStreamerHeader(streamData.filterIsInstance<StreamDataType.OfflineData>().size))
+        streamerViewTypeList.add(StreamerViewType.OfflineStreamerHeader(streamData.filterIsInstance<StreamDataType.OfflineData>().size))
     }
-    streamerViewTypeList.addAll(streamData.filterIsInstance<StreamDataType.OfflineData>().map { it.toUnLiveStreamer() })
+    streamerViewTypeList.addAll(streamData.filterIsInstance<StreamDataType.OfflineData>().map { it.toOfflineStreamer() })
     return streamerViewTypeList
 }
 
-fun StreamDataType.OnlineData.toLiveStreamer() : StreamerViewType.LiveStreamer {
-    return StreamerViewType.LiveStreamer(
+fun StreamDataType.OnlineData.toOnlineStreamer() : StreamerViewType.OnlineStreamer {
+    return StreamerViewType.OnlineStreamer(
         gameId = gameId,
         gameName = gameName,
         id = id,
@@ -36,8 +36,8 @@ fun StreamDataType.OnlineData.toLiveStreamer() : StreamerViewType.LiveStreamer {
     )
 }
 
-fun StreamDataType.OfflineData.toUnLiveStreamer() : StreamerViewType.UnLiveStreamer {
-    return StreamerViewType.UnLiveStreamer(
+fun StreamDataType.OfflineData.toOfflineStreamer() : StreamerViewType.OfflineStreamer {
+    return StreamerViewType.OfflineStreamer(
         userLogin = userLogin,
         userName = userName,
         profileUrl = profileUrl
