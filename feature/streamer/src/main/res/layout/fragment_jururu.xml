@@ -30,7 +30,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:listitem="@layout/item_un_live_streamer"
+            tools:listitem="@layout/item_offline_streamer"
             app:layout_constraintTop_toBottomOf="@id/jururu_text"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

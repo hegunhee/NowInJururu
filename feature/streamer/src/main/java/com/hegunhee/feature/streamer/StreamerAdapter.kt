@@ -6,10 +6,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.DiffUtil
-import com.hegunhee.feature.streamer.databinding.ItemLiveStreamerBinding
-import com.hegunhee.feature.streamer.databinding.ItemLiveStreamerHeaderBinding
-import com.hegunhee.feature.streamer.databinding.ItemUnLiveStreamerBinding
-import com.hegunhee.feature.streamer.databinding.ItemUnLiveStreamerHeaderBinding
+import com.hegunhee.feature.streamer.databinding.ItemOfflineStreamerBinding
+import com.hegunhee.feature.streamer.databinding.ItemOfflineStreamerHeaderBinding
+import com.hegunhee.feature.streamer.databinding.ItemOnlineStreamerBinding
+import com.hegunhee.feature.streamer.databinding.ItemOnlineStreamerHeaderBinding
 
 class StreamerAdapter(private val actionHandler : StreamActionHandler) : ListAdapter<StreamerViewType,StreamerAdapter.StreamerAdapterViewHolder>(DiffUtil) {
 
@@ -18,7 +18,7 @@ class StreamerAdapter(private val actionHandler : StreamActionHandler) : ListAda
 
     }
 
-    inner class LiveStreamerHeaderViewHolder(private val binding : ItemLiveStreamerHeaderBinding) : StreamerAdapterViewHolder(binding.root) {
+    inner class LiveStreamerHeaderViewHolder(private val binding : ItemOnlineStreamerHeaderBinding) : StreamerAdapterViewHolder(binding.root) {
         override fun bindView(data: StreamerViewType) {
             val liveHeader = data as StreamerViewType.OnlineStreamerHeader
             binding.size = liveHeader.size.toString()
@@ -26,7 +26,7 @@ class StreamerAdapter(private val actionHandler : StreamActionHandler) : ListAda
         }
     }
 
-    inner class UnLiveStreamerHeaderViewHolder(private val binding : ItemUnLiveStreamerHeaderBinding) : StreamerAdapterViewHolder(binding.root) {
+    inner class UnLiveStreamerHeaderViewHolder(private val binding : ItemOfflineStreamerHeaderBinding) : StreamerAdapterViewHolder(binding.root) {
         override fun bindView(data: StreamerViewType) {
             val unLiveHeader = data as StreamerViewType.OfflineStreamerHeader
             binding.size = unLiveHeader.size.toString()
@@ -34,19 +34,19 @@ class StreamerAdapter(private val actionHandler : StreamActionHandler) : ListAda
         }
     }
 
-    inner class LiveStreamerViewHolder(private val binding : ItemLiveStreamerBinding) : StreamerAdapterViewHolder(binding.root){
+    inner class LiveStreamerViewHolder(private val binding : ItemOnlineStreamerBinding) : StreamerAdapterViewHolder(binding.root){
         override fun bindView(data: StreamerViewType) {
             val liveStreamData = data as StreamerViewType.OnlineStreamer
-            binding.liveStreamData = liveStreamData
+            binding.onlineStreamData = liveStreamData
             binding.actionHandler = actionHandler
             binding.executePendingBindings()
         }
     }
 
-    inner class UnLiveStreamerViewHolder(private val binding : ItemUnLiveStreamerBinding) : StreamerAdapterViewHolder(binding.root){
+    inner class UnLiveStreamerViewHolder(private val binding : ItemOfflineStreamerBinding) : StreamerAdapterViewHolder(binding.root){
         override fun bindView(data: StreamerViewType) {
             val unLiveStreamData = data as StreamerViewType.OfflineStreamer
-            binding.unLiveStreamData = unLiveStreamData
+            binding.offlineStreamData = unLiveStreamData
             binding.actionHandler = actionHandler
             binding.executePendingBindings()
         }
@@ -54,17 +54,17 @@ class StreamerAdapter(private val actionHandler : StreamActionHandler) : ListAda
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StreamerAdapterViewHolder {
         return when(viewType){
-            R.layout.item_live_streamer_header -> {
-                LiveStreamerHeaderViewHolder(ItemLiveStreamerHeaderBinding.inflate(LayoutInflater.from(parent.context),parent,false))
+            R.layout.item_online_streamer_header -> {
+                LiveStreamerHeaderViewHolder(ItemOnlineStreamerHeaderBinding.inflate(LayoutInflater.from(parent.context),parent,false))
             }
-            R.layout.item_live_streamer ->{
-                LiveStreamerViewHolder(ItemLiveStreamerBinding.inflate(LayoutInflater.from(parent.context),parent,false))
+            R.layout.item_online_streamer ->{
+                LiveStreamerViewHolder(ItemOnlineStreamerBinding.inflate(LayoutInflater.from(parent.context),parent,false))
             }
-            R.layout.item_un_live_streamer_header -> {
-                UnLiveStreamerHeaderViewHolder(ItemUnLiveStreamerHeaderBinding.inflate(LayoutInflater.from(parent.context),parent,false))
+            R.layout.item_offline_streamer_header -> {
+                UnLiveStreamerHeaderViewHolder(ItemOfflineStreamerHeaderBinding.inflate(LayoutInflater.from(parent.context),parent,false))
             }
-            R.layout.item_un_live_streamer -> {
-                UnLiveStreamerViewHolder(ItemUnLiveStreamerBinding.inflate(LayoutInflater.from(parent.context),parent,false))
+            R.layout.item_offline_streamer -> {
+                UnLiveStreamerViewHolder(ItemOfflineStreamerBinding.inflate(LayoutInflater.from(parent.context),parent,false))
             }
             else -> { throw IllegalArgumentException()}
         }
@@ -76,10 +76,10 @@ class StreamerAdapter(private val actionHandler : StreamActionHandler) : ListAda
 
     override fun getItemViewType(position: Int): Int {
         return when (getItem(position)){
-            is StreamerViewType.OnlineStreamerHeader -> R.layout.item_live_streamer_header
-            is StreamerViewType.OnlineStreamer -> R.layout.item_live_streamer
-            is StreamerViewType.OfflineStreamerHeader -> R.layout.item_un_live_streamer_header
-            is StreamerViewType.OfflineStreamer -> R.layout.item_un_live_streamer
+            is StreamerViewType.OnlineStreamerHeader -> R.layout.item_online_streamer_header
+            is StreamerViewType.OnlineStreamer -> R.layout.item_online_streamer
+            is StreamerViewType.OfflineStreamerHeader -> R.layout.item_offline_streamer_header
+            is StreamerViewType.OfflineStreamer -> R.layout.item_offline_streamer
         }
     }
 }
