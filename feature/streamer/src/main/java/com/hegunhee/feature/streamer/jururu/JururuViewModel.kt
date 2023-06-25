@@ -5,6 +5,9 @@ import androidx.lifecycle.viewModelScope
 import com.hegunhee.domain.model.StreamDataType
 import com.hegunhee.domain.usecase.GetJururuStreamDataUseCase
 import com.hegunhee.feature.streamer.StreamActionHandler
+import com.hegunhee.feature.streamer.StreamerViewType
+import com.hegunhee.feature.streamer.toLiveStreamer
+import com.hegunhee.feature.streamer.toUnLiveStreamer
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -13,8 +16,8 @@ import javax.inject.Inject
 @HiltViewModel
 class JururuViewModel @Inject constructor(private val getJururuStreamDataUseCase: GetJururuStreamDataUseCase) : ViewModel(), StreamActionHandler {
 
-    private val _jururuStreamData : MutableStateFlow<StreamDataType> = MutableStateFlow(StreamDataType.EmptyData("","",""))
-    val jururuStreamData : StateFlow<StreamDataType> = _jururuStreamData.asStateFlow()
+    private val _jururuStreamData : MutableStateFlow<StreamerViewType> = MutableStateFlow(StreamerViewType.UnLiveStreamer("","",""))
+    val jururuStreamData : StateFlow<StreamerViewType> = _jururuStreamData.asStateFlow()
 
     private val _navigateStreamerTwitch : MutableSharedFlow<String> = MutableSharedFlow()
     val navigateStreamerTwitch : SharedFlow<String> = _navigateStreamerTwitch.asSharedFlow()
@@ -23,7 +26,12 @@ class JururuViewModel @Inject constructor(private val getJururuStreamDataUseCase
         viewModelScope.launch {
             getJururuStreamDataUseCase()
                 .onSuccess {
-                    _jururuStreamData.emit(it)
+                    if(it is StreamDataType.StreamData) {
+                        _jururuStreamData.emit(it.toLiveStreamer())
+                    }else if(it is StreamDataType.EmptyData){
+                        _jururuStreamData.emit(it.toUnLiveStreamer())
+                    }
+
                 }
                 .onFailure {  }
         }
