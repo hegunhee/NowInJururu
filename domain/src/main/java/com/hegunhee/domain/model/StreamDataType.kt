@@ -18,8 +18,8 @@ sealed class StreamDataType() {
         val title: String,
         val type: String,
         val userId: String,
-        val userLogin: String,
-        val userName: String,
+        val streamerId: String,
+        val streamerName: String,
         val viewerCount: String
     ) : StreamDataType()
 

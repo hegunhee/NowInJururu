@@ -30,8 +30,8 @@ fun StreamDataType.OnlineData.toOnlineStreamer() : StreamerViewType.OnlineStream
         title = title,
         type = type,
         userId = userId,
-        userLogin = userLogin,
-        userName = userName,
+        userLogin = streamerId,
+        userName = streamerName,
         viewerCount = viewerCount
     )
 }
