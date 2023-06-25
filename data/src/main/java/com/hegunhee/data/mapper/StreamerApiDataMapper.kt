@@ -4,7 +4,7 @@ import com.hegunhee.data.database.entity.StreamerEntity
 import com.hegunhee.domain.model.StreamerData
 
 fun StreamerEntity.toStreamerData() : StreamerData {
-    return StreamerData(streamerLogin = streamerLogin,isAlert = isAlert)
+    return StreamerData(streamerId = streamerLogin,isAlert = isAlert)
 }
 
 fun List<StreamerEntity>.toStreamerDataList() : List<StreamerData> {
@@ -12,5 +12,5 @@ fun List<StreamerEntity>.toStreamerDataList() : List<StreamerData> {
 }
 
 fun StreamerData.toStreamerEntity() : StreamerEntity {
-    return StreamerEntity(streamerLogin = streamerLogin, isAlert = isAlert)
+    return StreamerEntity(streamerLogin = streamerId, isAlert = isAlert)
 }
