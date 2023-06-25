@@ -20,8 +20,8 @@ import com.squareup.moshi.JsonClass
 @JsonClass(generateAdapter = true)
 data class SearchApiData(
     @Json(name = "broadcaster_language") val broadcasterLanguage: String,
-    @Json(name = "broadcaster_login") val broadcasterLogin: String,
-    @Json(name = "display_name") val displayName: String,
+    @Json(name = "broadcaster_login") val streamerId: String,
+    @Json(name = "display_name") val streamerName: String,
     @Json(name = "game_id") val notUseGameId: String,
     @Json(name = "game_name") val gameName: String,
     @Json(name = "id")val id: String,
