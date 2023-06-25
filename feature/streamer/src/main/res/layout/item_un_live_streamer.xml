@@ -12,13 +12,13 @@
             />
 
         <variable
-            name="unLiveStreamData"
+            name="offlineStreamData"
             type="com.hegunhee.feature.streamer.StreamerViewType.OfflineStreamer" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="@{() -> actionHandler.onClickTwitchStreamerItem(unLiveStreamData.userLogin)}">
+        android:onClick="@{() -> actionHandler.onClickTwitchStreamerItem(offlineStreamData.userLogin)}">
 
         <ImageView
             android:id="@+id/profile_image_view"
@@ -30,7 +30,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:setImage="@{unLiveStreamData.profileUrl}" />
+            app:setImage="@{offlineStreamData.profileUrl}" />
 
         <TextView
             android:id="@+id/streamer_name"
@@ -39,7 +39,7 @@
             android:layout_marginStart="@dimen/item_between_start_margin"
             android:ellipsize="end"
             android:maxLines="1"
-            android:text="@{unLiveStreamData.userName}"
+            android:text="@{offlineStreamData.userName}"
             android:textColor="@color/black"
             android:textSize="@dimen/streamer_name_text_size"
             android:textStyle="bold"
@@ -58,7 +58,7 @@
             app:layout_constraintBottom_toBottomOf="@id/profile_image_view"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/profile_image_view"
-            android:onClick="@{() -> actionHandler.onClickMoreMenuButton(unLiveStreamData.userLogin)}"/>
+            android:onClick="@{() -> actionHandler.onClickMoreMenuButton(offlineStreamData.userLogin)}"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
