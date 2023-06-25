@@ -23,8 +23,8 @@
 
         <ImageView
             android:id="@+id/thumb_nail_image_view"
-            android:layout_width="@dimen/live_thumb_nail_image_width_size"
-            android:layout_height="@dimen/live_thumb_nail_image_height_size"
+            android:layout_width="@dimen/online_thumb_nail_image_width_size"
+            android:layout_height="@dimen/online_thumb_nail_image_height_size"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="@dimen/item_start_margin"
