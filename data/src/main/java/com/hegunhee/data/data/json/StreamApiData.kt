@@ -40,7 +40,7 @@ data class StreamApiData(
     @Json(name = "title")val title: String,
     @Json(name = "type")val type: String,
     @Json(name = "user_id")val userId: String,
-    @Json(name = "user_login")val userLogin: String,
-    @Json(name = "user_name")val userName: String,
+    @Json(name = "user_login")val streamerId: String,
+    @Json(name = "user_name")val streamerName: String,
     @Json(name = "viewer_count")val viewerCount: Int
 )
