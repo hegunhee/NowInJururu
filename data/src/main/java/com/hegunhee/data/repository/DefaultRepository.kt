@@ -20,9 +20,9 @@ class DefaultRepository @Inject constructor(
         return runCatching {
             val token = remoteDataSource.getAuthToken().getFormattedToken()
             val jururuInfo = remoteDataSource.getStreamerDataResponse(streamerLogin = arrayOf<String>(jururuId),token = token).streamerApiDataList[0]
-            val jururuStreamDataResponse = remoteDataSource.getStreamDataResponse(userLogin = jururuInfo.login,token = token)
+            val jururuStreamDataResponse = remoteDataSource.getStreamDataResponse(userLogin = jururuInfo.streamerId,token = token)
             if(jururuStreamDataResponse.streamApiData.isEmpty()){
-                StreamDataType.OfflineData(userLogin = jururuInfo.login,userName =jururuInfo.displayName,profileUrl = jururuInfo.profileImageUrl)
+                StreamDataType.OfflineData(userLogin = jururuInfo.streamerId,userName =jururuInfo.streamerName,profileUrl = jururuInfo.profileImageUrl)
             }else{
                 jururuStreamDataResponse.streamApiData[0].toStreamData(jururuInfo.profileImageUrl)
             }
@@ -38,11 +38,11 @@ class DefaultRepository @Inject constructor(
             }
             val streamerInfoList = remoteDataSource.getStreamerDataResponse(streamerLogin = loadedStreamerLoginArray,token = token).streamerApiDataList
             streamerInfoList.map{ streamerInfo ->
-                val streamData = remoteDataSource.getStreamDataResponse(userLogin = streamerInfo.login,token = token).streamApiData
+                val streamData = remoteDataSource.getStreamDataResponse(userLogin = streamerInfo.streamerId,token = token).streamApiData
                 return@map if(streamData.isNotEmpty()){
                     streamData[0].toStreamData(streamerInfo.profileImageUrl)
                 }else{
-                    StreamDataType.OfflineData(userLogin = streamerInfo.login,userName = streamerInfo.displayName,profileUrl = streamerInfo.profileImageUrl)
+                    StreamDataType.OfflineData(userLogin = streamerInfo.streamerId,userName = streamerInfo.streamerName,profileUrl = streamerInfo.profileImageUrl)
                 }
             }
         }

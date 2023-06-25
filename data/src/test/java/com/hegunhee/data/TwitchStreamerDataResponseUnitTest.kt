@@ -42,7 +42,7 @@ class TwitchStreamerDataResponseUnitTest {
                 streamerApi.getStreamerData(authorization = token,userLogin =streamer.toTypedArray())
             }.onSuccess {response ->
                 println(response.toString())
-                if(response.streamerApiDataList[0].displayName == "주르르"){
+                if(response.streamerApiDataList[0].streamerName == "주르르"){
                     assert(true)
                 }else{
                     assert(false)
@@ -63,7 +63,7 @@ class TwitchStreamerDataResponseUnitTest {
                 streamerApi.getStreamerData(authorization = token,userLogin =streamer.toTypedArray())
             }.onSuccess {response ->
                 println(response.toString())
-                val displayNameList = response.streamerApiDataList.map { it.displayName }
+                val displayNameList = response.streamerApiDataList.map { it.streamerName }
                 if(displayNameList[0] == "주르르" && displayNameList[1] == "비챤_"){
                     assert(true)
                 }else{
