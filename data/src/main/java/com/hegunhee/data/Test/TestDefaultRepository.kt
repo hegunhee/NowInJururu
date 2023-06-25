@@ -17,7 +17,7 @@ class TestDefaultRepository @Inject constructor(
             val token = remoteDataSource.getAuthToken().getFormattedToken()
             val response = remoteDataSource.getStreamDataResponse(userLogin = userLogin,token = token)
             if(response.streamApiData.isEmpty()){
-                StreamDataType.EmptyData("","","")
+                StreamDataType.OfflineData("","","")
             }else{
                 response.streamApiData[0].toStreamData("")
             }
