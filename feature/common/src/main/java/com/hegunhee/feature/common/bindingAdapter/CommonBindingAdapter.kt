@@ -15,12 +15,10 @@ fun ImageView.setImage(url : String){
             .resize(this.width,this.height)
             .into(this)
     }
-
 }
 
 @BindingAdapter("setTags")
 fun RecyclerView.setTag(tags :List<String>){
-
     adapter = TagAdapter().apply {
         submitList(tags)
     }
