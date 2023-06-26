@@ -22,7 +22,6 @@ class StreamerAdapter(private val actionHandler : StreamActionHandler) : ListAda
         override fun bindView(data: StreamerViewType) {
             val liveHeader = data as StreamerViewType.OnlineStreamerHeader
             binding.size = liveHeader.size.toString()
-            binding.executePendingBindings()
         }
     }
 
@@ -30,7 +29,6 @@ class StreamerAdapter(private val actionHandler : StreamActionHandler) : ListAda
         override fun bindView(data: StreamerViewType) {
             val unLiveHeader = data as StreamerViewType.OfflineStreamerHeader
             binding.size = unLiveHeader.size.toString()
-            binding.executePendingBindings()
         }
     }
 
@@ -39,7 +37,6 @@ class StreamerAdapter(private val actionHandler : StreamActionHandler) : ListAda
             val liveStreamData = data as StreamerViewType.OnlineStreamer
             binding.onlineStreamData = liveStreamData
             binding.actionHandler = actionHandler
-            binding.executePendingBindings()
         }
     }
 
@@ -48,7 +45,6 @@ class StreamerAdapter(private val actionHandler : StreamActionHandler) : ListAda
             val unLiveStreamData = data as StreamerViewType.OfflineStreamer
             binding.offlineStreamData = unLiveStreamData
             binding.actionHandler = actionHandler
-            binding.executePendingBindings()
         }
     }
 
