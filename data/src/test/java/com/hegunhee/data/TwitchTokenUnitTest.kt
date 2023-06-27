@@ -2,25 +2,17 @@ package com.hegunhee.data
 
 import com.hegunhee.data.network.TwitchAuthTokenApi
 import com.hegunhee.data.network.TwitchAuthTokenBaseUrl
-import com.squareup.moshi.Moshi
-import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Test
-import retrofit2.Retrofit
-import retrofit2.converter.moshi.MoshiConverterFactory
 
 
 class TwitchTokenUnitTest {
-    private lateinit var moshi : Moshi
     private lateinit var tokenApi : TwitchAuthTokenApi
     @Before
     fun initMoshiAndRetrofit()  {
-        moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
-        tokenApi = Retrofit.Builder().baseUrl(TwitchAuthTokenBaseUrl)
-            .addConverterFactory(MoshiConverterFactory.create(moshi))
-            .build()
-            .create(TwitchAuthTokenApi::class.java)
+        val moshi = getMoshi()
+        tokenApi = getRetrofit(moshi = moshi,baseUrl = TwitchAuthTokenBaseUrl).getTokenApi()
     }
     @Test
     fun `get twitch token test`() {

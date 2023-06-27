@@ -4,31 +4,19 @@ import com.hegunhee.data.network.TwitchAuthTokenApi
 import com.hegunhee.data.network.TwitchAuthTokenBaseUrl
 import com.hegunhee.data.network.TwitchStreamDataApi
 import com.hegunhee.data.network.TwitchGetBaseUrl
-import com.squareup.moshi.Moshi
-import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Test
-import retrofit2.Retrofit
-import retrofit2.converter.moshi.MoshiConverterFactory
-
 class TwitchStreamApiDataResponseUnitTest {
 
-    private lateinit var moshi : Moshi
     private lateinit var tokenApi : TwitchAuthTokenApi
     private lateinit var streamDataApi : TwitchStreamDataApi
 
     @Before
     fun initMoshiAndRetrofit()  {
-        moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
-        tokenApi = Retrofit.Builder().baseUrl(TwitchAuthTokenBaseUrl)
-            .addConverterFactory(MoshiConverterFactory.create(moshi))
-            .build()
-            .create(TwitchAuthTokenApi::class.java)
-        streamDataApi = Retrofit.Builder().baseUrl(TwitchGetBaseUrl)
-            .addConverterFactory(MoshiConverterFactory.create(moshi))
-            .build()
-            .create(TwitchStreamDataApi::class.java)
+        val moshi = getMoshi()
+        tokenApi = getRetrofit(moshi = moshi, baseUrl = TwitchAuthTokenBaseUrl).getTokenApi()
+        streamDataApi = getRetrofit(moshi = moshi,baseUrl = TwitchGetBaseUrl).getStreamApi()
     }
 
     @Test
