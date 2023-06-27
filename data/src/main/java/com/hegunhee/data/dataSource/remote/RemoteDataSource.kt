@@ -16,4 +16,6 @@ interface RemoteDataSource {
     suspend fun getSearchDataResponse(streamerName : String,token : String) : SearchApiDataResponse
 
     suspend fun getStreamerDataResponse(vararg streamerLogin : String,token : String) : StreamerApiDataResponse
+
+    suspend fun getGameStreamDataResponse(gameId : String,token : String) : StreamApiDataResponse
 }
