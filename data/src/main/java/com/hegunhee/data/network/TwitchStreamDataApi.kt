@@ -14,4 +14,22 @@ interface TwitchStreamDataApi {
         @Header("Authorization") authorization : String,
         @Query("user_login") userLogin : String
     ) : StreamApiDataResponse
+
+
+    /**
+     * game_id = String타입의 숫자 "19976"
+     * type : "all" (default), "live"
+     * language : "ko"
+     * vararg 가능
+     *
+     * ps) game_name는 게임의 이름 : "mapleStory"
+     */
+    @GET("streams")
+    suspend fun getGameStreamData(
+        @Header("client-id") clientId: String = BuildConfig.clientId,
+        @Header("Authorization") authorization: String,
+        @Query("game_id") gameId: String,
+        @Query("type") type: String = "live",
+        @Query("language") vararg language: String = arrayOf("ko")
+    ) : StreamApiDataResponse
 }
