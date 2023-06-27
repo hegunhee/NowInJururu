@@ -1,31 +1,19 @@
 package com.hegunhee.data
 
 import com.hegunhee.data.network.*
-import com.squareup.moshi.Moshi
-import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Test
-import retrofit2.Retrofit
-import retrofit2.converter.moshi.MoshiConverterFactory
-
 class TwitchSearchDataResponseUnitTest {
 
-    private lateinit var moshi : Moshi
     private lateinit var tokenApi : TwitchAuthTokenApi
     private lateinit var searchApi : TwitchSearchDataApi
 
     @Before
     fun initMoshiAndRetrofit()  {
-        moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
-        tokenApi = Retrofit.Builder().baseUrl(TwitchAuthTokenBaseUrl)
-            .addConverterFactory(MoshiConverterFactory.create(moshi))
-            .build()
-            .create(TwitchAuthTokenApi::class.java)
-        searchApi = Retrofit.Builder().baseUrl(TwitchGetBaseUrl)
-            .addConverterFactory(MoshiConverterFactory.create(moshi))
-            .build()
-            .create(TwitchSearchDataApi::class.java)
+        val moshi = getMoshi()
+        tokenApi = getRetrofit(moshi = moshi,baseUrl = TwitchAuthTokenBaseUrl).getTokenApi()
+        searchApi = getRetrofit(moshi = moshi,baseUrl = TwitchGetBaseUrl).getSearchApi()
     }
 
     @Test
