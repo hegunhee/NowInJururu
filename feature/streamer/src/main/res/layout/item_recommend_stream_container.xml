@@ -41,10 +41,9 @@
             app:layout_constraintTop_toBottomOf="@id/recommend_header_text"
             app:layout_constraintStart_toStartOf="@id/recommend_header_text"
             app:actionHandler="@{actionHandler}"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:orientation="horizontal"
             app:recommendItems="@{containerObject.item}"/>
-
-
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
