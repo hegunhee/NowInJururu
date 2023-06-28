@@ -35,7 +35,7 @@ data class StreamApiData(
     @Json(name = "language")val language: String,
     @Json(name = "started_at")val startedAt: String,
     @Json(name = "tag_ids")val deprecatedTagIds: List<Any> = emptyList(),
-    @Json(name = "tags")val tags: List<String> = emptyList(),
+    @Json(name = "tags")val tags: List<String>? = emptyList(),
     @Json(name = "thumbnail_url")val thumbnailUrl: String,
     @Json(name = "title")val title: String,
     @Json(name = "type")val type: String,

@@ -11,7 +11,7 @@ fun StreamApiData.toStreamData(profileUrl : String): StreamDataType.OnlineData {
         isMature = isMature,
         language = language,
         startedAt = startedAt,
-        tags = tags,
+        tags = tags ?: emptyList(),
         thumbnailUrl = thumbnailUrl.toThumbNailSize(),
         profileUrl = profileUrl,
         title = title,
