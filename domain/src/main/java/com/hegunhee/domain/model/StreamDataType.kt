@@ -30,5 +30,8 @@ sealed class StreamDataType() {
         val TestJururuLiveStreamInfo = OnlineData("123123","발로란트","123123",false,"ko","", listOf("게임","뭐시깽이","뭐시깽이"),"https://static-cdn.jtvnw.net/previews-ttv/live_user_hangyeol8008-300x300.jpg%22",TestJururuProfileUrl,"콘르르","live","123213123","cotton__123","주르르","1231")
         val TestJururuUnLiveStreamInfo = OfflineData(streamerId = "cotton__123", streamerName = "주르르",profileUrl = this.TestJururuProfileUrl)
 
+        val RecommendStreamThumbNailWidth = 250
+        val RecommendStreamThumbNailHeight = 200
+
     }
 }
