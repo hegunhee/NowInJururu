@@ -7,7 +7,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.ConcatAdapter
 import com.hegunhee.feature.common.fragmentResultKeys.streamRequestKey
 import com.hegunhee.feature.common.twitch.handleOpenTwitchApp
@@ -54,28 +56,30 @@ class StreamerFragment : Fragment() {
     }
 
     private fun observeData() {
-        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            launch {
-                viewModel.streamDataList.collect{ streamDataList ->
-                    streamerAdapter.submitList(streamDataList)
-                }
-            }
-            launch {
-                viewModel.recommendStreamDataList.collect{ recommendStreamDataList ->
-                    if(recommendStreamDataList.isNotEmpty()){
-                        recommendStreamAdapter.submitList(RecommendStreamContainerObject.getSingleObject(itemList = recommendStreamDataList))
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED){
+                launch {
+                    viewModel.streamDataList.collect{ streamDataList ->
+                        streamerAdapter.submitList(streamDataList)
                     }
                 }
-            }
-            launch {
-                viewModel.navigateStreamerTwitch.collect{ streamerId ->
-                    requireContext().handleOpenTwitchApp(streamerId)
+                launch {
+                    viewModel.recommendStreamDataList.collect{ recommendStreamDataList ->
+                        if(recommendStreamDataList.isNotEmpty()){
+                            recommendStreamAdapter.submitList(RecommendStreamContainerObject.getSingleObject(itemList = recommendStreamDataList))
+                        }
+                    }
                 }
-            }
-            launch {
-                viewModel.showMoreBottomSheetDialog.collect{ streamerId ->
-                    val moreBottomSheetDialog = MoreBottomDialogFragment.getInstance(streamerId)
-                    moreBottomSheetDialog.show(parentFragmentManager,MoreBottomDialogFragment.TAG)
+                launch {
+                    viewModel.navigateStreamerTwitch.collect{ streamerId ->
+                        requireContext().handleOpenTwitchApp(streamerId)
+                    }
+                }
+                launch {
+                    viewModel.showMoreBottomSheetDialog.collect{ streamerId ->
+                        val moreBottomSheetDialog = MoreBottomDialogFragment.getInstance(streamerId)
+                        moreBottomSheetDialog.show(parentFragmentManager,MoreBottomDialogFragment.TAG)
+                    }
                 }
             }
         }
