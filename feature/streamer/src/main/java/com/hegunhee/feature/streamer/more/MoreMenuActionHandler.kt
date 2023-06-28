@@ -1,4 +1,4 @@
-package com.hegunhee.feature.streamer
+package com.hegunhee.feature.streamer.more
 
 interface MoreMenuActionHandler {
 
