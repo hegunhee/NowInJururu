@@ -22,6 +22,7 @@ class StreamerFragment : Fragment() {
     private lateinit var viewDataBinding : FragmentStreamerBinding
     private val viewModel : StreamerViewModel by viewModels()
     private lateinit var streamerAdapter: StreamerAdapter
+    private lateinit var gameStreamAdapter : GameStreamAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -30,8 +31,10 @@ class StreamerFragment : Fragment() {
     ): View? {
         val root = inflater.inflate(R.layout.fragment_streamer,container,false)
         streamerAdapter = StreamerAdapter(viewModel)
+        gameStreamAdapter = GameStreamAdapter(viewModel)
         viewDataBinding = FragmentStreamerBinding.bind(root).apply {
             streamerRecyclerview.adapter = streamerAdapter
+            gameStreamRecyclerView.adapter = gameStreamAdapter
             lifecycleOwner = viewLifecycleOwner
         }
         return root
@@ -51,6 +54,11 @@ class StreamerFragment : Fragment() {
             launch {
                 viewModel.streamDataList.collect{ streamDataList ->
                     streamerAdapter.submitList(streamDataList)
+                }
+            }
+            launch {
+                viewModel.gameStreamDataList.collect{ gameStreamDataList ->
+                    gameStreamAdapter.submitList(gameStreamDataList)
                 }
             }
             launch {
