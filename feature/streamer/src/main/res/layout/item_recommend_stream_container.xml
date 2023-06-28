@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="actionHandler"
+            type="com.hegunhee.feature.streamer.StreamActionHandler" />
+        
+    </data>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="@dimen/header_start_margin"
+        android:paddingTop="@dimen/header_top_margin"
+        android:paddingEnd="@dimen/header_end_margin"
+        android:paddingBottom="@dimen/header_bottom_margin">
+
+        <TextView
+            android:id="@+id/recommend_header_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/recommend_channel"
+            android:textColor="@color/black"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recommend_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/header_top_margin"
+            app:layout_constraintTop_toBottomOf="@id/recommend_header_text"
+            app:layout_constraintStart_toStartOf="@id/recommend_header_text"/>
+
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
