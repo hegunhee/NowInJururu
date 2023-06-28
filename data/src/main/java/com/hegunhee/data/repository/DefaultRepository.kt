@@ -7,6 +7,8 @@ import com.hegunhee.data.mapper.toStreamData
 import com.hegunhee.data.mapper.toStreamerEntity
 import com.hegunhee.domain.model.SearchData
 import com.hegunhee.domain.model.StreamDataType
+import com.hegunhee.domain.model.StreamDataType.Companion.RecommendStreamThumbNailHeight
+import com.hegunhee.domain.model.StreamDataType.Companion.RecommendStreamThumbNailWidth
 import com.hegunhee.domain.model.StreamerData
 import com.hegunhee.domain.repository.Repository
 import javax.inject.Inject
@@ -57,7 +59,7 @@ class DefaultRepository @Inject constructor(
             }
             val streamerInfoList = remoteDataSource.getStreamerDataResponse(streamerLogin = gameStreamList.map { it.streamerId }.toTypedArray(),token = token).streamerApiDataList
             return@runCatching gameStreamList.mapIndexed { index, streamApiData ->
-                streamApiData.toStreamData(streamerInfoList[index].profileImageUrl)
+                streamApiData.toStreamData(streamerInfoList[index].profileImageUrl,RecommendStreamThumbNailWidth, RecommendStreamThumbNailHeight)
             }
         }
     }

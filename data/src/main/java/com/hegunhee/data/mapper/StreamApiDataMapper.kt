@@ -3,7 +3,7 @@ package com.hegunhee.data.mapper
 import com.hegunhee.data.data.json.StreamApiData
 import com.hegunhee.domain.model.StreamDataType
 
-fun StreamApiData.toStreamData(profileUrl : String): StreamDataType.OnlineData {
+fun StreamApiData.toStreamData(profileUrl : String,thumbNailWidth : Int = 100, thumbNailHeight : Int = 100): StreamDataType.OnlineData {
     return StreamDataType.OnlineData(
         gameId = gameId,
         gameName = gameName,
@@ -12,7 +12,7 @@ fun StreamApiData.toStreamData(profileUrl : String): StreamDataType.OnlineData {
         language = language,
         startedAt = startedAt,
         tags = tags ?: emptyList(),
-        thumbnailUrl = thumbnailUrl.toThumbNailSize(),
+        thumbnailUrl = thumbnailUrl.toThumbNailSize(width = thumbNailWidth,height = thumbNailHeight),
         profileUrl = profileUrl,
         title = title,
         type = type,
@@ -23,8 +23,8 @@ fun StreamApiData.toStreamData(profileUrl : String): StreamDataType.OnlineData {
     )
 }
 
-fun String.toThumbNailSize(size : Int = 100) : String{
-    return this.replace("{width}","$size").replace("{height}","$size")
+fun String.toThumbNailSize(width : Int = 100, height : Int = 100) : String{
+    return this.replace("{width}","$width").replace("{height}","$height")
 }
 fun String.toSmallProfileSize(size : Int = 30) : String {
     return this.replace("{width}","$size").replace("{height}","$size")
