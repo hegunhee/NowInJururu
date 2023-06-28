@@ -8,7 +8,11 @@
         <variable
             name="actionHandler"
             type="com.hegunhee.feature.streamer.StreamActionHandler" />
-        
+
+        <variable
+            name="containerObject"
+            type="com.hegunhee.feature.streamer.RecommendStreamContainerObject" />
+
     </data>
 
 
@@ -35,7 +39,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/header_top_margin"
             app:layout_constraintTop_toBottomOf="@id/recommend_header_text"
-            app:layout_constraintStart_toStartOf="@id/recommend_header_text"/>
+            app:layout_constraintStart_toStartOf="@id/recommend_header_text"
+            app:actionHandler="@{actionHandler}"
+            app:recommendItems="@{containerObject.item}"/>
 
 
 
