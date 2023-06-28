@@ -38,4 +38,11 @@ internal object recommend_container_diff_util : DiffUtil.ItemCallback<RecommendS
 
 }
 
-data class RecommendStreamContainerObject(val item : List<StreamerViewType.OnlineStreamer>)
+data class RecommendStreamContainerObject(val item : List<StreamerViewType.OnlineStreamer>) {
+
+    companion object {
+        fun getSingleObject(itemList : List<StreamerViewType.OnlineStreamer>) : List<RecommendStreamContainerObject> {
+            return listOf<RecommendStreamContainerObject>(RecommendStreamContainerObject(itemList))
+        }
+    }
+}
