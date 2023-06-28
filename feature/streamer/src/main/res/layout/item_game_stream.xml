@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="actionHandler"
+            type="com.hegunhee.feature.streamer.StreamActionHandler" />
+
+        <variable
+            name="onlineStreamData"
+            type="com.hegunhee.feature.streamer.StreamerViewType.OnlineStreamer" />
+    </data>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingStart="@dimen/header_start_margin"
+        android:paddingTop="@dimen/header_top_margin"
+        android:paddingEnd="@dimen/header_end_margin"
+        android:paddingBottom="@dimen/header_bottom_margin"
+        android:onClick="@{() -> actionHandler.onClickTwitchStreamerItem(onlineStreamData.userLogin)}">
+
+        <ImageView
+            android:id="@+id/thumbnail_image_view"
+            android:layout_width="250dp"
+            android:layout_height="200dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:setImage="@{onlineStreamData.thumbnailUrl}" />
+
+        <TextView
+            android:id="@+id/total_viewer_count_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/item_between_small_start_margin"
+            android:layout_marginBottom="@dimen/item_between_small_bottom_margin"
+            android:background="@drawable/border_text_5dp"
+            android:backgroundTint="@color/black"
+            android:text="@{ `총 시청자` + onlineStreamData.viewerCount + `명`}"
+            android:textColor="@color/white"
+            android:textSize="11sp"
+            app:layout_constraintBottom_toBottomOf="@id/thumbnail_image_view"
+            app:layout_constraintStart_toStartOf="@id/thumbnail_image_view"
+            tools:text="총 시청자 152명" />
+
+        <ImageView
+            android:id="@+id/profile_image_view"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="@dimen/item_between_small_top_margin"
+            app:layout_constraintStart_toStartOf="@id/thumbnail_image_view"
+            app:layout_constraintTop_toBottomOf="@id/thumbnail_image_view"
+            app:setImage="@{onlineStreamData.profileUrl}" />
+
+        <TextView
+            android:id="@+id/streamer_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/item_between_small_start_margin"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="@{onlineStreamData.userName}"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@id/menu_image_view"
+            app:layout_constraintStart_toEndOf="@id/profile_image_view"
+            app:layout_constraintTop_toTopOf="@id/profile_image_view"
+            tools:text="주르르" />
+
+        <ImageView
+            android:id="@+id/menu_image_view"
+            android:layout_width="@dimen/item_menu_width_size"
+            android:layout_height="0dp"
+            android:src="@drawable/ic_menu_24"
+            app:layout_constraintBottom_toBottomOf="@id/profile_image_view"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/profile_image_view" />
+
+        <TextView
+            android:id="@+id/stream_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/item_between_small_top_margin"
+            android:layout_marginEnd="@dimen/item_end_margin"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="@{onlineStreamData.title}"
+            android:textColor="@color/black"
+            android:textSize="@dimen/stream_title_text_size"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/streamer_name"
+            app:layout_constraintTop_toBottomOf="@id/streamer_name"
+            tools:text="방송입니다." />
+
+        <TextView
+            android:id="@+id/game_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="@{onlineStreamData.gameName}"
+            android:textColor="@color/black"
+            android:textSize="@dimen/stream_title_text_size"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/streamer_name"
+            app:layout_constraintTop_toBottomOf="@id/stream_title"
+            tools:text="Just Chatting" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/tag_recycler_view"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/item_between_small_top_margin"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/game_text"
+            app:layout_constraintStart_toStartOf="@id/streamer_name"
+            app:layout_constraintTop_toBottomOf="@id/game_text"
+            app:setTags="@{onlineStreamData.tags}" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
