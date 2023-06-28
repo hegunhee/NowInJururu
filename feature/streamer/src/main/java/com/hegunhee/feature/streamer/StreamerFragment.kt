@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.ConcatAdapter
 import com.hegunhee.feature.common.fragmentResultKeys.streamRequestKey
 import com.hegunhee.feature.common.twitch.handleOpenTwitchApp
 import com.hegunhee.feature.streamer.databinding.FragmentStreamerBinding
@@ -21,7 +22,8 @@ class StreamerFragment : Fragment() {
     private lateinit var viewDataBinding : FragmentStreamerBinding
     private val viewModel : StreamerViewModel by viewModels()
     private lateinit var streamerAdapter: StreamerAdapter
-    private lateinit var recommendStreamAdapter : RecommendStreamAdapter
+    private lateinit var recommendStreamAdapter : RecommendStreamContainerAdapter
+    private lateinit var concatAdapter : ConcatAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -30,10 +32,13 @@ class StreamerFragment : Fragment() {
     ): View? {
         val root = inflater.inflate(R.layout.fragment_streamer,container,false)
         streamerAdapter = StreamerAdapter(viewModel)
-        recommendStreamAdapter = RecommendStreamAdapter(viewModel)
+        recommendStreamAdapter = RecommendStreamContainerAdapter(viewModel)
+        concatAdapter = ConcatAdapter().apply {
+            addAdapter(streamerAdapter)
+            addAdapter(recommendStreamAdapter)
+        }
         viewDataBinding = FragmentStreamerBinding.bind(root).apply {
-            streamerRecyclerview.adapter = streamerAdapter
-            gameStreamRecyclerView.adapter = recommendStreamAdapter
+            streamRecyclerview.adapter = concatAdapter
             lifecycleOwner = viewLifecycleOwner
         }
         return root
