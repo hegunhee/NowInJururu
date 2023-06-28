@@ -53,13 +53,13 @@ class DefaultRepository @Inject constructor(
     override suspend fun getGameStreamDataList(gameId: String): Result<List<StreamDataType.OnlineData>> {
         return runCatching {
             val token = remoteDataSource.getAuthToken().getFormattedToken()
-            val gameStreamList = remoteDataSource.getGameStreamDataResponse(gameId,token).streamApiData
+            val gameStreamList = remoteDataSource.getGameStreamDataResponse(gameId,token).streamApiData.sortedBy { it.streamerId }
             if(gameStreamList.isEmpty()){
                 return@runCatching emptyList<StreamDataType.OnlineData>()
             }
-            val streamerInfoList = remoteDataSource.getStreamerDataResponse(streamerLogin = gameStreamList.map { it.streamerId }.toTypedArray(),token = token).streamerApiDataList
-            return@runCatching gameStreamList.mapIndexed { index, streamApiData ->
-                streamApiData.toStreamData(streamerInfoList[index].profileImageUrl,RecommendStreamThumbNailWidth, RecommendStreamThumbNailHeight)
+            val streamerInfoList = remoteDataSource.getStreamerDataResponse(streamerLogin = gameStreamList.map { it.streamerId }.toTypedArray(),token = token).streamerApiDataList.sortedBy { it.streamerId }
+            return@runCatching gameStreamList.zip(streamerInfoList).sortedByDescending { it.first.viewerCount }.map {
+                it.first.toStreamData(it.second.profileImageUrl,RecommendStreamThumbNailWidth, RecommendStreamThumbNailHeight)
             }
         }
     }
