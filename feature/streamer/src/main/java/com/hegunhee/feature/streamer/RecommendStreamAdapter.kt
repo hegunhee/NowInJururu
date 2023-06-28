@@ -5,11 +5,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import androidx.recyclerview.widget.*
 import androidx.recyclerview.widget.DiffUtil
-import com.hegunhee.feature.streamer.databinding.ItemGameStreamBinding
+import com.hegunhee.feature.streamer.databinding.ItemRecommendStreamBinding
 
 class RecommendStreamAdapter(private val actionHandler: StreamActionHandler) : ListAdapter<StreamerViewType.OnlineStreamer, RecommendStreamAdapter.RecommendStreamViewHolder>(diff_util) {
 
-    inner class RecommendStreamViewHolder(private val binding : ItemGameStreamBinding) : ViewHolder(binding.root){
+    inner class RecommendStreamViewHolder(private val binding : ItemRecommendStreamBinding) : ViewHolder(binding.root){
 
         fun bind(streamData : StreamerViewType.OnlineStreamer) {
             binding.actionHandler = actionHandler
@@ -18,7 +18,7 @@ class RecommendStreamAdapter(private val actionHandler: StreamActionHandler) : L
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecommendStreamViewHolder {
-        return RecommendStreamViewHolder(ItemGameStreamBinding.inflate(LayoutInflater.from(parent.context),parent,false))
+        return RecommendStreamViewHolder(ItemRecommendStreamBinding.inflate(LayoutInflater.from(parent.context),parent,false))
     }
 
     override fun onBindViewHolder(holder: RecommendStreamViewHolder, position: Int) {
