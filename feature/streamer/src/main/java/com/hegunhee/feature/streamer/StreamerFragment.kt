@@ -61,9 +61,9 @@ class StreamerFragment : Fragment() {
                 }
             }
             launch {
-                viewModel.gameStreamDataList.collect{ gameStreamDataList ->
-                    if(gameStreamDataList.isNotEmpty()){
-                        recommendStreamAdapter.submitList(RecommendStreamContainerObject.getSingleObject(itemList = gameStreamDataList))
+                viewModel.recommendStreamDataList.collect{ recommendStreamDataList ->
+                    if(recommendStreamDataList.isNotEmpty()){
+                        recommendStreamAdapter.submitList(RecommendStreamContainerObject.getSingleObject(itemList = recommendStreamDataList))
                     }
                 }
             }
