@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.hegunhee.domain.model.StreamDataType
 import com.hegunhee.domain.usecase.GetBookmarkedStreamDataListUseCase
+import com.hegunhee.domain.usecase.GetGameStreamDataListUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -11,7 +12,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class StreamerViewModel @Inject constructor(
-    private val getBookmarkedStreamDataListUseCase: GetBookmarkedStreamDataListUseCase
+    private val getBookmarkedStreamDataListUseCase: GetBookmarkedStreamDataListUseCase,
+    private val getGameStreamDataListUseCase: GetGameStreamDataListUseCase
 ) : ViewModel(), StreamActionHandler {
 
     private val _streamDataList : MutableStateFlow<List<StreamerViewType>> = MutableStateFlow(emptyList())
