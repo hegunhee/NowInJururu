@@ -3,6 +3,7 @@
     <dimen name="header_start_margin">20dp</dimen>
     <dimen name="header_top_margin">10dp</dimen>
     <dimen name="header_bottom_margin">10dp</dimen>
+    <dimen name="header_end_margin">@dimen/header_start_margin</dimen>
 
     <dimen name="header_text_size">40sp</dimen>
     <dimen name="streamer_name_text_size">20sp</dimen>
@@ -16,6 +17,7 @@
     <dimen name="item_between_start_margin">10dp</dimen>
     <dimen name="item_between_small_start_margin">2dp</dimen>
     <dimen name="item_between_small_top_margin">5dp</dimen>
+    <dimen name="item_between_small_bottom_margin">5dp</dimen>
 
     <dimen name="online_dot_start_margin">2dp</dimen>
     <dimen name="online_dot_bottom_margin">2dp</dimen>
