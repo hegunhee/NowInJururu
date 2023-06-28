@@ -28,6 +28,7 @@ class AndroidFeaturePlugin : Plugin<Project>{
                 add("implementation",libs.findBundle("lifecycleScope").get())
                 add("implementation",libs.findLibrary("picasso").get())
                 add("implementation",libs.findBundle("navigation").get())
+                add("implementation",libs.findLibrary("concat-adapter").get())
             }
         }
     }
