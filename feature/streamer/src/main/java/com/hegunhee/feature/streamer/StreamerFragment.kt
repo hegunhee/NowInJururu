@@ -68,13 +68,13 @@ class StreamerFragment : Fragment() {
                 }
             }
             launch {
-                viewModel.navigateStreamerTwitch.collect{ streamerLogin ->
-                    requireContext().handleOpenTwitchApp(streamerLogin)
+                viewModel.navigateStreamerTwitch.collect{ streamerId ->
+                    requireContext().handleOpenTwitchApp(streamerId)
                 }
             }
             launch {
-                viewModel.showMoreBottomSheetDialog.collect{ streamerLogin ->
-                    val moreBottomSheetDialog = MoreBottomDialogFragment.getInstance(streamerLogin)
+                viewModel.showMoreBottomSheetDialog.collect{ streamerId ->
+                    val moreBottomSheetDialog = MoreBottomDialogFragment.getInstance(streamerId)
                     moreBottomSheetDialog.show(parentFragmentManager,MoreBottomDialogFragment.TAG)
                 }
             }
