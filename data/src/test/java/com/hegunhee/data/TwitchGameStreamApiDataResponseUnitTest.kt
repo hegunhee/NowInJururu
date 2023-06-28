@@ -43,7 +43,7 @@ class TwitchGameStreamApiDataResponseUnitTest {
     }
 
     @Test
-    fun `get gameStreamApiData to model data`() {
+    fun `transfer gameStreamApiData to model data`() {
         runBlocking {
             val token = tokenApi.getAuthToken().getFormattedToken()
             println("Bearer $token")
