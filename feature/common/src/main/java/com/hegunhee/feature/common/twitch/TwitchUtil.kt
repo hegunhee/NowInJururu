@@ -36,5 +36,5 @@ private fun Context.openPlayStore() {
 }
 
 fun String.toStreamerUri(context : Context) : Uri {
-    return Uri.parse("${context.getString(R.string.twitchStreamBaseUrl)}$this")
+    return Uri.parse("${context.getString(R.string.twitchStreamDeepLink)}$this")
 }
