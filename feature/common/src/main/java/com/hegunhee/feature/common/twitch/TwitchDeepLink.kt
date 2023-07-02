@@ -1,10 +1,25 @@
 package com.hegunhee.feature.common.twitch
 
-sealed class TwitchDeepLink {
+sealed interface TwitchDeepLink {
+    fun getDeepLinkQuery(): String
 
-    object TwitchApp : TwitchDeepLink()
+    object TwitchApp : TwitchDeepLink {
+        override fun getDeepLinkQuery(): String {
+            return ""
+        }
+    }
 
-    data class Streamer(val streamerId : String) : TwitchDeepLink()
+    data class Streamer(val streamerId: String) : TwitchDeepLink {
 
-    data class Game(val gameName : String) : TwitchDeepLink()
+        override fun getDeepLinkQuery(): String {
+            return "?stream=$streamerId"
+        }
+    }
+
+    data class Game(val gameName: String) : TwitchDeepLink {
+
+        override fun getDeepLinkQuery(): String {
+            return "?game=$gameName"
+        }
+    }
 }

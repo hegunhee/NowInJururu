@@ -22,11 +22,7 @@ private fun Context.isInstalledTwitchAppOrException() : PackageInfo {
 }
 
 private fun Context.openDeepLink(deepLink: TwitchDeepLink) {
-    val uri = when(deepLink) {
-        is TwitchDeepLink.Streamer -> deepLink.streamerId.toStreamerUri(this)
-        is TwitchDeepLink.Game -> deepLink.gameName.toGameUri(this)
-        is TwitchDeepLink.TwitchApp -> twitchAppUri(this)
-    }
+    val uri = getDeepLinkUri(this,deepLink.getDeepLinkQuery())
     Intent(Intent.ACTION_VIEW).apply {
         data = uri
         startActivity(this)
@@ -40,14 +36,6 @@ private fun Context.openPlayStore() {
     }
 }
 
-private fun String.toStreamerUri(context : Context) : Uri {
-    return Uri.parse("${context.getString(R.string.twitchStreamBaseUrl)}$this")
-}
-
-private fun String.toGameUri(context : Context) : Uri {
-    return Uri.parse("${context.getString(R.string.twitchGameBaseUrl)}$this")
-}
-
-private fun twitchAppUri(context : Context) : Uri {
-    return Uri.parse(context.getString(R.string.twitchAppBaseUrl))
+private fun getDeepLinkUri(context : Context,query : String) : Uri {
+    return Uri.parse(context.getString(R.string.twitchAppBaseUrl)+query)
 }
