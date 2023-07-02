@@ -6,8 +6,12 @@
     <data>
 
         <variable
-            name="actionHandler"
+            name="streamActionHandler"
             type="com.hegunhee.feature.streamer.StreamActionHandler" />
+
+        <variable
+            name="recommendActionHandler"
+            type="com.hegunhee.feature.streamer.recommend.RecommendActionHandler"/>
 
         <variable
             name="containerObject"
@@ -33,6 +37,17 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
+        <TextView
+            android:id="@+id/recommend_deeplink_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/item_between_small_start_margin"
+            android:onClick="@{() -> recommendActionHandler.onClickGameDeepLink(containerObject.gameName)}"
+            android:text="트위치 앱에서 보기"
+            android:textColor="@color/violet"
+            app:layout_constraintStart_toEndOf="@id/recommend_header_text"
+            app:layout_constraintTop_toTopOf="@id/recommend_header_text" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recommend_recycler_view"
             android:layout_width="match_parent"
@@ -40,7 +55,7 @@
             android:layout_marginTop="@dimen/header_top_margin"
             app:layout_constraintTop_toBottomOf="@id/recommend_header_text"
             app:layout_constraintStart_toStartOf="@id/recommend_header_text"
-            app:actionHandler="@{actionHandler}"
+            app:actionHandler="@{streamActionHandler}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             android:orientation="horizontal"
             app:recommendItems="@{containerObject.item}"/>
