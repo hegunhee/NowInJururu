@@ -12,7 +12,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.ConcatAdapter
 import com.hegunhee.feature.common.fragmentResultKeys.streamRequestKey
-import com.hegunhee.feature.common.twitch.handleOpenTwitchApp
+import com.hegunhee.feature.common.twitch.handleTwitchDeepLink
 import com.hegunhee.feature.streamer.databinding.FragmentStreamerBinding
 import com.hegunhee.feature.streamer.more.MoreBottomDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -71,8 +71,8 @@ class StreamerFragment : Fragment() {
                     }
                 }
                 launch {
-                    viewModel.navigateStreamerTwitch.collect{ streamerId ->
-                        requireContext().handleOpenTwitchApp(streamerId)
+                    viewModel.navigateTwitchDeepLink.collect{ deepLink ->
+                        requireContext().handleTwitchDeepLink(deepLink)
                     }
                 }
                 launch {
