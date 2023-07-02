@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.hegunhee.domain.model.StreamDataType
 import com.hegunhee.domain.usecase.GetBookmarkedStreamDataListUseCase
 import com.hegunhee.domain.usecase.GetGameStreamDataListUseCase
+import com.hegunhee.feature.common.twitch.TwitchDeepLink
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -22,8 +23,8 @@ class StreamerViewModel @Inject constructor(
     private val _recommendStreamDataList : MutableStateFlow<List<StreamerViewType.OnlineStreamer>> = MutableStateFlow(emptyList())
     val recommendStreamDataList : StateFlow<List<StreamerViewType.OnlineStreamer>> = _recommendStreamDataList.asStateFlow()
 
-    private val _navigateStreamerTwitch : MutableSharedFlow<String> = MutableSharedFlow()
-    val navigateStreamerTwitch : SharedFlow<String> = _navigateStreamerTwitch.asSharedFlow()
+    private val _navigateTwitchDeepLink : MutableSharedFlow<TwitchDeepLink> = MutableSharedFlow()
+    val navigateTwitchDeepLink : SharedFlow<TwitchDeepLink> = _navigateTwitchDeepLink.asSharedFlow()
 
     private val _showMoreBottomSheetDialog : MutableSharedFlow<String> = MutableSharedFlow()
     val showMoreBottomSheetDialog : SharedFlow<String> = _showMoreBottomSheetDialog.asSharedFlow()
@@ -50,15 +51,15 @@ class StreamerViewModel @Inject constructor(
         }
     }
 
-    override fun onClickTwitchStreamerItem(streamerLogin: String) {
+    override fun onClickTwitchStreamerItem(streamerId: String) {
         viewModelScope.launch {
-            _navigateStreamerTwitch.emit(streamerLogin)
+            _navigateTwitchDeepLink.emit(TwitchDeepLink.Streamer(streamerId = streamerId))
         }
     }
 
-    override fun onClickMoreMenuButton(streamerLogin: String) {
+    override fun onClickMoreMenuButton(streamerId: String) {
         viewModelScope.launch {
-            _showMoreBottomSheetDialog.emit(streamerLogin)
+            _showMoreBottomSheetDialog.emit(streamerId)
 
         }
     }
