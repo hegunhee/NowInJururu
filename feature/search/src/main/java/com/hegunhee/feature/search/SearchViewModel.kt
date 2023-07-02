@@ -1,12 +1,12 @@
 package com.hegunhee.feature.search
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.hegunhee.domain.model.SearchData
 import com.hegunhee.domain.model.StreamerData
 import com.hegunhee.domain.usecase.GetSearchStreamerDataListUseCase
 import com.hegunhee.domain.usecase.InsertStreamerDataUseCase
+import com.hegunhee.feature.common.twitch.TwitchDeepLink
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -27,8 +27,8 @@ class SearchViewModel @Inject constructor(
 
     val isEmptySearchResult : MutableStateFlow<Boolean> = MutableStateFlow(false)
 
-    private val _navigateStreamerTwitch : MutableSharedFlow<String> = MutableSharedFlow()
-    val navigateStreamerTwitch : SharedFlow<String> = _navigateStreamerTwitch.asSharedFlow()
+    private val _navigateStreamerTwitch : MutableSharedFlow<TwitchDeepLink> = MutableSharedFlow()
+    val navigateStreamerTwitch : SharedFlow<TwitchDeepLink> = _navigateStreamerTwitch.asSharedFlow()
 
     private val _toastMessage : MutableSharedFlow<String> = MutableSharedFlow()
     val toastMessage : SharedFlow<String> = _toastMessage.asSharedFlow()
@@ -40,15 +40,15 @@ class SearchViewModel @Inject constructor(
         getSearchDataList(searchQuery.value)
     }
 
-    override fun onClickStreamerItem(streamerLogin : String) {
+    override fun onClickStreamerItem(streamerId : String) {
         viewModelScope.launch {
-            _navigateStreamerTwitch.emit(streamerLogin)
+            _navigateStreamerTwitch.emit(TwitchDeepLink.Streamer(streamerId = streamerId))
         }
     }
 
-    override fun onClickBookMarkStreamer(streamerLogin: String) {
+    override fun onClickBookMarkStreamer(streamerId: String) {
         viewModelScope.launch {
-            insertStreamerDataUseCase(StreamerData(streamerLogin))
+            insertStreamerDataUseCase(StreamerData(streamerId))
                 .onSuccess {
                     getSearchDataList(searchQuery.value)
                     _isBookMarkSuccess.emit(Unit)

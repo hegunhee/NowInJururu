@@ -2,7 +2,7 @@ package com.hegunhee.feature.search
 
 interface SearchActionHandler {
 
-    fun onClickStreamerItem(streamerLogin : String)
+    fun onClickStreamerItem(streamerId : String)
 
-    fun onClickBookMarkStreamer(streamerLogin : String)
+    fun onClickBookMarkStreamer(streamerId : String)
 }
