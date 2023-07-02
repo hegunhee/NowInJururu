@@ -6,6 +6,7 @@ import com.hegunhee.domain.model.StreamDataType
 import com.hegunhee.domain.usecase.GetBookmarkedStreamDataListUseCase
 import com.hegunhee.domain.usecase.GetGameStreamDataListUseCase
 import com.hegunhee.feature.common.twitch.TwitchDeepLink
+import com.hegunhee.feature.streamer.recommend.RecommendActionHandler
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -15,7 +16,7 @@ import javax.inject.Inject
 class StreamerViewModel @Inject constructor(
     private val getBookmarkedStreamDataListUseCase: GetBookmarkedStreamDataListUseCase,
     private val getGameStreamDataListUseCase: GetGameStreamDataListUseCase
-) : ViewModel(), StreamActionHandler {
+) : ViewModel(), StreamActionHandler, RecommendActionHandler {
 
     private val _streamDataList : MutableStateFlow<List<StreamerViewType>> = MutableStateFlow(emptyList())
     val streamDataList : StateFlow<List<StreamerViewType>> = _streamDataList.asStateFlow()
@@ -61,6 +62,12 @@ class StreamerViewModel @Inject constructor(
         viewModelScope.launch {
             _showMoreBottomSheetDialog.emit(streamerId)
 
+        }
+    }
+
+    override fun onClickGameDeepLink(gameName: String) {
+        viewModelScope.launch {
+            _navigateTwitchDeepLink.emit(TwitchDeepLink.Game(gameName = gameName))
         }
     }
 }
