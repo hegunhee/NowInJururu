@@ -34,7 +34,7 @@ class StreamerFragment : Fragment() {
     ): View? {
         val root = inflater.inflate(R.layout.fragment_streamer,container,false)
         streamerAdapter = StreamerAdapter(viewModel)
-        recommendStreamAdapter = RecommendStreamContainerAdapter(viewModel)
+        recommendStreamAdapter = RecommendStreamContainerAdapter(viewModel,viewModel)
         concatAdapter = ConcatAdapter().apply {
             addAdapter(streamerAdapter)
             addAdapter(recommendStreamAdapter)
