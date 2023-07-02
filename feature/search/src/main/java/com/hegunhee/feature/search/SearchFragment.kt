@@ -5,13 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.hegunhee.feature.common.fragmentResultKeys.streamRequestKey
-import com.hegunhee.feature.common.twitch.handleOpenTwitchApp
+import com.hegunhee.feature.common.twitch.handleTwitchDeepLink
 import com.hegunhee.feature.search.databinding.FragmentSearchBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -51,8 +50,8 @@ class SearchFragment : Fragment(){
                 }
             }
             launch {
-                viewModel.navigateStreamerTwitch.collect{ streamerLogin ->
-                    requireContext().handleOpenTwitchApp(streamerLogin)
+                viewModel.navigateStreamerTwitch.collect{ deepLink ->
+                    requireContext().handleTwitchDeepLink(deepLink)
                 }
             }
             launch{
