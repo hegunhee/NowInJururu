@@ -2,7 +2,7 @@ package com.hegunhee.feature.streamer
 
 interface StreamActionHandler {
 
-    fun onClickTwitchStreamerItem(streamerLogin : String)
+    fun onClickTwitchStreamerItem(streamerId : String)
 
-    fun onClickMoreMenuButton(streamerLogin : String)
+    fun onClickMoreMenuButton(streamerId : String)
 }
