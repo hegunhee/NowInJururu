@@ -7,11 +7,11 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import com.hegunhee.feature.common.R
 
-fun Context.handleOpenTwitchApp(streamerLogin : String) {
+fun Context.handleTwitchDeepLink(deepLink : TwitchDeepLink) {
     runCatching {
         isInstalledTwitchAppOrException()
     }.onSuccess {
-        openStreamerStream(streamerLogin)
+        openDeepLink(deepLink)
     }.onFailure {
         openPlayStore()
     }
