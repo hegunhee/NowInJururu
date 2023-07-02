@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.hegunhee.domain.model.StreamDataType
 import com.hegunhee.domain.usecase.GetJururuStreamDataUseCase
+import com.hegunhee.feature.common.twitch.TwitchDeepLink
 import com.hegunhee.feature.streamer.StreamActionHandler
 import com.hegunhee.feature.streamer.StreamerViewType
 import com.hegunhee.feature.streamer.toOnlineStreamer
@@ -19,8 +20,8 @@ class JururuViewModel @Inject constructor(private val getJururuStreamDataUseCase
     private val _jururuStreamData : MutableStateFlow<StreamerViewType> = MutableStateFlow(StreamerViewType.OfflineStreamer("","",""))
     val jururuStreamData : StateFlow<StreamerViewType> = _jururuStreamData.asStateFlow()
 
-    private val _navigateStreamerTwitch : MutableSharedFlow<String> = MutableSharedFlow()
-    val navigateStreamerTwitch : SharedFlow<String> = _navigateStreamerTwitch.asSharedFlow()
+    private val _navigateTwitchDeepLink : MutableSharedFlow<TwitchDeepLink> = MutableSharedFlow()
+    val navigateTwitchDeepLink : SharedFlow<TwitchDeepLink> = _navigateTwitchDeepLink.asSharedFlow()
 
     fun getJururuStreamData() {
         viewModelScope.launch {
@@ -37,13 +38,13 @@ class JururuViewModel @Inject constructor(private val getJururuStreamDataUseCase
         }
     }
 
-    override fun onClickTwitchStreamerItem(streamerLogin: String) {
+    override fun onClickTwitchStreamerItem(streamerId: String) {
         viewModelScope.launch {
-            _navigateStreamerTwitch.emit(streamerLogin)
+            _navigateTwitchDeepLink.emit(TwitchDeepLink.Streamer(streamerId = streamerId))
         }
     }
 
-    override fun onClickMoreMenuButton(streamerLogin: String) {
+    override fun onClickMoreMenuButton(streamerId: String) {
 
     }
 }
