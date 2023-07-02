@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="twitchPackageName">tv.twitch.android.app</string>
-    <string name="twitchStreamDeepLink">twitch://stream/</string>
+    <string name="twitchStreamBaseUrl">twitch://stream/</string>
+    <string name="twitchGameBaseUrl">twitch://game/</string>
+    <string name="twitchAppBaseUrl">twitch://open</string>
     <string name="playStoreTwitchDeepLink">market://details?id=tv.twitch.android.app</string>
 
     <string name="Jururu">주르르</string>
