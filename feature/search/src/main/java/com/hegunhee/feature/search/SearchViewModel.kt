@@ -36,6 +36,9 @@ class SearchViewModel @Inject constructor(
     private val _isBookMarkSuccess : MutableSharedFlow<Unit> = MutableSharedFlow<Unit>()
     val isBookMarkSuccess : SharedFlow<Unit> =  _isBookMarkSuccess.asSharedFlow()
 
+    private val _isLoading : MutableSharedFlow<Boolean> = MutableSharedFlow<Boolean>()
+    val isLoading : SharedFlow<Boolean> = _isLoading.asSharedFlow()
+
     fun onClickSearchButton() = viewModelScope.launch{
         getSearchDataList(searchQuery.value)
     }
@@ -62,12 +65,15 @@ class SearchViewModel @Inject constructor(
         if(searchQuery.isBlank()){
             return
         }
+        _isLoading.emit(true)
         getSearchStreamerDataListUseCase(searchQuery)
             .onSuccess {
                 searchResult.value = it
                 isEmptySearchResult.value = it.isEmpty()
+                _isLoading.emit(false)
             }.onFailure {
                 isEmptySearchResult.value = true
+                _isLoading.emit(false)
             }
     }
 }
