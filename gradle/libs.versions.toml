@@ -29,6 +29,8 @@ room = "2.4.2"
 
 picasso = "2.8"
 
+lottie = "6.0.1"
+
 
 [libraries]
 androidGradlePlugin = { module = "com.android.tools.build:gradle", version.ref = "androidGradleVersion" }
@@ -71,6 +73,8 @@ room-compiler = {module = "androidx.room:room-compiler",version.ref = "room"}
 room-ktx = {module = "androidx.room:room-ktx",version.ref="room"}
 
 picasso = {module = "com.squareup.picasso:picasso",version.ref="picasso"}
+
+lottie = {module = "com.airbnb.android:lottie",version.ref="lottie"}
 
 [bundles]
 
