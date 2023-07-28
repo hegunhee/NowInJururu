@@ -2,6 +2,8 @@
 ## 소개  
 이세계 아이돌 주르르의 현재 방송 정보를 알려주고 방송으로 이동 가능한 앱입니다.  
 주르르 이외에도 스트리머를 검색할 수 있으며 방송 정보를 볼 수 있습니다.  
+현재 앱은 멀티모듈로 구성되어 있으며 data -> domain <- feature 모듈로 구성되어 있습니다.  
+멀티 모듈로 인해 중복되는 gradle 설정을 줄이려고 customPlugin을 제작해 사용하고 있습니다.  
 ## 앱 사진  
 ![JururuFragment](https://github.com/hegunhee/NowInJururu/assets/57277631/6a3f4464-76e0-4285-a3cd-cf87d264d3f1)
 ![StreamerFragment](https://github.com/hegunhee/NowInJururu/assets/57277631/6ede4209-890d-4f58-a30b-0caaf6075b6b)
