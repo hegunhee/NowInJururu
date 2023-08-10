@@ -3,6 +3,7 @@ plugins {
 }
 
 android{
+    namespace = "com.hegunhee.nowinjururu"
     defaultConfig{
         applicationId = "com.hegunhee.nowinjururu"
         versionCode = 1
