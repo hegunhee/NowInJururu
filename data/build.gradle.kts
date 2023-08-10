@@ -9,6 +9,7 @@ val properties = gradleLocalProperties(rootDir)
 val clientId : String = properties.getProperty("clientId")
 val clientSecret : String = properties.getProperty("clientSecret")
 android{
+    namespace = "com.hegunhee.data"
     buildTypes{
         getByName("debug"){
             buildConfigField("String", "clientId", clientId)

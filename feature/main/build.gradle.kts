@@ -1,6 +1,9 @@
 plugins {
     id("hegunhee.android.feature")
 }
+android {
+    namespace = "com.hegunhee.feature.main"
+}
 dependencies {
 
     implementation (project(":domain"))
