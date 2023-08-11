@@ -1,8 +1,9 @@
 package com.hegunhee.plugins
 
 import com.hegunhee.plugins.setup.androidApplication
+import com.hegunhee.plugins.setup.setupAndroid
 import com.hegunhee.plugins.setup.setupAndroidCompose
-import com.hegunhee.plugins.setup.setupAndroidView
+import com.hegunhee.plugins.setup.setupAndroidComposeApplication
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.artifacts.VersionCatalogsExtension
@@ -19,16 +20,14 @@ class AndroidComposeApplicationPlugin : Plugin<Project> {
                 apply("hegunhee.android.hilt")
             }
             androidApplication {
-                setupAndroidCompose()
+                setupAndroid()
+                setupAndroidComposeApplication()
 
                 buildTypes {
                     release {
                         isMinifyEnabled = false
                         proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
                     }
-                }
-                buildFeatures{
-                    compose = true
                 }
             }
             val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")

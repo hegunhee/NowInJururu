@@ -17,47 +17,62 @@ fun Project.androidLibrary(action: LibraryExtension.() -> Unit) {
     extensions.configure(action)
 }
 
-fun Project.android(action : TestedExtension.() -> Unit){
+fun Project.android(action : TestedExtension.() -> Unit) {
     extensions.configure(action)
 }
-fun Project.setupAndroidView(){
+
+fun Project.setupAndroid(){
     android {
-        defaultSetting()
-        dataBinding{
+        compileSdkVersion(33)
+
+        defaultConfig{
+            minSdk = 24
+        }
+
+        compileOptions{
+            sourceCompatibility = JavaVersion.VERSION_17
+            targetCompatibility = JavaVersion.VERSION_17
+        }
+
+        kotlinOptions {
+            jvmTarget = JavaVersion.VERSION_17.toString()
+        }
+
+        defaultConfig.targetSdk = 33
+    }
+}
+
+fun Project.setupViewDataBinding() {
+    android {
+        viewBinding {
             enable = true
         }
-        viewBinding{
+        dataBinding {
             enable = true
         }
     }
 }
 
 fun Project.setupAndroidCompose() {
-    android {
-        defaultSetting()
+    androidLibrary {
+        buildFeatures {
+            compose = true
+        }
         composeOptions {
             kotlinCompilerExtensionVersion = "1.4.0"
         }
     }
 }
 
-private fun TestedExtension.defaultSetting() {
-    compileSdkVersion(33)
-
-    defaultConfig{
-        minSdk = 24
+fun Project.setupAndroidComposeApplication() {
+    androidApplication {
+        composeOptions {
+            kotlinCompilerExtensionVersion = "1.4.0"
+        }
+        buildFeatures {
+            compose = true
+        }
     }
-
-    compileOptions{
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
-    }
-
-    kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_17.toString()
-    }
-
-    defaultConfig.targetSdk = 33
 }
 
 fun TestedExtension.kotlinOptions(block : KotlinJvmOptions.() -> Unit ){
