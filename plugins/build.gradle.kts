@@ -37,6 +37,10 @@ gradlePlugin{
             id = "hegunhee.android.feature"
             implementationClass = "com.hegunhee.plugins.feature.AndroidFeaturePlugin"
         }
+        register("AndroidComposeFeature"){
+            id = "hegunhee.android.compose"
+            implementationClass = "com.hegunhee.plugins.feature.AndroidComposePlugin"
+        }
         register("AndroidHilt"){
             id = "hegunhee.android.hilt"
             implementationClass = "com.hegunhee.plugins.AndroidHiltPlugin"
