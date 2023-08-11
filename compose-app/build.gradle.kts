@@ -26,4 +26,6 @@ android {
 
 dependencies {
     implementation(project(":compose:search"))
+    implementation(project(":data"))
+    implementation(project(":domain"))
 }
