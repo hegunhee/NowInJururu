@@ -1,5 +1,7 @@
 package com.hegunhee.plugins.feature
 
+import com.hegunhee.plugins.setup.androidLibrary
+import com.hegunhee.plugins.setup.setupViewDataBinding
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.artifacts.VersionCatalogsExtension
@@ -14,6 +16,7 @@ class AndroidFeaturePlugin : Plugin<Project>{
                 apply("hegunhee.android")
                 apply("hegunhee.android.hilt")
             }
+            setupViewDataBinding()
 
             val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
 
