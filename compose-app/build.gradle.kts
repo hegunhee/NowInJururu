@@ -23,3 +23,7 @@ android {
         }
     }
 }
+
+dependencies {
+    implementation(project(":compose:search"))
+}
