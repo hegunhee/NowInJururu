@@ -1,7 +1,7 @@
 package com.hegunhee.plugins
 
 import com.hegunhee.plugins.setup.androidApplication
-import com.hegunhee.plugins.setup.setupAndroid
+import com.hegunhee.plugins.setup.setupAndroidView
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.artifacts.VersionCatalogsExtension
@@ -18,7 +18,7 @@ class AndroidApplicationPlugin : Plugin<Project> {
                 apply("hegunhee.android.hilt")
             }
             androidApplication {
-                setupAndroid()
+                setupAndroidView()
 
                 buildTypes {
                     getByName("release"){
