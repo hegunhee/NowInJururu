@@ -25,7 +25,8 @@ android {
 }
 
 dependencies {
-    implementation(project(":compose:search"))
     implementation(project(":data"))
     implementation(project(":domain"))
+    implementation(project(":compose:search"))
+    implementation(project(":compose:streamer"))
 }
