@@ -5,3 +5,7 @@ plugins {
 android {
     namespace = "com.hegunhee.compose.search"
 }
+
+dependencies{
+    implementation(project(":compose:ui-component"))
+}
