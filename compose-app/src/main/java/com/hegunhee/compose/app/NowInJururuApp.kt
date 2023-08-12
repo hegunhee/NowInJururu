@@ -53,6 +53,9 @@ class JururuAppScaffoldState(
 ) {
     fun navigateBottomNavigation(index : Int) {
         navController.navigate(bottomNavItems[index].screenRoute) {
+            navController.graph.startDestinationRoute?.let {
+                popUpTo(it) { saveState = true }
+            }
             launchSingleTop = true
             restoreState = true
         }
