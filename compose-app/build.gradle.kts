@@ -27,6 +27,7 @@ android {
 dependencies {
     implementation(project(":data"))
     implementation(project(":domain"))
-    implementation(project(":compose:search"))
+    implementation(project(":compose:jururu"))
     implementation(project(":compose:streamer"))
+    implementation(project(":compose:search"))
 }
