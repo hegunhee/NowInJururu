@@ -7,7 +7,7 @@ fun NavGraphBuilder.searchNavGraph(
 
 ) {
     composable(route = SearchNavGraph.searchRoute) {
-
+        SearchScreenRoot()
     }
 }
 
