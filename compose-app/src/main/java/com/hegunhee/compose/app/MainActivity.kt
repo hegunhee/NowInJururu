@@ -11,8 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.hegunhee.compose.app.ui.theme.NowInJururuTheme
-import com.hegunhee.compose.search.TestCompose
-import com.hegunhee.compose.streamer.TestStreamerUI
+import com.hegunhee.compose.jururu.TestJururuUI
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,7 +23,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    TestStreamerUI()
+                    TestJururuUI()
                 }
             }
         }
