@@ -27,6 +27,7 @@ class AndroidComposePlugin : Plugin<Project> {
                 add("implementation",platform(libs.findLibrary("compose-bom").get()))
                 add("implementation",libs.findBundle("compose-ui").get())
                 add("implementation",libs.findLibrary("navigation-compose").get())
+                add("implementation",libs.findLibrary("hilt-viewmodel").get())
                 add("implementation",libs.findLibrary("junit").get())
                 add("androidTestImplementation",libs.findLibrary("ext-junit").get())
                 add("androidTestImplementation",libs.findLibrary("espresso-core").get())
