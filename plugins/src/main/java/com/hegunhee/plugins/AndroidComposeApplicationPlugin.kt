@@ -54,6 +54,8 @@ class AndroidComposeApplicationPlugin : Plugin<Project> {
                 add("implementation",libs.findLibrary("room-runtime").get())
                 add("kapt",libs.findLibrary("room-compiler").get())
                 add("implementation",libs.findLibrary("room-ktx").get())
+
+                add("implementation",libs.findLibrary("coil").get())
             }
         }
     }
