@@ -1,10 +1,13 @@
 package com.hegunhee.compose.app
 
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -22,9 +25,9 @@ fun NowInJururuApp(
     jururuAppScaffoldState : JururuAppScaffoldState = rememberJururuAppScaffoldState()
 ) {
     NowInJururuTheme() {
-        Scaffold(bottomBar = { JururuBottomNavigation(backStackEntry = jururuAppScaffoldState.navController.currentBackStackEntryAsState(), onBottomClick = jururuAppScaffoldState::navigateBottomNavigation)}) { _ ->
+        Scaffold(bottomBar = { JururuBottomNavigation(backStackEntry = jururuAppScaffoldState.navController.currentBackStackEntryAsState(), onBottomClick = jururuAppScaffoldState::navigateBottomNavigation)}) { paddingValues ->
             NavHost(navController = jururuAppScaffoldState.navController, startDestination = JururuNavGraph.jururuRoute){
-                jururuNavGraph()
+                jururuNavGraph(paddingValues =  paddingValues)
 
                 streamerNavGraph()
 
