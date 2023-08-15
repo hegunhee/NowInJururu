@@ -8,4 +8,5 @@ android {
 
 dependencies{
     implementation(project(":compose:ui-component"))
+    implementation(project(":resource_common"))
 }
