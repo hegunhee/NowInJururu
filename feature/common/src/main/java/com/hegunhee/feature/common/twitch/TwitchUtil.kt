@@ -5,7 +5,7 @@ import android.content.Intent
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
 import android.net.Uri
-import com.hegunhee.feature.common.R
+import com.hegunhee.resource_common.R
 
 fun Context.handleTwitchDeepLink(deepLink : TwitchDeepLink) {
     runCatching {

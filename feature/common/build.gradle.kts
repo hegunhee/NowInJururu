@@ -8,4 +8,5 @@ android {
 dependencies {
 
     implementation(libs.lottie)
+    implementation(project(":resource_common"))
 }
