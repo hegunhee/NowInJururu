@@ -31,4 +31,5 @@ dependencies {
     implementation(project(":compose:streamer"))
     implementation(project(":compose:search"))
     implementation(project(":compose:ui-component"))
+    implementation(project(":resource_common"))
 }
