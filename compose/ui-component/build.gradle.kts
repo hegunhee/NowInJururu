@@ -6,3 +6,6 @@ android {
     namespace = "com.hegunhee.ui_component"
 
 }
+dependencies {
+    implementation(project(":resource_common"))
+}
