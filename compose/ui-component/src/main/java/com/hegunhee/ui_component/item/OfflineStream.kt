@@ -1,5 +1,6 @@
 package com.hegunhee.ui_component.item
 
+import android.content.Context
 import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -27,12 +28,13 @@ fun OfflineStream(
     streamerId : String,
     streamerName : String,
     streamerProfileUrl : String,
-    onTwitchStreamClick : (String) -> Unit,
+    onTwitchStreamClick : (Context, String) -> Unit,
     onUnfollowButtonClick : (String) -> Unit
 ) {
+    val context = LocalContext.current
     Row(modifier = Modifier
         .fillMaxWidth()
-        .clickable { onTwitchStreamClick(streamerId) }
+        .clickable { onTwitchStreamClick(context, streamerId) }
         .padding(
             start = dimensionResource(id = R.dimen.item_between_small_start_margin),
             top = dimensionResource(id = R.dimen.header_top_padding),
@@ -60,7 +62,7 @@ private fun TestOfflineStream() {
         streamerId = "cotton__123",
         streamerName = "주르르",
         streamerProfileUrl = "https://static-cdn.jtvnw.net/jtv_user_pictures/919e1ba0-e13e-49ae-a660-181817e3970d-profile_image-300x300.png",
-        onTwitchStreamClick = { streamerId -> Toast.makeText(context,"click Item ",Toast.LENGTH_SHORT).show() },
+        onTwitchStreamClick = { context, streamerId -> Toast.makeText(context,"click Item ",Toast.LENGTH_SHORT).show() },
         onUnfollowButtonClick =  {streamerId -> Toast.makeText(context,"click unfollowButton",Toast.LENGTH_SHORT).show()}
     )
 }
