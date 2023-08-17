@@ -1,5 +1,6 @@
 package com.hegunhee.ui_component.item
 
+import android.content.Context
 import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -37,13 +38,13 @@ fun OnlineStream(
     thumbNailUrl : String,
     profileUrl : String,
     viewerCount : String,
-    onTwitchStreamClick : (String) -> Unit,
+    onTwitchStreamClick : (Context, String) -> Unit,
     onUnfollowButtonClick : (String) -> Unit
 ) {
-
+    val context = LocalContext.current
     Row(modifier = Modifier
         .fillMaxWidth()
-        .clickable { onTwitchStreamClick(streamerId) }
+        .clickable { onTwitchStreamClick(context,streamerId) }
         .padding(
             start = dimensionResource(id = R.dimen.item_between_small_start_margin),
             top = dimensionResource(id = R.dimen.header_top_padding),
