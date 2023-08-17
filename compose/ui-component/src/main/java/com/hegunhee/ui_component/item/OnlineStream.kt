@@ -115,3 +115,21 @@ private fun ThumbNailFormatImage(
         }
     }
 }
+
+@Preview
+@Composable
+private fun TestOnlineStream() {
+    val context = LocalContext.current
+    OnlineStream(
+        streamerId = "cotton__123",
+        streamerName = "주르르",
+        title = "방송입니다.",
+        gameName = "Just Chatting",
+        tags = listOf("이세계아이돌","주르르","콘르르"),
+        thumbNailUrl = "https://static-cdn.jtvnw.net/jtv_user_pictures/aea85c64-5e28-4d15-81a1-db1a7a3cc1ec-channel_offline_image-1920x1080.png",
+        profileUrl = "https://static-cdn.jtvnw.net/jtv_user_pictures/919e1ba0-e13e-49ae-a660-181817e3970d-profile_image-70x70.png",
+        viewerCount = "1000",
+        onTwitchStreamClick = { streamerId -> Toast.makeText(context,"click Item ", Toast.LENGTH_SHORT).show() },
+        onUnfollowButtonClick =  {streamerId -> Toast.makeText(context,"click unfollowButton", Toast.LENGTH_SHORT).show()}
+    )
+}
