@@ -51,3 +51,16 @@ fun OfflineStream(
             modifier = Modifier.clickable { onUnfollowButtonClick(streamerId) }.weight(1f))
     }
 }
+
+@Preview
+@Composable
+private fun TestOfflineStream() {
+    val context = LocalContext.current
+    OfflineStream(
+        streamerId = "cotton__123",
+        streamerName = "주르르",
+        streamerProfileUrl = "https://static-cdn.jtvnw.net/jtv_user_pictures/919e1ba0-e13e-49ae-a660-181817e3970d-profile_image-300x300.png",
+        onTwitchStreamClick = { streamerId -> Toast.makeText(context,"click Item ",Toast.LENGTH_SHORT).show() },
+        onUnfollowButtonClick =  {streamerId -> Toast.makeText(context,"click unfollowButton",Toast.LENGTH_SHORT).show()}
+    )
+}
