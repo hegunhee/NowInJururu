@@ -18,15 +18,17 @@ fun JururuScreenRoot(
     onNavigateTwitchChannelClick : (String) -> Unit
 ) {
     JururuScreen(
-        onNavigateTwitchChannelClick
         uiState = viewModel.uiModel.value,
+        onNavigateTwitchChannelClick,
+        onUnfollowButtonClick = viewModel::onUnfollowButtonClick
     )
 }
 
 @Composable
 fun JururuScreen(
-    onNavigateTwitchChannelClick : (String) -> Unit
     uiState : JururuUiModel,
+    onNavigateTwitchChannelClick : (String) -> Unit,
+    onUnfollowButtonClick : (String) -> Unit
 ) {
     val onMoreButtonClick : (String) -> Unit = { }
     Column(modifier = Modifier.fillMaxSize().padding(LocalPaddingValues.current)) {
