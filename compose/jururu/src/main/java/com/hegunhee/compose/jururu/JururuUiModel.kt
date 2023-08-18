@@ -2,15 +2,15 @@ package com.hegunhee.compose.jururu
 
 import com.hegunhee.domain.model.StreamDataType
 
-sealed class JururuUiState {
+sealed class JururuUiModel {
 
-    object Loading : JururuUiState()
+    object Loading : JururuUiModel()
 
     data class Success(
         val onlineStreamData : List<StreamDataType.OnlineData>,
         val offlineStreamData : List<StreamDataType.OfflineData>
-    ) : JururuUiState()
+    ) : JururuUiModel()
 
-    object Error : JururuUiState()
+    object Error : JururuUiModel()
 
 }
