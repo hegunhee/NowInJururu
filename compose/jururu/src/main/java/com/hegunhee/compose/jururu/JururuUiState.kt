@@ -6,7 +6,10 @@ sealed class JururuUiState {
 
     object Loading : JururuUiState()
 
-    data class Success(val streamerList : List<StreamDataType>) : JururuUiState()
+    data class Success(
+        val onlineStreamData : List<StreamDataType.OnlineData>,
+        val offlineStreamData : List<StreamDataType.OfflineData>
+    ) : JururuUiState()
 
     object Error : JururuUiState()
 
