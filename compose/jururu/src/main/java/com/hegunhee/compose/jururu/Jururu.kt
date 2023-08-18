@@ -1,6 +1,5 @@
 package com.hegunhee.compose.jururu
 
-import android.content.Context
 import android.widget.Toast
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -16,7 +15,7 @@ import com.hegunhee.ui_component.text.ScreenHeaderText
 @Composable
 fun JururuScreenRoot(
     viewModel : JururuViewModel = hiltViewModel(),
-    onNavigateTwitchChannelClick : (Context, String) -> Unit
+    onNavigateTwitchChannelClick : (String) -> Unit
 ) {
     JururuScreen(
         uiState = viewModel.uiState.value,
@@ -27,7 +26,7 @@ fun JururuScreenRoot(
 @Composable
 fun JururuScreen(
     uiState : JururuUiState,
-    onNavigateTwitchChannelClick : (Context, String) -> Unit
+    onNavigateTwitchChannelClick : (String) -> Unit
 ) {
     Column(modifier = Modifier
         .fillMaxSize()
