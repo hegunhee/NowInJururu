@@ -24,7 +24,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import coil.compose.AsyncImage
-import coil.request.ImageRequest
 import com.hegunhee.resource_common.R
 
 @Composable
@@ -57,7 +56,7 @@ fun OnlineStream(
         ) {
             Row(modifier = Modifier.fillMaxWidth()) {
                 AsyncImage(
-                    model = ImageRequest.Builder(context).data(profileUrl).crossfade(true).build(),
+                    model = profileUrl,
                     contentDescription = "profileImage",
                     contentScale = ContentScale.Crop,
                     modifier = Modifier.size(20.dp).weight(1f)
@@ -92,7 +91,7 @@ private fun ThumbNailFormatImage(
             .then(thumbNailSize)
             .zIndex(0f)) {
             AsyncImage(
-                model = ImageRequest.Builder(LocalContext.current).data(thumbNailUrl).crossfade(true).build(),
+                model = thumbNailUrl,
                 contentDescription = "thumbNailImage",
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
