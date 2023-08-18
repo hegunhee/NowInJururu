@@ -1,6 +1,5 @@
 package com.hegunhee.compose.jururu
 
-import android.content.Context
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.compositionLocalOf
@@ -11,7 +10,7 @@ import androidx.navigation.compose.composable
 val LocalPaddingValues = compositionLocalOf { PaddingValues(0.dp) }
 fun NavGraphBuilder.jururuNavGraph(
     paddingValues : PaddingValues,
-    onNavigateTwitchChannelClick : (Context, String) -> Unit
+    onNavigateTwitchChannelClick : (String) -> Unit
 
 ) {
     composable(route = JururuNavGraph.jururuRoute) {

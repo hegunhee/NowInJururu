@@ -15,7 +15,6 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.hegunhee.compose.app.twitchUtil.navigateTwitchChannelDeepLink
 import com.hegunhee.compose.app.ui.theme.NowInJururuTheme
 import com.hegunhee.compose.jururu.JururuNavGraph
 import com.hegunhee.compose.jururu.jururuNavGraph
@@ -27,14 +26,15 @@ import kotlinx.coroutines.CoroutineScope
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun NowInJururuApp(
-    jururuAppScaffoldState : JururuAppScaffoldState = rememberJururuAppScaffoldState()
+    jururuAppScaffoldState : JururuAppScaffoldState = rememberJururuAppScaffoldState(),
+    twitchNavigationController : TwitchNavigationController = rememberTwitchNavigationController()
 ) {
     NowInJururuTheme() {
         Scaffold(bottomBar = { JururuBottomNavigation(backStackEntry = jururuAppScaffoldState.navController.currentBackStackEntryAsState(), onBottomClick = jururuAppScaffoldState::navigateBottomNavigation)}) { paddingValues ->
             NavHost(navController = jururuAppScaffoldState.navController, startDestination = JururuNavGraph.jururuRoute){
                 jururuNavGraph(
                     paddingValues =  paddingValues,
-                    onNavigateTwitchChannelClick = ::navigateTwitchChannelDeepLink
+                    onNavigateTwitchChannelClick = twitchNavigationController::navigate
                 )
 
                 streamerNavGraph()
