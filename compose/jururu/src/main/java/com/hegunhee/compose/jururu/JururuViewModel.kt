@@ -18,9 +18,9 @@ class JururuViewModel @Inject constructor(private val getJururuStreamDataUseCase
         getJururuStreamData()
     }
 
-    private val _uiState : MutableState<JururuUiState> = mutableStateOf<JururuUiState>(JururuUiState.Loading)
-    val uiState : State<JururuUiState>
-        get() = _uiState
+    private val _uiModel : MutableState<JururuUiModel> = mutableStateOf<JururuUiModel>(JururuUiModel.Loading)
+    val uiModel: State<JururuUiModel>
+        get() = _uiModel
 
     private fun getJururuStreamData() {
         viewModelScope.launch {
@@ -28,11 +28,12 @@ class JururuViewModel @Inject constructor(private val getJururuStreamDataUseCase
                 .onSuccess {
                     val onlineStreamData = listOf(it).filterIsInstance(StreamDataType.OnlineData::class.java)
                     val offlineStreamData = listOf(it).filterIsInstance(StreamDataType.OfflineData::class.java)
-                    _uiState.value = JururuUiState.Success(onlineStreamData, offlineStreamData)
+                    _uiModel.value = JururuUiModel.Success(onlineStreamData, offlineStreamData)
                 }.onFailure {
-                    _uiState.value = JururuUiState.Error
+                    _uiModel.value = JururuUiModel.Error
                 }
         }
+    }
 
     }
 

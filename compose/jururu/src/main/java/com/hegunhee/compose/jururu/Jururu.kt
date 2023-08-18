@@ -18,21 +18,21 @@ fun JururuScreenRoot(
     onNavigateTwitchChannelClick : (String) -> Unit
 ) {
     JururuScreen(
-        uiState = viewModel.uiState.value,
         onNavigateTwitchChannelClick
+        uiState = viewModel.uiModel.value,
     )
 }
 
 @Composable
 fun JururuScreen(
-    uiState : JururuUiState,
     onNavigateTwitchChannelClick : (String) -> Unit
+    uiState : JururuUiModel,
 ) {
     Column(modifier = Modifier.fillMaxSize().padding(LocalPaddingValues.current)) {
         ScreenHeaderText(text = "주르르")
         when(uiState) {
-            is JururuUiState.Loading -> {}
-            is JururuUiState.Success -> {
+            is JururuUiModel.Loading -> {}
+            is JururuUiModel.Success -> {
                 LazyColumn() {
                     items(items = uiState.onlineStreamData, key = {it.streamerId}) { streamData ->
                         OnlineStream(
@@ -59,7 +59,7 @@ fun JururuScreen(
                     }
                 }
             }
-            is JururuUiState.Error -> {}
+            is JururuUiModel.Error -> {}
         }
     }
 }
