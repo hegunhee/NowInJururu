@@ -43,7 +43,7 @@ fun OnlineStream(
     val context = LocalContext.current
     Row(modifier = Modifier
         .fillMaxWidth()
-        .clickable { onTwitchStreamClick(streamerId) }
+        .clickable { onTwitchStreamClick(String.format(context.getString(R.string.twitchChannelUrl),streamerId)) }
         .padding(
             start = dimensionResource(id = R.dimen.item_between_small_start_margin),
             top = dimensionResource(id = R.dimen.header_top_padding),
