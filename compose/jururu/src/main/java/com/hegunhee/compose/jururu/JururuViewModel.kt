@@ -35,6 +35,8 @@ class JururuViewModel @Inject constructor(private val getJururuStreamDataUseCase
         }
     }
 
+    fun onUnfollowButtonClick(streamId : String) {
+
     }
 
 
