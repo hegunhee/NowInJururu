@@ -19,7 +19,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
-import coil.request.ImageRequest
 import com.hegunhee.resource_common.R
 
 @Composable
@@ -41,7 +40,7 @@ fun OfflineStream(
         ),
         verticalAlignment = Alignment.CenterVertically) {
         AsyncImage(
-            model = ImageRequest.Builder(context).data(streamerProfileUrl).crossfade(true).build(),
+            model = streamerProfileUrl,
             contentDescription = "streamerProfile",
             contentScale = ContentScale.Crop,
             modifier = Modifier.size(50.dp).weight(1f))
