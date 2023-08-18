@@ -38,7 +38,7 @@ fun OnlineStream(
     profileUrl : String,
     viewerCount : String,
     onTwitchStreamClick : (String) -> Unit,
-    onUnfollowButtonClick : (String) -> Unit
+    onMoreButtonClick : (String) -> Unit
 ) {
     val context = LocalContext.current
     Row(modifier = Modifier
@@ -65,7 +65,7 @@ fun OnlineStream(
                 Text(text = streamerName,modifier = Modifier.padding(start = dimensionResource(id = R.dimen.item_between_small_start_margin)).weight(5f))
                 Image(painter = painterResource(id = R.drawable.ic_menu_24),
                     contentDescription = "more Button",
-                    modifier = Modifier.weight(1f).clickable { onUnfollowButtonClick(streamerId) })
+                    modifier = Modifier.weight(1f).clickable { onMoreButtonClick(streamerId) })
             }
             Text(text = title)
             Text(text = gameName)
@@ -125,6 +125,6 @@ private fun TestOnlineStream() {
         profileUrl = "https://static-cdn.jtvnw.net/jtv_user_pictures/919e1ba0-e13e-49ae-a660-181817e3970d-profile_image-70x70.png",
         viewerCount = "1000",
         onTwitchStreamClick = { streamerId -> Toast.makeText(context,"click Item ", Toast.LENGTH_SHORT).show() },
-        onUnfollowButtonClick =  {streamerId -> Toast.makeText(context,"click unfollowButton", Toast.LENGTH_SHORT).show()}
+        onMoreButtonClick =  {streamerId -> Toast.makeText(context,"click unfollowButton", Toast.LENGTH_SHORT).show()}
     )
 }

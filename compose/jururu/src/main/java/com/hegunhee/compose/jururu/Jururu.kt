@@ -28,6 +28,7 @@ fun JururuScreen(
     onNavigateTwitchChannelClick : (String) -> Unit
     uiState : JururuUiModel,
 ) {
+    val onMoreButtonClick : (String) -> Unit = { }
     Column(modifier = Modifier.fillMaxSize().padding(LocalPaddingValues.current)) {
         ScreenHeaderText(text = "주르르")
         when(uiState) {
@@ -45,7 +46,7 @@ fun JururuScreen(
                             profileUrl = streamData.profileUrl,
                             viewerCount = streamData.viewerCount,
                             onTwitchStreamClick = onNavigateTwitchChannelClick,
-                            onUnfollowButtonClick = {}
+                            onMoreButtonClick = onMoreButtonClick
                         )
                     }
                     items(items = uiState.offlineStreamData, key = {it.streamerId}) { streamData ->
@@ -54,7 +55,7 @@ fun JururuScreen(
                             streamerName = streamData.streamerName,
                             streamerProfileUrl = streamData.profileUrl,
                             onTwitchStreamClick = onNavigateTwitchChannelClick,
-                            onUnfollowButtonClick = {}
+                            onMoreButtonClick = onMoreButtonClick
                         )
                     }
                 }

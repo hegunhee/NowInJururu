@@ -28,7 +28,7 @@ fun OfflineStream(
     streamerName : String,
     streamerProfileUrl : String,
     onTwitchStreamClick : (String) -> Unit,
-    onUnfollowButtonClick : (String) -> Unit
+    onMoreButtonClick : (String) -> Unit
 ) {
     val context = LocalContext.current
     Row(modifier = Modifier
@@ -49,7 +49,7 @@ fun OfflineStream(
         Image(
             painter = painterResource(id = R.drawable.ic_menu_24),
             contentDescription = "more Button",
-            modifier = Modifier.clickable { onUnfollowButtonClick(streamerId) }.weight(1f))
+            modifier = Modifier.weight(1f).clickable { onMoreButtonClick(streamerId) })
     }
 }
 
@@ -62,6 +62,6 @@ private fun TestOfflineStream() {
         streamerName = "주르르",
         streamerProfileUrl = "https://static-cdn.jtvnw.net/jtv_user_pictures/919e1ba0-e13e-49ae-a660-181817e3970d-profile_image-300x300.png",
         onTwitchStreamClick = { streamerId -> Toast.makeText(context,"click Item ",Toast.LENGTH_SHORT).show() },
-        onUnfollowButtonClick =  {streamerId -> Toast.makeText(context,"click unfollowButton",Toast.LENGTH_SHORT).show()}
+        onMoreButtonClick =  { streamerId -> Toast.makeText(context,"click unfollowButton",Toast.LENGTH_SHORT).show()}
     )
 }
