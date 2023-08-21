@@ -39,7 +39,10 @@ fun NowInJururuApp(
 
                 streamerNavGraph()
 
-                searchNavGraph()
+                searchNavGraph(
+                    paddingValues =  paddingValues,
+                    onNavigateTwitchChannelClick = twitchNavigationController::navigate
+                )
             }
         }
     }
