@@ -1,5 +1,6 @@
 package com.hegunhee.compose.search
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -18,29 +19,45 @@ import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.hegunhee.ui_component.text.ScreenHeaderText
 
 @Composable
 fun SearchScreenRoot(
+    viewModel : SearchViewModel = hiltViewModel(),
     onNavigateTwitchChannelClick : (String) -> Unit
 ) {
-    SearchScreen(onNavigateTwitchChannelClick = onNavigateTwitchChannelClick)
+    val uiModel = viewModel.uiModel.value
+    val (searchQuery, onValueChanged) = viewModel.searchQuery
+    SearchScreen(
+        uiModel = uiModel,
+        searchQuery = searchQuery,
+        onValueChanged = onValueChanged,
+        onNavigateTwitchChannelClick = onNavigateTwitchChannelClick,
+        onSearchStreamDataClick = viewModel::fetchStreamData,
+    )
 }
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun SearchScreen(
-    onNavigateTwitchChannelClick: (String) -> Unit
+    uiModel : SearchUiModel,
+    searchQuery : String,
+    onValueChanged : (String) -> Unit,
+    onNavigateTwitchChannelClick: (String) -> Unit,
+    onSearchStreamDataClick : () -> Unit
 ) {
-    val (text, onValueChange) = remember { mutableStateOf("") }
     val keyboardController = LocalSoftwareKeyboardController.current
     Column(
-        modifier = Modifier.fillMaxSize().padding(LocalPaddingValues.current).padding(horizontal = 20.dp)
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(LocalPaddingValues.current)
+            .padding(horizontal = 20.dp)
     ) {
         ScreenHeaderText(text = "검색")
         OutlinedTextField(
-            value = text,
-            onValueChange = onValueChange,
+            value = searchQuery,
+            onValueChange = onValueChanged,
             label = { Text("검색어를 입력해주세요") },
             singleLine = true,
             maxLines = 1,
@@ -48,13 +65,26 @@ fun SearchScreen(
                 Icon(
                     painter = painterResource(com.hegunhee.ui_component.R.drawable.ic_search_24),
                     contentDescription = null,
+                    modifier = Modifier.clickable { onSearchStreamDataClick() }
                 )
             },
             keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Search),
             keyboardActions = KeyboardActions(onSearch = {
+                onSearchStreamDataClick()
                 keyboardController?.hide()
             }),
             modifier = Modifier.fillMaxWidth()
         )
+        when(uiModel){
+            is SearchUiModel.Loading -> {
+                Text(text = uiModel.toString())
+            }
+            is SearchUiModel.Success -> {
+                Text(text = uiModel.toString())
+            }
+            is SearchUiModel.Error -> {
+                Text(text = uiModel.toString())
+            }
+        }
     }
 }
