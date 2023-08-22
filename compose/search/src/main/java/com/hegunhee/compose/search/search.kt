@@ -1,18 +1,21 @@
 package com.hegunhee.compose.search
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Icon
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
@@ -20,6 +23,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.hegunhee.ui_component.item.SearchStreamer
 import com.hegunhee.ui_component.text.ScreenHeaderText
 
 @Composable
@@ -35,6 +39,7 @@ fun SearchScreenRoot(
         onValueChanged = onValueChanged,
         onNavigateTwitchChannelClick = onNavigateTwitchChannelClick,
         onSearchStreamDataClick = viewModel::fetchStreamData,
+        onFollowButtonClick = viewModel::onFollowStreamerClick
     )
 }
 
@@ -45,7 +50,8 @@ fun SearchScreen(
     searchQuery : String,
     onValueChanged : (String) -> Unit,
     onNavigateTwitchChannelClick: (String) -> Unit,
-    onSearchStreamDataClick : () -> Unit
+    onSearchStreamDataClick : () -> Unit,
+    onFollowButtonClick : (String) -> Unit
 ) {
     val keyboardController = LocalSoftwareKeyboardController.current
     Column(
@@ -75,15 +81,29 @@ fun SearchScreen(
             }),
             modifier = Modifier.fillMaxWidth()
         )
+        Spacer(modifier = Modifier.size(10.dp))
         when(uiModel){
             is SearchUiModel.Loading -> {
-                Text(text = uiModel.toString())
+
             }
             is SearchUiModel.Success -> {
-                Text(text = uiModel.toString())
+                LazyColumn(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    items(items = uiModel.streamerList, key = {it.streamerId}) { searchData ->
+                        SearchStreamer(
+                            streamerId = searchData.streamerId,
+                            streamerName = searchData.streamerName,
+                            profileUrl = searchData.profileUrl,
+                            onItemClick = onNavigateTwitchChannelClick,
+                            onFollowButtonClick = onFollowButtonClick
+                        )
+                    }
+                }
             }
             is SearchUiModel.Error -> {
-                Text(text = uiModel.toString())
+
             }
         }
     }

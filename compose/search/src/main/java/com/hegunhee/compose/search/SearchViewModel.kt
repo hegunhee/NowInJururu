@@ -5,6 +5,7 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.hegunhee.domain.model.StreamerData
 import com.hegunhee.domain.usecase.GetSearchStreamerDataListUseCase
 import com.hegunhee.domain.usecase.InsertStreamerDataUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -34,9 +35,16 @@ class SearchViewModel @Inject constructor(
                     _uiModel.value = SearchUiModel.Error
                 }
         }
-
     }
 
-
-
+    fun onFollowStreamerClick(streamerId : String) = viewModelScope.launch{
+        (uiModel.value as SearchUiModel.Success).let { currentUiModel ->
+            insertStreamerDataUseCase(StreamerData(streamerId))
+                .onSuccess {
+                    _uiModel.value = currentUiModel.copy(currentUiModel.streamerList.filter { it.streamerId != streamerId})
+                }.onFailure {
+                    _uiModel.value = SearchUiModel.Error
+                }
+        }
+    }
 }
