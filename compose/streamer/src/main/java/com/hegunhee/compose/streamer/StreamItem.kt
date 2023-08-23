@@ -13,7 +13,7 @@ sealed class StreamItem(val isItemsNotEmpty : Boolean) {
     ) : StreamItem(items.isNotEmpty())
 
     data class Recommend(
-        val gameId : String,
+        val gameName : String,
         val items : List<StreamDataType.OnlineData>
     ) : StreamItem(items.isNotEmpty())
 }
@@ -26,10 +26,10 @@ fun List<StreamDataType.OfflineData>.toOfflineStreamItem() : StreamItem.Offline 
     return StreamItem.Offline(items = this)
 }
 
-fun List<StreamDataType.OnlineData>.toRecommendStreamItem(gameId : String) : StreamItem.Recommend {
-    return StreamItem.Recommend(gameId = gameId,items = this)
+fun List<StreamDataType.OnlineData>.toRecommendStreamItem(gameName : String) : StreamItem.Recommend {
+    return StreamItem.Recommend(gameName = gameName,items = this)
 }
 
 fun emptyRecommendStreamItem() : StreamItem.Recommend {
-    return StreamItem.Recommend(gameId = "",items = emptyList())
+    return StreamItem.Recommend(gameName = "",items = emptyList())
 }
