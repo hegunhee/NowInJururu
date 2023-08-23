@@ -9,7 +9,9 @@ import com.hegunhee.domain.model.StreamDataType
 import com.hegunhee.domain.usecase.GetBookmarkedStreamDataListUseCase
 import com.hegunhee.domain.usecase.GetGameStreamDataListUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
 
 @HiltViewModel
@@ -34,7 +36,7 @@ class StreamerViewModel @Inject constructor(
                     val mostFollowGameId = onlineStreamItem.items.getMostFollowedGameId()
                     getGameStreamDataListUseCase(mostFollowGameId)
                         .onSuccess { recommendStreamDataList ->
-                            val recommendStreamItem = recommendStreamDataList.toRecommendStreamItem(mostFollowGameId)
+                            val recommendStreamItem = recommendStreamDataList.toRecommendStreamItem(recommendStreamDataList[0].gameName)
                             _uiModel.value = StreamerUiModel.Success(listOf(onlineStreamItem, offlineStreamItem, recommendStreamItem))
                         }.onFailure {
                             _uiModel.value = StreamerUiModel.Error
