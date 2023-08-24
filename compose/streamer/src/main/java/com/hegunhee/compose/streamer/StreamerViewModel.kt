@@ -65,7 +65,10 @@ class StreamerViewModel @Inject constructor(
                     _uiModel.value = StreamerUiModel.Error
                 }
         }
+    }
 
+    fun request() {
+        fetchStreamerData()
     }
 
 }
