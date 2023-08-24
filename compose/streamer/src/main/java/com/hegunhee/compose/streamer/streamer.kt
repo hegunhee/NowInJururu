@@ -1,9 +1,11 @@
 package com.hegunhee.compose.streamer
 
+import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -11,10 +13,18 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -23,6 +33,7 @@ import com.hegunhee.ui_component.item.OfflineStream
 import com.hegunhee.ui_component.item.OnlineStream
 import com.hegunhee.ui_component.item.RecommendStream
 import com.hegunhee.ui_component.text.ScreenHeaderText
+import com.holix.android.bottomsheetdialog.compose.BottomSheetDialog
 
 @Composable
 fun StreamerScreenRoot(
@@ -40,6 +51,16 @@ fun StreamerScreen(
     uiModel : StreamerUiModel,
     onNavigateTwitchChannelClick: (String) -> Unit,
 ) {
+    var dialogShow by remember{ mutableStateOf(Pair<Boolean, String>(false, "")) }
+    val showDialog : (String) -> Unit= { streamerId -> dialogShow = Pair(true,streamerId) }
+    val dismissDialog = { dialogShow = Pair(false,"")}
+    if(dialogShow.first) {
+        StreamerBottomSheet(
+            streamerId = dialogShow.second,
+            dismissDialog = dismissDialog,
+            onUnfollowStreamerClick = {}
+        )
+    }
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -55,7 +76,7 @@ fun StreamerScreen(
                     verticalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
                     uiModel.streamItem.forEach {
-                        streamerItem(it,onNavigateTwitchChannelClick)
+                        streamerItem(it,onNavigateTwitchChannelClick,showDialog)
                     }
                 }
             }
@@ -66,9 +87,34 @@ fun StreamerScreen(
     }
 }
 
+@Composable
+fun StreamerBottomSheet(
+    streamerId : String,
+    dismissDialog : () -> Unit,
+    onUnfollowStreamerClick : (String) -> Unit
+) {
+    val context = LocalContext.current
+    BottomSheetDialog(onDismissRequest = dismissDialog) {
+        Surface(shape = RoundedCornerShape(topStart = 12.dp,topEnd = 12.dp)) {
+            Column(
+                modifier = Modifier.fillMaxWidth().defaultMinSize(minHeight = 100.dp).clip(RoundedCornerShape(topStart = 12.dp,topEnd = 12.dp)),
+                verticalArrangement = Arrangement.Bottom,
+            ) {
+                Text(text = "$streamerId 를 팔로우 취소하겠습니까?",modifier = Modifier.clickable {
+                    Toast.makeText(context, "$streamerId 팔로우 취소", Toast.LENGTH_SHORT).show()
+                    onUnfollowStreamerClick(streamerId)
+                    dismissDialog()
+                })
+            }
+        }
+
+    }
+}
+
 fun LazyListScope.streamerItem(
     streamItem : StreamItem,
     onNavigateTwitchChannelClick: (String) -> Unit,
+    onMoreButtonClick : (String) -> Unit
 ) {
     if(streamItem.isItemsNotEmpty) {
         when(streamItem) {
@@ -87,7 +133,7 @@ fun LazyListScope.streamerItem(
                         profileUrl = it.profileUrl,
                         viewerCount = it.viewerCount,
                         onTwitchStreamClick = onNavigateTwitchChannelClick,
-                        onMoreButtonClick = {}
+                        onMoreButtonClick = onMoreButtonClick
                     )
                 }
 
@@ -102,7 +148,7 @@ fun LazyListScope.streamerItem(
                         streamerName = it.streamerName,
                         streamerProfileUrl = it.profileUrl,
                         onTwitchStreamClick = onNavigateTwitchChannelClick,
-                        onMoreButtonClick = {}
+                        onMoreButtonClick = onMoreButtonClick
                     )
                 }
             }
