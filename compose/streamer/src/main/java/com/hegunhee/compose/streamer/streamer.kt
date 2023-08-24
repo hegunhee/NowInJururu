@@ -1,6 +1,6 @@
 package com.hegunhee.compose.streamer
 
-import android.widget.Toast
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.LazyRow
@@ -26,6 +27,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -34,6 +36,7 @@ import com.hegunhee.ui_component.item.OnlineStream
 import com.hegunhee.ui_component.item.RecommendStream
 import com.hegunhee.ui_component.text.ScreenHeaderText
 import com.holix.android.bottomsheetdialog.compose.BottomSheetDialog
+import com.hegunhee.ui_component.R
 
 @Composable
 fun StreamerScreenRoot(
@@ -43,7 +46,8 @@ fun StreamerScreenRoot(
     StreamerScreen(
         uiModel = viewModel.uiModel.value,
         onNavigateTwitchChannelClick = onNavigateTwitchChannelClick,
-        onUnfollowStreamerClick = viewModel::onUnfollowStreamerClick
+        onUnfollowStreamerClick = viewModel::onUnfollowStreamerClick,
+        request = viewModel::request
     )
 }
 
@@ -51,7 +55,8 @@ fun StreamerScreenRoot(
 fun StreamerScreen(
     uiModel : StreamerUiModel,
     onNavigateTwitchChannelClick: (String) -> Unit,
-    onUnfollowStreamerClick : (String) -> Unit
+    onUnfollowStreamerClick : (String) -> Unit,
+    request : () -> Unit
 ) {
     var dialogShow by remember{ mutableStateOf(Pair<Boolean, String>(false, "")) }
     val showDialog : (String) -> Unit= { streamerId -> dialogShow = Pair(true,streamerId) }
@@ -69,7 +74,13 @@ fun StreamerScreen(
             .padding(LocalPaddingValues.current)
             .padding(horizontal = 20.dp)
     ) {
-        ScreenHeaderText(text = "스트리머")
+        Row(modifier = Modifier.fillMaxWidth()) {
+            ScreenHeaderText(text = "스트리머")
+            Image(
+                painter = painterResource(id = R.drawable.ic_request_24),
+                contentDescription = "데이터 요청",
+                modifier = Modifier.clickable { request() }.size(50.dp).padding(top = 10.dp))
+        }
         when(uiModel) {
             StreamerUiModel.Loading -> {}
             is StreamerUiModel.Success -> {
@@ -99,7 +110,10 @@ fun StreamerBottomSheet(
     BottomSheetDialog(onDismissRequest = dismissDialog) {
         Surface(shape = RoundedCornerShape(topStart = 12.dp,topEnd = 12.dp)) {
             Column(
-                modifier = Modifier.fillMaxWidth().defaultMinSize(minHeight = 100.dp).clip(RoundedCornerShape(topStart = 12.dp,topEnd = 12.dp)),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .defaultMinSize(minHeight = 100.dp)
+                    .clip(RoundedCornerShape(topStart = 12.dp, topEnd = 12.dp)),
                 verticalArrangement = Arrangement.Bottom,
             ) {
                 Text(text = "$streamerId 를 팔로우 취소하겠습니까?",modifier = Modifier.clickable {
