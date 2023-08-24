@@ -42,7 +42,8 @@ fun StreamerScreenRoot(
 ) {
     StreamerScreen(
         uiModel = viewModel.uiModel.value,
-        onNavigateTwitchChannelClick = onNavigateTwitchChannelClick
+        onNavigateTwitchChannelClick = onNavigateTwitchChannelClick,
+        onUnfollowStreamerClick = viewModel::onUnfollowStreamerClick
     )
 }
 
@@ -50,6 +51,7 @@ fun StreamerScreenRoot(
 fun StreamerScreen(
     uiModel : StreamerUiModel,
     onNavigateTwitchChannelClick: (String) -> Unit,
+    onUnfollowStreamerClick : (String) -> Unit
 ) {
     var dialogShow by remember{ mutableStateOf(Pair<Boolean, String>(false, "")) }
     val showDialog : (String) -> Unit= { streamerId -> dialogShow = Pair(true,streamerId) }
@@ -58,7 +60,7 @@ fun StreamerScreen(
         StreamerBottomSheet(
             streamerId = dialogShow.second,
             dismissDialog = dismissDialog,
-            onUnfollowStreamerClick = {}
+            onUnfollowStreamerClick = onUnfollowStreamerClick
         )
     }
     Column(
@@ -101,7 +103,6 @@ fun StreamerBottomSheet(
                 verticalArrangement = Arrangement.Bottom,
             ) {
                 Text(text = "$streamerId 를 팔로우 취소하겠습니까?",modifier = Modifier.clickable {
-                    Toast.makeText(context, "$streamerId 팔로우 취소", Toast.LENGTH_SHORT).show()
                     onUnfollowStreamerClick(streamerId)
                     dismissDialog()
                 })
