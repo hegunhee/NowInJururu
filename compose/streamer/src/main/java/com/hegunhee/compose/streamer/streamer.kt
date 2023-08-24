@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -20,6 +21,7 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.hegunhee.ui_component.item.OfflineStream
 import com.hegunhee.ui_component.item.OnlineStream
+import com.hegunhee.ui_component.item.RecommendStream
 import com.hegunhee.ui_component.text.ScreenHeaderText
 
 @Composable
@@ -116,10 +118,23 @@ fun LazyListScope.streamerItem(
                             onNavigateTwitchChannelClick("twitch://open?game=${streamItem.gameName}")
                         })
                     }
-
                 }
-                items(items = streamItem.items, key = { "recommend" + it.streamerId}) {
-                    Text(text = it.streamerId)
+                item {
+                    LazyRow(horizontalArrangement = Arrangement.spacedBy(20.dp)) {
+                        items(items = streamItem.items, key = { "recommend" + it.streamerId}) {
+                            RecommendStream(
+                                streamerId = it.streamerId,
+                                streamerName = it.streamerName,
+                                title = it.title,
+                                gameName = it.gameName,
+                                tags = it.tags,
+                                thumbNailUrl = it.thumbnailUrl,
+                                profileUrl = it.profileUrl,
+                                viewerCount = it.viewerCount,
+                                onTwitchStreamClick = onNavigateTwitchChannelClick
+                            )
+                        }
+                    }
                 }
             }
         }
