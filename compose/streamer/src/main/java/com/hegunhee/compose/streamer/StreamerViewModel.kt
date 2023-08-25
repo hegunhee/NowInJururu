@@ -33,8 +33,8 @@ class StreamerViewModel @Inject constructor(
     private fun fetchStreamerData() = viewModelScope.launch {
         getBookmarkedStreamDataListUseCase()
             .onSuccess { streamDataList ->
-                val onlineStreamItem = streamDataList.filterIsInstance(StreamDataType.OnlineData::class.java).toOnlineStreamItem()
-                val offlineStreamItem = streamDataList.filterIsInstance(StreamDataType.OfflineData::class.java).toOfflineStreamItem()
+                val onlineStreamItem = streamDataList.filterIsInstance<StreamDataType.OnlineData>().toOnlineStreamItem()
+                val offlineStreamItem = streamDataList.filterIsInstance<StreamDataType.OfflineData>().toOfflineStreamItem()
                 if(onlineStreamItem.items.isNotEmpty()) {
                     val mostFollowGameId = onlineStreamItem.items.getMostFollowedGameId()
                     getGameStreamDataListUseCase(mostFollowGameId)

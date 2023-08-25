@@ -26,8 +26,8 @@ class JururuViewModel @Inject constructor(private val getJururuStreamDataUseCase
         viewModelScope.launch {
             getJururuStreamDataUseCase()
                 .onSuccess {
-                    val onlineStreamData = listOf(it).filterIsInstance(StreamDataType.OnlineData::class.java)
-                    val offlineStreamData = listOf(it).filterIsInstance(StreamDataType.OfflineData::class.java)
+                    val onlineStreamData = listOf(it).filterIsInstance<StreamDataType.OnlineData>()
+                    val offlineStreamData = listOf(it).filterIsInstance<StreamDataType.OfflineData>()
                     _uiModel.value = JururuUiModel.Success(onlineStreamData, offlineStreamData)
                 }.onFailure {
                     _uiModel.value = JururuUiModel.Error
