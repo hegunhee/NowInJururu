@@ -24,6 +24,9 @@
     <dimen name="item_between_small_top_margin">5dp</dimen>
     <dimen name="item_between_small_bottom_margin">5dp</dimen>
 
+    <dimen name="item_between_large">20dp</dimen>
+    <dimen name="item_between_middle">8dp</dimen>
+
     <dimen name="online_dot_start_margin">2dp</dimen>
     <dimen name="online_dot_bottom_margin">2dp</dimen>
     <dimen name="online_dot_end_margin">2dp</dimen>

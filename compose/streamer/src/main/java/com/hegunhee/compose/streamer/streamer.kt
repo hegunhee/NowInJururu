@@ -24,12 +24,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.hegunhee.ui_component.item.OfflineStream
 import com.hegunhee.ui_component.item.OnlineStream
@@ -37,6 +36,8 @@ import com.hegunhee.ui_component.item.RecommendStream
 import com.hegunhee.ui_component.text.ScreenHeaderText
 import com.holix.android.bottomsheetdialog.compose.BottomSheetDialog
 import com.hegunhee.ui_component.R
+import com.hegunhee.ui_component.style.largeTextFontSize
+import com.hegunhee.ui_component.style.middleTextFontSize
 
 @Composable
 fun StreamerScreenRoot(
@@ -72,7 +73,6 @@ fun StreamerScreen(
         modifier = Modifier
             .fillMaxSize()
             .padding(LocalPaddingValues.current)
-            .padding(horizontal = 20.dp)
     ) {
         Row(modifier = Modifier.fillMaxWidth()) {
             ScreenHeaderText(text = "스트리머")
@@ -86,7 +86,7 @@ fun StreamerScreen(
             is StreamerUiModel.Success -> {
                 LazyColumn(
                     modifier = Modifier.fillMaxWidth(),
-                    verticalArrangement = Arrangement.spacedBy(8.dp)
+                    verticalArrangement = Arrangement.spacedBy(dimensionResource(com.hegunhee.resource_common.R.dimen.item_between_middle))
                 ) {
                     uiModel.streamItem.forEach {
                         streamerItem(it,onNavigateTwitchChannelClick,showDialog)
@@ -112,9 +112,9 @@ fun StreamerBottomSheet(
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .defaultMinSize(minHeight = 100.dp)
-                    .clip(RoundedCornerShape(topStart = 12.dp, topEnd = 12.dp)),
+                    .defaultMinSize(minHeight = 100.dp),
                 verticalArrangement = Arrangement.Bottom,
+                horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Text(text = "$streamerId 를 팔로우 취소하겠습니까?",modifier = Modifier.clickable {
                     onUnfollowStreamerClick(streamerId)
@@ -135,7 +135,7 @@ fun LazyListScope.streamerItem(
         when(streamItem) {
             is StreamItem.Online -> {
                 item {
-                    Text(text = "온라인",fontSize = 25.sp)
+                    Text(text = "온라인",fontSize = largeTextFontSize,modifier = Modifier.padding(horizontal = dimensionResource(com.hegunhee.resource_common.R.dimen.header_start_padding)))
                 }
                 items(items = streamItem.items, key = {it.streamerId}) {
                     OnlineStream(
@@ -155,7 +155,7 @@ fun LazyListScope.streamerItem(
             }
             is StreamItem.Offline -> {
                 item {
-                    Text(text = "오프라인",fontSize = 25.sp)
+                    Text(text = "오프라인",fontSize = largeTextFontSize,modifier = Modifier.padding(horizontal = dimensionResource(com.hegunhee.resource_common.R.dimen.header_start_padding)))
                 }
                 items(items = streamItem.items, key = {it.streamerId}) {
                     OfflineStream(
@@ -171,17 +171,17 @@ fun LazyListScope.streamerItem(
                 item {
                     Row(
                         modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.spacedBy(4.dp),
+                        horizontalArrangement = Arrangement.spacedBy(dimensionResource(com.hegunhee.resource_common.R.dimen.item_between_middle)),
                         verticalAlignment = Alignment.Bottom
                     ) {
-                        Text(text = "추천 생방송 채널",fontSize = 20.sp)
-                        Text(text = "트위치 앱에서 보기",fontSize = 15.sp, color = colorResource(id = com.hegunhee.resource_common.R.color.violet),modifier = Modifier.clickable {
+                        Text(text = "추천 생방송 채널",fontSize = largeTextFontSize)
+                        Text(text = "트위치 앱에서 보기",fontSize = middleTextFontSize, color = colorResource(id = com.hegunhee.resource_common.R.color.violet),modifier = Modifier.clickable {
                             onNavigateTwitchChannelClick("twitch://open?game=${streamItem.gameName}")
                         })
                     }
                 }
                 item {
-                    LazyRow(horizontalArrangement = Arrangement.spacedBy(20.dp)) {
+                    LazyRow(horizontalArrangement = Arrangement.spacedBy(dimensionResource(com.hegunhee.resource_common.R.dimen.item_between_large))) {
                         items(items = streamItem.items, key = { "recommend" + it.streamerId}) {
                             RecommendStream(
                                 streamerId = it.streamerId,
