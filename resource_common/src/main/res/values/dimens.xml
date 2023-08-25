@@ -44,5 +44,7 @@
 
     <dimen name="search_profile_image_vertical_padding">10dp</dimen>
 
+    <dimen name="profile_image_middle_size">50dp</dimen>
     <dimen name="profile_image_small_size">20dp</dimen>
+
 </resources>
