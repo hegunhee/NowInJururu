@@ -151,7 +151,6 @@ fun LazyListScope.streamerItem(
                         onMoreButtonClick = onMoreButtonClick
                     )
                 }
-
             }
             is StreamItem.Offline -> {
                 item {
