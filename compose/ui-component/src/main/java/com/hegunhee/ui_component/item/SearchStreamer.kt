@@ -13,10 +13,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.dimensionResource
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.hegunhee.resource_common.R
+import com.hegunhee.ui_component.style.middleButtonFontSize
+import com.hegunhee.ui_component.style.middleTextFontSize
 
 @Composable
 fun SearchStreamer(
@@ -39,10 +42,10 @@ fun SearchStreamer(
         Column(
             modifier = Modifier.padding(start = dimensionResource(R.dimen.item_between_start_margin)).align(Alignment.Bottom),
         ) {
-            Text(text = streamerName,fontSize = 15.sp)
-            Text(text = streamerId, fontSize = 15.sp)
+            Text(text = streamerName,fontSize = middleTextFontSize)
+            Text(text = streamerId, fontSize = middleTextFontSize)
             Button(onClick = {onFollowButtonClick(streamerId)}) {
-                Text(text = "즐겨찾기",fontSize =13.sp)
+                Text(text = "즐겨찾기",fontSize = middleButtonFontSize)
             }
         }
     }
