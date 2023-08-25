@@ -19,12 +19,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.hegunhee.ui_component.item.SearchStreamer
 import com.hegunhee.ui_component.text.ScreenHeaderText
+import com.hegunhee.resource_common.R
 
 @Composable
 fun SearchScreenRoot(
@@ -58,7 +60,6 @@ fun SearchScreen(
         modifier = Modifier
             .fillMaxSize()
             .padding(LocalPaddingValues.current)
-            .padding(horizontal = 20.dp)
     ) {
         ScreenHeaderText(text = "검색")
         OutlinedTextField(
@@ -79,7 +80,7 @@ fun SearchScreen(
                 onSearchStreamDataClick()
                 keyboardController?.hide()
             }),
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth().padding(horizontal = dimensionResource(R.dimen.header_start_padding))
         )
         Spacer(modifier = Modifier.size(10.dp))
         when(uiModel){

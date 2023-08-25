@@ -38,4 +38,6 @@
 
     <dimen name="search_profile_image_width_size">100dp</dimen>
     <dimen name="search_profile_image_height_size">100dp</dimen>
+
+    <dimen name="search_profile_image_vertical_padding">10dp</dimen>
 </resources>
