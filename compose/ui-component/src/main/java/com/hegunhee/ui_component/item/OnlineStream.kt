@@ -8,8 +8,10 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Text
@@ -44,30 +46,29 @@ fun OnlineStream(
         .fillMaxWidth()
         .clickable { onTwitchStreamClick(String.format(context.getString(R.string.twitchChannelUrl),streamerId)) }
         .padding(
-            start = dimensionResource(id = R.dimen.item_between_small_start_margin),
+            start = dimensionResource(id = R.dimen.header_start_padding),
             top = dimensionResource(id = R.dimen.header_top_padding),
             bottom = dimensionResource(id = R.dimen.header_bottom_padding)
         ),
         verticalAlignment = Alignment.Top) {
         ThumbNailFormatImage(thumbNailUrl = thumbNailUrl, viewerCount = viewerCount)
-        Spacer(modifier = Modifier.size(10.dp))
-        Column(modifier = Modifier
-            .fillMaxWidth()
+        Spacer(modifier = Modifier.width(dimensionResource(R.dimen.item_between_start_margin)))
+        Column(modifier = Modifier.fillMaxWidth()
         ) {
             Row(modifier = Modifier.fillMaxWidth()) {
                 AsyncImage(
                     model = profileUrl,
                     contentDescription = "profileImage",
                     contentScale = ContentScale.Crop,
-                    modifier = Modifier.size(20.dp).weight(1f)
+                    modifier = Modifier.size(dimensionResource(R.dimen.profile_image_small_size)).weight(1f)
                 )
                 Text(text = streamerName,modifier = Modifier.padding(start = dimensionResource(id = R.dimen.item_between_small_start_margin)).weight(5f))
                 Image(painter = painterResource(id = R.drawable.ic_menu_24),
                     contentDescription = "more Button",
                     modifier = Modifier.weight(1f).clickable { onMoreButtonClick(streamerId) })
             }
-            Text(text = title)
-            Text(text = gameName)
+            Text(text = title,maxLines = 1)
+            Text(text = gameName,maxLines = 1)
             LazyRow() {
                 items(items = tags,key = { it }) { tag ->
                     TagItem(tag)
