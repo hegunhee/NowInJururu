@@ -7,8 +7,10 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
@@ -21,12 +23,13 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
 import coil.compose.AsyncImage
 import com.hegunhee.resource_common.R
+import com.hegunhee.ui_component.style.middleTextFontSize
 
 @Composable
 fun RecommendStream(
@@ -41,21 +44,24 @@ fun RecommendStream(
     onTwitchStreamClick : (String) -> Unit,
 ) {
     val context = LocalContext.current
-    Column(modifier = Modifier.clickable {  onTwitchStreamClick(String.format(context.getString(R.string.twitchChannelUrl),streamerId)) }) {
+    Column(modifier = Modifier
+        .clickable {  onTwitchStreamClick(String.format(context.getString(R.string.twitchChannelUrl),streamerId)) }
+        .padding(horizontal = dimensionResource(R.dimen.header_start_padding))
+    ) {
         ThumbNailFormatImage(thumbNailUrl = thumbNailUrl, viewerCount = viewerCount)
-        Spacer(modifier = Modifier.padding(vertical = 5.dp))
+        Spacer(modifier = Modifier.height(height = dimensionResource((R.dimen.item_top_margin))))
         Row() {
             AsyncImage(
                 model = profileUrl,
                 contentDescription = "프로필 사진",
                 contentScale = ContentScale.Crop,
-                modifier = Modifier.size(50.dp)
+                modifier = Modifier.size(dimensionResource(R.dimen.profile_image_middle_size))
             )
-            Spacer(modifier = Modifier.padding(horizontal = 2.dp))
+            Spacer(modifier = Modifier.width(dimensionResource(R.dimen.item_between_small_top_margin)))
             Column() {
                 Text(text = streamerName)
-                Text(text = title,fontSize = 15.sp,maxLines = 1,modifier = Modifier.widthIn(min = 1.dp,max = 150.dp))
-                Text(text = gameName,fontSize = 15.sp,maxLines = 1)
+                Text(text = title,fontSize = middleTextFontSize,maxLines = 1,modifier = Modifier.widthIn(min = 1.dp,max = 150.dp))
+                Text(text = gameName,fontSize = middleTextFontSize,maxLines = 1,modifier = Modifier.widthIn(min = 1.dp,max = 150.dp))
                 LazyRow(modifier = Modifier.widthIn(min = 1.dp,max = 150.dp)) {
                     items(items = tags,key = { it }) { tag ->
                         TagItem(tag)
@@ -72,7 +78,7 @@ private fun ThumbNailFormatImage(
     thumbNailUrl: String,
     viewerCount: String
 ) {
-    val thumbNailSize = Modifier.size(width = 250.dp,height = 250.dp)
+    val thumbNailSize = Modifier.size(dimensionResource(R.dimen.thumbnail_image_large_size))
     Box() {
         Box(modifier = Modifier
             .then(thumbNailSize)
