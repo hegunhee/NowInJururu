@@ -6,8 +6,8 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.text.KeyboardActions
@@ -22,7 +22,6 @@ import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.ImeAction
-import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.hegunhee.ui_component.item.SearchStreamer
 import com.hegunhee.ui_component.text.ScreenHeaderText
@@ -82,7 +81,7 @@ fun SearchScreen(
             }),
             modifier = Modifier.fillMaxWidth().padding(horizontal = dimensionResource(R.dimen.header_start_padding))
         )
-        Spacer(modifier = Modifier.size(10.dp))
+        Spacer(modifier = Modifier.height(dimensionResource(R.dimen.item_top_margin)))
         when(uiModel){
             is SearchUiModel.Loading -> {
 
@@ -90,7 +89,7 @@ fun SearchScreen(
             is SearchUiModel.Success -> {
                 LazyColumn(
                     modifier = Modifier.fillMaxWidth(),
-                    verticalArrangement = Arrangement.spacedBy(8.dp)
+                    verticalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.item_between_middle))
                 ) {
                     items(items = uiModel.streamerList, key = {it.streamerId}) { searchData ->
                         SearchStreamer(
