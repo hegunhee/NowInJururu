@@ -170,7 +170,7 @@ fun LazyListScope.streamerItem(
             is StreamItem.Recommend -> {
                 item {
                     Row(
-                        modifier = Modifier.fillMaxWidth(),
+                        modifier = Modifier.fillMaxWidth().padding(horizontal = dimensionResource(com.hegunhee.resource_common.R.dimen.header_start_padding)),
                         horizontalArrangement = Arrangement.spacedBy(dimensionResource(com.hegunhee.resource_common.R.dimen.item_between_middle)),
                         verticalAlignment = Alignment.Bottom
                     ) {
