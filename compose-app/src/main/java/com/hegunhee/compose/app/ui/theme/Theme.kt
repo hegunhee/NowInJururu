@@ -50,7 +50,10 @@ fun NowInJururuTheme(
             if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
         }
 
-        darkTheme -> DarkColorScheme
+        /*
+            다크모드 비활성화
+         */
+        darkTheme -> LightColorScheme
         else -> LightColorScheme
     }
     val view = LocalView.current
