@@ -69,7 +69,7 @@ fun SearchScreen(
             maxLines = 1,
             trailingIcon = {
                 Icon(
-                    painter = painterResource(com.hegunhee.ui_component.R.drawable.ic_search_24),
+                    painter = painterResource(R.drawable.ic_search_24),
                     contentDescription = null,
                     modifier = Modifier.clickable { onSearchStreamDataClick() }
                 )
