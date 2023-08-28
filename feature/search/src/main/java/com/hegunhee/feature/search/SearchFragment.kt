@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
+import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResult
@@ -42,6 +44,16 @@ class SearchFragment : Fragment(){
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         observeData()
+
+        viewDataBinding.searchEditText.setOnEditorActionListener { editText, actionId, event ->
+            return@setOnEditorActionListener if(actionId == EditorInfo.IME_ACTION_SEARCH) {
+                viewModel.onClickSearchButton()
+                true
+            } else {
+                false
+            }
+
+        }
     }
 
     private fun observeData() {
