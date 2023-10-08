@@ -29,6 +29,12 @@ class AndroidComposeApplicationPlugin : Plugin<Project> {
                         proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
                     }
                 }
+                defaultConfig {
+                    testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+                    vectorDrawables {
+                        useSupportLibrary = true
+                    }
+                }
             }
             val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
 
