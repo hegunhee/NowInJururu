@@ -9,7 +9,7 @@ sealed class BottomNavItem(
 ) {
     object Jururu : BottomNavItem(com.hegunhee.ui_component.R.string.jururu, com.hegunhee.ui_component.R.drawable.ic_star_24,JururuNavGraph.jururuRoute)
     object Streamer : BottomNavItem(com.hegunhee.ui_component.R.string.streamer,com.hegunhee.ui_component.R.drawable.ic_streamer_24,StreamerNavGraph.streamerRoute)
-    object Search : BottomNavItem(com.hegunhee.ui_component.R.string.search,com.hegunhee.ui_component.R.drawable.ic_search_24,SearchNavGraph.searchRoute)
+    object Search : BottomNavItem(com.hegunhee.ui_component.R.string.search,com.hegunhee.resource_common.R.drawable.ic_search_24,SearchNavGraph.searchRoute)
 
 }
 
