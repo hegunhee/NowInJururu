@@ -1,6 +1,5 @@
 package com.hegunhee.data.network
 
-import com.hegunhee.data.BuildConfig
 import com.hegunhee.data.data.json.StreamApiDataResponse
 import retrofit2.http.GET
 import retrofit2.http.Header
@@ -10,7 +9,6 @@ interface TwitchStreamDataApi {
 
     @GET("streams")
     suspend fun getStreamData(
-        @Header("client-id") clientId : String = BuildConfig.clientId,
         @Header("Authorization") authorization : String,
         @Query("user_login") userLogin : String
     ) : StreamApiDataResponse
@@ -26,7 +24,6 @@ interface TwitchStreamDataApi {
      */
     @GET("streams")
     suspend fun getGameStreamData(
-        @Header("client-id") clientId: String = BuildConfig.clientId,
         @Header("Authorization") authorization: String,
         @Query("game_id") gameId: String,
         @Query("type") type: String = "live",
