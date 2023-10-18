@@ -35,6 +35,8 @@ moshi = "1.9.3"
 
 room = "2.4.2"
 
+paging = "3.2.1"
+
 picasso = "2.8"
 
 coil = "2.4.0"
@@ -99,6 +101,10 @@ room-runtime = {module = "androidx.room:room-runtime",version.ref = "room"}
 room-compiler = {module = "androidx.room:room-compiler",version.ref = "room"}
 room-ktx = {module = "androidx.room:room-ktx",version.ref="room"}
 
+paging-runtime = {module = "androidx.paging:paging-runtime",version.ref ="paging"}
+paging-common = {module = "androidx.paging:paging-common",version.ref="paging"}
+paging-ktx = {module = "androidx.paging:paging-common-ktx",version.ref="paging"}
+
 picasso = {module = "com.squareup.picasso:picasso",version.ref="picasso"}
 
 coil = {module = "io.coil-kt:coil-compose",version.ref = "coil"}
@@ -110,6 +116,8 @@ lottie = {module = "com.airbnb.android:lottie",version.ref="lottie"}
 navigation = ["navigation-fragment","navigation-ui"]
 retrofit2 = ["retrofit2-retrofit","retrofit2-gson","retrofit2-moshi"]
 moshi = ["moshi","moshi-kotlin"]
+
+paging = ["paging-runtime","paging-common","paging-ktx"]
 
 lifecycleScope = ["viewModel-lifecycleScope","lifecycle-lifecycleScope"]
 

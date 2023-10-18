@@ -32,4 +32,6 @@ dependencies {
     implementation(libs.room.runtime)
     kapt(libs.room.compiler)
     implementation(libs.room.ktx)
+
+    implementation(libs.bundles.paging)
 }
