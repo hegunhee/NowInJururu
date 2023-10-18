@@ -1,5 +1,7 @@
 package com.hegunhee.data.repository
 
+import androidx.paging.PagingData
+import androidx.paging.filter
 import com.hegunhee.data.dataSource.local.LocalDataSource
 import com.hegunhee.data.dataSource.remote.RemoteDataSource
 import com.hegunhee.data.mapper.toSearchDataList
@@ -11,6 +13,8 @@ import com.hegunhee.domain.model.StreamDataType.Companion.RecommendStreamThumbNa
 import com.hegunhee.domain.model.StreamDataType.Companion.RecommendStreamThumbNailWidth
 import com.hegunhee.domain.model.StreamerData
 import com.hegunhee.domain.repository.Repository
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class DefaultRepository @Inject constructor(
@@ -54,7 +58,7 @@ class DefaultRepository @Inject constructor(
         return runCatching {
             val token = remoteDataSource.getAuthToken().getFormattedToken()
             val gameStreamList = remoteDataSource.getGameStreamDataResponse(gameId,token).streamApiData.sortedBy { it.streamerId }
-            if(gameStreamList.isEmpty()){
+            if(gameStreamList.isEmpty()) {
                 return@runCatching emptyList<StreamDataType.OnlineData>()
             }
             val streamerInfoList = remoteDataSource.getStreamerDataResponse(streamerLogin = gameStreamList.map { it.streamerId }.toTypedArray(),token = token).streamerApiDataList.sortedBy { it.streamerId }
@@ -84,5 +88,16 @@ class DefaultRepository @Inject constructor(
         return kotlin.runCatching {
             localDataSource.deleteStreamer(streamerData.toStreamerEntity())
         }
+    }
+
+    override suspend fun searchPagingSource(streamerName: String,size : Int): Flow<PagingData<SearchData>> {
+        val loadedStreamerData = localDataSource.getAllStreamerList().map { it.streamerLogin }
+        return remoteDataSource
+            .getSearchPagingDataResponse(streamerName, size)
+            .map {
+                it.filter { searchData ->
+                    !loadedStreamerData.contains(searchData.streamerId)
+                }
+            }
     }
 }

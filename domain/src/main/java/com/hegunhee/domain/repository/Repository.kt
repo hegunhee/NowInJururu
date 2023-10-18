@@ -1,8 +1,10 @@
 package com.hegunhee.domain.repository
 
+import androidx.paging.PagingData
 import com.hegunhee.domain.model.SearchData
 import com.hegunhee.domain.model.StreamDataType
 import com.hegunhee.domain.model.StreamerData
+import kotlinx.coroutines.flow.Flow
 
 interface Repository {
 
@@ -17,4 +19,6 @@ interface Repository {
     suspend fun insertStreamer(streamerData: StreamerData) : Result<Unit>
 
     suspend fun deleteStreamer(streamerData: StreamerData) : Result<Unit>
+
+    suspend fun searchPagingSource(streamerName : String,size : Int) : Flow<PagingData<SearchData>>
 }
