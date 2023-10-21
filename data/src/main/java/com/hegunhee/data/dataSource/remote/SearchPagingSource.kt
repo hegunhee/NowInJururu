@@ -7,11 +7,14 @@ import com.hegunhee.data.network.TwitchAuthTokenApi
 import com.hegunhee.data.network.TwitchSearchDataApi
 import com.hegunhee.domain.model.SearchData
 
-class SearchPagingSource (
-    private val query : String,
+class SearchPagingSource(
+    private val query: String,
     private val twitchApiTokenApi: TwitchAuthTokenApi,
     private val twitchSearchDataApi: TwitchSearchDataApi,
-): PagingSource<String, SearchData>() {
+) : PagingSource<String, SearchData>() {
+
+    override val keyReuseSupported: Boolean
+        get() = true
 
     override suspend fun load(params: LoadParams<String>): LoadResult<String, SearchData> {
         return try {
@@ -28,12 +31,12 @@ class SearchPagingSource (
                 prevKey = params.key,
                 nextKey = nextKey
             )
-        } catch (exception : Exception) {
+        } catch (exception: Exception) {
             return LoadResult.Error(exception)
         }
     }
 
     override fun getRefreshKey(state: PagingState<String, SearchData>): String? {
-        return state.pages[0].nextKey
+        return state.pages[0].prevKey
     }
 }
