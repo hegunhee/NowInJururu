@@ -5,17 +5,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
-import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.hegunhee.feature.common.fragmentResultKeys.streamRequestKey
 import com.hegunhee.feature.common.lottie.LottieDialog
 import com.hegunhee.feature.common.twitch.handleTwitchDeepLink
 import com.hegunhee.feature.search.databinding.FragmentSearchBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -43,47 +45,56 @@ class SearchFragment : Fragment(){
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        observeData()
-
-        viewDataBinding.searchEditText.setOnEditorActionListener { editText, actionId, event ->
+        viewDataBinding.searchEditText.setOnEditorActionListener { _, actionId, _ ->
             return@setOnEditorActionListener if(actionId == EditorInfo.IME_ACTION_SEARCH) {
                 viewModel.onClickSearchButton()
+                observePagingData()
                 true
             } else {
                 false
             }
-
         }
+        observeData()
     }
 
     private fun observeData() {
-        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            launch {
-                viewModel.searchResult.collect{
-                    searchAdapter.submitList(it)
+        observePagingData()
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                launch {
+                    viewModel.navigateStreamerTwitch.collect{ deepLink ->
+                        requireContext().handleTwitchDeepLink(deepLink)
+                    }
+                }
+                launch{
+                    viewModel.toastMessage.collect{ message ->
+                        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+                    }
+                }
+                launch {
+                    viewModel.isBookMarkSuccess.collect{
+                        callRefreshStreamData()
+                    }
+                }
+                launch {
+                    viewModel.isLoading.collect { isLoading ->
+                        if(isLoading){
+                            lottieDialog.show(parentFragmentManager,LottieDialog.TAG)
+                        }else{
+                            lottieDialog.dismissAllowingStateLoss()
+                        }
+                    }
                 }
             }
-            launch {
-                viewModel.navigateStreamerTwitch.collect{ deepLink ->
-                    requireContext().handleTwitchDeepLink(deepLink)
-                }
-            }
-            launch{
-                viewModel.toastMessage.collect{ message ->
-                    Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
-                }
-            }
-            launch {
-                viewModel.isBookMarkSuccess.collect{
-                    callRefreshStreamData()
-                }
-            }
-            launch {
-                viewModel.isLoading.collect { isLoading ->
-                    if(isLoading){
-                        lottieDialog.show(parentFragmentManager,LottieDialog.TAG)
-                    }else{
-                        lottieDialog.dismissAllowingStateLoss()
+        }
+    }
+
+    private fun observePagingData() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                launch {
+                    viewModel.searchResult.collectLatest {
+                        searchAdapter.submitData(it)
                     }
                 }
             }

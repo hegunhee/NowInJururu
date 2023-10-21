@@ -91,10 +91,10 @@ class DefaultRepository @Inject constructor(
     }
 
     override suspend fun searchPagingSource(streamerName: String,size : Int): Flow<PagingData<SearchData>> {
-        val loadedStreamerData = localDataSource.getAllStreamerList().map { it.streamerLogin }
         return remoteDataSource
             .getSearchPagingDataResponse(streamerName, size)
             .map {
+                val loadedStreamerData = localDataSource.getAllStreamerList().map { it.streamerLogin }
                 it.filter { searchData ->
                     !loadedStreamerData.contains(searchData.streamerId)
                 }

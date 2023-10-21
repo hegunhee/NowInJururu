@@ -2,28 +2,32 @@ package com.hegunhee.feature.search
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.paging.PagingData
+import androidx.paging.cachedIn
 import com.hegunhee.domain.model.SearchData
 import com.hegunhee.domain.model.StreamerData
-import com.hegunhee.domain.usecase.GetSearchStreamerDataListUseCase
+import com.hegunhee.domain.usecase.GetSearchPagingDataUseCase
 import com.hegunhee.domain.usecase.InsertStreamerDataUseCase
 import com.hegunhee.feature.common.twitch.TwitchDeepLink
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.flow.emptyFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class SearchViewModel @Inject constructor(
-    private val getSearchStreamerDataListUseCase: GetSearchStreamerDataListUseCase,
-    private val insertStreamerDataUseCase: InsertStreamerDataUseCase
+    private val insertStreamerDataUseCase: InsertStreamerDataUseCase,
+    private val getSearchPagingDataUseCase: GetSearchPagingDataUseCase
 ) : ViewModel(), SearchActionHandler {
 
     val searchQuery : MutableStateFlow<String> = MutableStateFlow("")
 
-    val searchResult : MutableStateFlow<List<SearchData>> = MutableStateFlow(emptyList())
+    var searchResult : Flow<PagingData<SearchData>> = emptyFlow()
 
     val isEmptySearchResult : MutableStateFlow<Boolean> = MutableStateFlow(false)
 
@@ -65,15 +69,6 @@ class SearchViewModel @Inject constructor(
         if(searchQuery.isBlank()){
             return
         }
-        _isLoading.emit(true)
-        getSearchStreamerDataListUseCase(searchQuery)
-            .onSuccess {
-                searchResult.value = it
-                isEmptySearchResult.value = it.isEmpty()
-                _isLoading.emit(false)
-            }.onFailure {
-                isEmptySearchResult.value = true
-                _isLoading.emit(false)
-            }
+        searchResult = getSearchPagingDataUseCase(searchQuery,20).cachedIn(viewModelScope)
     }
 }
