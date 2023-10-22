@@ -12,6 +12,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.paging.LoadState
 import com.hegunhee.feature.common.fragmentResultKeys.streamRequestKey
 import com.hegunhee.feature.common.lottie.LottieDialog
 import com.hegunhee.feature.common.twitch.handleTwitchDeepLink
@@ -54,7 +55,26 @@ class SearchFragment : Fragment(){
                 false
             }
         }
+        observeSearchState()
         observeData()
+    }
+
+    private fun observeSearchState() {
+        searchAdapter.addLoadStateListener {
+            when(val loadState = it.refresh) {
+                is LoadState.Loading -> {
+                    if(searchAdapter.snapshot().isEmpty()) {
+                        lottieDialog.show(parentFragmentManager,LottieDialog.TAG)
+                    }
+                }
+                is LoadState.NotLoading -> {
+                    lottieDialog.dismissAllowingStateLoss()
+                }
+                is LoadState.Error -> {
+
+                }
+            }
+        }
     }
 
     private fun observeData() {
@@ -72,16 +92,12 @@ class SearchFragment : Fragment(){
                     }
                 }
                 launch {
-                    viewModel.isBookMarkSuccess.collect{
-                        callRefreshStreamData()
-                    }
-                }
-                launch {
-                    viewModel.isLoading.collect { isLoading ->
-                        if(isLoading){
-                            lottieDialog.show(parentFragmentManager,LottieDialog.TAG)
-                        }else{
-                            lottieDialog.dismissAllowingStateLoss()
+                    viewModel.uiEvent.collect {
+                        when (it) {
+                            is SearchUiEvent.Refresh -> {
+                                searchAdapter.refresh()
+                                callRefreshStreamData()
+                            }
                         }
                     }
                 }

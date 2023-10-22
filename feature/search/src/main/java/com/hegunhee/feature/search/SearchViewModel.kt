@@ -37,11 +37,8 @@ class SearchViewModel @Inject constructor(
     private val _toastMessage : MutableSharedFlow<String> = MutableSharedFlow()
     val toastMessage : SharedFlow<String> = _toastMessage.asSharedFlow()
 
-    private val _isBookMarkSuccess : MutableSharedFlow<Unit> = MutableSharedFlow<Unit>()
-    val isBookMarkSuccess : SharedFlow<Unit> =  _isBookMarkSuccess.asSharedFlow()
-
-    private val _isLoading : MutableSharedFlow<Boolean> = MutableSharedFlow<Boolean>()
-    val isLoading : SharedFlow<Boolean> = _isLoading.asSharedFlow()
+    private val _uiEvent : MutableSharedFlow<SearchUiEvent> = MutableSharedFlow<SearchUiEvent>()
+    val uiEvent : SharedFlow<SearchUiEvent> = _uiEvent.asSharedFlow()
 
     fun onClickSearchButton() = viewModelScope.launch{
         getSearchDataList(searchQuery.value)
@@ -57,8 +54,7 @@ class SearchViewModel @Inject constructor(
         viewModelScope.launch {
             insertStreamerDataUseCase(StreamerData(streamerId))
                 .onSuccess {
-                    getSearchDataList(searchQuery.value)
-                    _isBookMarkSuccess.emit(Unit)
+                    _uiEvent.emit(SearchUiEvent.Refresh)
                 }.onFailure {
                     _toastMessage.emit("저장에 실패했습니다. 잠시후에 시도해주세요")
                 }
@@ -67,6 +63,9 @@ class SearchViewModel @Inject constructor(
 
     private suspend fun getSearchDataList(searchQuery : String) {
         if(searchQuery.isBlank()){
+            viewModelScope.launch {
+                _toastMessage.emit("글자를 입력해주세요")
+            }
             return
         }
         searchResult = getSearchPagingDataUseCase(searchQuery,20).cachedIn(viewModelScope)
