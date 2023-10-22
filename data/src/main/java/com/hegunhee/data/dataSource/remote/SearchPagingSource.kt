@@ -13,9 +13,6 @@ class SearchPagingSource(
     private val twitchSearchDataApi: TwitchSearchDataApi,
 ) : PagingSource<String, SearchData>() {
 
-    override val keyReuseSupported: Boolean
-        get() = true
-
     override suspend fun load(params: LoadParams<String>): LoadResult<String, SearchData> {
         return try {
             val authToken = twitchApiTokenApi.getAuthToken().getFormattedToken()
@@ -37,6 +34,6 @@ class SearchPagingSource(
     }
 
     override fun getRefreshKey(state: PagingState<String, SearchData>): String? {
-        return state.pages[0].prevKey
+        return null
     }
 }
