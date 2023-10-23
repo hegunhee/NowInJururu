@@ -27,7 +27,9 @@ class SearchViewModel @Inject constructor(
 
     val searchQuery : MutableStateFlow<String> = MutableStateFlow("")
 
-    var searchResult : Flow<PagingData<SearchData>> = emptyFlow()
+    private var _searchResult : Flow<PagingData<SearchData>> = emptyFlow()
+    val searchResult : Flow<PagingData<SearchData>>
+        get() = _searchResult
 
     val isEmptySearchResult : MutableStateFlow<Boolean> = MutableStateFlow(false)
 
@@ -68,6 +70,6 @@ class SearchViewModel @Inject constructor(
             }
             return
         }
-        searchResult = getSearchPagingDataUseCase(searchQuery,20).cachedIn(viewModelScope)
+        _searchResult = getSearchPagingDataUseCase(searchQuery,20).cachedIn(viewModelScope)
     }
 }
