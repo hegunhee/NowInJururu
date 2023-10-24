@@ -1,16 +1,14 @@
 package com.hegunhee.data
 
-import com.hegunhee.data.mapper.toSearchDataList
 import com.hegunhee.data.mapper.toStreamData
 import com.hegunhee.data.network.*
-import com.hegunhee.domain.model.StreamDataType
 import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Test
 
 class TwitchGameStreamApiDataResponseUnitTest {
 
-    private lateinit var tokenApi : TwitchAuthTokenApi
+    private lateinit var tokenApi : TwitchAuthService
     private lateinit var streamDataApi : TwitchStreamDataApi
     private lateinit var streamerDataApi : TwitchStreamerDataApi
 
