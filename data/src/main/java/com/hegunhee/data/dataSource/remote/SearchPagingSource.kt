@@ -4,19 +4,19 @@ import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.hegunhee.data.mapper.toSearchData
 import com.hegunhee.data.network.TwitchAuthService
-import com.hegunhee.data.network.TwitchSearchDataApi
+import com.hegunhee.data.network.TwitchService
 import com.hegunhee.domain.model.SearchData
 
 class SearchPagingSource(
     private val query: String,
     private val twitchApiTokenApi: TwitchAuthService,
-    private val twitchSearchDataApi: TwitchSearchDataApi,
+    private val twitchService: TwitchService
 ) : PagingSource<String, SearchData>() {
 
     override suspend fun load(params: LoadParams<String>): LoadResult<String, SearchData> {
         return try {
             val authToken = twitchApiTokenApi.getAuthToken().getFormattedToken()
-            val searchResponse = twitchSearchDataApi.getPagingSearchData(
+            val searchResponse = twitchService.getPagingSearchData(
                 streamerName = query,
                 authorization = authToken,
                 size = params.loadSize,

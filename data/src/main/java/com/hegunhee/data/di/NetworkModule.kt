@@ -34,7 +34,7 @@ class NetworkModule {
 
     @Singleton
     @Provides
-    fun provideTwitchAuthTokenApi(
+    fun provideTwitchAuthService(
         @Named(TwitchAuthMoshiName) moshi : Moshi
     ) : TwitchAuthService {
         return Retrofit.Builder()
@@ -46,41 +46,15 @@ class NetworkModule {
 
     @Singleton
     @Provides
-    fun provideTwitchStreamDataApi(
+    fun provideTwitchService(
         @Named(TwitchGetMoshiName) moshi : Moshi
-    ) : TwitchStreamDataApi{
+    ) : TwitchService{
         return Retrofit.Builder()
             .baseUrl(TwitchGetBaseUrl)
             .addConverterFactory(MoshiConverterFactory.create(moshi))
-            .client(provideOkHttpClient(InterceptorForAuth()))
+            .client(provideOkHttpClient(TwitchAuthInterceptor()))
             .build()
-            .create(TwitchStreamDataApi::class.java)
-    }
-
-    @Singleton
-    @Provides
-    fun provideTwitchSearchDataApi(
-        @Named(TwitchGetMoshiName) moshi : Moshi
-    ) : TwitchSearchDataApi{
-        return Retrofit.Builder()
-            .baseUrl(TwitchGetBaseUrl)
-            .addConverterFactory(MoshiConverterFactory.create(moshi))
-            .client(provideOkHttpClient(InterceptorForAuth()))
-            .build()
-            .create(TwitchSearchDataApi::class.java)
-    }
-
-    @Singleton
-    @Provides
-    fun provideTwitchStreamerDataApi(
-        @Named(TwitchGetMoshiName) moshi : Moshi
-    ) : TwitchStreamerDataApi {
-        return Retrofit.Builder()
-            .baseUrl(TwitchGetBaseUrl)
-            .addConverterFactory(MoshiConverterFactory.create(moshi))
-            .client(provideOkHttpClient(InterceptorForAuth()))
-            .build()
-            .create(TwitchStreamerDataApi::class.java)
+            .create(TwitchService::class.java)
     }
 
     private fun provideOkHttpClient(vararg interceptor: Interceptor) : OkHttpClient =
@@ -89,7 +63,7 @@ class NetworkModule {
             build()
         }
 
-    private class InterceptorForAuth : Interceptor {
+    private class TwitchAuthInterceptor : Interceptor {
         override fun intercept(chain: Interceptor.Chain): Response = with(chain) {
             val newRequest = request().newBuilder()
                 .addHeader("client-id", BuildConfig.clientId)

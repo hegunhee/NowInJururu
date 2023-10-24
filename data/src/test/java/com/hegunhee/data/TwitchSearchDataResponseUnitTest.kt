@@ -7,13 +7,13 @@ import org.junit.Test
 class TwitchSearchDataResponseUnitTest {
 
     private lateinit var tokenApi : TwitchAuthService
-    private lateinit var searchApi : TwitchSearchDataApi
+    private lateinit var twitchService : TwitchService
 
     @Before
     fun initMoshiAndRetrofit()  {
         val moshi = getMoshi()
-        tokenApi = getRetrofit(moshi = moshi,baseUrl = TwitchAuthTokenBaseUrl).getTokenApi()
-        searchApi = getRetrofit(moshi = moshi,baseUrl = TwitchGetBaseUrl).getSearchApi()
+        tokenApi = getRetrofit(moshi = moshi,baseUrl = TwitchAuthTokenBaseUrl).getTwitchAuthService()
+        twitchService = getRetrofit(moshi = moshi,baseUrl = TwitchGetBaseUrl).getTwitchService()
     }
 
     @Test
@@ -21,7 +21,7 @@ class TwitchSearchDataResponseUnitTest {
         runBlocking {
             runCatching {
                 val token = tokenApi.getAuthToken().getFormattedToken()
-                searchApi.getSearchData(authorization = token, streamerName = "주르르")
+                twitchService.getSearchData(authorization = token, streamerName = "주르르")
             }.onSuccess {
                 println(it.searchApiDataList.toString())
                 assert(true)
