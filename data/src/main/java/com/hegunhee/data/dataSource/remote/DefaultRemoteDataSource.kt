@@ -3,10 +3,10 @@ package com.hegunhee.data.dataSource.remote
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
-import com.hegunhee.data.data.json.AuthToken
-import com.hegunhee.data.data.json.SearchApiDataResponse
-import com.hegunhee.data.data.json.StreamApiDataResponse
-import com.hegunhee.data.data.json.StreamerApiDataResponse
+import com.hegunhee.data.data.json.twitch.TwitchAuthToken
+import com.hegunhee.data.data.json.twitch.SearchApiDataResponse
+import com.hegunhee.data.data.json.twitch.StreamApiDataResponse
+import com.hegunhee.data.data.json.twitch.StreamerApiDataResponse
 import com.hegunhee.data.network.TwitchAuthService
 import com.hegunhee.data.network.TwitchService
 import com.hegunhee.domain.model.SearchData
@@ -17,7 +17,7 @@ class DefaultRemoteDataSource @Inject constructor(
     private val twitchAuthService : TwitchAuthService,
     private val twitchService : TwitchService
 ) : RemoteDataSource {
-    override suspend fun getAuthToken(): AuthToken {
+    override suspend fun getAuthToken(): TwitchAuthToken {
         return twitchAuthService.getAuthToken()
     }
 
