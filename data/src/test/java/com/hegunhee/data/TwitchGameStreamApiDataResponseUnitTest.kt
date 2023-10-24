@@ -9,15 +9,13 @@ import org.junit.Test
 class TwitchGameStreamApiDataResponseUnitTest {
 
     private lateinit var tokenApi : TwitchAuthService
-    private lateinit var streamDataApi : TwitchStreamDataApi
-    private lateinit var streamerDataApi : TwitchStreamerDataApi
+    private lateinit var twitchService: TwitchService
 
     @Before
     fun initMoshiAndRetrofit()  {
         val moshi = getMoshi()
-        tokenApi = getRetrofit(moshi = moshi, baseUrl = TwitchAuthTokenBaseUrl).getTokenApi()
-        streamDataApi = getRetrofit(moshi = moshi,baseUrl = TwitchGetBaseUrl).getStreamApi()
-        streamerDataApi = getRetrofit(moshi = moshi,baseUrl = TwitchGetBaseUrl).getStreamerDataApi()
+        tokenApi = getRetrofit(moshi = moshi, baseUrl = TwitchAuthTokenBaseUrl).getTwitchAuthService()
+        twitchService = getRetrofit(moshi = moshi,baseUrl = TwitchGetBaseUrl).getTwitchService()
     }
 
     /**
@@ -29,7 +27,7 @@ class TwitchGameStreamApiDataResponseUnitTest {
             runCatching {
                 val token = tokenApi.getAuthToken()
                 println("Bearer $token")
-                streamDataApi.getGameStreamData(authorization = token.getFormattedToken(),gameId = "19976").streamApiData
+                twitchService.getGameStreamData(authorization = token.getFormattedToken(),gameId = "19976").streamApiData
             }.onSuccess {
                 println(it.toString())
                 assert(true)

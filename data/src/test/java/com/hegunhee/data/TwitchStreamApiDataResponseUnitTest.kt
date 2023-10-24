@@ -2,21 +2,21 @@ package com.hegunhee.data
 
 import com.hegunhee.data.network.TwitchAuthService
 import com.hegunhee.data.network.TwitchAuthTokenBaseUrl
-import com.hegunhee.data.network.TwitchStreamDataApi
 import com.hegunhee.data.network.TwitchGetBaseUrl
+import com.hegunhee.data.network.TwitchService
 import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Test
 class TwitchStreamApiDataResponseUnitTest {
 
     private lateinit var tokenApi : TwitchAuthService
-    private lateinit var streamDataApi : TwitchStreamDataApi
+    private lateinit var twitchService : TwitchService
 
     @Before
     fun initMoshiAndRetrofit()  {
         val moshi = getMoshi()
-        tokenApi = getRetrofit(moshi = moshi, baseUrl = TwitchAuthTokenBaseUrl).getTokenApi()
-        streamDataApi = getRetrofit(moshi = moshi,baseUrl = TwitchGetBaseUrl).getStreamApi()
+        tokenApi = getRetrofit(moshi = moshi, baseUrl = TwitchAuthTokenBaseUrl).getTwitchAuthService()
+        twitchService = getRetrofit(moshi = moshi,baseUrl = TwitchGetBaseUrl).getTwitchService()
     }
 
     @Test
@@ -25,7 +25,7 @@ class TwitchStreamApiDataResponseUnitTest {
             runCatching {
                 val token = tokenApi.getAuthToken()
                 println("Bearer $token")
-                streamDataApi.getStreamData(authorization = token.getFormattedToken(), userLogin = "cotton__123")
+                twitchService.getStreamData(authorization = token.getFormattedToken(), userLogin = "cotton__123")
             }.onSuccess {
                 println("authToken = $it")
                 assert(true)

@@ -8,44 +8,39 @@ import com.hegunhee.data.data.json.SearchApiDataResponse
 import com.hegunhee.data.data.json.StreamApiDataResponse
 import com.hegunhee.data.data.json.StreamerApiDataResponse
 import com.hegunhee.data.network.TwitchAuthService
-import com.hegunhee.data.network.TwitchSearchDataApi
-import com.hegunhee.data.network.TwitchStreamDataApi
-import com.hegunhee.data.network.TwitchStreamerDataApi
+import com.hegunhee.data.network.TwitchService
 import com.hegunhee.domain.model.SearchData
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class DefaultRemoteDataSource @Inject constructor(
     private val twitchAuthService : TwitchAuthService,
-    private val twitchStreamDataApi: TwitchStreamDataApi,
-    private val twitchSearchDataApi : TwitchSearchDataApi,
-    private val twitchStreamerDataApi: TwitchStreamerDataApi
-    )
-    : RemoteDataSource {
+    private val twitchService : TwitchService
+) : RemoteDataSource {
     override suspend fun getAuthToken(): AuthToken {
         return twitchAuthService.getAuthToken()
     }
 
     override suspend fun getStreamDataResponse(userLogin : String, token: String): StreamApiDataResponse {
-        return twitchStreamDataApi.getStreamData(userLogin = userLogin,authorization = token)
+        return twitchService.getStreamData(userLogin = userLogin,authorization = token)
     }
 
     override suspend fun getSearchDataResponse(
         streamerName: String,
         token: String
     ): SearchApiDataResponse {
-        return twitchSearchDataApi.getSearchData(streamerName = streamerName, authorization = token)
+        return twitchService.getSearchData(streamerName = streamerName, authorization = token)
     }
 
     override suspend fun getStreamerDataResponse(
         vararg streamerLogin: String,
         token: String
     ): StreamerApiDataResponse {
-        return twitchStreamerDataApi.getStreamerData(userLogin = streamerLogin, authorization = token)
+        return twitchService.getStreamerData(userLogin = streamerLogin, authorization = token)
     }
 
     override suspend fun getGameStreamDataResponse(gameId: String,token : String): StreamApiDataResponse {
-        return twitchStreamDataApi.getGameStreamData(gameId = gameId, authorization = token)
+        return twitchService.getGameStreamData(gameId = gameId, authorization = token)
     }
 
     override suspend fun getSearchPagingDataResponse(
@@ -54,7 +49,7 @@ class DefaultRemoteDataSource @Inject constructor(
     ): Flow<PagingData<SearchData>> {
         return Pager(
             config = PagingConfig(pageSize = size, enablePlaceholders = false),
-            pagingSourceFactory = { SearchPagingSource(query = streamerName,twitchAuthService,twitchSearchDataApi)}
+            pagingSourceFactory = { SearchPagingSource(query = streamerName,twitchAuthService,twitchService)}
         ).flow
     }
 

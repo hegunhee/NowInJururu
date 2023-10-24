@@ -1,9 +1,7 @@
 package com.hegunhee.data
 
 import com.hegunhee.data.network.TwitchAuthService
-import com.hegunhee.data.network.TwitchSearchDataApi
-import com.hegunhee.data.network.TwitchStreamDataApi
-import com.hegunhee.data.network.TwitchStreamerDataApi
+import com.hegunhee.data.network.TwitchService
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import retrofit2.Retrofit
@@ -19,18 +17,10 @@ internal fun getRetrofit(moshi : Moshi, baseUrl : String) : Retrofit {
         .build()
 }
 
-internal fun Retrofit.getTokenApi() : TwitchAuthService {
+internal fun Retrofit.getTwitchAuthService() : TwitchAuthService {
     return create(TwitchAuthService::class.java)
 }
 
-internal fun Retrofit.getSearchApi() : TwitchSearchDataApi{
-    return create(TwitchSearchDataApi::class.java)
-}
-
-internal fun Retrofit.getStreamApi() : TwitchStreamDataApi {
-    return create(TwitchStreamDataApi::class.java)
-}
-
-internal fun Retrofit.getStreamerDataApi() : TwitchStreamerDataApi {
-    return create(TwitchStreamerDataApi::class.java)
+internal fun Retrofit.getTwitchService() : TwitchService {
+    return create(TwitchService::class.java)
 }

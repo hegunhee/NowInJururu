@@ -3,7 +3,7 @@ package com.hegunhee.data
 import com.hegunhee.data.network.TwitchAuthService
 import com.hegunhee.data.network.TwitchAuthTokenBaseUrl
 import com.hegunhee.data.network.TwitchGetBaseUrl
-import com.hegunhee.data.network.TwitchStreamerDataApi
+import com.hegunhee.data.network.TwitchService
 import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Test
@@ -11,13 +11,13 @@ import org.junit.Test
 class TwitchStreamerDataResponseUnitTest {
 
     private lateinit var tokenApi : TwitchAuthService
-    private lateinit var streamerApi : TwitchStreamerDataApi
+    private lateinit var twitchService: TwitchService
 
     @Before
     fun initMoshiAndApi() {
         val moshi = getMoshi()
-        tokenApi = getRetrofit(moshi = moshi,baseUrl = TwitchAuthTokenBaseUrl).getTokenApi()
-        streamerApi = getRetrofit(moshi = moshi,baseUrl = TwitchGetBaseUrl).getStreamerDataApi()
+        tokenApi = getRetrofit(moshi = moshi,baseUrl = TwitchAuthTokenBaseUrl).getTwitchAuthService()
+        twitchService = getRetrofit(moshi = moshi,baseUrl = TwitchGetBaseUrl).getTwitchService()
     }
 
     @Test
@@ -26,7 +26,7 @@ class TwitchStreamerDataResponseUnitTest {
             runCatching {
                 val streamer = listOf<String>("cotton__123")
                 val token = tokenApi.getAuthToken().getFormattedToken()
-                streamerApi.getStreamerData(authorization = token,userLogin =streamer.toTypedArray())
+                twitchService.getStreamerData(authorization = token,userLogin =streamer.toTypedArray())
             }.onSuccess {response ->
                 println(response.toString())
                 if(response.streamerApiDataList[0].streamerName == "주르르"){
