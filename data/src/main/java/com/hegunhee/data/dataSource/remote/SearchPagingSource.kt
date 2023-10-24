@@ -3,13 +3,13 @@ package com.hegunhee.data.dataSource.remote
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.hegunhee.data.mapper.toSearchData
-import com.hegunhee.data.network.TwitchAuthTokenApi
+import com.hegunhee.data.network.TwitchAuthService
 import com.hegunhee.data.network.TwitchSearchDataApi
 import com.hegunhee.domain.model.SearchData
 
 class SearchPagingSource(
     private val query: String,
-    private val twitchApiTokenApi: TwitchAuthTokenApi,
+    private val twitchApiTokenApi: TwitchAuthService,
     private val twitchSearchDataApi: TwitchSearchDataApi,
 ) : PagingSource<String, SearchData>() {
 

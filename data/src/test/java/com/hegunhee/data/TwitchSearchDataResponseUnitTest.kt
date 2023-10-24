@@ -6,7 +6,7 @@ import org.junit.Before
 import org.junit.Test
 class TwitchSearchDataResponseUnitTest {
 
-    private lateinit var tokenApi : TwitchAuthTokenApi
+    private lateinit var tokenApi : TwitchAuthService
     private lateinit var searchApi : TwitchSearchDataApi
 
     @Before

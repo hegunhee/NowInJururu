@@ -7,7 +7,7 @@ import com.hegunhee.data.data.json.AuthToken
 import com.hegunhee.data.data.json.SearchApiDataResponse
 import com.hegunhee.data.data.json.StreamApiDataResponse
 import com.hegunhee.data.data.json.StreamerApiDataResponse
-import com.hegunhee.data.network.TwitchAuthTokenApi
+import com.hegunhee.data.network.TwitchAuthService
 import com.hegunhee.data.network.TwitchSearchDataApi
 import com.hegunhee.data.network.TwitchStreamDataApi
 import com.hegunhee.data.network.TwitchStreamerDataApi
@@ -16,14 +16,14 @@ import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class DefaultRemoteDataSource @Inject constructor(
-    private val twitchAuthTokenApi : TwitchAuthTokenApi,
+    private val twitchAuthService : TwitchAuthService,
     private val twitchStreamDataApi: TwitchStreamDataApi,
     private val twitchSearchDataApi : TwitchSearchDataApi,
     private val twitchStreamerDataApi: TwitchStreamerDataApi
     )
     : RemoteDataSource {
     override suspend fun getAuthToken(): AuthToken {
-        return twitchAuthTokenApi.getAuthToken()
+        return twitchAuthService.getAuthToken()
     }
 
     override suspend fun getStreamDataResponse(userLogin : String, token: String): StreamApiDataResponse {
@@ -54,7 +54,7 @@ class DefaultRemoteDataSource @Inject constructor(
     ): Flow<PagingData<SearchData>> {
         return Pager(
             config = PagingConfig(pageSize = size, enablePlaceholders = false),
-            pagingSourceFactory = { SearchPagingSource(query = streamerName,twitchAuthTokenApi,twitchSearchDataApi)}
+            pagingSourceFactory = { SearchPagingSource(query = streamerName,twitchAuthService,twitchSearchDataApi)}
         ).flow
     }
 

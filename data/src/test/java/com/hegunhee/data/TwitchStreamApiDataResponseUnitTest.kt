@@ -1,6 +1,6 @@
 package com.hegunhee.data
 
-import com.hegunhee.data.network.TwitchAuthTokenApi
+import com.hegunhee.data.network.TwitchAuthService
 import com.hegunhee.data.network.TwitchAuthTokenBaseUrl
 import com.hegunhee.data.network.TwitchStreamDataApi
 import com.hegunhee.data.network.TwitchGetBaseUrl
@@ -9,7 +9,7 @@ import org.junit.Before
 import org.junit.Test
 class TwitchStreamApiDataResponseUnitTest {
 
-    private lateinit var tokenApi : TwitchAuthTokenApi
+    private lateinit var tokenApi : TwitchAuthService
     private lateinit var streamDataApi : TwitchStreamDataApi
 
     @Before

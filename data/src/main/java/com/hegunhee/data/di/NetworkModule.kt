@@ -2,6 +2,8 @@ package com.hegunhee.data.di
 
 import com.hegunhee.data.BuildConfig
 import com.hegunhee.data.network.*
+import com.hegunhee.data.util.TwitchAuthMoshiName
+import com.hegunhee.data.util.TwitchGetMoshiName
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
@@ -13,6 +15,7 @@ import okhttp3.OkHttpClient
 import okhttp3.Response
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
+import javax.inject.Named
 import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)
@@ -21,24 +24,30 @@ class NetworkModule {
 
     @Singleton
     @Provides
-    fun provideMoshi() : Moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
+    @Named(TwitchAuthMoshiName)
+    fun provideTwitchAuthMoshi() : Moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
+
+    @Singleton
+    @Provides
+    @Named(TwitchGetMoshiName)
+    fun provideTwitchGetServiceMoshi() : Moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
 
     @Singleton
     @Provides
     fun provideTwitchAuthTokenApi(
-        moshi : Moshi
-    ) : TwitchAuthTokenApi {
+        @Named(TwitchAuthMoshiName) moshi : Moshi
+    ) : TwitchAuthService {
         return Retrofit.Builder()
             .baseUrl(TwitchAuthTokenBaseUrl)
             .addConverterFactory(MoshiConverterFactory.create(moshi))
             .build()
-            .create(TwitchAuthTokenApi::class.java)
+            .create(TwitchAuthService::class.java)
     }
 
     @Singleton
     @Provides
     fun provideTwitchStreamDataApi(
-        moshi : Moshi
+        @Named(TwitchGetMoshiName) moshi : Moshi
     ) : TwitchStreamDataApi{
         return Retrofit.Builder()
             .baseUrl(TwitchGetBaseUrl)
@@ -51,7 +60,7 @@ class NetworkModule {
     @Singleton
     @Provides
     fun provideTwitchSearchDataApi(
-        moshi : Moshi
+        @Named(TwitchGetMoshiName) moshi : Moshi
     ) : TwitchSearchDataApi{
         return Retrofit.Builder()
             .baseUrl(TwitchGetBaseUrl)
@@ -64,7 +73,7 @@ class NetworkModule {
     @Singleton
     @Provides
     fun provideTwitchStreamerDataApi(
-        moshi : Moshi
+        @Named(TwitchGetMoshiName) moshi : Moshi
     ) : TwitchStreamerDataApi {
         return Retrofit.Builder()
             .baseUrl(TwitchGetBaseUrl)

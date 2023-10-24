@@ -5,7 +5,7 @@ import com.hegunhee.data.data.json.AuthToken
 import retrofit2.http.POST
 import retrofit2.http.Query
 
-interface TwitchAuthTokenApi {
+interface TwitchAuthService {
 
     @POST("oauth2/token")
     suspend fun getAuthToken(

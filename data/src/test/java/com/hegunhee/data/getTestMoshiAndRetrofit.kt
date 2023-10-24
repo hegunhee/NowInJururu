@@ -1,6 +1,6 @@
 package com.hegunhee.data
 
-import com.hegunhee.data.network.TwitchAuthTokenApi
+import com.hegunhee.data.network.TwitchAuthService
 import com.hegunhee.data.network.TwitchSearchDataApi
 import com.hegunhee.data.network.TwitchStreamDataApi
 import com.hegunhee.data.network.TwitchStreamerDataApi
@@ -19,8 +19,8 @@ internal fun getRetrofit(moshi : Moshi, baseUrl : String) : Retrofit {
         .build()
 }
 
-internal fun Retrofit.getTokenApi() : TwitchAuthTokenApi {
-    return create(TwitchAuthTokenApi::class.java)
+internal fun Retrofit.getTokenApi() : TwitchAuthService {
+    return create(TwitchAuthService::class.java)
 }
 
 internal fun Retrofit.getSearchApi() : TwitchSearchDataApi{
