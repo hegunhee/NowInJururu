@@ -1,17 +1,17 @@
 package com.hegunhee.data.dataSource.remote
 
 import androidx.paging.PagingData
-import com.hegunhee.data.data.json.AuthToken
-import com.hegunhee.data.data.json.SearchApiDataResponse
-import com.hegunhee.data.data.json.StreamApiDataResponse
-import com.hegunhee.data.data.json.StreamerApiDataResponse
+import com.hegunhee.data.data.json.twitch.TwitchAuthToken
+import com.hegunhee.data.data.json.twitch.SearchApiDataResponse
+import com.hegunhee.data.data.json.twitch.StreamApiDataResponse
+import com.hegunhee.data.data.json.twitch.StreamerApiDataResponse
 import com.hegunhee.domain.model.SearchData
 import kotlinx.coroutines.flow.Flow
 
 
 interface RemoteDataSource {
 
-    suspend fun getAuthToken() : AuthToken
+    suspend fun getAuthToken() : TwitchAuthToken
 
     suspend fun getStreamDataResponse(userLogin : String,token : String) : StreamApiDataResponse
 

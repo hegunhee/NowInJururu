@@ -1,8 +1,8 @@
 package com.hegunhee.data.network
 
-import com.hegunhee.data.data.json.SearchApiDataResponse
-import com.hegunhee.data.data.json.StreamApiDataResponse
-import com.hegunhee.data.data.json.StreamerApiDataResponse
+import com.hegunhee.data.data.json.twitch.SearchApiDataResponse
+import com.hegunhee.data.data.json.twitch.StreamApiDataResponse
+import com.hegunhee.data.data.json.twitch.StreamerApiDataResponse
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.Query

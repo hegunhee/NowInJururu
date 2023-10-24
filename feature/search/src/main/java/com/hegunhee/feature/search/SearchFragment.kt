@@ -57,6 +57,7 @@ class SearchFragment : Fragment(){
         }
         observeSearchState()
         observeData()
+        observePagingData()
     }
 
     private fun observeSearchState() {
@@ -78,7 +79,6 @@ class SearchFragment : Fragment(){
     }
 
     private fun observeData() {
-        observePagingData()
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 launch {

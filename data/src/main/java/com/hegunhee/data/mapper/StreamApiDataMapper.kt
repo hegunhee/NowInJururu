@@ -1,9 +1,9 @@
 package com.hegunhee.data.mapper
 
-import com.hegunhee.data.data.json.StreamApiData
+import com.hegunhee.data.data.json.twitch.StreamApiData
 import com.hegunhee.domain.model.StreamDataType
 
-fun StreamApiData.toStreamData(profileUrl : String,thumbNailWidth : Int = 100, thumbNailHeight : Int = 100): StreamDataType.OnlineData {
+fun StreamApiData.toStreamData(profileUrl : String, thumbNailWidth : Int = 100, thumbNailHeight : Int = 100): StreamDataType.OnlineData {
     return StreamDataType.OnlineData(
         gameId = gameId,
         gameName = gameName,
