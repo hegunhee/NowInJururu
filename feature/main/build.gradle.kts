@@ -11,4 +11,5 @@ dependencies {
     implementation (project(":feature:streamer"))
     implementation (project(":feature:search"))
     implementation(project(":resource_common"))
+    implementation(project(":core:designsystem"))
 }
