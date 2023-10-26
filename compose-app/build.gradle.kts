@@ -18,7 +18,7 @@ android {
 }
 
 dependencies {
-    implementation(project(":data"))
+    implementation(project(":core:data"))
     implementation(project(":domain"))
     implementation(project(":compose:jururu"))
     implementation(project(":compose:streamer"))

@@ -14,5 +14,5 @@ android{
 dependencies {
     implementation(project(":feature:main"))
     implementation(project(":domain"))
-    implementation(project(":data"))
+    implementation(project(":core:data"))
 }

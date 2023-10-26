@@ -16,7 +16,7 @@ dependencyResolutionManagement {
 rootProject.name = "NowInJururu"
 include(":app")
 include(":domain")
-include(":data")
+include(":core:data")
 
 include(":core:designsystem")
 
