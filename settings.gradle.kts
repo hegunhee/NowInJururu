@@ -33,3 +33,4 @@ include(":compose:ui-component")
 
 include(":resource_common")
 include(":core:navigation")
+include(":feature:jururu")
