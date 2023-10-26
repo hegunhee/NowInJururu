@@ -6,7 +6,11 @@ import com.hegunhee.domain.model.StreamDataType
 import com.hegunhee.domain.usecase.GetBookmarkedStreamDataListUseCase
 import com.hegunhee.domain.usecase.GetGameStreamDataListUseCase
 import com.hegunhee.feature.common.twitch.TwitchDeepLink
-import com.hegunhee.feature.streamer.recommend.RecommendActionHandler
+import com.hegunhee.nowinjururu.core.designsystem.adapter.recommend.RecommendActionHandler
+import com.hegunhee.nowinjururu.core.designsystem.adapter.streamer.StreamActionHandler
+import com.hegunhee.nowinjururu.core.designsystem.adapter.streamer.StreamerViewType
+import com.hegunhee.nowinjururu.core.designsystem.adapter.streamer.toOnlineStreamer
+import com.hegunhee.nowinjururu.core.designsystem.adapter.streamer.toStreamViewTypeData
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch

@@ -14,7 +14,10 @@ import androidx.recyclerview.widget.ConcatAdapter
 import com.hegunhee.feature.common.fragmentResultKeys.streamRequestKey
 import com.hegunhee.feature.common.twitch.handleTwitchDeepLink
 import com.hegunhee.feature.streamer.databinding.FragmentStreamerBinding
-import com.hegunhee.feature.streamer.more.MoreBottomDialogFragment
+import com.hegunhee.nowinjururu.core.designsystem.adapter.recommend.RecommendStreamContainerAdapter
+import com.hegunhee.nowinjururu.core.designsystem.adapter.recommend.RecommendStreamContainerObject
+import com.hegunhee.nowinjururu.core.designsystem.dialog.more.MoreBottomDialogFragment
+import com.hegunhee.nowinjururu.core.designsystem.adapter.streamer.StreamerAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -78,7 +81,7 @@ class StreamerFragment : Fragment() {
                 launch {
                     viewModel.showMoreBottomSheetDialog.collect{ streamerId ->
                         val moreBottomSheetDialog = MoreBottomDialogFragment.getInstance(streamerId)
-                        moreBottomSheetDialog.show(parentFragmentManager,MoreBottomDialogFragment.TAG)
+                        moreBottomSheetDialog.show(parentFragmentManager, MoreBottomDialogFragment.TAG)
                     }
                 }
             }

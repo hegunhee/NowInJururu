@@ -1,13 +1,13 @@
-package com.hegunhee.feature.common.adapter
+package com.hegunhee.nowinjururu.core.designsystem.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.hegunhee.feature.common.databinding.ItemTagBinding
+import com.hegunhee.nowinjururu.core.designsystem.databinding.ItemTagBinding
 
-class TagAdapter : ListAdapter<String,TagAdapter.TagViewHolder>(DiffUtil) {
+class TagAdapter : ListAdapter<String, TagAdapter.TagViewHolder>(DiffUtil) {
 
     inner class TagViewHolder(private val binding : ItemTagBinding) : RecyclerView.ViewHolder(binding.root){
 

@@ -1,4 +1,4 @@
-package com.hegunhee.feature.streamer
+package com.hegunhee.nowinjururu.core.designsystem.adapter.streamer
 
 
 sealed class StreamerViewType {

@@ -14,7 +14,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.paging.LoadState
 import com.hegunhee.feature.common.fragmentResultKeys.streamRequestKey
-import com.hegunhee.feature.common.lottie.LottieDialog
+import com.hegunhee.nowinjururu.core.designsystem.dialog.lottie.LottieDialog
 import com.hegunhee.feature.common.twitch.handleTwitchDeepLink
 import com.hegunhee.feature.search.databinding.FragmentSearchBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -65,7 +65,7 @@ class SearchFragment : Fragment(){
             when(val loadState = it.refresh) {
                 is LoadState.Loading -> {
                     if(searchAdapter.snapshot().isEmpty()) {
-                        lottieDialog.show(parentFragmentManager,LottieDialog.TAG)
+                        lottieDialog.show(parentFragmentManager, LottieDialog.TAG)
                     }
                 }
                 is LoadState.NotLoading -> {

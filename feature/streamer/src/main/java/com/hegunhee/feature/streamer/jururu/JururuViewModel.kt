@@ -5,19 +5,21 @@ import androidx.lifecycle.viewModelScope
 import com.hegunhee.domain.model.StreamDataType
 import com.hegunhee.domain.usecase.GetJururuStreamDataUseCase
 import com.hegunhee.feature.common.twitch.TwitchDeepLink
-import com.hegunhee.feature.streamer.StreamActionHandler
-import com.hegunhee.feature.streamer.StreamerViewType
-import com.hegunhee.feature.streamer.toOnlineStreamer
-import com.hegunhee.feature.streamer.toOfflineStreamer
+import com.hegunhee.nowinjururu.core.designsystem.adapter.streamer.StreamActionHandler
+import com.hegunhee.nowinjururu.core.designsystem.adapter.streamer.StreamerViewType
+import com.hegunhee.nowinjururu.core.designsystem.adapter.streamer.toOnlineStreamer
+import com.hegunhee.nowinjururu.core.designsystem.adapter.streamer.toOfflineStreamer
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class JururuViewModel @Inject constructor(private val getJururuStreamDataUseCase: GetJururuStreamDataUseCase) : ViewModel(), StreamActionHandler {
+class JururuViewModel @Inject constructor(private val getJururuStreamDataUseCase: GetJururuStreamDataUseCase) : ViewModel(),
+    StreamActionHandler {
 
-    private val _jururuStreamData : MutableStateFlow<StreamerViewType> = MutableStateFlow(StreamerViewType.OfflineStreamer("","",""))
+    private val _jururuStreamData : MutableStateFlow<StreamerViewType> = MutableStateFlow(
+        StreamerViewType.OfflineStreamer("","",""))
     val jururuStreamData : StateFlow<StreamerViewType> = _jururuStreamData.asStateFlow()
 
     private val _navigateTwitchDeepLink : MutableSharedFlow<TwitchDeepLink> = MutableSharedFlow()

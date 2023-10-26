@@ -1,12 +1,12 @@
-package com.hegunhee.feature.common.lottie
+package com.hegunhee.nowinjururu.core.designsystem.dialog.lottie
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
-import com.hegunhee.feature.common.R
-import com.hegunhee.feature.common.databinding.DialogLottieBinding
+import com.hegunhee.nowinjururu.core.designsystem.R
+import com.hegunhee.nowinjururu.core.designsystem.databinding.DialogLottieBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

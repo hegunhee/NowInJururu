@@ -1,4 +1,4 @@
-package com.hegunhee.feature.streamer.more
+package com.hegunhee.nowinjururu.core.designsystem.dialog.more
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,9 +8,8 @@ import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.hegunhee.feature.common.fragmentResultKeys.streamRequestKey
-import com.hegunhee.feature.streamer.R
-import com.hegunhee.feature.streamer.databinding.DialogMoreBinding
+import com.hegunhee.nowinjururu.core.designsystem.R
+import com.hegunhee.nowinjururu.core.designsystem.databinding.DialogMoreBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -51,7 +50,7 @@ class MoreBottomDialogFragment() : BottomSheetDialogFragment() {
             launch {
                 viewModel.isSuccessDeleteStreamer.collect{ isSuccess ->
                     if(isSuccess){
-                        parentFragmentManager.setFragmentResult(streamRequestKey,Bundle.EMPTY)
+                        parentFragmentManager.setFragmentResult("streamRequestKey",Bundle.EMPTY)
                         dismissAllowingStateLoss()
                     }else{
                         Toast.makeText(requireContext(), getString(R.string.delete_streamer_failure), Toast.LENGTH_SHORT).show()
@@ -70,7 +69,7 @@ class MoreBottomDialogFragment() : BottomSheetDialogFragment() {
     companion object{
         const val streamerLoginBundleKey = "StreamerLogin"
         const val TAG = "MoreBottomDialogFragment"
-        fun getInstance(streamerLogin : String) : MoreBottomDialogFragment{
+        fun getInstance(streamerLogin : String) : MoreBottomDialogFragment {
             val bundle = Bundle()
             bundle.putString(streamerLoginBundleKey,streamerLogin)
             return MoreBottomDialogFragment().apply {

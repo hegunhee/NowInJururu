@@ -1,4 +1,4 @@
-package com.hegunhee.feature.streamer.more
+package com.hegunhee.nowinjururu.core.designsystem.dialog.more
 
 interface MoreMenuActionHandler {
 
