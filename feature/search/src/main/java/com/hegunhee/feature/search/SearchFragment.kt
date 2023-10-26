@@ -13,9 +13,9 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.paging.LoadState
-import com.hegunhee.feature.common.fragmentResultKeys.streamRequestKey
+import com.hegunhee.nowinjururu.core.navigation.fragmentResultKeys.streamRequestKey
 import com.hegunhee.nowinjururu.core.designsystem.dialog.lottie.LottieDialog
-import com.hegunhee.feature.common.twitch.handleTwitchDeepLink
+import com.hegunhee.nowinjururu.core.navigation.twitch.handleTwitchDeepLink
 import com.hegunhee.feature.search.databinding.FragmentSearchBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest

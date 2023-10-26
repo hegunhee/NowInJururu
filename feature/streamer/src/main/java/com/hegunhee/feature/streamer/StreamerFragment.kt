@@ -11,8 +11,8 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.ConcatAdapter
-import com.hegunhee.feature.common.fragmentResultKeys.streamRequestKey
-import com.hegunhee.feature.common.twitch.handleTwitchDeepLink
+import com.hegunhee.nowinjururu.core.navigation.fragmentResultKeys.streamRequestKey
+import com.hegunhee.nowinjururu.core.navigation.twitch.handleTwitchDeepLink
 import com.hegunhee.feature.streamer.databinding.FragmentStreamerBinding
 import com.hegunhee.nowinjururu.core.designsystem.adapter.recommend.RecommendStreamContainerAdapter
 import com.hegunhee.nowinjururu.core.designsystem.adapter.recommend.RecommendStreamContainerObject
@@ -52,7 +52,7 @@ class StreamerFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.fetchBookmarkedStreamData()
-        setFragmentResultListener(streamRequestKey) { requestKey, bundle ->
+        setFragmentResultListener(streamRequestKey) { _, _ ->
             viewModel.fetchBookmarkedStreamData()
         }
         observeData()

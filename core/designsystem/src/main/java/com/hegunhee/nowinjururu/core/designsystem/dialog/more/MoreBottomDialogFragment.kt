@@ -10,6 +10,7 @@ import androidx.lifecycle.lifecycleScope
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.hegunhee.nowinjururu.core.designsystem.R
 import com.hegunhee.nowinjururu.core.designsystem.databinding.DialogMoreBinding
+import com.hegunhee.nowinjururu.core.navigation.fragmentResultKeys.streamRequestKey
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -50,7 +51,7 @@ class MoreBottomDialogFragment() : BottomSheetDialogFragment() {
             launch {
                 viewModel.isSuccessDeleteStreamer.collect{ isSuccess ->
                     if(isSuccess){
-                        parentFragmentManager.setFragmentResult("streamRequestKey",Bundle.EMPTY)
+                        parentFragmentManager.setFragmentResult(streamRequestKey,Bundle.EMPTY)
                         dismissAllowingStateLoss()
                     }else{
                         Toast.makeText(requireContext(), getString(R.string.delete_streamer_failure), Toast.LENGTH_SHORT).show()

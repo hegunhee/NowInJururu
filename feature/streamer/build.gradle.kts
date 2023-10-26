@@ -9,5 +9,7 @@ dependencies {
     implementation (project(":domain"))
     implementation (project(":feature:common"))
     implementation(project(":resource_common"))
+
     implementation(project(":core:designsystem"))
+    implementation(project(":core:navigation"))
 }
