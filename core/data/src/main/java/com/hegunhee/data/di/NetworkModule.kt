@@ -66,7 +66,7 @@ class NetworkModule {
     private class TwitchAuthInterceptor : Interceptor {
         override fun intercept(chain: Interceptor.Chain): Response = with(chain) {
             val newRequest = request().newBuilder()
-                .addHeader("client-id", BuildConfig.clientId)
+                .addHeader("client-id", BuildConfig.TwitchClientId)
                 .build()
             proceed(newRequest)
         }

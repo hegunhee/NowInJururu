@@ -9,8 +9,8 @@ interface TwitchAuthService {
 
     @POST("oauth2/token")
     suspend fun getAuthToken(
-        @Query("client_id") clientId : String = BuildConfig.clientId,
-        @Query("client_secret") clientSecret : String = BuildConfig.clientSecret,
+        @Query("client_id") clientId : String = BuildConfig.TwitchClientId,
+        @Query("client_secret") clientSecret : String = BuildConfig.TwitchClientSecret,
         @Query("grant_type") grantType : String = "client_credentials"
     ) : TwitchAuthToken
 

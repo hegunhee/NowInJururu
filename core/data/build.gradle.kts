@@ -1,20 +1,14 @@
-import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
-
 plugins {
     id("hegunhee.android")
     id("hegunhee.android.hilt")
+    id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
 }
 
-val properties = gradleLocalProperties(rootDir)
-val clientId : String = properties.getProperty("clientId")
-val clientSecret : String = properties.getProperty("clientSecret")
 android{
     namespace = "com.hegunhee.data"
-    buildTypes{
-        getByName("debug"){
-            buildConfigField("String", "clientId", clientId)
-            buildConfigField("String", "clientSecret", clientSecret)
-        }
+
+    buildFeatures {
+        buildConfig = true
     }
 }
 
@@ -34,4 +28,8 @@ dependencies {
     implementation(libs.room.ktx)
 
     implementation(libs.bundles.paging)
+}
+
+secrets {
+    defaultPropertiesFileName = "secrets.defaults.properties"
 }
