@@ -6,7 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.hegunhee.nowinjururu.core.designsystem.R
 import com.hegunhee.nowinjururu.core.designsystem.databinding.DialogMoreBinding
@@ -47,17 +49,18 @@ class MoreBottomDialogFragment() : BottomSheetDialogFragment() {
     }
 
     private fun observeData() {
-        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            launch {
-                viewModel.isSuccessDeleteStreamer.collect{ isSuccess ->
-                    if(isSuccess){
-                        parentFragmentManager.setFragmentResult(streamRequestKey,Bundle.EMPTY)
-                        dismissAllowingStateLoss()
-                    }else{
-                        Toast.makeText(requireContext(), getString(R.string.delete_streamer_failure), Toast.LENGTH_SHORT).show()
-                        dismissAllowingStateLoss()
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                launch {
+                    viewModel.isSuccessDeleteStreamer.collect{ isSuccess ->
+                        if(isSuccess){
+                            parentFragmentManager.setFragmentResult(streamRequestKey,Bundle.EMPTY)
+                            dismissAllowingStateLoss()
+                        }else{
+                            Toast.makeText(requireContext(), getString(R.string.delete_streamer_failure), Toast.LENGTH_SHORT).show()
+                            dismissAllowingStateLoss()
+                        }
                     }
-
                 }
             }
         }
