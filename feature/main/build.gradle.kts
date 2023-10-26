@@ -6,7 +6,7 @@ android {
 }
 dependencies {
 
-    implementation (project(":domain"))
+    implementation(project(":core:domain"))
     implementation (project(":feature:streamer"))
     implementation (project(":feature:search"))
     implementation(project(":resource_common"))

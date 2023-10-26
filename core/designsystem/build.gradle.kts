@@ -8,8 +8,10 @@ android {
 
 dependencies {
 
-    implementation(libs.lottie)
-    implementation(project(":resource_common"))
-    implementation(project(":domain"))
+    implementation(project(":core:domain"))
     implementation(project(":core:navigation"))
+
+    implementation(project(":resource_common"))
+
+    implementation(libs.lottie)
 }

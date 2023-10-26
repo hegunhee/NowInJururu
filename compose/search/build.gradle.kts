@@ -7,7 +7,9 @@ android {
 }
 
 dependencies{
-    implementation(project(":domain"))
+    implementation(project(":core:domain"))
+
     implementation(project(":compose:ui-component"))
+
     implementation(project(":resource_common"))
 }
