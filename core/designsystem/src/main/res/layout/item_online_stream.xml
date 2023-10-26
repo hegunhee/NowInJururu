@@ -8,12 +8,12 @@
 
         <variable
             name="actionHandler"
-            type ="com.hegunhee.feature.streamer.StreamActionHandler"
+            type ="com.hegunhee.nowinjururu.core.designsystem.adapter.streamer.StreamActionHandler"
             />
 
         <variable
             name="onlineStreamData"
-            type="com.hegunhee.feature.streamer.StreamerViewType.OnlineStreamer" />
+            type="com.hegunhee.nowinjururu.core.designsystem.adapter.streamer.StreamerViewType.OnlineStreamer" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

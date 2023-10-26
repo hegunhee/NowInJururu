@@ -1,4 +1,4 @@
-package com.hegunhee.feature.streamer.recommend
+package com.hegunhee.nowinjururu.core.designsystem.adapter.recommend
 
 interface RecommendActionHandler {
 

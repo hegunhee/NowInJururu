@@ -7,15 +7,15 @@
 
         <variable
             name="streamActionHandler"
-            type="com.hegunhee.feature.streamer.StreamActionHandler" />
+            type="com.hegunhee.nowinjururu.core.designsystem.adapter.streamer.StreamActionHandler" />
 
         <variable
             name="recommendActionHandler"
-            type="com.hegunhee.feature.streamer.recommend.RecommendActionHandler"/>
+            type="com.hegunhee.nowinjururu.core.designsystem.adapter.recommend.RecommendActionHandler"/>
 
         <variable
             name="containerObject"
-            type="com.hegunhee.feature.streamer.RecommendStreamContainerObject" />
+            type="com.hegunhee.nowinjururu.core.designsystem.adapter.recommend.RecommendStreamContainerObject" />
 
     </data>
 

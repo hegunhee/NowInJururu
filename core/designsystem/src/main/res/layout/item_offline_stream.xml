@@ -8,12 +8,12 @@
 
         <variable
             name="actionHandler"
-            type ="com.hegunhee.feature.streamer.StreamActionHandler"
+            type ="com.hegunhee.nowinjururu.core.designsystem.adapter.streamer.StreamActionHandler"
             />
 
         <variable
             name="offlineStreamData"
-            type="com.hegunhee.feature.streamer.StreamerViewType.OfflineStreamer" />
+            type="com.hegunhee.nowinjururu.core.designsystem.adapter.streamer.StreamerViewType.OfflineStreamer" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

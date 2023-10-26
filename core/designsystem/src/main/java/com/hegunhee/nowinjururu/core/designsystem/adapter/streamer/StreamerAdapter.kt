@@ -1,4 +1,4 @@
-package com.hegunhee.feature.streamer
+package com.hegunhee.nowinjururu.core.designsystem.adapter.streamer
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,9 +6,15 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.DiffUtil
-import com.hegunhee.feature.streamer.databinding.*
+import com.hegunhee.nowinjururu.core.designsystem.R
+import com.hegunhee.nowinjururu.core.designsystem.databinding.ItemOfflineStreamBinding
+import com.hegunhee.nowinjururu.core.designsystem.databinding.ItemOfflineStreamHeaderBinding
+import com.hegunhee.nowinjururu.core.designsystem.databinding.ItemOnlineStreamBinding
+import com.hegunhee.nowinjururu.core.designsystem.databinding.ItemOnlineStreamHeaderBinding
 
-class StreamerAdapter(private val actionHandler : StreamActionHandler) : ListAdapter<StreamerViewType,StreamerAdapter.StreamerAdapterViewHolder>(DiffUtil) {
+class StreamerAdapter(private val actionHandler : StreamActionHandler) : ListAdapter<StreamerViewType, StreamerAdapter.StreamerAdapterViewHolder>(
+    DiffUtil
+) {
 
     sealed class StreamerAdapterViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
         abstract fun bindView(data: StreamerViewType)

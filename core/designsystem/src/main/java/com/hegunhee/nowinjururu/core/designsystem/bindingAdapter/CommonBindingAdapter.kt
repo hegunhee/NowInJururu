@@ -1,9 +1,9 @@
-package com.hegunhee.feature.common.bindingAdapter
+package com.hegunhee.nowinjururu.core.designsystem.bindingAdapter
 
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.hegunhee.feature.common.adapter.TagAdapter
+import com.hegunhee.nowinjururu.core.designsystem.adapter.TagAdapter
 import com.squareup.picasso.Picasso
 
 @BindingAdapter("setImage")

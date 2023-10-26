@@ -1,13 +1,17 @@
-package com.hegunhee.feature.streamer
+package com.hegunhee.nowinjururu.core.designsystem.adapter.recommend
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import androidx.recyclerview.widget.*
 import androidx.recyclerview.widget.DiffUtil
-import com.hegunhee.feature.streamer.databinding.ItemRecommendStreamBinding
+import com.hegunhee.nowinjururu.core.designsystem.adapter.streamer.StreamActionHandler
+import com.hegunhee.nowinjururu.core.designsystem.adapter.streamer.StreamerViewType
+import com.hegunhee.nowinjururu.core.designsystem.databinding.ItemRecommendStreamBinding
 
-class RecommendStreamAdapter(private val actionHandler: StreamActionHandler) : ListAdapter<StreamerViewType.OnlineStreamer, RecommendStreamAdapter.RecommendStreamViewHolder>(diff_util) {
+class RecommendStreamAdapter(private val actionHandler: StreamActionHandler) : ListAdapter<StreamerViewType.OnlineStreamer, RecommendStreamAdapter.RecommendStreamViewHolder>(
+    diff_util
+) {
 
     inner class RecommendStreamViewHolder(private val binding : ItemRecommendStreamBinding) : ViewHolder(binding.root){
 
