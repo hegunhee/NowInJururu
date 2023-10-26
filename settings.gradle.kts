@@ -21,7 +21,6 @@ include(":data")
 include(":core:designsystem")
 
 include(":feature:main")
-include(":feature:common")
 include(":feature:streamer")
 include(":feature:search")
 
