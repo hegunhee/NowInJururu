@@ -7,8 +7,9 @@ android {
 dependencies {
 
     implementation(project(":core:domain"))
-    implementation (project(":feature:streamer"))
-    implementation (project(":feature:search"))
+    implementation(project(":feature:streamer"))
+    implementation(project(":feature:search"))
+    implementation(project(":feature:jururu"))
     implementation(project(":resource_common"))
 
     implementation(project(":core:designsystem"))

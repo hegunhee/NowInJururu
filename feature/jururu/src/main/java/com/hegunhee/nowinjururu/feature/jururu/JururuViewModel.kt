@@ -1,4 +1,4 @@
-package com.hegunhee.feature.streamer.jururu
+package com.hegunhee.nowinjururu.feature.jururu
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

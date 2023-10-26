@@ -5,8 +5,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.hegunhee.feature.streamer.StreamerFragment
-import com.hegunhee.feature.streamer.jururu.JururuFragment
 import com.hegunhee.feature.search.SearchFragment
+import com.hegunhee.nowinjururu.feature.jururu.JururuFragment
 
 enum class MainTab(
     val fragment :() -> Fragment,
