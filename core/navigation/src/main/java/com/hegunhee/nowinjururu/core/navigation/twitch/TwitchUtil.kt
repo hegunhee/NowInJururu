@@ -1,4 +1,4 @@
-package com.hegunhee.feature.common.twitch
+package com.hegunhee.nowinjururu.core.navigation.twitch
 
 import android.content.Context
 import android.content.Intent

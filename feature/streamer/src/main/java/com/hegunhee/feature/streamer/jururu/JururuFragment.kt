@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import com.hegunhee.feature.common.twitch.handleTwitchDeepLink
+import com.hegunhee.nowinjururu.core.navigation.twitch.handleTwitchDeepLink
 import com.hegunhee.feature.streamer.R
 import com.hegunhee.nowinjururu.core.designsystem.adapter.streamer.StreamerAdapter
 import com.hegunhee.feature.streamer.databinding.FragmentJururuBinding

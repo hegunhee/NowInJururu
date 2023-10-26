@@ -1,4 +1,4 @@
-package com.hegunhee.feature.common.twitch
+package com.hegunhee.nowinjururu.core.navigation.twitch
 
 sealed interface TwitchDeepLink {
     fun getDeepLinkQuery(): String

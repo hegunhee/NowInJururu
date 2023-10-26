@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.hegunhee.domain.model.StreamDataType
 import com.hegunhee.domain.usecase.GetJururuStreamDataUseCase
-import com.hegunhee.feature.common.twitch.TwitchDeepLink
+import com.hegunhee.nowinjururu.core.navigation.twitch.TwitchDeepLink
 import com.hegunhee.nowinjururu.core.designsystem.adapter.streamer.StreamActionHandler
 import com.hegunhee.nowinjururu.core.designsystem.adapter.streamer.StreamerViewType
 import com.hegunhee.nowinjururu.core.designsystem.adapter.streamer.toOnlineStreamer

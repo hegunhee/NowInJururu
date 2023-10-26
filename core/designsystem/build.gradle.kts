@@ -11,4 +11,5 @@ dependencies {
     implementation(libs.lottie)
     implementation(project(":resource_common"))
     implementation(project(":domain"))
+    implementation(project(":core:navigation"))
 }
