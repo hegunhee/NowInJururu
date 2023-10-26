@@ -42,7 +42,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/item_between_small_start_margin"
-            android:onClick="@{() -> recommendActionHandler.onClickGameDeepLink(containerObject.gameName)}"
+            android:onClick="@{() -> recommendActionHandler.onGameDeepLinkClick(containerObject.gameName)}"
             android:text="트위치 앱에서 보기"
             android:textColor="@color/violet"
             app:layout_constraintStart_toEndOf="@id/recommend_header_text"

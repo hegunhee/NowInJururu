@@ -12,9 +12,9 @@ import com.hegunhee.nowinjururu.core.designsystem.databinding.ItemOfflineStreamH
 import com.hegunhee.nowinjururu.core.designsystem.databinding.ItemOnlineStreamBinding
 import com.hegunhee.nowinjururu.core.designsystem.databinding.ItemOnlineStreamHeaderBinding
 
-class StreamerAdapter(private val actionHandler : StreamActionHandler) : ListAdapter<StreamerViewType, StreamerAdapter.StreamerAdapterViewHolder>(
-    DiffUtil
-) {
+class StreamerAdapter(
+    private val actionHandler : StreamActionHandler
+) : ListAdapter<StreamerViewType, StreamerAdapter.StreamerAdapterViewHolder>(diffUtil) {
 
     sealed class StreamerAdapterViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
         abstract fun bindView(data: StreamerViewType)
@@ -81,16 +81,15 @@ class StreamerAdapter(private val actionHandler : StreamActionHandler) : ListAda
             is StreamerViewType.OfflineStreamer -> R.layout.item_offline_stream
         }
     }
-}
+    companion object {
+        private object diffUtil : DiffUtil.ItemCallback<StreamerViewType>() {
+            override fun areItemsTheSame(oldItem: StreamerViewType, newItem: StreamerViewType): Boolean {
+                return oldItem == newItem
+            }
 
-internal object DiffUtil : DiffUtil.ItemCallback<StreamerViewType>(){
-
-    override fun areItemsTheSame(oldItem: StreamerViewType, newItem: StreamerViewType): Boolean {
-        return oldItem == newItem
+            override fun areContentsTheSame(oldItem: StreamerViewType, newItem: StreamerViewType): Boolean {
+                return oldItem == newItem
+            }
+        }
     }
-
-    override fun areContentsTheSame(oldItem: StreamerViewType, newItem: StreamerViewType): Boolean {
-        return oldItem == newItem
-    }
-
 }

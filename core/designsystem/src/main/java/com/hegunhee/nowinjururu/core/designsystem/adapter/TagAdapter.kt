@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.hegunhee.nowinjururu.core.designsystem.databinding.ItemTagBinding
 
-class TagAdapter : ListAdapter<String, TagAdapter.TagViewHolder>(DiffUtil) {
+class TagAdapter : ListAdapter<String, TagAdapter.TagViewHolder>(diffUtil) {
 
     inner class TagViewHolder(private val binding : ItemTagBinding) : RecyclerView.ViewHolder(binding.root){
 
@@ -23,16 +23,16 @@ class TagAdapter : ListAdapter<String, TagAdapter.TagViewHolder>(DiffUtil) {
     override fun onBindViewHolder(holder: TagViewHolder, position: Int) {
         holder.bindView(getItem(position))
     }
-}
 
-internal object DiffUtil : DiffUtil.ItemCallback<String>() {
+    companion object {
+        private object diffUtil : DiffUtil.ItemCallback<String>() {
+            override fun areItemsTheSame(oldItem: String, newItem: String): Boolean {
+                return oldItem == newItem
+            }
 
-    override fun areItemsTheSame(oldItem: String, newItem: String): Boolean {
-        return oldItem == newItem
+            override fun areContentsTheSame(oldItem: String, newItem: String): Boolean {
+                return oldItem == newItem
+            }
+        }
     }
-
-    override fun areContentsTheSame(oldItem: String, newItem: String): Boolean {
-        return oldItem == newItem
-    }
-
 }

@@ -19,7 +19,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="@{() -> actionHandler.onClickTwitchStreamerItem(onlineStreamData.userLogin)}">
+        android:onClick="@{() -> actionHandler.onTwitchStreamerItemClick(onlineStreamData.userLogin)}">
 
         <ImageView
             android:id="@+id/thumb_nail_image_view"
@@ -87,7 +87,7 @@
             app:layout_constraintBottom_toBottomOf="@id/profile_image_view"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/profile_image_view"
-            android:onClick="@{() -> actionHandler.onClickMoreMenuButton(onlineStreamData.userLogin)}"/>
+            android:onClick="@{() -> actionHandler.onMoreMenuButtonClick(onlineStreamData.userLogin)}"/>
 
         <TextView
             android:id="@+id/stream_title"

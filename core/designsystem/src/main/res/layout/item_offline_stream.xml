@@ -18,7 +18,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="@{() -> actionHandler.onClickTwitchStreamerItem(offlineStreamData.userLogin)}">
+        android:onClick="@{() -> actionHandler.onTwitchStreamerItemClick(offlineStreamData.userLogin)}">
 
         <ImageView
             android:id="@+id/profile_image_view"
@@ -47,7 +47,7 @@
             app:layout_constraintEnd_toStartOf="@id/menu_image_view"
             app:layout_constraintStart_toEndOf="@id/profile_image_view"
             app:layout_constraintTop_toTopOf="@id/profile_image_view"
-            tools:text="테스트" />
+            tools:text="주르르" />
 
         <ImageView
             android:id="@+id/menu_image_view"
@@ -58,7 +58,7 @@
             app:layout_constraintBottom_toBottomOf="@id/profile_image_view"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/profile_image_view"
-            android:onClick="@{() -> actionHandler.onClickMoreMenuButton(offlineStreamData.userLogin)}"/>
+            android:onClick="@{() -> actionHandler.onMoreMenuButtonClick(offlineStreamData.userLogin)}"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
