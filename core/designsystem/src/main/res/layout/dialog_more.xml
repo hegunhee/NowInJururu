@@ -29,7 +29,7 @@
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            tools:text="테스트입니다." />
+            tools:text="주르르 님을 즐겨찾기 취소합니다." />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -56,20 +56,20 @@ class StreamerViewModel @Inject constructor(
         }
     }
 
-    override fun onClickTwitchStreamerItem(streamerId: String) {
+    override fun onTwitchStreamerItemClick(streamerId: String) {
         viewModelScope.launch {
             _navigateTwitchDeepLink.emit(TwitchDeepLink.Streamer(streamerId = streamerId))
         }
     }
 
-    override fun onClickMoreMenuButton(streamerId: String) {
+    override fun onMoreMenuButtonClick(streamerId: String) {
         viewModelScope.launch {
             _showMoreBottomSheetDialog.emit(streamerId)
 
         }
     }
 
-    override fun onClickGameDeepLink(gameName: String) {
+    override fun onGameDeepLinkClick(gameName: String) {
         viewModelScope.launch {
             _navigateTwitchDeepLink.emit(TwitchDeepLink.Game(gameName = gameName))
         }

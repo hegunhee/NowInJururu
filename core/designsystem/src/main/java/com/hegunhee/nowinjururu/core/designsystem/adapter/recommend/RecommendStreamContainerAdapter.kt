@@ -12,7 +12,7 @@ import com.hegunhee.nowinjururu.core.designsystem.databinding.ItemRecommendStrea
 class RecommendStreamContainerAdapter(
     private val streamActionHandler: StreamActionHandler,
     private val recommendActionHandler: RecommendActionHandler
-) : ListAdapter<RecommendStreamContainerObject, RecommendStreamContainerAdapter.RecommendStreamContainerViewHolder>(recommend_container_diff_util){
+) : ListAdapter<RecommendStreamContainerObject, RecommendStreamContainerAdapter.RecommendStreamContainerViewHolder>(diffUtil){
 
     inner class RecommendStreamContainerViewHolder(private val binding : ItemRecommendStreamContainerBinding) : ViewHolder(binding.root) {
         fun bind(containerObject : RecommendStreamContainerObject) {
@@ -30,18 +30,18 @@ class RecommendStreamContainerAdapter(
         holder.bind(getItem(position))
     }
 
+    companion object {
+        private object diffUtil : DiffUtil.ItemCallback<RecommendStreamContainerObject>() {
+            override fun areItemsTheSame(oldItem: RecommendStreamContainerObject, newItem: RecommendStreamContainerObject): Boolean {
+                return oldItem.item == newItem.item
+            }
 
-}
+            override fun areContentsTheSame(oldItem: RecommendStreamContainerObject, newItem: RecommendStreamContainerObject): Boolean {
+                return oldItem == newItem
+            }
 
-internal object recommend_container_diff_util : DiffUtil.ItemCallback<RecommendStreamContainerObject>() {
-    override fun areItemsTheSame(oldItem: RecommendStreamContainerObject, newItem: RecommendStreamContainerObject): Boolean {
-        return oldItem.item == newItem.item
+        }
     }
-
-    override fun areContentsTheSame(oldItem: RecommendStreamContainerObject, newItem: RecommendStreamContainerObject): Boolean {
-        return oldItem == newItem
-    }
-
 }
 
 data class RecommendStreamContainerObject(val gameName : String,val item : List<StreamerViewType.OnlineStreamer>) {
