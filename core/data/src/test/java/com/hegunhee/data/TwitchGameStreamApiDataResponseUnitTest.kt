@@ -8,14 +8,14 @@ import org.junit.Test
 
 class TwitchGameStreamApiDataResponseUnitTest {
 
-    private lateinit var tokenApi : TwitchAuthService
+    private lateinit var twitchAuthService : TwitchAuthService
     private lateinit var twitchService: TwitchService
 
     @Before
     fun initMoshiAndRetrofit()  {
         val moshi = getMoshi()
-        tokenApi = getRetrofit(moshi = moshi, baseUrl = TwitchAuthTokenBaseUrl).getTwitchAuthService()
-        twitchService = getRetrofit(moshi = moshi,baseUrl = TwitchGetBaseUrl).getTwitchService()
+        twitchAuthService = getRetrofit(moshi = moshi, baseUrl = BuildConfig.TwitchAuthBaseUrl).getTwitchAuthService()
+        twitchService = getRetrofit(moshi = moshi,baseUrl = BuildConfig.TwitchGetBaseUrl).getTwitchService()
     }
 
     /**
@@ -25,7 +25,7 @@ class TwitchGameStreamApiDataResponseUnitTest {
     fun `get maple story stream`() {
         runBlocking {
             runCatching {
-                val token = tokenApi.getAuthToken()
+                val token = twitchAuthService.getAuthToken()
                 println("Bearer $token")
                 twitchService.getGameStreamData(authorization = token.getFormattedToken(),gameId = "19976").streamApiData
             }.onSuccess {
@@ -41,14 +41,14 @@ class TwitchGameStreamApiDataResponseUnitTest {
     @Test
     fun `transfer gameStreamApiData to model data`() {
         runBlocking {
-            val token = tokenApi.getAuthToken().getFormattedToken()
+            val token = twitchAuthService.getAuthToken().getFormattedToken()
             println("Bearer $token")
-            val gameStreamList = streamDataApi.getGameStreamData(authorization = token,gameId = "19976").streamApiData
+            val gameStreamList = twitchService.getGameStreamData(authorization = token,gameId = "19976").streamApiData
             if(gameStreamList.isEmpty()){
                 println("data is empty")
                 assert(true)
             }else{
-                val streamerInfoList = streamerDataApi.getStreamerData(userLogin = gameStreamList.map { it.streamerId }.toTypedArray(), authorization = token).streamerApiDataList
+                val streamerInfoList = twitchService.getStreamerData(userLogin = gameStreamList.map { it.streamerId }.toTypedArray(), authorization = token).streamerApiDataList
                 gameStreamList.mapIndexed { index, streamApiData ->
                     streamApiData.toStreamData(streamerInfoList[index].profileImageUrl)
                 }.forEach {
