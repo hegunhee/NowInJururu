@@ -26,4 +26,8 @@ sealed class StreamerViewType {
     data class OfflineStreamerHeader(val size : Int) : StreamerViewType()
 
     data class OfflineStreamer(val userLogin : String, val userName : String, val profileUrl : String) : StreamerViewType()
+
+    companion object {
+        val OfflineEmpty = OfflineStreamer("","","")
+    }
 }
