@@ -1,8 +1,6 @@
 package com.hegunhee.data
 
 import com.hegunhee.data.network.TwitchAuthService
-import com.hegunhee.data.network.TwitchAuthTokenBaseUrl
-import com.hegunhee.data.network.TwitchGetBaseUrl
 import com.hegunhee.data.network.TwitchService
 import kotlinx.coroutines.runBlocking
 import org.junit.Before
@@ -10,14 +8,14 @@ import org.junit.Test
 
 class TwitchStreamerDataResponseUnitTest {
 
-    private lateinit var tokenApi : TwitchAuthService
+    private lateinit var twitchAuthService : TwitchAuthService
     private lateinit var twitchService: TwitchService
 
     @Before
     fun initMoshiAndApi() {
         val moshi = getMoshi()
-        tokenApi = getRetrofit(moshi = moshi,baseUrl = TwitchAuthTokenBaseUrl).getTwitchAuthService()
-        twitchService = getRetrofit(moshi = moshi,baseUrl = TwitchGetBaseUrl).getTwitchService()
+        twitchAuthService = getRetrofit(moshi = moshi,baseUrl = BuildConfig.TwitchAuthBaseUrl).getTwitchAuthService()
+        twitchService = getRetrofit(moshi = moshi,baseUrl = BuildConfig.TwitchGetBaseUrl).getTwitchService()
     }
 
     @Test
@@ -25,7 +23,7 @@ class TwitchStreamerDataResponseUnitTest {
         runBlocking {
             runCatching {
                 val streamer = listOf<String>("cotton__123")
-                val token = tokenApi.getAuthToken().getFormattedToken()
+                val token = twitchAuthService.getAuthToken().getFormattedToken()
                 twitchService.getStreamerData(authorization = token,userLogin =streamer.toTypedArray())
             }.onSuccess {response ->
                 println(response.toString())
@@ -46,8 +44,8 @@ class TwitchStreamerDataResponseUnitTest {
         runBlocking {
             runCatching {
                 val streamer = listOf<String>("cotton__123","viichan6")
-                val token = tokenApi.getAuthToken().getFormattedToken()
-                streamerApi.getStreamerData(authorization = token,userLogin =streamer.toTypedArray())
+                val token = twitchAuthService.getAuthToken().getFormattedToken()
+                twitchService.getStreamerData(authorization = token,userLogin =streamer.toTypedArray())
             }.onSuccess {response ->
                 println(response.toString())
                 val displayNameList = response.streamerApiDataList.map { it.streamerName }

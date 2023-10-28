@@ -1,25 +1,24 @@
 package com.hegunhee.data
 
 import com.hegunhee.data.network.TwitchAuthService
-import com.hegunhee.data.network.TwitchAuthTokenBaseUrl
 import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Test
 
 
 class TwitchTokenUnitTest {
-    private lateinit var tokenApi : TwitchAuthService
+    private lateinit var twitchAuthService : TwitchAuthService
     @Before
     fun initMoshiAndRetrofit()  {
         val moshi = getMoshi()
-        tokenApi = getRetrofit(moshi = moshi,baseUrl = TwitchAuthTokenBaseUrl).getTwitchAuthService()
+        twitchAuthService = getRetrofit(moshi = moshi,baseUrl = BuildConfig.TwitchAuthBaseUrl).getTwitchAuthService()
     }
     @Test
     fun `get twitch token test`() {
 
         runBlocking {
             runCatching {
-                tokenApi.getAuthToken()
+                twitchAuthService.getAuthToken()
             }.onSuccess {
                 println("authToken = $it")
                 println("tokenFormat = ${it.getFormattedToken()}")

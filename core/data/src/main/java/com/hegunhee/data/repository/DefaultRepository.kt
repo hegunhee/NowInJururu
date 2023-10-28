@@ -4,6 +4,7 @@ import androidx.paging.PagingData
 import androidx.paging.filter
 import com.hegunhee.data.dataSource.local.LocalDataSource
 import com.hegunhee.data.dataSource.remote.RemoteDataSource
+import com.hegunhee.data.mapper.toOfflineData
 import com.hegunhee.data.mapper.toSearchDataList
 import com.hegunhee.data.mapper.toStreamData
 import com.hegunhee.data.mapper.toStreamerEntity
@@ -28,7 +29,7 @@ class DefaultRepository @Inject constructor(
             val jururuInfo = remoteDataSource.getStreamerDataResponse(streamerLogin = arrayOf<String>(jururuId),token = token).streamerApiDataList[0]
             val jururuStreamDataResponse = remoteDataSource.getStreamDataResponse(userLogin = jururuInfo.streamerId,token = token)
             if(jururuStreamDataResponse.streamApiData.isEmpty()){
-                StreamDataType.OfflineData(streamerId = jururuInfo.streamerId,streamerName =jururuInfo.streamerName,profileUrl = jururuInfo.profileImageUrl)
+                jururuInfo.toOfflineData()
             }else{
                 jururuStreamDataResponse.streamApiData[0].toStreamData(jururuInfo.profileImageUrl)
             }
@@ -48,7 +49,7 @@ class DefaultRepository @Inject constructor(
                 return@map if(streamData.isNotEmpty()){
                     streamData[0].toStreamData(streamerInfo.profileImageUrl)
                 }else{
-                    StreamDataType.OfflineData(streamerId = streamerInfo.streamerId,streamerName = streamerInfo.streamerName,profileUrl = streamerInfo.profileImageUrl)
+                    streamerInfo.toOfflineData()
                 }
             }
         }
