@@ -18,8 +18,7 @@ import javax.inject.Inject
 class JururuViewModel @Inject constructor(private val getStreamDataUseCase: GetStreamDataUseCase) : ViewModel(),
     StreamActionHandler {
 
-    private val _favoriteStreamData : MutableStateFlow<StreamerViewType> = MutableStateFlow(
-        StreamerViewType.OfflineStreamer("","",""))
+    private val _favoriteStreamData : MutableStateFlow<StreamerViewType> = MutableStateFlow(StreamerViewType.OfflineEmpty)
     val favoriteStreamData : StateFlow<StreamerViewType> = _favoriteStreamData.asStateFlow()
 
     private val _navigateTwitchDeepLink : MutableSharedFlow<TwitchDeepLink> = MutableSharedFlow()
@@ -30,9 +29,9 @@ class JururuViewModel @Inject constructor(private val getStreamDataUseCase: GetS
             getStreamDataUseCase("cotton__123")
                 .onSuccess {
                     if(it is StreamDataType.OnlineData) {
-                        _favoriteStreamData.emit(it.toOnlineStreamer())
+                        _favoriteStreamData.value = it.toOnlineStreamer()
                     }else if(it is StreamDataType.OfflineData){
-                        _favoriteStreamData.emit(it.toOfflineStreamer())
+                        _favoriteStreamData.value = it.toOfflineStreamer()
                     }
 
                 }
