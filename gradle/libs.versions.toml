@@ -24,7 +24,7 @@ espresso-core = "3.5.1"
 coroutine = "1.6.4"
 lifecycleScope = "2.4.0"
 
-dagger = "2.44.2"
+dagger = "2.44"
 
 kotlin-libs = "1.7.10"
 javax-inject = "1"
