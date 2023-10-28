@@ -38,7 +38,7 @@ class NetworkModule {
         @Named(TwitchAuthMoshiName) moshi : Moshi
     ) : TwitchAuthService {
         return Retrofit.Builder()
-            .baseUrl(TwitchAuthTokenBaseUrl)
+            .baseUrl(BuildConfig.TwitchAuthBaseUrl)
             .addConverterFactory(MoshiConverterFactory.create(moshi))
             .build()
             .create(TwitchAuthService::class.java)
@@ -50,7 +50,7 @@ class NetworkModule {
         @Named(TwitchGetMoshiName) moshi : Moshi
     ) : TwitchService{
         return Retrofit.Builder()
-            .baseUrl(TwitchGetBaseUrl)
+            .baseUrl(BuildConfig.TwitchGetBaseUrl)
             .addConverterFactory(MoshiConverterFactory.create(moshi))
             .client(provideOkHttpClient(TwitchAuthInterceptor()))
             .build()
