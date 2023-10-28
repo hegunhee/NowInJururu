@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface Repository {
 
-    suspend fun getJururuStreamData(jururuId : String = "cotton__123") : Result<StreamDataType>
+    suspend fun getStreamData(streamerId : String) : Result<StreamDataType>
 
     suspend fun getStreamDataList() : Result<List<StreamDataType>>
 

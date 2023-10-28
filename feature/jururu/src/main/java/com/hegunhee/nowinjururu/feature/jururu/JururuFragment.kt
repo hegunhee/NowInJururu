@@ -36,14 +36,14 @@ class JururuFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.getJururuStreamData()
+        viewModel.getStreamData()
         observeData()
     }
 
     private fun observeData() {
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             launch {
-                viewModel.jururuStreamData.collect{
+                viewModel.favoriteStreamData.collect{
                     streamerAdapter.submitList(listOf(it))
                 }
             }
