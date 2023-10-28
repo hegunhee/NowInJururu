@@ -23,15 +23,15 @@ class DefaultRepository @Inject constructor(
     private val localDataSource : LocalDataSource
 ) : Repository {
 
-    override suspend fun getJururuStreamData(jururuId: String): Result<StreamDataType> {
+    override suspend fun getStreamData(streamerId: String): Result<StreamDataType> {
         return runCatching {
             val token = remoteDataSource.getAuthToken().getFormattedToken()
-            val jururuInfo = remoteDataSource.getStreamerDataResponse(streamerLogin = arrayOf<String>(jururuId),token = token).streamerApiDataList[0]
-            val jururuStreamDataResponse = remoteDataSource.getStreamDataResponse(userLogin = jururuInfo.streamerId,token = token)
-            if(jururuStreamDataResponse.streamApiData.isEmpty()){
-                jururuInfo.toOfflineData()
+            val streamerInfo = remoteDataSource.getStreamerDataResponse(streamerLogin = arrayOf(streamerId),token = token).streamerApiDataList[0]
+            val streamData = remoteDataSource.getStreamDataResponse(userLogin = streamerInfo.streamerId,token = token)
+            if(streamData.streamApiData.isEmpty()){
+                streamerInfo.toOfflineData()
             }else{
-                jururuStreamDataResponse.streamApiData[0].toStreamData(jururuInfo.profileImageUrl)
+                streamData.streamApiData[0].toStreamData(streamerInfo.profileImageUrl)
             }
         }
     }
