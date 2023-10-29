@@ -2,6 +2,7 @@ package com.hegunhee.data.di
 
 import com.hegunhee.data.BuildConfig
 import com.hegunhee.data.network.*
+import com.hegunhee.data.util.KakaoSearchMoshiName
 import com.hegunhee.data.util.TwitchAuthMoshiName
 import com.hegunhee.data.util.TwitchGetMoshiName
 import com.squareup.moshi.Moshi
@@ -34,6 +35,11 @@ class NetworkModule {
 
     @Singleton
     @Provides
+    @Named(KakaoSearchMoshiName)
+    fun provideKakaoSearchServiceMoshi() : Moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
+
+    @Singleton
+    @Provides
     fun provideTwitchAuthService(
         @Named(TwitchAuthMoshiName) moshi : Moshi
     ) : TwitchAuthService {
@@ -57,6 +63,20 @@ class NetworkModule {
             .create(TwitchService::class.java)
     }
 
+    @Singleton
+    @Provides
+    fun provideKakaoService(
+        @Named(KakaoSearchMoshiName) moshi : Moshi
+    ) : KakaoService {
+        return Retrofit.Builder()
+            .baseUrl(BuildConfig.KakaoBaseUrl)
+            .addConverterFactory(MoshiConverterFactory.create(moshi))
+            .client(provideOkHttpClient(KakaoAuthInterceptor()))
+            .build()
+            .create(KakaoService::class.java)
+    }
+
+
     private fun provideOkHttpClient(vararg interceptor: Interceptor) : OkHttpClient =
         OkHttpClient.Builder().run {
             interceptor.forEach { addInterceptor(it) }
@@ -67,6 +87,16 @@ class NetworkModule {
         override fun intercept(chain: Interceptor.Chain): Response = with(chain) {
             val newRequest = request().newBuilder()
                 .addHeader("client-id", BuildConfig.TwitchClientId)
+                .build()
+            proceed(newRequest)
+        }
+    }
+
+    private class KakaoAuthInterceptor : Interceptor {
+
+        override fun intercept(chain: Interceptor.Chain): Response = with(chain) {
+            val newRequest = request().newBuilder()
+                .addHeader("Authorization",BuildConfig.KakaoAuthKey)
                 .build()
             proceed(newRequest)
         }
