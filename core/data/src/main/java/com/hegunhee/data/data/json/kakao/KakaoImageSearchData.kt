@@ -3,6 +3,16 @@ package com.hegunhee.data.data.json.kakao
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
+/**
+ * "collection": "blog",
+ * "datetime": "2022-03-01T01:33:27.000+09:00",
+ * "display_sitename": "티스토리",
+ * "doc_url": "https://makedon.tistory.com/160",
+ * "height": 463,
+ * "image_url": "https://blog.kakaocdn.net/dn/cNu4gq/btruKjWYyiI/c4U1f8AJYbLWsNheK63INK/img.png",
+ * "thumbnail_url": "https://search1.kakaocdn.net/argon/130x130_85_c/9A0v9BxkSxB",
+ * "width": 500
+ */
 @JsonClass(generateAdapter = true)
 data class KakaoImageSearchData(
     @Json(name = "collection") val sourceType: String,
