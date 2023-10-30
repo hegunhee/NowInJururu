@@ -28,7 +28,6 @@ internal fun getTwitchGetRetrofit(moshi: Moshi): Retrofit =
         .client(provideOkHttpClient(TwitchAuthInterceptor()))
         .build()
 
-
 internal fun Retrofit.getTwitchAuthService() : TwitchAuthService {
     return create(TwitchAuthService::class.java)
 }
@@ -37,13 +36,12 @@ internal fun Retrofit.getTwitchService() : TwitchService {
     return create(TwitchService::class.java)
 }
 
-internal fun getKakaoRetrofit(moshi : Moshi) : Retrofit {
-    return Retrofit.Builder()
+internal fun getKakaoRetrofit(moshi : Moshi) : Retrofit =
+    Retrofit.Builder()
         .baseUrl(BuildConfig.KakaoBaseUrl)
         .addConverterFactory(MoshiConverterFactory.create(moshi))
         .client(provideOkHttpClient(KakaoAuthInterceptor()))
         .build()
-}
 
 internal fun Retrofit.getKakaoService() : KakaoService {
     return create(KakaoService::class.java)
@@ -56,7 +54,6 @@ private fun provideOkHttpClient(vararg interceptor: Interceptor) : OkHttpClient 
     }
 
 private class KakaoAuthInterceptor : Interceptor {
-
     override fun intercept(chain: Interceptor.Chain): Response = with(chain) {
         val newRequest = request().newBuilder()
             .addHeader("Authorization", BuildConfig.KakaoAuthKey)
