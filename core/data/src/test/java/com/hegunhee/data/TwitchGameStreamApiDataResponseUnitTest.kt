@@ -14,8 +14,8 @@ class TwitchGameStreamApiDataResponseUnitTest {
     @Before
     fun initMoshiAndRetrofit()  {
         val moshi = getMoshi()
-        twitchAuthService = getRetrofit(moshi = moshi, baseUrl = BuildConfig.TwitchAuthBaseUrl).getTwitchAuthService()
-        twitchService = getRetrofit(moshi = moshi,baseUrl = BuildConfig.TwitchGetBaseUrl).getTwitchService()
+        twitchAuthService = getTwitchAuthRetrofit(moshi = moshi).getTwitchAuthService()
+        twitchService = getTwitchGetRetrofit(moshi).getTwitchService()
     }
 
     /**

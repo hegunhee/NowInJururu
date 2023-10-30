@@ -11,7 +11,7 @@ class TwitchTokenUnitTest {
     @Before
     fun initMoshiAndRetrofit()  {
         val moshi = getMoshi()
-        twitchAuthService = getRetrofit(moshi = moshi,baseUrl = BuildConfig.TwitchAuthBaseUrl).getTwitchAuthService()
+        twitchAuthService = getTwitchAuthRetrofit(moshi = moshi).getTwitchAuthService()
     }
     @Test
     fun `get twitch token test`() {

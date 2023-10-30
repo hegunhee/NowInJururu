@@ -15,11 +15,19 @@ internal fun getMoshi() : Moshi {
     return Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
 }
 
-internal fun getRetrofit(moshi : Moshi, baseUrl : String) : Retrofit {
-    return Retrofit.Builder().baseUrl(baseUrl)
+internal fun getTwitchAuthRetrofit(moshi : Moshi) : Retrofit =
+    Retrofit.Builder()
+        .baseUrl(BuildConfig.TwitchAuthBaseUrl)
         .addConverterFactory(MoshiConverterFactory.create(moshi))
         .build()
-}
+
+internal fun getTwitchGetRetrofit(moshi: Moshi): Retrofit =
+    Retrofit.Builder()
+        .baseUrl(BuildConfig.TwitchGetBaseUrl)
+        .addConverterFactory(MoshiConverterFactory.create(moshi))
+        .client(provideOkHttpClient(TwitchAuthInterceptor()))
+        .build()
+
 
 internal fun Retrofit.getTwitchAuthService() : TwitchAuthService {
     return create(TwitchAuthService::class.java)
@@ -52,6 +60,15 @@ private class KakaoAuthInterceptor : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response = with(chain) {
         val newRequest = request().newBuilder()
             .addHeader("Authorization", BuildConfig.KakaoAuthKey)
+            .build()
+        proceed(newRequest)
+    }
+}
+
+private class TwitchAuthInterceptor : Interceptor {
+    override fun intercept(chain: Interceptor.Chain): Response = with(chain) {
+        val newRequest = request().newBuilder()
+            .addHeader("client-id", BuildConfig.TwitchClientId)
             .build()
         proceed(newRequest)
     }
