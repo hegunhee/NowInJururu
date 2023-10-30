@@ -12,8 +12,8 @@ class TwitchSearchDataResponseUnitTest {
     @Before
     fun initMoshiAndRetrofit()  {
         val moshi = getMoshi()
-        tokenApi = getRetrofit(moshi = moshi,baseUrl = BuildConfig.TwitchAuthBaseUrl).getTwitchAuthService()
-        twitchService = getRetrofit(moshi = moshi,baseUrl = BuildConfig.TwitchGetBaseUrl).getTwitchService()
+        tokenApi = getTwitchAuthRetrofit(moshi = moshi).getTwitchAuthService()
+        twitchService = getTwitchGetRetrofit(moshi = moshi).getTwitchService()
     }
 
     @Test
