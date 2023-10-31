@@ -1,6 +1,6 @@
 package com.hegunhee.domain.usecase
 
-import com.hegunhee.domain.model.StreamDataType
+import com.hegunhee.domain.model.twitch.StreamDataType
 import com.hegunhee.domain.repository.Repository
 import javax.inject.Inject
 

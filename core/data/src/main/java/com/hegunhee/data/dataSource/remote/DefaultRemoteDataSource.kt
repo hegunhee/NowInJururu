@@ -3,19 +3,22 @@ package com.hegunhee.data.dataSource.remote
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
+import com.hegunhee.data.data.json.kakao.KakaoWebSearchResponse
 import com.hegunhee.data.data.json.twitch.TwitchAuthToken
 import com.hegunhee.data.data.json.twitch.SearchApiDataResponse
 import com.hegunhee.data.data.json.twitch.StreamApiDataResponse
 import com.hegunhee.data.data.json.twitch.StreamerApiDataResponse
+import com.hegunhee.data.network.KakaoService
 import com.hegunhee.data.network.TwitchAuthService
 import com.hegunhee.data.network.TwitchService
-import com.hegunhee.domain.model.SearchData
+import com.hegunhee.domain.model.twitch.SearchData
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class DefaultRemoteDataSource @Inject constructor(
     private val twitchAuthService : TwitchAuthService,
-    private val twitchService : TwitchService
+    private val twitchService : TwitchService,
+    private val kakaoService : KakaoService
 ) : RemoteDataSource {
     override suspend fun getAuthToken(): TwitchAuthToken {
         return twitchAuthService.getAuthToken()
@@ -51,6 +54,13 @@ class DefaultRemoteDataSource @Inject constructor(
             config = PagingConfig(pageSize = size, enablePlaceholders = false),
             pagingSourceFactory = { SearchPagingSource(query = streamerName,twitchAuthService,twitchService)}
         ).flow
+    }
+
+    override suspend fun getKakaoWebSearchResponse(
+        query: String,
+        sort: String
+    ): KakaoWebSearchResponse {
+        return kakaoService.getKakaoSearchWeb(query,sort,null,null)
     }
 
 }

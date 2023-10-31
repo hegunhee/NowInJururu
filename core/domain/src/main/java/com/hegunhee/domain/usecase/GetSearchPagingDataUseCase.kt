@@ -1,7 +1,7 @@
 package com.hegunhee.domain.usecase
 
 import androidx.paging.PagingData
-import com.hegunhee.domain.model.SearchData
+import com.hegunhee.domain.model.twitch.SearchData
 import com.hegunhee.domain.repository.Repository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject

@@ -1,4 +1,4 @@
-package com.hegunhee.domain.model
+package com.hegunhee.domain.model.twitch
 
 data class StreamerData(
     val streamerId : String,

@@ -1,6 +1,6 @@
 package com.hegunhee.compose.jururu
 
-import com.hegunhee.domain.model.StreamDataType
+import com.hegunhee.domain.model.twitch.StreamDataType
 
 sealed class JururuUiModel {
 

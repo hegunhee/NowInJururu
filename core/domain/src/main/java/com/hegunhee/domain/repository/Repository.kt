@@ -1,9 +1,9 @@
 package com.hegunhee.domain.repository
 
 import androidx.paging.PagingData
-import com.hegunhee.domain.model.SearchData
-import com.hegunhee.domain.model.StreamDataType
-import com.hegunhee.domain.model.StreamerData
+import com.hegunhee.domain.model.twitch.SearchData
+import com.hegunhee.domain.model.twitch.StreamDataType
+import com.hegunhee.domain.model.twitch.StreamerData
 import kotlinx.coroutines.flow.Flow
 
 interface Repository {

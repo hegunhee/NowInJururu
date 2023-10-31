@@ -2,7 +2,7 @@ package com.hegunhee.nowinjururu.feature.jururu
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.hegunhee.domain.model.StreamDataType
+import com.hegunhee.domain.model.twitch.StreamDataType
 import com.hegunhee.domain.usecase.GetStreamDataUseCase
 import com.hegunhee.nowinjururu.core.navigation.twitch.TwitchDeepLink
 import com.hegunhee.nowinjururu.core.designsystem.adapter.streamer.StreamActionHandler
