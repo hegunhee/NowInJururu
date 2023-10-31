@@ -4,10 +4,13 @@ import androidx.paging.PagingData
 import androidx.paging.filter
 import com.hegunhee.data.dataSource.local.LocalDataSource
 import com.hegunhee.data.dataSource.remote.RemoteDataSource
+import com.hegunhee.data.mapper.toModel
 import com.hegunhee.data.mapper.toOfflineData
 import com.hegunhee.data.mapper.toSearchDataList
 import com.hegunhee.data.mapper.toStreamData
 import com.hegunhee.data.mapper.toStreamerEntity
+import com.hegunhee.domain.model.kakao.KakaoSearchSortType
+import com.hegunhee.domain.model.kakao.KakaoWebData
 import com.hegunhee.domain.model.twitch.SearchData
 import com.hegunhee.domain.model.twitch.StreamDataType
 import com.hegunhee.domain.model.twitch.StreamDataType.Companion.RecommendStreamThumbNailHeight
@@ -100,5 +103,14 @@ class DefaultRepository @Inject constructor(
                     !loadedStreamerData.contains(searchData.streamerId)
                 }
             }
+    }
+
+    override suspend fun getWebSearchDataList(
+        query: String,
+        sort: KakaoSearchSortType
+    ): Result<List<KakaoWebData>> {
+        return runCatching {
+            remoteDataSource.getKakaoWebSearchResponse(query,sort.name).kakaoWebSearchData.map { it.toModel() }
+        }
     }
 }
