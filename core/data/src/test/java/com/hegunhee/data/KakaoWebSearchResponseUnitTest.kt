@@ -1,6 +1,8 @@
 package com.hegunhee.data
 
+import com.hegunhee.data.mapper.toModel
 import com.hegunhee.data.network.KakaoService
+import com.hegunhee.domain.model.kakao.KakaoSearchSortType
 import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Test
@@ -27,6 +29,26 @@ class KakaoWebSearchResponseUnitTest {
                 )
             }.onSuccess {
                 println(it.kakaoWebSearchData)
+                assert(true)
+            }.onFailure {
+                println(it.message)
+                assert(false)
+            }
+        }
+    }
+
+    @Test
+    fun `get web result to domain data`() {
+        runBlocking {
+            kotlin.runCatching {
+                kakaoService.getKakaoSearchWeb(
+                    query = "주르르",
+                    sort = KakaoSearchSortType.recency.name,
+                    page = null,
+                    size = null
+                ).kakaoWebSearchData.map { it.toModel() }
+            }.onSuccess {
+                println(it)
                 assert(true)
             }.onFailure {
                 println(it.message)
