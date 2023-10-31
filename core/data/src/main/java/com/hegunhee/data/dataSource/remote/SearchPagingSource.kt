@@ -5,7 +5,7 @@ import androidx.paging.PagingState
 import com.hegunhee.data.mapper.toSearchData
 import com.hegunhee.data.network.TwitchAuthService
 import com.hegunhee.data.network.TwitchService
-import com.hegunhee.domain.model.SearchData
+import com.hegunhee.domain.model.twitch.SearchData
 
 class SearchPagingSource(
     private val query: String,

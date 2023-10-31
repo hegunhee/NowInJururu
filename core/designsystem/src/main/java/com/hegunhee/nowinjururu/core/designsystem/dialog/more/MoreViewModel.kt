@@ -2,7 +2,7 @@ package com.hegunhee.nowinjururu.core.designsystem.dialog.more
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.hegunhee.domain.model.StreamerData
+import com.hegunhee.domain.model.twitch.StreamerData
 import com.hegunhee.domain.usecase.DeleteStreamerDataUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*

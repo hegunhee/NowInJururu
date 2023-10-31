@@ -1,6 +1,6 @@
 package com.hegunhee.compose.search
 
-import com.hegunhee.domain.model.SearchData
+import com.hegunhee.domain.model.twitch.SearchData
 
 sealed class SearchUiModel {
 

@@ -1,11 +1,12 @@
 package com.hegunhee.data.dataSource.remote
 
 import androidx.paging.PagingData
+import com.hegunhee.data.data.json.kakao.KakaoWebSearchResponse
 import com.hegunhee.data.data.json.twitch.TwitchAuthToken
 import com.hegunhee.data.data.json.twitch.SearchApiDataResponse
 import com.hegunhee.data.data.json.twitch.StreamApiDataResponse
 import com.hegunhee.data.data.json.twitch.StreamerApiDataResponse
-import com.hegunhee.domain.model.SearchData
+import com.hegunhee.domain.model.twitch.SearchData
 import kotlinx.coroutines.flow.Flow
 
 
@@ -22,4 +23,6 @@ interface RemoteDataSource {
     suspend fun getGameStreamDataResponse(gameId : String,token : String) : StreamApiDataResponse
 
     suspend fun getSearchPagingDataResponse(streamerName : String,size : Int) : Flow<PagingData<SearchData>>
+
+    suspend fun getKakaoWebSearchResponse(query : String, sort : String) : KakaoWebSearchResponse
 }

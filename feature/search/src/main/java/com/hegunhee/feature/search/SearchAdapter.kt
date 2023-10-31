@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.hegunhee.domain.model.SearchData
+import com.hegunhee.domain.model.twitch.SearchData
 import androidx.recyclerview.widget.DiffUtil
 import com.hegunhee.feature.search.databinding.ItemStreamerBinding
 

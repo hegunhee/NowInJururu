@@ -5,8 +5,8 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.hegunhee.domain.model.StreamDataType
-import com.hegunhee.domain.model.StreamerData
+import com.hegunhee.domain.model.twitch.StreamDataType
+import com.hegunhee.domain.model.twitch.StreamerData
 import com.hegunhee.domain.usecase.DeleteStreamerDataUseCase
 import com.hegunhee.domain.usecase.GetBookmarkedStreamDataListUseCase
 import com.hegunhee.domain.usecase.GetGameStreamDataListUseCase

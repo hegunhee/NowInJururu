@@ -1,6 +1,6 @@
 package com.hegunhee.nowinjururu.core.designsystem.adapter.streamer
 
-import com.hegunhee.domain.model.StreamDataType
+import com.hegunhee.domain.model.twitch.StreamDataType
 
 fun List<StreamDataType>.toStreamViewTypeData() : List<StreamerViewType> {
     val streamData = this

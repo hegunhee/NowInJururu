@@ -2,8 +2,8 @@ package com.hegunhee.data.mapper
 
 import com.hegunhee.data.data.json.twitch.StreamerApiData
 import com.hegunhee.data.database.entity.StreamerEntity
-import com.hegunhee.domain.model.StreamDataType
-import com.hegunhee.domain.model.StreamerData
+import com.hegunhee.domain.model.twitch.StreamDataType
+import com.hegunhee.domain.model.twitch.StreamerData
 
 fun StreamerEntity.toStreamerData() : StreamerData {
     return StreamerData(streamerId = streamerLogin,isAlert = isAlert)

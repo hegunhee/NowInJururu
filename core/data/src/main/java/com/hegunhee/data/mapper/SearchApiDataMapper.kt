@@ -1,7 +1,7 @@
 package com.hegunhee.data.mapper
 
 import com.hegunhee.data.data.json.twitch.SearchApiData
-import com.hegunhee.domain.model.SearchData
+import com.hegunhee.domain.model.twitch.SearchData
 
 
 fun SearchApiData.toSearchData(): SearchData {

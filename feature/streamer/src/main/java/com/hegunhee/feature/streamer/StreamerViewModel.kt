@@ -2,7 +2,7 @@ package com.hegunhee.feature.streamer
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.hegunhee.domain.model.StreamDataType
+import com.hegunhee.domain.model.twitch.StreamDataType
 import com.hegunhee.domain.usecase.GetBookmarkedStreamDataListUseCase
 import com.hegunhee.domain.usecase.GetGameStreamDataListUseCase
 import com.hegunhee.nowinjururu.core.navigation.twitch.TwitchDeepLink

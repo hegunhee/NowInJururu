@@ -4,8 +4,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
-import com.hegunhee.domain.model.SearchData
-import com.hegunhee.domain.model.StreamerData
+import com.hegunhee.domain.model.twitch.SearchData
+import com.hegunhee.domain.model.twitch.StreamerData
 import com.hegunhee.domain.usecase.GetSearchPagingDataUseCase
 import com.hegunhee.domain.usecase.InsertStreamerDataUseCase
 import com.hegunhee.nowinjururu.core.navigation.twitch.TwitchDeepLink

@@ -8,11 +8,11 @@ import com.hegunhee.data.mapper.toOfflineData
 import com.hegunhee.data.mapper.toSearchDataList
 import com.hegunhee.data.mapper.toStreamData
 import com.hegunhee.data.mapper.toStreamerEntity
-import com.hegunhee.domain.model.SearchData
-import com.hegunhee.domain.model.StreamDataType
-import com.hegunhee.domain.model.StreamDataType.Companion.RecommendStreamThumbNailHeight
-import com.hegunhee.domain.model.StreamDataType.Companion.RecommendStreamThumbNailWidth
-import com.hegunhee.domain.model.StreamerData
+import com.hegunhee.domain.model.twitch.SearchData
+import com.hegunhee.domain.model.twitch.StreamDataType
+import com.hegunhee.domain.model.twitch.StreamDataType.Companion.RecommendStreamThumbNailHeight
+import com.hegunhee.domain.model.twitch.StreamDataType.Companion.RecommendStreamThumbNailWidth
+import com.hegunhee.domain.model.twitch.StreamerData
 import com.hegunhee.domain.repository.Repository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
