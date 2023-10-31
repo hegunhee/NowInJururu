@@ -3,13 +3,11 @@ package com.hegunhee.data.mapper
 import com.hegunhee.data.data.json.kakao.KakaoImageSearchData
 import com.hegunhee.data.data.json.kakao.KakaoVideoSearchData
 import com.hegunhee.data.data.json.kakao.KakaoWebSearchData
-import com.hegunhee.domain.model.kakao.KakaoImageData
-import com.hegunhee.domain.model.kakao.KakaoVideoData
-import com.hegunhee.domain.model.kakao.KakaoWebData
+import com.hegunhee.domain.model.kakao.KakaoSearchData
 import java.text.SimpleDateFormat
 
-fun KakaoImageSearchData.toModel(): KakaoImageData =
-    KakaoImageData(
+fun KakaoImageSearchData.toModel(): KakaoSearchData.Image =
+    KakaoSearchData.Image(
         sourceType = sourceType,
         dateTime = datetime.transferDateTime(),
         displaySiteName = displaySiteName,
@@ -20,8 +18,8 @@ fun KakaoImageSearchData.toModel(): KakaoImageData =
         height = height
     )
 
-fun KakaoVideoSearchData.toModel() : KakaoVideoData =
-    KakaoVideoData(
+fun KakaoVideoSearchData.toModel() : KakaoSearchData.Video =
+    KakaoSearchData.Video(
         author = author,
         dateTime = datetime.transferDateTime(),
         playTime = playTime,
@@ -30,8 +28,8 @@ fun KakaoVideoSearchData.toModel() : KakaoVideoData =
         url = url
     )
 
-fun KakaoWebSearchData.toModel() : KakaoWebData =
-    KakaoWebData(
+fun KakaoWebSearchData.toModel() : KakaoSearchData.Web =
+    KakaoSearchData.Web(
         contents = contents,
         dateTime = datetime.transferDateTime(),
         title = title,
