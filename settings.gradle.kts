@@ -21,8 +21,10 @@ include(":core:data")
 include(":core:designsystem")
 
 include(":feature:main")
+include(":feature:jururu")
 include(":feature:streamer")
 include(":feature:search")
+include(":feature:searchkakao")
 
 include(":compose-app")
 
@@ -33,4 +35,3 @@ include(":compose:ui-component")
 
 include(":resource_common")
 include(":core:navigation")
-include(":feature:jururu")
