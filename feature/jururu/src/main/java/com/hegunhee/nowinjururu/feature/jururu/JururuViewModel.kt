@@ -32,7 +32,13 @@ class JururuViewModel @Inject constructor(
 
     private val _webSearchData : MutableStateFlow<List<KakaoSearchData.Web>> = MutableStateFlow(emptyList())
     val webSearchData : StateFlow<List<KakaoSearchData.Web>> = _webSearchData.asStateFlow()
-    fun getStreamData() {
+
+    init {
+        getStreamData()
+        getWebSearchData()
+    }
+
+    private fun getStreamData() {
         viewModelScope.launch {
             getStreamDataUseCase("cotton__123")
                 .onSuccess {
@@ -47,7 +53,7 @@ class JururuViewModel @Inject constructor(
         }
     }
 
-    fun getWebSearchData() {
+    private fun getWebSearchData() {
         viewModelScope.launch {
             getWebSearchDataListUseCase("주르르",KakaoSearchSortType.recency)
                 .onSuccess {
