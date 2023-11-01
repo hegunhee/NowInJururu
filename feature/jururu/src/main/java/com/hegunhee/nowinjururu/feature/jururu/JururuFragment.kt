@@ -9,9 +9,11 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.recyclerview.widget.ConcatAdapter
 import com.hegunhee.nowinjururu.core.navigation.twitch.handleTwitchDeepLink
 import com.hegunhee.nowinjururu.core.designsystem.adapter.streamer.StreamerAdapter
 import com.hegunhee.nowinjururu.feature.jururu.databinding.FragmentJururuBinding
+import com.hegunhee.nowinjururu.feature.searchkakao.KakaoSearchAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -20,6 +22,8 @@ class JururuFragment : Fragment() {
 
     private lateinit var viewDataBinding : FragmentJururuBinding
     private lateinit var streamerAdapter : StreamerAdapter
+    private lateinit var searchAdapter : KakaoSearchAdapter
+    private lateinit var concatAdapter : ConcatAdapter
     private val viewModel : JururuViewModel by viewModels()
 
     override fun onCreateView(
@@ -29,8 +33,13 @@ class JururuFragment : Fragment() {
     ): View? {
         val root = inflater.inflate(R.layout.fragment_jururu,container,false)
         streamerAdapter = StreamerAdapter(viewModel)
+        searchAdapter = KakaoSearchAdapter()
+        concatAdapter = ConcatAdapter().apply {
+            addAdapter(streamerAdapter)
+            addAdapter(searchAdapter)
+        }
         viewDataBinding = FragmentJururuBinding.bind(root).apply {
-            jururuRecyclerview.adapter = streamerAdapter
+            jururuRecyclerview.adapter = concatAdapter
             lifecycleOwner = viewLifecycleOwner
         }
         return root
@@ -39,6 +48,7 @@ class JururuFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.getStreamData()
+        viewModel.getWebSearchData()
         observeData()
     }
 
@@ -53,6 +63,11 @@ class JururuFragment : Fragment() {
                 launch {
                     viewModel.navigateTwitchDeepLink.collect{ deepLink ->
                         requireContext().handleTwitchDeepLink(deepLink)
+                    }
+                }
+                launch {
+                    viewModel.webSearchData.collect {
+                        searchAdapter.submitList(it)
                     }
                 }
             }
