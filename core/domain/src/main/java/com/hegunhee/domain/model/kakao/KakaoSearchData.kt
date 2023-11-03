@@ -32,7 +32,12 @@ sealed class KakaoSearchData(val type : KakaoSearchType,val time : String) {
         val thumbNailUrl : ImageUrl,
         val title : String,
         val url : String
-    ) : KakaoSearchData(KakaoSearchType.VIDEO,dateTime)
+    ) : KakaoSearchData(KakaoSearchType.VIDEO,dateTime) {
+
+        fun getVideoInfo() : String {
+            return "$author|조회수 $playTime|$dateTime"
+        }
+    }
 
 }
 
