@@ -10,7 +10,7 @@ import com.hegunhee.nowinjururu.feature.searchkakao.databinding.ItemSearchVideoB
 import com.hegunhee.nowinjururu.feature.searchkakao.databinding.ItemSearchWebBinding
 import kotlin.IllegalArgumentException
 
-class KakaoSearchAdapter : ListAdapter<KakaoSearchData,KakaoSearchViewHolder>(diffUtil) {
+class KakaoSearchAdapter(private val kakaoSearchActionHandler : KakaoSearchActionHandler) : ListAdapter<KakaoSearchData,KakaoSearchViewHolder>(diffUtil) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): KakaoSearchViewHolder {
         return when(viewType) {
@@ -22,7 +22,7 @@ class KakaoSearchAdapter : ListAdapter<KakaoSearchData,KakaoSearchViewHolder>(di
     }
 
     override fun onBindViewHolder(holder: KakaoSearchViewHolder, position: Int) {
-        holder.bindView(getItem(position))
+        holder.bindView(kakaoSearchActionHandler, getItem(position))
     }
 
     override fun getItemViewType(position: Int): Int {
