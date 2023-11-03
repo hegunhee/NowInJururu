@@ -35,8 +35,9 @@ class KakaoSearchVideoViewHolder(private val binding : ItemSearchVideoBinding) :
 
 class KakaoSearchImageViewHolder(private val binding : ItemSearchImageBinding) : KakaoSearchViewHolder(binding.root) {
     override fun bindView(actionHandler: KakaoSearchActionHandler, searchData: KakaoSearchData) {
+        binding.actionHandler = actionHandler
         (searchData as? KakaoSearchData.Image)?.let { imageData ->
-            binding.title.text = imageData.displaySiteName
+            binding.imageData = imageData
         }
     }
 }
