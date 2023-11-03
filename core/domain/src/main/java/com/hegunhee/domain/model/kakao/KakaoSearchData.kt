@@ -1,6 +1,7 @@
 package com.hegunhee.domain.model.kakao
 
 import com.hegunhee.domain.model.ImageUrl
+import java.net.URL
 
 sealed class KakaoSearchData(val type : KakaoSearchType,val time : String) {
 
@@ -9,7 +10,10 @@ sealed class KakaoSearchData(val type : KakaoSearchType,val time : String) {
         val dateTime : String,
         val title : String,
         val url : String,
-    ) : KakaoSearchData(KakaoSearchType.WEB,dateTime)
+    ) : KakaoSearchData(KakaoSearchType.WEB,dateTime) {
+
+        fun getUrlDomain() : String = URL(url).host.removePrefix("www.") ?: ""
+    }
     data class Image(
         val sourceType : String,
         val dateTime : String,
