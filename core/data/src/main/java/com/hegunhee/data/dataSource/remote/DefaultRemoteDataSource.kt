@@ -11,6 +11,9 @@ import com.hegunhee.data.data.json.twitch.StreamerApiDataResponse
 import com.hegunhee.data.network.KakaoService
 import com.hegunhee.data.network.TwitchAuthService
 import com.hegunhee.data.network.TwitchService
+import com.hegunhee.domain.model.kakao.KakaoSearchData
+import com.hegunhee.domain.model.kakao.KakaoSearchSortType
+import com.hegunhee.domain.model.kakao.KakaoSearchType
 import com.hegunhee.domain.model.twitch.SearchData
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
@@ -56,11 +59,13 @@ class DefaultRemoteDataSource @Inject constructor(
         ).flow
     }
 
-    override suspend fun getKakaoWebSearchResponse(
-        query: String,
-        sort: String
-    ): KakaoWebSearchResponse {
-        return kakaoService.getKakaoSearchWeb(query,sort,null,null)
+    override suspend fun getKakaoSearchPagingData(query: String, sortType: KakaoSearchSortType, searchType: KakaoSearchType?, size: Int) : Flow<PagingData<KakaoSearchData>> {
+        return Pager(
+            config = PagingConfig(
+                size,
+                enablePlaceholders = false
+            ),
+            pagingSourceFactory = { KakaoSearchPagingSource(query = query,kakaoService,sortType.name,searchType)}
+        ).flow
     }
-
 }
