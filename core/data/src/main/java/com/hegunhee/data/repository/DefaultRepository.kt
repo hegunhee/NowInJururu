@@ -11,6 +11,7 @@ import com.hegunhee.data.mapper.toStreamData
 import com.hegunhee.data.mapper.toStreamerEntity
 import com.hegunhee.domain.model.kakao.KakaoSearchData
 import com.hegunhee.domain.model.kakao.KakaoSearchSortType
+import com.hegunhee.domain.model.kakao.KakaoSearchType
 import com.hegunhee.domain.model.twitch.SearchData
 import com.hegunhee.domain.model.twitch.StreamDataType
 import com.hegunhee.domain.model.twitch.StreamDataType.Companion.RecommendStreamThumbNailHeight
@@ -105,12 +106,8 @@ class DefaultRepository @Inject constructor(
             }
     }
 
-    override suspend fun getWebSearchDataList(
-        query: String,
-        sort: KakaoSearchSortType
-    ): Result<List<KakaoSearchData.Web>> {
-        return runCatching {
-            remoteDataSource.getKakaoWebSearchResponse(query,sort.name).kakaoWebSearchData.map { it.toModel() }
-        }
+    override suspend fun getKakaoSearchPagingData(query: String, sortType: KakaoSearchSortType, searchType: KakaoSearchType?, size: Int
+    ): Flow<PagingData<KakaoSearchData>> {
+        return remoteDataSource.getKakaoSearchPagingData(query,sortType,searchType,size)
     }
 }

@@ -6,6 +6,9 @@ import com.hegunhee.data.data.json.twitch.TwitchAuthToken
 import com.hegunhee.data.data.json.twitch.SearchApiDataResponse
 import com.hegunhee.data.data.json.twitch.StreamApiDataResponse
 import com.hegunhee.data.data.json.twitch.StreamerApiDataResponse
+import com.hegunhee.domain.model.kakao.KakaoSearchData
+import com.hegunhee.domain.model.kakao.KakaoSearchSortType
+import com.hegunhee.domain.model.kakao.KakaoSearchType
 import com.hegunhee.domain.model.twitch.SearchData
 import kotlinx.coroutines.flow.Flow
 
@@ -24,5 +27,5 @@ interface RemoteDataSource {
 
     suspend fun getSearchPagingDataResponse(streamerName : String,size : Int) : Flow<PagingData<SearchData>>
 
-    suspend fun getKakaoWebSearchResponse(query : String, sort : String) : KakaoWebSearchResponse
+    suspend fun getKakaoSearchPagingData(query : String,sortType : KakaoSearchSortType,searchType : KakaoSearchType?,size : Int) : Flow<PagingData<KakaoSearchData>>
 }
