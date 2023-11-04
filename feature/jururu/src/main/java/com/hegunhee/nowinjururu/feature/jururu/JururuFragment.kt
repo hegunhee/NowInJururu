@@ -1,5 +1,7 @@
 package com.hegunhee.nowinjururu.feature.jururu
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,6 +17,7 @@ import com.hegunhee.nowinjururu.core.designsystem.adapter.streamer.StreamerAdapt
 import com.hegunhee.nowinjururu.feature.jururu.databinding.FragmentJururuBinding
 import com.hegunhee.nowinjururu.feature.searchkakao.KakaoSearchAdapter
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -33,7 +36,7 @@ class JururuFragment : Fragment() {
     ): View? {
         val root = inflater.inflate(R.layout.fragment_jururu,container,false)
         streamerAdapter = StreamerAdapter(viewModel)
-        searchAdapter = KakaoSearchAdapter()
+        searchAdapter = KakaoSearchAdapter(viewModel)
         concatAdapter = ConcatAdapter().apply {
             addAdapter(streamerAdapter)
             addAdapter(searchAdapter)
@@ -64,8 +67,16 @@ class JururuFragment : Fragment() {
                     }
                 }
                 launch {
-                    viewModel.webSearchData.collect {
-                        searchAdapter.submitList(it)
+                    viewModel.kakaoSearchData.collectLatest {
+                        searchAdapter.submitData(it)
+                    }
+                }
+                launch {
+                    viewModel.navigateDeepLink.collect{ url ->
+                        requireContext().apply {
+                            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+                            startActivity(intent)
+                        }
                     }
                 }
             }
