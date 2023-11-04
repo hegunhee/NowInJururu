@@ -2,6 +2,7 @@ package com.hegunhee.nowinjururu.feature.searchkakao
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import com.hegunhee.domain.model.kakao.KakaoSearchData
@@ -10,7 +11,7 @@ import com.hegunhee.nowinjururu.feature.searchkakao.databinding.ItemSearchVideoB
 import com.hegunhee.nowinjururu.feature.searchkakao.databinding.ItemSearchWebBinding
 import kotlin.IllegalArgumentException
 
-class KakaoSearchAdapter(private val kakaoSearchActionHandler : KakaoSearchActionHandler) : ListAdapter<KakaoSearchData,KakaoSearchViewHolder>(diffUtil) {
+class KakaoSearchAdapter(private val kakaoSearchActionHandler : KakaoSearchActionHandler) : PagingDataAdapter<KakaoSearchData,KakaoSearchViewHolder>(diffUtil) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): KakaoSearchViewHolder {
         return when(viewType) {
@@ -22,7 +23,9 @@ class KakaoSearchAdapter(private val kakaoSearchActionHandler : KakaoSearchActio
     }
 
     override fun onBindViewHolder(holder: KakaoSearchViewHolder, position: Int) {
-        holder.bindView(kakaoSearchActionHandler, getItem(position))
+        getItem(position)?.let { searchData ->
+            holder.bindView(kakaoSearchActionHandler,searchData)
+        }
     }
 
     override fun getItemViewType(position: Int): Int {
@@ -30,6 +33,7 @@ class KakaoSearchAdapter(private val kakaoSearchActionHandler : KakaoSearchActio
             is KakaoSearchData.Web -> R.layout.item_search_web
             is KakaoSearchData.Image -> R.layout.item_search_image
             is KakaoSearchData.Video -> R.layout.item_search_video
+            else -> { throw IllegalArgumentException()}
         }
     }
     companion object {
