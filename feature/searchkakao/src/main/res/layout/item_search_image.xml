@@ -27,6 +27,7 @@
             android:layout_width="130dp"
             android:layout_height="130dp"
             app:layout_constraintTop_toTopOf="parent"
+            app:setImage="@{imageData.thumbNailUrl}"
             app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
