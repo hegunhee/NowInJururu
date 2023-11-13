@@ -12,12 +12,12 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.ConcatAdapter
 import com.hegunhee.nowinjururu.core.navigation.fragmentResultKeys.streamRequestKey
-import com.hegunhee.nowinjururu.core.navigation.twitch.handleTwitchDeepLink
 import com.hegunhee.feature.streamer.databinding.FragmentStreamerBinding
 import com.hegunhee.nowinjururu.core.designsystem.adapter.recommend.RecommendStreamContainerAdapter
 import com.hegunhee.nowinjururu.core.designsystem.adapter.recommend.RecommendStreamContainerObject
 import com.hegunhee.nowinjururu.core.designsystem.dialog.more.MoreBottomDialogFragment
 import com.hegunhee.nowinjururu.core.designsystem.adapter.streamer.StreamerAdapter
+import com.hegunhee.nowinjururu.core.navigation.deeplink.handleDeepLink
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -74,8 +74,8 @@ class StreamerFragment : Fragment() {
                     }
                 }
                 launch {
-                    viewModel.navigateTwitchDeepLink.collect{ deepLink ->
-                        requireContext().handleTwitchDeepLink(deepLink)
+                    viewModel.navigateDeepLink.collect{ deepLink ->
+                        requireContext().handleDeepLink(deepLink)
                     }
                 }
                 launch {
