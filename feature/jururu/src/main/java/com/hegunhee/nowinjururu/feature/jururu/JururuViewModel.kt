@@ -80,4 +80,8 @@ class JururuViewModel @Inject constructor(
             _navigateDeepLink.emit(url)
         }
     }
+
+    override fun onShareButtonClick(url: String, title: String) {
+        
+    }
 }
