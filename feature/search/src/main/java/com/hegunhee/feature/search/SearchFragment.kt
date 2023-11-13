@@ -15,8 +15,8 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.paging.LoadState
 import com.hegunhee.nowinjururu.core.navigation.fragmentResultKeys.streamRequestKey
 import com.hegunhee.nowinjururu.core.designsystem.dialog.lottie.LottieDialog
-import com.hegunhee.nowinjururu.core.navigation.twitch.handleTwitchDeepLink
 import com.hegunhee.feature.search.databinding.FragmentSearchBinding
+import com.hegunhee.nowinjururu.core.navigation.deeplink.handleDeepLink
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -82,8 +82,8 @@ class SearchFragment : Fragment(){
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 launch {
-                    viewModel.navigateStreamerTwitch.collect{ deepLink ->
-                        requireContext().handleTwitchDeepLink(deepLink)
+                    viewModel.navigateDeepLink.collect{ deepLink ->
+                        requireContext().handleDeepLink(deepLink)
                     }
                 }
                 launch{

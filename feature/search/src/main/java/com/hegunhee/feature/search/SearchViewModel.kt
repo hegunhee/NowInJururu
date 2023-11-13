@@ -8,7 +8,8 @@ import com.hegunhee.domain.model.twitch.SearchData
 import com.hegunhee.domain.model.twitch.StreamerData
 import com.hegunhee.domain.usecase.GetSearchPagingDataUseCase
 import com.hegunhee.domain.usecase.InsertStreamerDataUseCase
-import com.hegunhee.nowinjururu.core.navigation.twitch.TwitchDeepLink
+import com.hegunhee.nowinjururu.core.navigation.deeplink.DeepLink
+import com.hegunhee.nowinjururu.core.navigation.deeplink.TwitchDeepLinkQuery
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -33,8 +34,8 @@ class SearchViewModel @Inject constructor(
 
     val isEmptySearchResult : MutableStateFlow<Boolean> = MutableStateFlow(false)
 
-    private val _navigateStreamerTwitch : MutableSharedFlow<TwitchDeepLink> = MutableSharedFlow()
-    val navigateStreamerTwitch : SharedFlow<TwitchDeepLink> = _navigateStreamerTwitch.asSharedFlow()
+    private val _navigateDeepLink : MutableSharedFlow<DeepLink> = MutableSharedFlow()
+    val navigateDeepLink : SharedFlow<DeepLink> = _navigateDeepLink.asSharedFlow()
 
     private val _toastMessage : MutableSharedFlow<String> = MutableSharedFlow()
     val toastMessage : SharedFlow<String> = _toastMessage.asSharedFlow()
@@ -48,7 +49,7 @@ class SearchViewModel @Inject constructor(
 
     override fun onClickStreamerItem(streamerId : String) {
         viewModelScope.launch {
-            _navigateStreamerTwitch.emit(TwitchDeepLink.Streamer(streamerId = streamerId))
+            _navigateDeepLink.emit(DeepLink.Twitch(TwitchDeepLinkQuery.Streamer(streamerId)))
         }
     }
 

@@ -9,11 +9,12 @@ import com.hegunhee.domain.model.kakao.KakaoSearchSortType
 import com.hegunhee.domain.model.twitch.StreamDataType
 import com.hegunhee.domain.usecase.GetKakaoSearchPagingDataUseCase
 import com.hegunhee.domain.usecase.GetStreamDataUseCase
-import com.hegunhee.nowinjururu.core.navigation.twitch.TwitchDeepLink
 import com.hegunhee.nowinjururu.core.designsystem.adapter.streamer.StreamActionHandler
 import com.hegunhee.nowinjururu.core.designsystem.adapter.streamer.StreamerViewType
 import com.hegunhee.nowinjururu.core.designsystem.adapter.streamer.toOnlineStreamer
 import com.hegunhee.nowinjururu.core.designsystem.adapter.streamer.toOfflineStreamer
+import com.hegunhee.nowinjururu.core.navigation.deeplink.DeepLink
+import com.hegunhee.nowinjururu.core.navigation.deeplink.TwitchDeepLinkQuery
 import com.hegunhee.nowinjururu.feature.searchkakao.KakaoSearchActionHandler
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
@@ -29,15 +30,12 @@ class JururuViewModel @Inject constructor(
     private val _favoriteStreamData : MutableStateFlow<StreamerViewType> = MutableStateFlow(StreamerViewType.OfflineEmpty)
     val favoriteStreamData : StateFlow<StreamerViewType> = _favoriteStreamData.asStateFlow()
 
-    private val _navigateTwitchDeepLink : MutableSharedFlow<TwitchDeepLink> = MutableSharedFlow()
-    val navigateTwitchDeepLink : SharedFlow<TwitchDeepLink> = _navigateTwitchDeepLink.asSharedFlow()
+    private val _navigateDeepLink : MutableSharedFlow<DeepLink> = MutableSharedFlow()
+    val navigateDeepLink : SharedFlow<DeepLink> = _navigateDeepLink.asSharedFlow()
 
     private var _kakaoSearchData : Flow<PagingData<KakaoSearchData>> = emptyFlow()
     val kakaoSearchData : Flow<PagingData<KakaoSearchData>>
         get() = _kakaoSearchData
-
-    private val _navigateDeepLink : MutableSharedFlow<String> = MutableSharedFlow()
-    val navigateDeepLink : SharedFlow<String> = _navigateDeepLink.asSharedFlow()
 
     init {
         getStreamData()
@@ -67,7 +65,8 @@ class JururuViewModel @Inject constructor(
 
     override fun onTwitchStreamerItemClick(streamerId: String) {
         viewModelScope.launch {
-            _navigateTwitchDeepLink.emit(TwitchDeepLink.Streamer(streamerId = streamerId))
+
+            _navigateDeepLink.emit(DeepLink.Twitch(TwitchDeepLinkQuery.Streamer(streamerId)))
         }
     }
 
@@ -77,11 +76,13 @@ class JururuViewModel @Inject constructor(
 
     override fun onSearchItemClick(url: String) {
         viewModelScope.launch {
-            _navigateDeepLink.emit(url)
+            _navigateDeepLink.emit(DeepLink.Kakao(url = url))
         }
     }
 
     override fun onShareButtonClick(url: String, title: String) {
-        
+        viewModelScope.launch {
+            _navigateDeepLink.emit(DeepLink.Share(baseUrl = url,title = title))
+        }
     }
 }

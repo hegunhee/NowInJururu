@@ -1,7 +1,5 @@
 package com.hegunhee.nowinjururu.feature.jururu
 
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,8 +10,8 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.ConcatAdapter
-import com.hegunhee.nowinjururu.core.navigation.twitch.handleTwitchDeepLink
 import com.hegunhee.nowinjururu.core.designsystem.adapter.streamer.StreamerAdapter
+import com.hegunhee.nowinjururu.core.navigation.deeplink.handleDeepLink
 import com.hegunhee.nowinjururu.feature.jururu.databinding.FragmentJururuBinding
 import com.hegunhee.nowinjururu.feature.searchkakao.KakaoSearchAdapter
 import dagger.hilt.android.AndroidEntryPoint
@@ -62,21 +60,13 @@ class JururuFragment : Fragment() {
                     }
                 }
                 launch {
-                    viewModel.navigateTwitchDeepLink.collect{ deepLink ->
-                        requireContext().handleTwitchDeepLink(deepLink)
+                    viewModel.navigateDeepLink.collect{ deepLink ->
+                        requireContext().handleDeepLink(deepLink)
                     }
                 }
                 launch {
                     viewModel.kakaoSearchData.collectLatest {
                         searchAdapter.submitData(it)
-                    }
-                }
-                launch {
-                    viewModel.navigateDeepLink.collect{ url ->
-                        requireContext().apply {
-                            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
-                            startActivity(intent)
-                        }
                     }
                 }
             }
