@@ -51,13 +51,23 @@
             app:layout_constraintStart_toStartOf="@id/siteInfo"
             app:layout_constraintTop_toBottomOf="@id/title" />
 
+        <ImageView
+            android:id="@+id/share_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:onClick="@{() -> actionHandler.onShareButtonClick(webData.url,webData.title)}"
+            android:src="@drawable/ic_share_24"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/time" />
+
         <TextView
             android:id="@+id/contents"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="@id/siteInfo"
             app:layout_constraintStart_toStartOf="@id/siteInfo"
-            app:layout_constraintTop_toBottomOf="@id/time"
+            app:layout_constraintTop_toBottomOf="@id/share_button"
             app:setHtmlText="@{webData.contents}" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

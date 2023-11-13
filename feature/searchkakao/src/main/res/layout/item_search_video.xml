@@ -30,6 +30,17 @@
             app:layout_constraintTop_toTopOf="parent"
             app:setImage="@{videoData.thumbNailUrl}"/>
 
+        <ImageView
+            android:id="@+id/share_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:onClick="@{() -> actionHandler.onShareButtonClick(videoData.url,videoData.title)}"
+            android:src="@drawable/ic_share_24"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/thumbnail_image" />
+
         <TextView
             android:id="@+id/title"
             android:layout_width="0dp"
@@ -37,7 +48,7 @@
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/thumbnail_image"
+            app:layout_constraintTop_toBottomOf="@id/share_button"
             app:setHtmlText="@{videoData.title}" />
 
         <TextView

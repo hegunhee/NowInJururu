@@ -54,5 +54,15 @@
             android:textSize="13sp"
             android:text="@{imageData.dateTime}"/>
 
+        <ImageView
+            android:id="@+id/share_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:onClick="@{() -> actionHandler.onShareButtonClick(imageData.url,imageData.displaySiteName)}"
+            android:src="@drawable/ic_share_24"
+            app:layout_constraintStart_toStartOf="@id/time_text"
+            app:layout_constraintTop_toBottomOf="@id/time_text" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
