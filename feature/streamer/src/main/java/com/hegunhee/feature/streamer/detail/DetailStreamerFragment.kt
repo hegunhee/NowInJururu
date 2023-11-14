@@ -17,6 +17,10 @@ class DetailStreamerFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        val id = arguments?.getString("streamerId")
+        id?.let{
+            it
+        }
         val root = inflater.inflate(R.layout.fragment_detail_streamer,container,false)
         viewDataBinding = FragmentDetailStreamerBinding.bind(root)
         return root

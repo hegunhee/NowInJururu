@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
@@ -76,8 +77,8 @@ class StreamerFragment : Fragment() {
                 }
                 launch {
                     viewModel.navigateDeepLink.collect{ deepLink ->
-                        findNavController().navigate(com.hegunhee.nowinjururu.core.navigation.R.id.streamerToDetail)
-                        requireContext().handleDeepLink(deepLink)
+                        findNavController().navigate(com.hegunhee.nowinjururu.core.navigation.R.id.streamerToDetail,bundleOf("streamerId" to deepLink.url))
+//                        requireContext().handleDeepLink(deepLink)
                     }
                 }
                 launch {
