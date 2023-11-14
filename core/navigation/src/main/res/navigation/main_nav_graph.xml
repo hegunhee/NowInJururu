@@ -4,10 +4,26 @@
     app:startDestination="@id/mainFragment"
     android:id="@+id/main_nav_graph">
 
+    <action android:id="@+id/streamerToDetail"
+        app:destination="@id/detailStreamerFragment">
+
+        <argument
+            android:name="streamerId"
+            app:argType="string"
+            android:defaultValue=""
+            />
+    </action>
     <fragment
         android:id="@+id/mainFragment"
         android:name="com.hegunhee.feature.main.MainFragment"
         android:label="MainFragment">
+    </fragment>
+
+    <fragment
+        android:id="@+id/detailStreamerFragment"
+        android:name="com.hegunhee.feature.streamer.detail.DetailStreamerFragment"
+        android:label="DetailStreamerFragment">
+
     </fragment>
 
 

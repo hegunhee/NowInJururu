@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ConcatAdapter
 import com.hegunhee.nowinjururu.core.navigation.fragmentResultKeys.streamRequestKey
 import com.hegunhee.feature.streamer.databinding.FragmentStreamerBinding
@@ -75,6 +76,7 @@ class StreamerFragment : Fragment() {
                 }
                 launch {
                     viewModel.navigateDeepLink.collect{ deepLink ->
+                        findNavController().navigate(com.hegunhee.nowinjururu.core.navigation.R.id.streamerToDetail)
                         requireContext().handleDeepLink(deepLink)
                     }
                 }
