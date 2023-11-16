@@ -7,11 +7,6 @@
     <action android:id="@+id/streamerToDetail"
         app:destination="@id/detailStreamerFragment">
 
-        <argument
-            android:name="streamerId"
-            app:argType="string"
-            android:defaultValue=""
-            />
     </action>
     <fragment
         android:id="@+id/mainFragment"
