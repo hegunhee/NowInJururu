@@ -77,8 +77,12 @@ class StreamerFragment : Fragment() {
                 }
                 launch {
                     viewModel.navigateDeepLink.collect{ deepLink ->
-                        findNavController().navigate(com.hegunhee.nowinjururu.core.navigation.R.id.streamerToDetail,bundleOf("streamerId" to deepLink.url))
-//                        requireContext().handleDeepLink(deepLink)
+                        requireContext().handleDeepLink(deepLink)
+                    }
+                }
+                launch {
+                    viewModel.navigateDetailStreamer.collect{ streamerId ->
+                        findNavController().navigate(com.hegunhee.nowinjururu.core.navigation.R.id.streamerToDetail,bundleOf("streamerId" to streamerId))
                     }
                 }
                 launch {

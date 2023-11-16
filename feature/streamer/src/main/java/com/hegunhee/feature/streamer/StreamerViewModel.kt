@@ -35,6 +35,9 @@ class StreamerViewModel @Inject constructor(
     private val _showMoreBottomSheetDialog : MutableSharedFlow<String> = MutableSharedFlow()
     val showMoreBottomSheetDialog : SharedFlow<String> = _showMoreBottomSheetDialog.asSharedFlow()
 
+    private val _navigateDetailStreamer : MutableSharedFlow<String> = MutableSharedFlow()
+    val navigateDetailStreamer : SharedFlow<String> = _navigateDetailStreamer.asSharedFlow()
+
     fun fetchBookmarkedStreamData() = viewModelScope.launch{
         getBookmarkedStreamDataListUseCase()
             .onSuccess { streamDataList ->
@@ -59,7 +62,7 @@ class StreamerViewModel @Inject constructor(
 
     override fun onTwitchStreamerItemClick(streamerId: String) {
         viewModelScope.launch {
-            _navigateDeepLink.emit(DeepLink.Twitch(TwitchDeepLinkQuery.Streamer(streamerId)))
+            _navigateDetailStreamer.emit(streamerId)
         }
     }
 
