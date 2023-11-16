@@ -17,6 +17,8 @@ interface Repository {
 
     suspend fun getGameStreamDataList(gameId : String) : Result<List<StreamDataType.OnlineData>>
 
+    suspend fun getSearchStreamerData(streamerId : String) : Result<SearchData>
+
     suspend fun getSearchStreamerDataList(streamerName : String) : Result<List<SearchData>>
 
     suspend fun insertStreamer(streamerData: StreamerData) : Result<Unit>
