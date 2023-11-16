@@ -4,8 +4,8 @@ import androidx.paging.PagingData
 import androidx.paging.filter
 import com.hegunhee.data.dataSource.local.LocalDataSource
 import com.hegunhee.data.dataSource.remote.RemoteDataSource
-import com.hegunhee.data.mapper.toModel
 import com.hegunhee.data.mapper.toOfflineData
+import com.hegunhee.data.mapper.toSearchData
 import com.hegunhee.data.mapper.toSearchDataList
 import com.hegunhee.data.mapper.toStreamData
 import com.hegunhee.data.mapper.toStreamerEntity
@@ -70,6 +70,13 @@ class DefaultRepository @Inject constructor(
             return@runCatching gameStreamList.zip(streamerInfoList).sortedByDescending { it.first.viewerCount }.map {
                 it.first.toStreamData(it.second.profileImageUrl,RecommendStreamThumbNailWidth, RecommendStreamThumbNailHeight)
             }
+        }
+    }
+
+    override suspend fun getSearchStreamerData(streamerId: String): Result<SearchData> {
+        return runCatching {
+            val token = remoteDataSource.getAuthToken().getFormattedToken()
+            remoteDataSource.getSearchDataResponse(streamerName = streamerId, token = token).searchApiDataList.first { it.streamerId == streamerId}.toSearchData()
         }
     }
 
