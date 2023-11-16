@@ -37,6 +37,7 @@
             android:layout_width="75dp"
             android:layout_height="75dp"
             android:layout_marginStart="10dp"
+            android:onClick="@{() -> viewModel.onProfileImageClick()}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/toolbar"
             app:setImage="@{viewModel.streamerData.profileUrl}" />
@@ -46,6 +47,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@color/red"
+            android:onClick="@{() -> viewModel.onProfileImageClick()}"
             android:text="생방송"
             android:textColor="@color/white"
             android:textStyle="bold"
@@ -95,6 +97,7 @@
             android:id="@+id/streamer_recycler_view"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:background="@color/gray"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

@@ -1,6 +1,7 @@
 package com.hegunhee.feature.streamer.detail
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +13,10 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.hegunhee.feature.streamer.R
 import com.hegunhee.feature.streamer.databinding.FragmentDetailStreamerBinding
+import com.hegunhee.nowinjururu.core.navigation.deeplink.handleDeepLink
+import com.hegunhee.nowinjururu.feature.searchkakao.KakaoSearchAdapter
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -20,16 +24,19 @@ class DetailStreamerFragment : Fragment() {
 
     private lateinit var viewDataBinding : FragmentDetailStreamerBinding
     private val viewModel : DetailStreamerViewModel by viewModels()
+    private lateinit var searchAdapter : KakaoSearchAdapter
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         requireStreamerIdArgument(arguments)
+        searchAdapter = KakaoSearchAdapter(viewModel)
         val root = inflater.inflate(R.layout.fragment_detail_streamer,container,false)
         viewDataBinding = FragmentDetailStreamerBinding.bind(root).apply {
             viewModel = this@DetailStreamerFragment.viewModel
             lifecycleOwner = viewLifecycleOwner
+            streamerRecyclerView.adapter = searchAdapter
         }
         return root
     }
@@ -52,7 +59,19 @@ class DetailStreamerFragment : Fragment() {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 launch {
                     viewModel.streamerData.collect {
-                        it
+                        if(!it.isEmpty()) {
+                            viewModel.getWebSearchData(it.streamerName)
+                        }
+                    }
+                }
+                launch {
+                    viewModel.kakaoSearchData.collectLatest {
+                        searchAdapter.submitData(it)
+                    }
+                }
+                launch {
+                    viewModel.navigateDeepLink.collect{ deepLink ->
+                        requireContext().handleDeepLink(deepLink)
                     }
                 }
                 launch {
@@ -67,5 +86,4 @@ class DetailStreamerFragment : Fragment() {
             }
         }
     }
-
 }

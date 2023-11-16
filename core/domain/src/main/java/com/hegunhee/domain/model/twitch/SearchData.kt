@@ -9,6 +9,10 @@ data class SearchData(
     val profileUrl: String,
     val title: String
 ) {
+
+    fun isEmpty() :Boolean{
+        return this == SearchData.EMPTY
+    }
     companion object {
         val EMPTY = SearchData("","","",false, emptyList(),"","")
     }

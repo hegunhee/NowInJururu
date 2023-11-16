@@ -11,4 +11,5 @@ dependencies {
     implementation(project(":core:navigation"))
 
     implementation(project(":resource_common"))
+    implementation(project(":feature:searchkakao"))
 }
