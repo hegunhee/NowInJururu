@@ -55,6 +55,15 @@ class DetailStreamerFragment : Fragment() {
                         it
                     }
                 }
+                launch {
+                    viewModel.navigationEvent.collect {
+                        when(it){
+                            is DetailStreamerNavigationEvent.Back -> {
+                                findNavController().popBackStack()
+                            }
+                        }
+                    }
+                }
             }
         }
     }
