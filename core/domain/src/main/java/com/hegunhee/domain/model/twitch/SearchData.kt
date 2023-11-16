@@ -8,4 +8,8 @@ data class SearchData(
     val tags: List<String> = emptyList(),
     val profileUrl: String,
     val title: String
-)
+) {
+    companion object {
+        val EMPTY = SearchData("","","",false, emptyList(),"","")
+    }
+}
