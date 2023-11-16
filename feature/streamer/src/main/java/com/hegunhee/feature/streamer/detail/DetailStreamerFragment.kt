@@ -25,16 +25,21 @@ class DetailStreamerFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        arguments?.getString("streamerId")?.let { streamerId ->
+        requireStreamerIdArgument(arguments)
+        val root = inflater.inflate(R.layout.fragment_detail_streamer,container,false)
+        viewDataBinding = FragmentDetailStreamerBinding.bind(root).apply {
+            viewModel = this@DetailStreamerFragment.viewModel
+            lifecycleOwner = viewLifecycleOwner
+        }
+        return root
+    }
+
+    private fun requireStreamerIdArgument(argument : Bundle?) {
+        argument?.getString("streamerId")?.let { streamerId ->
             viewModel.fetchStreamerData(streamerId)
         } ?: {
             findNavController().popBackStack()
         }
-        val root = inflater.inflate(R.layout.fragment_detail_streamer,container,false)
-        viewDataBinding = FragmentDetailStreamerBinding.bind(root).apply {
-            lifecycleOwner = viewLifecycleOwner
-        }
-        return root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
