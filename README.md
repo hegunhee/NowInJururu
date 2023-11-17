@@ -29,8 +29,6 @@ Presentation Layer만 새로 작성했습니다.
 ## Issues  
 특정 앱에 대한 검색을 하려면 그 앱의 패키지명을 manifest에 등록해야함(Android11(API30) 이상을 타게팅하는 앱의경우)  
 [PackageInfo](https://github.com/hegunhee/NowInJururu/issues/9)  
-현재 스트리머들의 방송 정보를 불러올때 가변인자로 한번의 데이터 요청을 하는것이 아닌 n번 데이터 요청을 하는 이유  
-[스트리머 정보 설명](https://github.com/hegunhee/NowInJururu/issues/15)
 
 ## 진척도  
 https://github.com/hegunhee/NowInJururu/issues/51
