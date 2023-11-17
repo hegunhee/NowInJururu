@@ -52,6 +52,19 @@ class DetailStreamerFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         observeData()
+        observePagingData()
+    }
+
+    private fun observePagingData() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                launch {
+                    viewModel.kakaoSearchData.collectLatest {
+                        searchAdapter.submitData(it)
+                    }
+                }
+            }
+        }
     }
 
     private fun observeData() {
@@ -61,12 +74,8 @@ class DetailStreamerFragment : Fragment() {
                     viewModel.streamerData.collect {
                         if(!it.isEmpty()) {
                             viewModel.getWebSearchData(it.streamerName)
+                            observePagingData()
                         }
-                    }
-                }
-                launch {
-                    viewModel.kakaoSearchData.collectLatest {
-                        searchAdapter.submitData(it)
                     }
                 }
                 launch {

@@ -9,7 +9,6 @@ import com.hegunhee.domain.model.kakao.KakaoSearchSortType
 import com.hegunhee.domain.model.twitch.SearchData
 import com.hegunhee.domain.usecase.GetKakaoSearchPagingDataUseCase
 import com.hegunhee.domain.usecase.GetSearchStreamerDataUseCase
-import com.hegunhee.domain.usecase.GetStreamDataUseCase
 import com.hegunhee.nowinjururu.core.navigation.deeplink.DeepLink
 import com.hegunhee.nowinjururu.core.navigation.deeplink.TwitchDeepLinkQuery
 import com.hegunhee.nowinjururu.feature.searchkakao.KakaoSearchActionHandler
@@ -21,7 +20,7 @@ import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.emptyFlow
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -34,7 +33,7 @@ class DetailStreamerViewModel @Inject constructor(
     private val _streamerData : MutableStateFlow<SearchData> = MutableStateFlow(SearchData.EMPTY)
     val streamerData : StateFlow<SearchData> = _streamerData.asStateFlow()
 
-    private var _kakaoSearchData : Flow<PagingData<KakaoSearchData>> = emptyFlow()
+    private var _kakaoSearchData : Flow<PagingData<KakaoSearchData>> = flow { PagingData.empty<KakaoSearchData>()}
     val kakaoSearchData : Flow<PagingData<KakaoSearchData>>
         get() = _kakaoSearchData
 
