@@ -31,6 +31,13 @@ class DefaultRemoteDataSource @Inject constructor(
         return twitchService.getStreamData(userLogin = userLogin,authorization = token)
     }
 
+    override suspend fun getStreamDataListResponse(
+        vararg userLogin: String,
+        token: String
+    ): StreamApiDataResponse {
+        return twitchService.getStreamDataList(userLogin = userLogin, authorization = token)
+    }
+
     override suspend fun getSearchDataResponse(
         streamerName: String,
         token: String

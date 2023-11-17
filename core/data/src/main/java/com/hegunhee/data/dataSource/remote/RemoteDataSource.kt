@@ -19,6 +19,8 @@ interface RemoteDataSource {
 
     suspend fun getStreamDataResponse(userLogin : String,token : String) : StreamApiDataResponse
 
+    suspend fun getStreamDataListResponse(vararg userLogin: String, token : String) : StreamApiDataResponse
+
     suspend fun getSearchDataResponse(streamerName : String,token : String) : SearchApiDataResponse
 
     suspend fun getStreamerDataResponse(vararg streamerLogin : String,token : String) : StreamerApiDataResponse

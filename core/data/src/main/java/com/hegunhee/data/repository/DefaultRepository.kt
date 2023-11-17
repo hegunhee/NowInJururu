@@ -48,13 +48,10 @@ class DefaultRepository @Inject constructor(
                 return@runCatching emptyList<StreamDataType>()
             }
             val streamerInfoList = remoteDataSource.getStreamerDataResponse(streamerLogin = loadedStreamerLoginArray,token = token).streamerApiDataList
-            streamerInfoList.map{ streamerInfo ->
-                val streamData = remoteDataSource.getStreamDataResponse(userLogin = streamerInfo.streamerId,token = token).streamApiData
-                return@map if(streamData.isNotEmpty()){
-                    streamData[0].toStreamData(streamerInfo.profileImageUrl)
-                }else{
-                    streamerInfo.toOfflineData()
-                }
+            val streamInfoList = remoteDataSource.getStreamDataListResponse(userLogin = loadedStreamerLoginArray,token = token).streamApiData
+            streamerInfoList.map { streamerInfo ->
+                val streamDataOrNull = streamInfoList.find { it.streamerId == streamerInfo.streamerId }
+                return@map streamDataOrNull?.toStreamData(streamerInfo.profileImageUrl) ?: streamerInfo.toOfflineData()
             }
         }
     }

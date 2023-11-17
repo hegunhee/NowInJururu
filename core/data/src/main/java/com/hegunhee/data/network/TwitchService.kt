@@ -31,6 +31,11 @@ interface TwitchService {
         @Query("user_login") userLogin : String
     ) : StreamApiDataResponse
 
+    @GET("streams")
+    suspend fun getStreamDataList(
+        @Header("Authorization") authorization : String,
+        @Query("user_login") vararg userLogin : String
+    ) : StreamApiDataResponse
 
     /**
      * game_id = String타입의 숫자 "19976"
