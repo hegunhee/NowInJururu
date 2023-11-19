@@ -66,13 +66,13 @@ class DefaultRemoteDataSource @Inject constructor(
         ).flow
     }
 
-    override suspend fun getKakaoSearchPagingData(query: String, sortType: KakaoSearchSortType, searchType: KakaoSearchType?, size: Int) : Flow<PagingData<KakaoSearchData>> {
+    override suspend fun getKakaoSearchPagingData(query: String, sortType: KakaoSearchSortType, searchType: KakaoSearchType, size: Int) : Flow<PagingData<KakaoSearchData>> {
         return Pager(
             config = PagingConfig(
                 size,
                 enablePlaceholders = false
             ),
-            pagingSourceFactory = { KakaoSearchPagingSource(query = query,kakaoService,sortType.name,searchType)}
+            pagingSourceFactory = { KakaoSearchPagingSource(query = query,kakaoService,sortType.sort,searchType)}
         ).flow
     }
 }

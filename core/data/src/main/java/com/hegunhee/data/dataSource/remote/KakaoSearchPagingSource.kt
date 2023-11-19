@@ -14,7 +14,7 @@ class KakaoSearchPagingSource(
     private val query : String,
     private val kakaoService : KakaoService,
     private val sortType : String,
-    private val searchType : KakaoSearchType?,
+    private val searchType : KakaoSearchType,
 ) : PagingSource<Int, KakaoSearchData>(){
 
     private val searchTypeSize = 3
@@ -44,22 +44,22 @@ class KakaoSearchPagingSource(
 
     private suspend fun getServiceResponse(page : Int,size : Int) : Pair<List<KakaoSearchData>,Boolean> {
         when(searchType) {
-            WEB -> {
+            Web -> {
                 val response = kakaoService.getKakaoSearchWeb(query,sortType,page,size)
                 val isEnd = response.meta.isEnd
                 return Pair(response.kakaoWebSearchData.map { it.toModel() },isEnd)
             }
-            IMAGE -> {
+            Image -> {
                 val response = kakaoService.getKakaoSearchImage(query,sortType,page,size)
                 val isEnd = response.meta.isEnd
                 return Pair(response.kakaoImageSearchData.map {it.toModel()},isEnd)
             }
-            VIDEO -> {
+            Video -> {
                 val response = kakaoService.getKakaoSearchImage(query,sortType,page,size)
                 val isEnd = response.meta.isEnd
                 return Pair(response.kakaoImageSearchData.map {it.toModel()},isEnd)
             }
-            else -> {
+            Default -> {
                 val (webData, webMeta) = kakaoService.getKakaoSearchWeb(query,sortType,page,size/searchTypeSize)
                 val (imageData, imageMeta) = kakaoService.getKakaoSearchImage(query,sortType,page,size/searchTypeSize)
                 val (videoData, videoMeta) = kakaoService.getKakaoSearchVideo(query,sortType,page,size/searchTypeSize)
