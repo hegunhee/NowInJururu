@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="filterContainer"
+            type="com.hegunhee.domain.model.kakao.KakaoSearchFilterContainer" />
+
+        <variable
+            name="actionHandler"
+            type="com.hegunhee.nowinjururu.feature.searchkakao.filterHandler.KakaoSearchFilterActionHandler" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/search_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/border_tag"
+            android:backgroundTint="@color/mint"
+            android:padding="10dp"
+            android:text="@{filterContainer.searchType.name}"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="검색 결과"
+            android:onClick="@{() -> actionHandler.onClickFilterContainerButton(filterContainer.searchType)}"/>
+
+        <TextView
+            android:id="@+id/sort_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:background="@drawable/border_tag"
+            android:backgroundTint="@color/mint"
+            android:padding="10dp"
+            android:text="@{filterContainer.sortType.name}"
+            android:textColor="@color/white"
+            app:layout_constraintStart_toEndOf="@id/search_type"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="최신순"
+            android:onClick="@{() -> actionHandler.onClickFilterContainerButton(filterContainer.sortType)}"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
