@@ -14,6 +14,13 @@ sealed class KakaoSearchSortType(val name : String,val sort : String) : KakaoFil
 
     companion object {
         val TYPE = "정렬순"
+
+        fun findType(name : String) : KakaoSearchSortType {
+            return when(name) {
+                Recency.name -> Recency
+                else -> Accuracy
+            }
+        }
     }
 
 }

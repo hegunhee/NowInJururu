@@ -55,9 +55,9 @@ class KakaoSearchPagingSource(
                 return Pair(response.kakaoImageSearchData.map {it.toModel()},isEnd)
             }
             Video -> {
-                val response = kakaoService.getKakaoSearchImage(query,sortType,page,size)
+                val response = kakaoService.getKakaoSearchVideo(query,sortType,page,size)
                 val isEnd = response.meta.isEnd
-                return Pair(response.kakaoImageSearchData.map {it.toModel()},isEnd)
+                return Pair(response.kakaoVideoSearchData.map {it.toModel()},isEnd)
             }
             Default -> {
                 val (webData, webMeta) = kakaoService.getKakaoSearchWeb(query,sortType,page,size/searchTypeSize)
