@@ -70,7 +70,8 @@ class DefaultRemoteDataSource @Inject constructor(
         return Pager(
             config = PagingConfig(
                 size,
-                enablePlaceholders = false
+                enablePlaceholders = false,
+                initialLoadSize = size
             ),
             pagingSourceFactory = { KakaoSearchPagingSource(query = query,kakaoService,sortType.sort,searchType)}
         ).flow
