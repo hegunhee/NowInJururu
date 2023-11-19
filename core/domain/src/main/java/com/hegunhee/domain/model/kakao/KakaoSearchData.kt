@@ -49,7 +49,7 @@ sealed class KakaoSearchType(val name : String) : KakaoFilter {
         get() = arrayOf<String>(Web.name,Image.name,Video.name)
 
 
-    object Default : KakaoSearchType(name = "Default")
+    object Default : KakaoSearchType(name = "기본 검색")
 
     object Web : KakaoSearchType(name = "웹")
 
