@@ -60,6 +60,15 @@ sealed class KakaoSearchType(val name : String) : KakaoFilter {
 
     companion object {
         val TYPE = "검색 결과"
+
+        fun findType(name : String) : KakaoSearchType {
+            return when(name) {
+                Web.name-> Web
+                Image.name -> Image
+                Video.name -> Video
+                else -> Default
+            }
+        }
     }
 }
 
