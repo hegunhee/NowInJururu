@@ -6,6 +6,7 @@ import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.hegunhee.domain.model.kakao.KakaoSearchData
 import com.hegunhee.domain.model.kakao.KakaoSearchSortType
+import com.hegunhee.domain.model.kakao.KakaoSearchType
 import com.hegunhee.domain.model.twitch.SearchData
 import com.hegunhee.domain.usecase.GetKakaoSearchPagingDataUseCase
 import com.hegunhee.domain.usecase.GetSearchStreamerDataUseCase
@@ -57,7 +58,7 @@ class DetailStreamerViewModel @Inject constructor(
 
     fun getWebSearchData(streamerName : String) {
         viewModelScope.launch {
-            _kakaoSearchData = getKakaoSearchPagingDataUseCase(streamerName, KakaoSearchSortType.recency,null,30).cachedIn(viewModelScope)
+            _kakaoSearchData = getKakaoSearchPagingDataUseCase(streamerName, KakaoSearchSortType.Recency,KakaoSearchType.Default,30).cachedIn(viewModelScope)
         }
     }
 

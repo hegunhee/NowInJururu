@@ -27,5 +27,5 @@ interface Repository {
 
     suspend fun searchPagingSource(streamerName : String,size : Int) : Flow<PagingData<SearchData>>
 
-    suspend fun getKakaoSearchPagingData(query: String, sortType: KakaoSearchSortType, searchType: KakaoSearchType?, size: Int) : Flow<PagingData<KakaoSearchData>>
+    suspend fun getKakaoSearchPagingData(query: String, sortType: KakaoSearchSortType, searchType: KakaoSearchType, size: Int) : Flow<PagingData<KakaoSearchData>>
 }

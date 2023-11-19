@@ -10,7 +10,7 @@ import javax.inject.Inject
 
 class GetKakaoSearchPagingDataUseCase @Inject constructor(private val repository: Repository) {
 
-    suspend operator fun invoke(query: String, sortType: KakaoSearchSortType, searchType: KakaoSearchType?, size: Int): Flow<PagingData<KakaoSearchData>> {
+    suspend operator fun invoke(query: String, sortType: KakaoSearchSortType, searchType: KakaoSearchType, size: Int): Flow<PagingData<KakaoSearchData>> {
         return repository.getKakaoSearchPagingData(query,sortType,searchType,size)
     }
 

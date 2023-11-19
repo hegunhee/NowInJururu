@@ -110,7 +110,7 @@ class DefaultRepository @Inject constructor(
             }
     }
 
-    override suspend fun getKakaoSearchPagingData(query: String, sortType: KakaoSearchSortType, searchType: KakaoSearchType?, size: Int
+    override suspend fun getKakaoSearchPagingData(query: String, sortType: KakaoSearchSortType, searchType: KakaoSearchType, size: Int
     ): Flow<PagingData<KakaoSearchData>> {
         return remoteDataSource.getKakaoSearchPagingData(query,sortType,searchType,size)
     }

@@ -6,6 +6,7 @@ import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.hegunhee.domain.model.kakao.KakaoSearchData
 import com.hegunhee.domain.model.kakao.KakaoSearchSortType
+import com.hegunhee.domain.model.kakao.KakaoSearchType
 import com.hegunhee.domain.model.twitch.StreamDataType
 import com.hegunhee.domain.usecase.GetKakaoSearchPagingDataUseCase
 import com.hegunhee.domain.usecase.GetStreamDataUseCase
@@ -59,7 +60,7 @@ class JururuViewModel @Inject constructor(
 
     private fun getWebSearchData() {
         viewModelScope.launch {
-            _kakaoSearchData = getKakaoSearchPagingDataUseCase("주르르",KakaoSearchSortType.recency,null,30).cachedIn(viewModelScope)
+            _kakaoSearchData = getKakaoSearchPagingDataUseCase("주르르",KakaoSearchSortType.Recency,KakaoSearchType.Default,30).cachedIn(viewModelScope)
         }
     }
 
