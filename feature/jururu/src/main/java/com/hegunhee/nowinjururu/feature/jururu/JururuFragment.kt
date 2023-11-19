@@ -10,10 +10,15 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.ConcatAdapter
+import com.hegunhee.domain.model.kakao.KakaoSearchSortType
+import com.hegunhee.domain.model.kakao.KakaoSearchType
 import com.hegunhee.nowinjururu.core.designsystem.adapter.streamer.StreamerAdapter
 import com.hegunhee.nowinjururu.core.navigation.deeplink.handleDeepLink
+import com.hegunhee.nowinjururu.core.navigation.fragmentResultKeys.SearchTypeRequestKey
+import com.hegunhee.nowinjururu.core.navigation.fragmentResultKeys.SortTypeRequestKey
 import com.hegunhee.nowinjururu.feature.jururu.databinding.FragmentJururuBinding
 import com.hegunhee.nowinjururu.feature.searchkakao.KakaoSearchAdapter
+import com.hegunhee.nowinjururu.feature.searchkakao.searchfilter.KakaoSearchFilterDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -40,6 +45,7 @@ class JururuFragment : Fragment() {
             addAdapter(searchAdapter)
         }
         viewDataBinding = FragmentJururuBinding.bind(root).apply {
+            viewModel = this@JururuFragment.viewModel
             jururuRecyclerview.adapter = concatAdapter
             lifecycleOwner = viewLifecycleOwner
         }
@@ -49,9 +55,11 @@ class JururuFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         observeData()
+        fragmentResultListener()
     }
 
     private fun observeData() {
+        observePagingData()
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 launch {
@@ -65,11 +73,36 @@ class JururuFragment : Fragment() {
                     }
                 }
                 launch {
+                    viewModel.navigateKakaoFilter.collect {
+                        KakaoSearchFilterDialogFragment(it).show(childFragmentManager,KakaoSearchFilterDialogFragment.TAG)
+                    }
+                }
+            }
+        }
+    }
+
+    private fun observePagingData() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                launch {
                     viewModel.kakaoSearchData.collectLatest {
                         searchAdapter.submitData(it)
                     }
                 }
             }
+        }
+    }
+
+    private fun fragmentResultListener() {
+        childFragmentManager.setFragmentResultListener(SearchTypeRequestKey,viewLifecycleOwner) { _, bundle ->
+            val name = bundle.getString("name") ?: KakaoSearchType.Default.name
+            viewModel.setSearchType(KakaoSearchType.findType(name))
+            observePagingData()
+        }
+        childFragmentManager.setFragmentResultListener(SortTypeRequestKey,viewLifecycleOwner) { _, bundle ->
+            val name = bundle.getString("name") ?: KakaoSearchSortType.Recency.name
+            viewModel.setSortType(KakaoSearchSortType.findType(name))
+            observePagingData()
         }
     }
 }
