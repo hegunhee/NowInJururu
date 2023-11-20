@@ -3,7 +3,6 @@ package com.hegunhee.data.dataSource.remote
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
-import com.hegunhee.data.data.json.kakao.KakaoWebSearchResponse
 import com.hegunhee.data.data.json.twitch.TwitchAuthToken
 import com.hegunhee.data.data.json.twitch.SearchApiDataResponse
 import com.hegunhee.data.data.json.twitch.StreamApiDataResponse

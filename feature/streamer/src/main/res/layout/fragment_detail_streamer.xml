@@ -102,8 +102,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:filterContainer="@{viewModel.kakaoSearchFilter}"
-            app:actionHandler="@{viewModel}"
-            />
+            app:actionHandler="@{viewModel}" />
 
 
         <androidx.recyclerview.widget.RecyclerView

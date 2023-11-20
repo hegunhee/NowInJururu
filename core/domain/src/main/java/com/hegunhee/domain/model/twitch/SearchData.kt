@@ -11,7 +11,7 @@ data class SearchData(
 ) {
 
     fun isEmpty() :Boolean{
-        return this == SearchData.EMPTY
+        return this == EMPTY
     }
     companion object {
         val EMPTY = SearchData("","","",false, emptyList(),"","")
