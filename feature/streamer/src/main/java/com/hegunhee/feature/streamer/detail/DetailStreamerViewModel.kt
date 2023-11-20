@@ -60,9 +60,7 @@ class DetailStreamerViewModel @Inject constructor(
             getSearchStreamerDataUseCase(streamerId)
                 .onSuccess { searchData ->
                     _streamerData.value = searchData
-                }.onFailure {
-
-                }
+                }.onFailure { }
         }
     }
 
@@ -86,8 +84,6 @@ class DetailStreamerViewModel @Inject constructor(
             _navigateKakaoFilter.emit(kakaoSearchFilter)
         }
     }
-
-
 
     fun onProfileImageClick() {
         val streamerData = streamerData.value

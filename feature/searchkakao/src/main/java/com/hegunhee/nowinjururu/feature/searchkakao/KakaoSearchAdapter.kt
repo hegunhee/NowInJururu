@@ -4,7 +4,6 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import com.hegunhee.domain.model.kakao.KakaoSearchData
 import com.hegunhee.nowinjururu.feature.searchkakao.databinding.ItemSearchImageBinding
 import com.hegunhee.nowinjururu.feature.searchkakao.databinding.ItemSearchVideoBinding

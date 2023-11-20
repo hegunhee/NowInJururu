@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
-import androidx.lifecycle.lifecycleScope
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.hegunhee.domain.model.kakao.KakaoFilter
 import com.hegunhee.domain.model.kakao.KakaoSearchSortType

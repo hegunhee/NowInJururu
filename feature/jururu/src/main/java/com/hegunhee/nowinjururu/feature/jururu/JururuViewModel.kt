@@ -84,7 +84,6 @@ class JururuViewModel @Inject constructor(
 
     override fun onTwitchStreamerItemClick(streamerId: String) {
         viewModelScope.launch {
-
             _navigateDeepLink.emit(DeepLink.Twitch(TwitchDeepLinkQuery.Streamer(streamerId)))
         }
     }
