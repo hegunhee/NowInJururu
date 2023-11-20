@@ -8,11 +8,11 @@ fun List<StreamDataType>.toStreamViewTypeData() : List<StreamerViewType> {
     if(streamData.any { it is StreamDataType.OnlineData }) {
         streamerViewTypeList.add(StreamerViewType.OnlineStreamerHeader(streamData.filterIsInstance<StreamDataType.OnlineData>().size))
     }
-    streamerViewTypeList.addAll(streamData.filterIsInstance<StreamDataType.OnlineData>().map { it.toOnlineStreamer() })
+    streamerViewTypeList.addAll(streamData.filterIsInstance<StreamDataType.OnlineData>().map { it.toOnlineStreamer() }.sortedBy { it.userId })
     if(streamData.any{it is StreamDataType.OfflineData}){
         streamerViewTypeList.add(StreamerViewType.OfflineStreamerHeader(streamData.filterIsInstance<StreamDataType.OfflineData>().size))
     }
-    streamerViewTypeList.addAll(streamData.filterIsInstance<StreamDataType.OfflineData>().map { it.toOfflineStreamer() })
+    streamerViewTypeList.addAll(streamData.filterIsInstance<StreamDataType.OfflineData>().map { it.toOfflineStreamer() }.sortedBy { it.userLogin })
     return streamerViewTypeList
 }
 
