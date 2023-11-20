@@ -38,6 +38,10 @@ class StreamerViewModel @Inject constructor(
     private val _navigateDetailStreamer : MutableSharedFlow<String> = MutableSharedFlow()
     val navigateDetailStreamer : SharedFlow<String> = _navigateDetailStreamer.asSharedFlow()
 
+    init {
+        fetchBookmarkedStreamData()
+    }
+
     fun fetchBookmarkedStreamData() = viewModelScope.launch{
         getBookmarkedStreamDataListUseCase()
             .onSuccess { streamDataList ->
