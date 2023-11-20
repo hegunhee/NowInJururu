@@ -4,7 +4,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
+import com.hegunhee.domain.model.kakao.KakaoFilter
 import com.hegunhee.domain.model.kakao.KakaoSearchData
+import com.hegunhee.domain.model.kakao.KakaoSearchFilterContainer
 import com.hegunhee.domain.model.kakao.KakaoSearchSortType
 import com.hegunhee.domain.model.kakao.KakaoSearchType
 import com.hegunhee.domain.model.twitch.SearchData
@@ -13,6 +15,7 @@ import com.hegunhee.domain.usecase.GetSearchStreamerDataUseCase
 import com.hegunhee.nowinjururu.core.navigation.deeplink.DeepLink
 import com.hegunhee.nowinjururu.core.navigation.deeplink.TwitchDeepLinkQuery
 import com.hegunhee.nowinjururu.feature.searchkakao.KakaoSearchActionHandler
+import com.hegunhee.nowinjururu.feature.searchkakao.filterHandler.KakaoSearchFilterActionHandler
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -29,7 +32,7 @@ import javax.inject.Inject
 class DetailStreamerViewModel @Inject constructor(
     private val getSearchStreamerDataUseCase: GetSearchStreamerDataUseCase,
     private val getKakaoSearchPagingDataUseCase: GetKakaoSearchPagingDataUseCase
-) : ViewModel(), KakaoSearchActionHandler {
+) : ViewModel(), KakaoSearchActionHandler, KakaoSearchFilterActionHandler {
 
     private val _streamerData : MutableStateFlow<SearchData> = MutableStateFlow(SearchData.EMPTY)
     val streamerData : StateFlow<SearchData> = _streamerData.asStateFlow()
@@ -44,6 +47,13 @@ class DetailStreamerViewModel @Inject constructor(
     private val _navigateDeepLink : MutableSharedFlow<DeepLink> = MutableSharedFlow()
     val navigateDeepLink : SharedFlow<DeepLink> = _navigateDeepLink.asSharedFlow()
 
+    private val _kakaoSearchFilter : MutableStateFlow<KakaoSearchFilterContainer> = MutableStateFlow(KakaoSearchFilterContainer.DEFAULT)
+    val kakaoSearchFilter : StateFlow<KakaoSearchFilterContainer> = _kakaoSearchFilter.asStateFlow()
+
+
+    private val _navigateKakaoFilter : MutableSharedFlow<KakaoFilter> = MutableSharedFlow()
+    val navigateKakaoFilter : SharedFlow<KakaoFilter> = _navigateKakaoFilter.asSharedFlow()
+
 
     fun fetchStreamerData(streamerId : String){
         viewModelScope.launch {
@@ -56,11 +66,28 @@ class DetailStreamerViewModel @Inject constructor(
         }
     }
 
-    fun getWebSearchData(streamerName : String) {
+    fun getWebSearchData(streamerName : String = streamerData.value.streamerName) {
         viewModelScope.launch {
-            _kakaoSearchData = getKakaoSearchPagingDataUseCase(streamerName, KakaoSearchSortType.Recency,KakaoSearchType.Default,30).cachedIn(viewModelScope)
+            _kakaoSearchData = getKakaoSearchPagingDataUseCase(streamerName, kakaoSearchFilter.value.sortType,kakaoSearchFilter.value.searchType,30).cachedIn(viewModelScope)
         }
     }
+
+    fun setSearchType(kakaoSearchType: KakaoSearchType) {
+        _kakaoSearchFilter.value = kakaoSearchFilter.value.setSearchType(kakaoSearchType)
+        getWebSearchData()
+    }
+    fun setSortType(kakaoSearchSortType: KakaoSearchSortType) {
+        _kakaoSearchFilter.value = kakaoSearchFilter.value.setSortType(kakaoSearchSortType)
+        getWebSearchData()
+    }
+
+    override fun onFilterContainerButtonClick(kakaoSearchFilter: KakaoFilter) {
+        viewModelScope.launch {
+            _navigateKakaoFilter.emit(kakaoSearchFilter)
+        }
+    }
+
+
 
     fun onProfileImageClick() {
         val streamerData = streamerData.value

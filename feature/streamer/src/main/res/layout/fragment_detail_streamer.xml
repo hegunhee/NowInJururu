@@ -93,6 +93,19 @@
             app:layout_constraintTop_toBottomOf="@id/live_text"
             tools:text="르르땅 등장" />
 
+        <include
+            android:id="@+id/web_search_filter"
+            layout="@layout/include_search_filter"
+            app:layout_constraintTop_toBottomOf="@id/title"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:filterContainer="@{viewModel.kakaoSearchFilter}"
+            app:actionHandler="@{viewModel}"
+            />
+
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/streamer_recycler_view"
             android:layout_width="0dp"
@@ -102,7 +115,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/title" />
+            app:layout_constraintTop_toBottomOf="@id/web_search_filter" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
