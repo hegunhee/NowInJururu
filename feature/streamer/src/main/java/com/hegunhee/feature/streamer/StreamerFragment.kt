@@ -53,7 +53,6 @@ class StreamerFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.fetchBookmarkedStreamData()
         setFragmentResultListener(streamRequestKey) { _, _ ->
             viewModel.fetchBookmarkedStreamData()
         }
