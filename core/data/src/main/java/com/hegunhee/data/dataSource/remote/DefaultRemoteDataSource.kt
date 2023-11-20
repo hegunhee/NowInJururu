@@ -26,15 +26,15 @@ class DefaultRemoteDataSource @Inject constructor(
         return twitchAuthService.getAuthToken()
     }
 
-    override suspend fun getStreamDataResponse(userLogin : String, token: String): StreamApiDataResponse {
-        return twitchService.getStreamData(userLogin = userLogin,authorization = token)
+    override suspend fun getStreamDataResponse(streamerId : String, token: String): StreamApiDataResponse {
+        return twitchService.getStreamData(streamerId = streamerId,authorization = token)
     }
 
     override suspend fun getStreamDataListResponse(
-        vararg userLogin: String,
+        vararg streamerId: String,
         token: String
     ): StreamApiDataResponse {
-        return twitchService.getStreamDataList(userLogin = userLogin, authorization = token)
+        return twitchService.getStreamDataList(streamerId = streamerId, authorization = token)
     }
 
     override suspend fun getSearchDataResponse(
@@ -45,10 +45,10 @@ class DefaultRemoteDataSource @Inject constructor(
     }
 
     override suspend fun getStreamerDataResponse(
-        vararg streamerLogin: String,
+        vararg streamerId: String,
         token: String
     ): StreamerApiDataResponse {
-        return twitchService.getStreamerData(userLogin = streamerLogin, authorization = token)
+        return twitchService.getStreamerData(streamerId = streamerId, authorization = token)
     }
 
     override suspend fun getGameStreamDataResponse(gameId: String,token : String): StreamApiDataResponse {

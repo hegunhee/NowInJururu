@@ -16,13 +16,13 @@ interface RemoteDataSource {
 
     suspend fun getAuthToken() : TwitchAuthToken
 
-    suspend fun getStreamDataResponse(userLogin : String,token : String) : StreamApiDataResponse
+    suspend fun getStreamDataResponse(streamerId : String,token : String) : StreamApiDataResponse
 
-    suspend fun getStreamDataListResponse(vararg userLogin: String, token : String) : StreamApiDataResponse
+    suspend fun getStreamDataListResponse(vararg streamerId: String, token : String) : StreamApiDataResponse
 
     suspend fun getSearchDataResponse(streamerName : String,token : String) : SearchApiDataResponse
 
-    suspend fun getStreamerDataResponse(vararg streamerLogin : String,token : String) : StreamerApiDataResponse
+    suspend fun getStreamerDataResponse(vararg streamerId : String,token : String) : StreamerApiDataResponse
 
     suspend fun getGameStreamDataResponse(gameId : String,token : String) : StreamApiDataResponse
 

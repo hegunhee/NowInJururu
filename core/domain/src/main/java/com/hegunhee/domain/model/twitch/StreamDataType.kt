@@ -1,5 +1,7 @@
 package com.hegunhee.domain.model.twitch
 
+import com.hegunhee.domain.model.ImageUrl
+
 /**
  * EmptyData에는 Streamer Info 정보들이 담길예정
  */
@@ -13,8 +15,8 @@ sealed class StreamDataType() {
         val language: String,
         val startedAt: String,
         val tags: List<String> = emptyList(),
-        val thumbnailUrl: String,
-        val profileUrl : String,
+        val thumbnailUrl: ImageUrl,
+        val profileUrl : ImageUrl,
         val title: String,
         val type: String,
         val userId: String,
@@ -23,7 +25,7 @@ sealed class StreamDataType() {
         val viewerCount: String
     ) : StreamDataType()
 
-    data class OfflineData(val streamerId : String, val streamerName : String, val profileUrl : String) : StreamDataType()
+    data class OfflineData(val streamerId : String, val streamerName : String, val profileUrl : ImageUrl) : StreamDataType()
 
     companion object {
         val RecommendStreamThumbNailWidth = 250

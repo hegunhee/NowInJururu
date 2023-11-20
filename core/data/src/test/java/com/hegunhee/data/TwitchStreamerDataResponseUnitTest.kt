@@ -24,7 +24,7 @@ class TwitchStreamerDataResponseUnitTest {
             runCatching {
                 val streamer = listOf<String>("cotton__123")
                 val token = twitchAuthService.getAuthToken().getFormattedToken()
-                twitchService.getStreamerData(authorization = token,userLogin =streamer.toTypedArray())
+                twitchService.getStreamerData(authorization = token,streamerId =streamer.toTypedArray())
             }.onSuccess {response ->
                 println(response.toString())
                 if(response.streamerApiDataList[0].streamerName == "주르르"){
@@ -45,7 +45,7 @@ class TwitchStreamerDataResponseUnitTest {
             runCatching {
                 val streamer = listOf<String>("cotton__123","viichan6")
                 val token = twitchAuthService.getAuthToken().getFormattedToken()
-                twitchService.getStreamerData(authorization = token,userLogin =streamer.toTypedArray())
+                twitchService.getStreamerData(authorization = token,streamerId =streamer.toTypedArray())
             }.onSuccess {response ->
                 println(response.toString())
                 val displayNameList = response.streamerApiDataList.map { it.streamerName }

@@ -1,5 +1,6 @@
 package com.hegunhee.data.data.json.twitch
 
+import com.hegunhee.domain.model.ImageUrl
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
@@ -36,7 +37,7 @@ data class StreamApiData(
     @Json(name = "started_at")val startedAt: String,
     @Json(name = "tag_ids")val deprecatedTagIds: List<Any> = emptyList(),
     @Json(name = "tags")val tags: List<String>? = emptyList(),
-    @Json(name = "thumbnail_url")val thumbnailUrl: String,
+    @Json(name = "thumbnail_url")val thumbnailUrl: ImageUrl,
     @Json(name = "title")val title: String,
     @Json(name = "type")val type: String,
     @Json(name = "user_id")val userId: String,

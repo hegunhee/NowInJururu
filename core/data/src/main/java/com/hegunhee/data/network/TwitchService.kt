@@ -28,13 +28,13 @@ interface TwitchService {
     @GET("streams")
     suspend fun getStreamData(
         @Header("Authorization") authorization : String,
-        @Query("user_login") userLogin : String
+        @Query("user_login") streamerId : String
     ) : StreamApiDataResponse
 
     @GET("streams")
     suspend fun getStreamDataList(
         @Header("Authorization") authorization : String,
-        @Query("user_login") vararg userLogin : String
+        @Query("user_login") vararg streamerId : String
     ) : StreamApiDataResponse
 
     /**
@@ -56,6 +56,6 @@ interface TwitchService {
     @GET("users")
     suspend fun getStreamerData(
         @Header("Authorization") authorization : String,
-        @Query("login") vararg userLogin : String
+        @Query("login") vararg streamerId : String
     ) : StreamerApiDataResponse
 }

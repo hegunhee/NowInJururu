@@ -1,5 +1,6 @@
 package com.hegunhee.data.data.json.kakao
 
+import com.hegunhee.domain.model.ImageUrl
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
@@ -20,7 +21,7 @@ data class KakaoImageSearchData(
     @Json(name = "display_sitename") val displaySiteName: String,
     @Json(name = "doc_url") val url: String,
     @Json(name = "height") val height: Int,
-    @Json(name = "image_url") val imageUrl: String,
-    @Json(name = "thumbnail_url") val thumbNailUrl: String,
+    @Json(name = "image_url") val imageUrl: ImageUrl,
+    @Json(name = "thumbnail_url") val thumbNailUrl: ImageUrl,
     @Json(name = "width") val width: Int
 )

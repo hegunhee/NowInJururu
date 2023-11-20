@@ -48,7 +48,7 @@ class TwitchGameStreamApiDataResponseUnitTest {
                 println("data is empty")
                 assert(true)
             }else{
-                val streamerInfoList = twitchService.getStreamerData(userLogin = gameStreamList.map { it.streamerId }.toTypedArray(), authorization = token).streamerApiDataList
+                val streamerInfoList = twitchService.getStreamerData(streamerId = gameStreamList.map { it.streamerId }.toTypedArray(), authorization = token).streamerApiDataList
                 gameStreamList.mapIndexed { index, streamApiData ->
                     streamApiData.toStreamData(streamerInfoList[index].profileImageUrl)
                 }.forEach {

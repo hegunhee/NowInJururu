@@ -1,5 +1,6 @@
 package com.hegunhee.data.data.json.twitch
 
+import com.hegunhee.domain.model.ImageUrl
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
@@ -25,8 +26,8 @@ data class StreamerApiData(
     @Json(name = "display_name") val streamerName: String,
     @Json(name = "broadcaster_type") val broadcasterType: String,
     @Json(name = "description") val description: String,
-    @Json(name = "profile_image_url") val profileImageUrl: String,
-    @Json(name = "offline_image_url") val offlineImageUrl: String,
+    @Json(name = "profile_image_url") val profileImageUrl: ImageUrl,
+    @Json(name = "offline_image_url") val offlineImageUrl: ImageUrl,
     @Json(name = "view_count") val deprecatedViewCount: Int,
     @Json(name = "created_at") val createdAt: String
 )
