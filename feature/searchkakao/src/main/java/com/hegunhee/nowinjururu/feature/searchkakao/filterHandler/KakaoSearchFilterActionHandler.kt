@@ -4,5 +4,5 @@ import com.hegunhee.domain.model.kakao.KakaoFilter
 
 interface KakaoSearchFilterActionHandler {
 
-    fun onClickFilterContainerButton(kakaoSearchFilter : KakaoFilter)
+    fun onFilterContainerButtonClick(kakaoSearchFilter : KakaoFilter)
 }

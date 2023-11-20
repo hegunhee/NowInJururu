@@ -82,8 +82,6 @@ class JururuViewModel @Inject constructor(
         getWebSearchData()
     }
 
-
-
     override fun onTwitchStreamerItemClick(streamerId: String) {
         viewModelScope.launch {
 
@@ -107,7 +105,7 @@ class JururuViewModel @Inject constructor(
         }
     }
 
-    override fun onClickFilterContainerButton(kakaoSearchFilter: KakaoFilter) {
+     override fun onFilterContainerButtonClick(kakaoSearchFilter: KakaoFilter) {
         viewModelScope.launch {
             _navigateKakaoFilter.emit(kakaoSearchFilter)
         }
