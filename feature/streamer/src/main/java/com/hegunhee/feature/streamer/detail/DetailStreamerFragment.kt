@@ -11,10 +11,15 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
+import com.hegunhee.domain.model.kakao.KakaoSearchSortType
+import com.hegunhee.domain.model.kakao.KakaoSearchType
 import com.hegunhee.feature.streamer.R
 import com.hegunhee.feature.streamer.databinding.FragmentDetailStreamerBinding
 import com.hegunhee.nowinjururu.core.navigation.deeplink.handleDeepLink
+import com.hegunhee.nowinjururu.core.navigation.fragmentResultKeys.SearchTypeRequestKey
+import com.hegunhee.nowinjururu.core.navigation.fragmentResultKeys.SortTypeRequestKey
 import com.hegunhee.nowinjururu.feature.searchkakao.KakaoSearchAdapter
+import com.hegunhee.nowinjururu.feature.searchkakao.searchfilter.KakaoSearchFilterDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -53,6 +58,7 @@ class DetailStreamerFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         observeData()
         observePagingData()
+        fragmentResultListener()
     }
 
     private fun observePagingData() {
@@ -92,7 +98,25 @@ class DetailStreamerFragment : Fragment() {
                         }
                     }
                 }
+                launch {
+                    viewModel.navigateKakaoFilter.collect {
+                        KakaoSearchFilterDialogFragment(it).show(childFragmentManager, KakaoSearchFilterDialogFragment.TAG)
+                    }
+                }
             }
+        }
+    }
+
+    private fun fragmentResultListener() {
+        childFragmentManager.setFragmentResultListener(SearchTypeRequestKey,viewLifecycleOwner) { _, bundle ->
+            val name = bundle.getString("name") ?: KakaoSearchType.Default.name
+            viewModel.setSearchType(KakaoSearchType.findType(name))
+            observePagingData()
+        }
+        childFragmentManager.setFragmentResultListener(SortTypeRequestKey,viewLifecycleOwner) { _, bundle ->
+            val name = bundle.getString("name") ?: KakaoSearchSortType.Recency.name
+            viewModel.setSortType(KakaoSearchSortType.findType(name))
+            observePagingData()
         }
     }
 }
