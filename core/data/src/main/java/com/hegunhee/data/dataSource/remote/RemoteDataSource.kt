@@ -14,17 +14,15 @@ import kotlinx.coroutines.flow.Flow
 
 interface RemoteDataSource {
 
-    suspend fun getAuthToken() : TwitchAuthToken
+    suspend fun getStreamDataResponse(streamerId : String) : StreamApiDataResponse
 
-    suspend fun getStreamDataResponse(streamerId : String,token : String) : StreamApiDataResponse
+    suspend fun getStreamDataListResponse(vararg streamerId: String) : StreamApiDataResponse
 
-    suspend fun getStreamDataListResponse(vararg streamerId: String, token : String) : StreamApiDataResponse
+    suspend fun getSearchDataResponse(streamerName : String) : SearchApiDataResponse
 
-    suspend fun getSearchDataResponse(streamerName : String,token : String) : SearchApiDataResponse
+    suspend fun getStreamerDataResponse(vararg streamerId : String) : StreamerApiDataResponse
 
-    suspend fun getStreamerDataResponse(vararg streamerId : String,token : String) : StreamerApiDataResponse
-
-    suspend fun getGameStreamDataResponse(gameId : String,token : String) : StreamApiDataResponse
+    suspend fun getGameStreamDataResponse(gameId : String) : StreamApiDataResponse
 
     suspend fun getSearchPagingDataResponse(streamerName : String,size : Int) : Flow<PagingData<SearchData>>
 

@@ -29,9 +29,8 @@ class DefaultRepository @Inject constructor(
 
     override suspend fun getStreamData(streamerId: String): Result<StreamDataType> {
         return runCatching {
-            val token = remoteDataSource.getAuthToken().getFormattedToken()
-            val streamerInfo = remoteDataSource.getStreamerDataResponse(streamerId = arrayOf(streamerId),token = token).streamerApiDataList[0]
-            val streamData = remoteDataSource.getStreamDataResponse(streamerId = streamerInfo.streamerId,token = token)
+            val streamerInfo = remoteDataSource.getStreamerDataResponse(streamerId = arrayOf(streamerId)).streamerApiDataList[0]
+            val streamData = remoteDataSource.getStreamDataResponse(streamerId = streamerInfo.streamerId)
             if(streamData.streamApiData.isEmpty()){
                 streamerInfo.toOfflineData()
             }else{
@@ -42,13 +41,12 @@ class DefaultRepository @Inject constructor(
 
     override suspend fun getStreamDataList(): Result<List<StreamDataType>> {
         return runCatching {
-            val token = remoteDataSource.getAuthToken().getFormattedToken()
             val loadedStreamerLoginArray = localDataSource.getAllStreamerList().map { it.streamerLogin }.toTypedArray()
             if(loadedStreamerLoginArray.isEmpty()){
                 return@runCatching emptyList<StreamDataType>()
             }
-            val streamerInfoList = remoteDataSource.getStreamerDataResponse(streamerId = loadedStreamerLoginArray,token = token).streamerApiDataList
-            val streamInfoList = remoteDataSource.getStreamDataListResponse(streamerId = loadedStreamerLoginArray,token = token).streamApiData
+            val streamerInfoList = remoteDataSource.getStreamerDataResponse(streamerId = loadedStreamerLoginArray).streamerApiDataList
+            val streamInfoList = remoteDataSource.getStreamDataListResponse(streamerId = loadedStreamerLoginArray).streamApiData
             streamerInfoList.map { streamerInfo ->
                 val streamDataOrNull = streamInfoList.find { it.streamerId == streamerInfo.streamerId }
                 return@map streamDataOrNull?.toStreamData(streamerInfo.profileImageUrl) ?: streamerInfo.toOfflineData()
@@ -58,12 +56,11 @@ class DefaultRepository @Inject constructor(
 
     override suspend fun getGameStreamDataList(gameId: String): Result<List<StreamDataType.OnlineData>> {
         return runCatching {
-            val token = remoteDataSource.getAuthToken().getFormattedToken()
-            val gameStreamList = remoteDataSource.getGameStreamDataResponse(gameId,token).streamApiData.sortedBy { it.streamerId }
+            val gameStreamList = remoteDataSource.getGameStreamDataResponse(gameId).streamApiData.sortedBy { it.streamerId }
             if(gameStreamList.isEmpty()) {
                 return@runCatching emptyList<StreamDataType.OnlineData>()
             }
-            val streamerInfoList = remoteDataSource.getStreamerDataResponse(streamerId = gameStreamList.map { it.streamerId }.toTypedArray(),token = token).streamerApiDataList.sortedBy { it.streamerId }
+            val streamerInfoList = remoteDataSource.getStreamerDataResponse(streamerId = gameStreamList.map { it.streamerId }.toTypedArray()).streamerApiDataList.sortedBy { it.streamerId }
             return@runCatching gameStreamList.zip(streamerInfoList).sortedByDescending { it.first.viewerCount }.map {
                 it.first.toStreamData(it.second.profileImageUrl,RecommendStreamThumbNailWidth, RecommendStreamThumbNailHeight)
             }
@@ -72,16 +69,14 @@ class DefaultRepository @Inject constructor(
 
     override suspend fun getSearchStreamerData(streamerId: String): Result<SearchData> {
         return runCatching {
-            val token = remoteDataSource.getAuthToken().getFormattedToken()
-            remoteDataSource.getSearchDataResponse(streamerName = streamerId, token = token).searchApiDataList.first { it.streamerId == streamerId}.toSearchData()
+            remoteDataSource.getSearchDataResponse(streamerName = streamerId).searchApiDataList.first { it.streamerId == streamerId}.toSearchData()
         }
     }
 
 
     override suspend fun getSearchStreamerDataList(streamerId: String): Result<List<SearchData>> {
         return runCatching {
-            val token = remoteDataSource.getAuthToken().getFormattedToken()
-            val response = remoteDataSource.getSearchDataResponse(streamerName = streamerId, token = token)
+            val response = remoteDataSource.getSearchDataResponse(streamerName = streamerId)
             val loadedStreamerLoginData = localDataSource.getAllStreamerList().map { it.streamerLogin }
             response.searchApiDataList.toSearchDataList().filterNot { loadedStreamerLoginData.contains(it.streamerId)}
         }

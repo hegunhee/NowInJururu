@@ -11,14 +11,12 @@ interface TwitchService {
 
     @GET("search/channels")
     suspend fun getSearchData(
-        @Header("Authorization") authorization : String,
         @Query("query") streamerName : String,
         @Query("live_only") liveOnly : Boolean = false,
     ) : SearchApiDataResponse
 
     @GET("search/channels")
     suspend fun getPagingSearchData(
-        @Header("Authorization") authorization : String,
         @Query("query") streamerName : String,
         @Query("first") size : Int,
         @Query("after") cursor : String?,
@@ -27,13 +25,11 @@ interface TwitchService {
 
     @GET("streams")
     suspend fun getStreamData(
-        @Header("Authorization") authorization : String,
         @Query("user_login") streamerId : String
     ) : StreamApiDataResponse
 
     @GET("streams")
     suspend fun getStreamDataList(
-        @Header("Authorization") authorization : String,
         @Query("user_login") vararg streamerId : String
     ) : StreamApiDataResponse
 
@@ -47,7 +43,6 @@ interface TwitchService {
      */
     @GET("streams")
     suspend fun getGameStreamData(
-        @Header("Authorization") authorization: String,
         @Query("game_id") gameId: String,
         @Query("type") type: String = "live",
         @Query("language") vararg language: String = arrayOf("ko")
@@ -55,7 +50,6 @@ interface TwitchService {
 
     @GET("users")
     suspend fun getStreamerData(
-        @Header("Authorization") authorization : String,
         @Query("login") vararg streamerId : String
     ) : StreamerApiDataResponse
 }

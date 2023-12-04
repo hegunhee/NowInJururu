@@ -11,6 +11,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import kotlinx.coroutines.runBlocking
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Response
@@ -53,12 +54,13 @@ class NetworkModule {
     @Singleton
     @Provides
     fun provideTwitchService(
-        @Named(TwitchGetMoshiName) moshi : Moshi
+        @Named(TwitchGetMoshiName) moshi : Moshi,
+        twitchAuthService: TwitchAuthService
     ) : TwitchService{
         return Retrofit.Builder()
             .baseUrl(BuildConfig.TwitchGetBaseUrl)
             .addConverterFactory(MoshiConverterFactory.create(moshi))
-            .client(provideOkHttpClient(TwitchAuthInterceptor()))
+            .client(provideOkHttpClient(TwitchAuthInterceptor(twitchAuthService)))
             .build()
             .create(TwitchService::class.java)
     }
@@ -83,10 +85,16 @@ class NetworkModule {
             build()
         }
 
-    private class TwitchAuthInterceptor : Interceptor {
+    // OkHttp는 메인쓰레드가 아닌 여러개의 스레드를 사용하므로
+    // runBlocking을 사용해도 안전함
+    // https://github.com/hegunhee/NowInJururu/issues/55 를 참고
+
+    private class TwitchAuthInterceptor(private val twitchAuthService: TwitchAuthService) : Interceptor {
         override fun intercept(chain: Interceptor.Chain): Response = with(chain) {
+            val token = runBlocking { twitchAuthService.getAuthToken() }
             val newRequest = request().newBuilder()
                 .addHeader("client-id", BuildConfig.TwitchClientId)
+                .addHeader("Authorization",token.getFormattedToken())
                 .build()
             proceed(newRequest)
         }
