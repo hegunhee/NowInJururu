@@ -30,6 +30,8 @@ Presentation Layer만 새로 작성했습니다.
 ## Issues  
 특정 앱에 대한 검색을 하려면 그 앱의 패키지명을 manifest에 등록해야함(Android11(API30) 이상을 타게팅하는 앱의경우)  
 [PackageInfo](https://github.com/hegunhee/NowInJururu/issues/9)  
+interceptor 함수 내에서 트위치 토큰을 불러오기(runBlocking)  
+(https://github.com/hegunhee/NowInJururu/issues/55)  
 
 ## 진척도  
 https://github.com/hegunhee/NowInJururu/issues/51
