@@ -18,6 +18,8 @@ import com.hegunhee.domain.model.twitch.StreamDataType.Companion.RecommendStream
 import com.hegunhee.domain.model.twitch.StreamDataType.Companion.RecommendStreamThumbNailWidth
 import com.hegunhee.domain.model.twitch.StreamerData
 import com.hegunhee.domain.repository.Repository
+import kotlinx.coroutines.async
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
@@ -74,11 +76,11 @@ class DefaultRepository @Inject constructor(
     }
 
 
-    override suspend fun getSearchStreamerDataList(streamerId: String): Result<List<SearchData>> {
-        return runCatching {
-            val response = remoteDataSource.getSearchDataResponse(streamerName = streamerId)
+    override suspend fun getSearchStreamerDataList(streamerId: String): Result<List<SearchData>> = coroutineScope{
+        runCatching {
+            val response = async { remoteDataSource.getSearchDataResponse(streamerName = streamerId) }
             val loadedStreamerLoginData = localDataSource.getAllStreamerList().map { it.streamerLogin }
-            response.searchApiDataList.toSearchDataList().filterNot { loadedStreamerLoginData.contains(it.streamerId)}
+            response.await().searchApiDataList.toSearchDataList().filterNot { loadedStreamerLoginData.contains(it.streamerId)}
         }
     }
 
