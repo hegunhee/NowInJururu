@@ -38,6 +38,11 @@ class AndroidComposePlugin : Plugin<Project> {
                 add("debugImplementation",libs.findLibrary("compose-ui-test-manifest").get())
 
                 add("implementation",libs.findLibrary("coil").get())
+
+                add("implementation",project(":core:domain"))
+                add("implementation",project(":core:navigation"))
+
+                add("implementation",project(":resource_common"))
             }
         }
     }

@@ -1,6 +1,5 @@
 package com.hegunhee.plugins.feature
 
-import com.hegunhee.plugins.setup.androidLibrary
 import com.hegunhee.plugins.setup.setupViewDataBinding
 import org.gradle.api.Plugin
 import org.gradle.api.Project
@@ -34,6 +33,11 @@ class AndroidFeaturePlugin : Plugin<Project>{
                 add("implementation",libs.findLibrary("concat-adapter").get())
 
                 add("implementation",libs.findBundle("paging").get())
+
+                add("implementation",project(":core:domain"))
+                add("implementation",project(":core:navigation"))
+
+                add("implementation",project(":resource_common"))
             }
         }
     }
