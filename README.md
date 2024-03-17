@@ -7,11 +7,6 @@
 컴포즈로도 앱을 제작했습니다.  
 기존 코드가 클린 아키텍처를 기반으로 작성했기때문에  
 Presentation Layer만 새로 작성했습니다.  
-## 앱 사진  
-![JururuFragment](https://github.com/hegunhee/NowInJururu/assets/57277631/bb71653c-ff1e-44aa-9e86-03627db31444)
-![StreamerFragment](https://github.com/hegunhee/NowInJururu/assets/57277631/6ede4209-890d-4f58-a30b-0caaf6075b6b)
-![DetailStreamerFragment](https://github.com/hegunhee/NowInJururu/assets/57277631/f81508ad-13e3-4db8-99d7-b35c49595635)
-![SearchFragment](https://github.com/hegunhee/NowInJururu/assets/57277631/96134ed8-1696-4109-99ac-87427e00d5fb)
 
 ## 기술 정보  
 - Retrofit  
@@ -31,6 +26,15 @@ Presentation Layer만 새로 작성했습니다.
 [PackageInfo](https://github.com/hegunhee/NowInJururu/issues/9)  
 interceptor 함수 내에서 트위치 토큰을 불러오기(runBlocking)  
 (https://github.com/hegunhee/NowInJururu/issues/55)  
+여러 스트리머의 현재 방송 정보를 불러올 때 주의해야할점  
+(https://github.com/hegunhee/NowInJururu/issues/15)
 
 ## 진척도  
 https://github.com/hegunhee/NowInJururu/issues/51
+
+## 앱 사진  
+![JururuFragment](https://github.com/hegunhee/NowInJururu/assets/57277631/bb71653c-ff1e-44aa-9e86-03627db31444)
+![StreamerFragment](https://github.com/hegunhee/NowInJururu/assets/57277631/6ede4209-890d-4f58-a30b-0caaf6075b6b)
+![DetailStreamerFragment](https://github.com/hegunhee/NowInJururu/assets/57277631/f81508ad-13e3-4db8-99d7-b35c49595635)
+![SearchFragment](https://github.com/hegunhee/NowInJururu/assets/57277631/96134ed8-1696-4109-99ac-87427e00d5fb)
+
