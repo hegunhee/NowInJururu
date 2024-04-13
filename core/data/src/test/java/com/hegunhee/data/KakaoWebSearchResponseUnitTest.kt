@@ -43,7 +43,7 @@ class KakaoWebSearchResponseUnitTest {
             kotlin.runCatching {
                 kakaoService.getKakaoSearchWeb(
                     query = "주르르",
-                    sort = KakaoSearchSortType.recency.name,
+                    sort = KakaoSearchSortType.TYPE,
                     page = null,
                     size = null
                 ).kakaoWebSearchData.map { it.toModel() }

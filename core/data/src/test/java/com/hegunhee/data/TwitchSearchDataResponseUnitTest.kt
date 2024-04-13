@@ -21,7 +21,7 @@ class TwitchSearchDataResponseUnitTest {
         runBlocking {
             runCatching {
                 val token = tokenApi.getAuthToken().getFormattedToken()
-                twitchService.getSearchData(authorization = token, streamerName = "주르르")
+                twitchService.getSearchData(streamerName = "주르르")
             }.onSuccess {
                 println(it.searchApiDataList.toString())
                 assert(true)

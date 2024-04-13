@@ -27,7 +27,7 @@ class TwitchGameStreamApiDataResponseUnitTest {
             runCatching {
                 val token = twitchAuthService.getAuthToken()
                 println("Bearer $token")
-                twitchService.getGameStreamData(authorization = token.getFormattedToken(),gameId = "19976").streamApiData
+                twitchService.getGameStreamData(gameId = "19976").streamApiData
             }.onSuccess {
                 println(it.toString())
                 assert(true)
@@ -43,12 +43,12 @@ class TwitchGameStreamApiDataResponseUnitTest {
         runBlocking {
             val token = twitchAuthService.getAuthToken().getFormattedToken()
             println("Bearer $token")
-            val gameStreamList = twitchService.getGameStreamData(authorization = token,gameId = "19976").streamApiData
+            val gameStreamList = twitchService.getGameStreamData(gameId = "19976").streamApiData
             if(gameStreamList.isEmpty()){
                 println("data is empty")
                 assert(true)
             }else{
-                val streamerInfoList = twitchService.getStreamerData(streamerId = gameStreamList.map { it.streamerId }.toTypedArray(), authorization = token).streamerApiDataList
+                val streamerInfoList = twitchService.getStreamerData(streamerId = gameStreamList.map { it.streamerId }.toTypedArray()).streamerApiDataList
                 gameStreamList.mapIndexed { index, streamApiData ->
                     streamApiData.toStreamData(streamerInfoList[index].profileImageUrl)
                 }.forEach {

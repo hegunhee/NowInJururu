@@ -23,7 +23,7 @@ class TwitchStreamApiDataResponseUnitTest {
             runCatching {
                 val token = twitchAuthService.getAuthToken()
                 println("Bearer $token")
-                twitchService.getStreamData(authorization = token.getFormattedToken(), streamerId = "cotton__123")
+                twitchService.getStreamData(streamerId = "cotton__123")
             }.onSuccess {
                 println("authToken = $it")
                 assert(true)
@@ -40,7 +40,7 @@ class TwitchStreamApiDataResponseUnitTest {
             runCatching {
                 val token = twitchAuthService.getAuthToken()
                 println("Bearer $token")
-                twitchService.getStreamData(authorization = token.getFormattedToken(), streamerId = "cotton__123")
+                twitchService.getStreamData(streamerId = "cotton__123")
             }.onSuccess {
                 println("authToken = $it")
                 if(it.streamApiData.isEmpty()){
