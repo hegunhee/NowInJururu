@@ -43,6 +43,9 @@ class AndroidComposePlugin : Plugin<Project> {
                 add("implementation",project(":core:navigation"))
 
                 add("implementation",project(":resource_common"))
+
+                add("implementation",libs.findBundle("paging").get())
+                add("implementation",libs.findLibrary("paging-compose").get())
             }
         }
     }
