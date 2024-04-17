@@ -1,4 +1,4 @@
-package com.hegunhee.domain.usecase
+package com.hegunhee.domain.usecase.twitch
 
 import androidx.paging.PagingData
 import com.hegunhee.domain.model.twitch.SearchData

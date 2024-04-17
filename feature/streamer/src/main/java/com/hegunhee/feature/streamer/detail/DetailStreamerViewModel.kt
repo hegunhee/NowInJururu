@@ -10,8 +10,8 @@ import com.hegunhee.domain.model.kakao.KakaoSearchFilterContainer
 import com.hegunhee.domain.model.kakao.KakaoSearchSortType
 import com.hegunhee.domain.model.kakao.KakaoSearchType
 import com.hegunhee.domain.model.twitch.SearchData
-import com.hegunhee.domain.usecase.GetKakaoSearchPagingDataUseCase
-import com.hegunhee.domain.usecase.GetSearchStreamerDataUseCase
+import com.hegunhee.domain.usecase.kakao.GetKakaoSearchPagingDataUseCase
+import com.hegunhee.domain.usecase.twitch.GetSearchStreamerDataUseCase
 import com.hegunhee.nowinjururu.core.navigation.deeplink.DeepLink
 import com.hegunhee.nowinjururu.core.navigation.deeplink.TwitchDeepLinkQuery
 import com.hegunhee.nowinjururu.feature.searchkakao.KakaoSearchActionHandler

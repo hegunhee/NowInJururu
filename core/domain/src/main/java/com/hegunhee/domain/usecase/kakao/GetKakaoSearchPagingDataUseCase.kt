@@ -1,4 +1,4 @@
-package com.hegunhee.domain.usecase
+package com.hegunhee.domain.usecase.kakao
 
 import androidx.paging.PagingData
 import com.hegunhee.domain.model.kakao.KakaoSearchData
