@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Icon
@@ -23,6 +22,10 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.paging.compose.LazyPagingItems
+import androidx.paging.compose.collectAsLazyPagingItems
+import androidx.paging.compose.itemKey
+import com.hegunhee.domain.model.twitch.SearchData
 import com.hegunhee.ui_component.item.SearchStreamer
 import com.hegunhee.ui_component.text.ScreenHeaderText
 import com.hegunhee.resource_common.R
@@ -34,13 +37,19 @@ fun SearchScreenRoot(
 ) {
     val uiModel = viewModel.uiModel.value
     val (searchQuery, onValueChanged) = viewModel.searchQuery
+    val searchResult = viewModel.searchResult.collectAsLazyPagingItems()
+    val onFollowButtonClick : ((String) -> Unit) = { streamerId ->
+        viewModel.onFollowStreamerClick(streamerId)
+        searchResult.refresh()
+    }
     SearchScreen(
         uiModel = uiModel,
         searchQuery = searchQuery,
+        searchResult = searchResult,
         onValueChanged = onValueChanged,
         onNavigateTwitchChannelClick = onNavigateTwitchChannelClick,
         onSearchStreamDataClick = viewModel::fetchStreamData,
-        onFollowButtonClick = viewModel::onFollowStreamerClick
+        onFollowButtonClick = onFollowButtonClick
     )
 }
 
@@ -49,6 +58,7 @@ fun SearchScreenRoot(
 fun SearchScreen(
     uiModel : SearchUiModel,
     searchQuery : String,
+    searchResult : LazyPagingItems<SearchData>,
     onValueChanged : (String) -> Unit,
     onNavigateTwitchChannelClick: (String) -> Unit,
     onSearchStreamDataClick : () -> Unit,
@@ -79,7 +89,9 @@ fun SearchScreen(
                 onSearchStreamDataClick()
                 keyboardController?.hide()
             }),
-            modifier = Modifier.fillMaxWidth().padding(horizontal = dimensionResource(R.dimen.header_start_padding))
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = dimensionResource(R.dimen.header_start_padding))
         )
         Spacer(modifier = Modifier.height(dimensionResource(R.dimen.item_top_margin)))
         when(uiModel){
@@ -91,14 +103,17 @@ fun SearchScreen(
                     modifier = Modifier.fillMaxWidth(),
                     verticalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.item_between_middle))
                 ) {
-                    items(items = uiModel.streamerList, key = {it.streamerId}) { searchData ->
-                        SearchStreamer(
-                            streamerId = searchData.streamerId,
-                            streamerName = searchData.streamerName,
-                            profileUrl = searchData.profileUrl,
-                            onItemClick = onNavigateTwitchChannelClick,
-                            onFollowButtonClick = onFollowButtonClick
-                        )
+                    items(count = searchResult.itemCount,key = searchResult.itemKey(key = {searchData -> searchData.streamerName})) {index ->
+                        val item = searchResult[index]
+                        item?.let {  searchData ->
+                            SearchStreamer(
+                                streamerId = searchData.streamerId,
+                                streamerName = searchData.streamerName,
+                                profileUrl = searchData.profileUrl,
+                                onItemClick = onNavigateTwitchChannelClick,
+                                onFollowButtonClick = onFollowButtonClick
+                            )
+                        }
                     }
                 }
             }
