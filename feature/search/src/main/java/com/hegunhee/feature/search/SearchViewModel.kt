@@ -6,8 +6,8 @@ import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.hegunhee.domain.model.twitch.SearchData
 import com.hegunhee.domain.model.twitch.StreamerData
-import com.hegunhee.domain.usecase.GetSearchPagingDataUseCase
-import com.hegunhee.domain.usecase.InsertStreamerDataUseCase
+import com.hegunhee.domain.usecase.twitch.GetSearchPagingDataUseCase
+import com.hegunhee.domain.usecase.twitch.InsertStreamerDataUseCase
 import com.hegunhee.nowinjururu.core.navigation.deeplink.DeepLink
 import com.hegunhee.nowinjururu.core.navigation.deeplink.TwitchDeepLinkQuery
 import dagger.hilt.android.lifecycle.HiltViewModel

@@ -7,9 +7,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.hegunhee.domain.model.twitch.StreamDataType
 import com.hegunhee.domain.model.twitch.StreamerData
-import com.hegunhee.domain.usecase.DeleteStreamerDataUseCase
-import com.hegunhee.domain.usecase.GetBookmarkedStreamDataListUseCase
-import com.hegunhee.domain.usecase.GetGameStreamDataListUseCase
+import com.hegunhee.domain.usecase.twitch.DeleteStreamerDataUseCase
+import com.hegunhee.domain.usecase.twitch.GetBookmarkedStreamDataListUseCase
+import com.hegunhee.domain.usecase.twitch.GetGameStreamDataListUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject

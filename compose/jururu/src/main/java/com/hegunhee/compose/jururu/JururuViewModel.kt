@@ -6,7 +6,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.hegunhee.domain.model.twitch.StreamDataType
-import com.hegunhee.domain.usecase.GetStreamDataUseCase
+import com.hegunhee.domain.usecase.twitch.GetStreamDataUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject

@@ -10,8 +10,8 @@ import com.hegunhee.domain.model.kakao.KakaoSearchFilterContainer
 import com.hegunhee.domain.model.kakao.KakaoSearchSortType
 import com.hegunhee.domain.model.kakao.KakaoSearchType
 import com.hegunhee.domain.model.twitch.StreamDataType
-import com.hegunhee.domain.usecase.GetKakaoSearchPagingDataUseCase
-import com.hegunhee.domain.usecase.GetStreamDataUseCase
+import com.hegunhee.domain.usecase.kakao.GetKakaoSearchPagingDataUseCase
+import com.hegunhee.domain.usecase.twitch.GetStreamDataUseCase
 import com.hegunhee.nowinjururu.core.designsystem.adapter.streamer.StreamActionHandler
 import com.hegunhee.nowinjururu.core.designsystem.adapter.streamer.StreamerViewType
 import com.hegunhee.nowinjururu.core.designsystem.adapter.streamer.toOnlineStreamer
