@@ -104,6 +104,7 @@ room-ktx = {module = "androidx.room:room-ktx",version.ref="room"}
 paging-runtime = {module = "androidx.paging:paging-runtime",version.ref ="paging"}
 paging-common = {module = "androidx.paging:paging-common",version.ref="paging"}
 paging-ktx = {module = "androidx.paging:paging-common-ktx",version.ref="paging"}
+paging-compose = {module = "androidx.paging:paging-compose",version.ref="paging"}
 
 picasso = {module = "com.squareup.picasso:picasso",version.ref="picasso"}
 
