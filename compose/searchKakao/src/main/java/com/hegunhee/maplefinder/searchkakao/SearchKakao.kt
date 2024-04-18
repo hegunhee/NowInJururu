@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -19,10 +20,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.paging.compose.collectAsLazyPagingItems
+import coil.compose.AsyncImage
 import com.hegunhee.domain.model.kakao.KakaoSearchData
 import com.hegunhee.resource_common.R
 import com.hegunhee.ui_component.text.ScreenHeaderText
@@ -128,7 +131,23 @@ private fun KakaoImage(
     onClickItem : (String) -> Unit,
     onShareButtonClick : (String) -> Unit
 ) {
-    Text(text = kakaoImageData.toString())
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable { onClickItem(kakaoImageData.url) }
+    ) {
+        AsyncImage(
+            model = kakaoImageData.imageUrl,
+            contentDescription = kakaoImageData.url,
+            modifier = Modifier.size(130.dp)
+        )
+        Spacer(modifier = Modifier.size(10.dp))
+        Column {
+            Text(text = kakaoImageData.displaySiteName, color = Color.Black)
+            Text(text = kakaoImageData.dateTime,color = Color.Gray)
+            ShareImage(onShareButtonClick = onShareButtonClick, url = kakaoImageData.url)
+        }
+    }
 }
 
 @Composable
@@ -137,7 +156,15 @@ private fun KakaoVideo(
     onClickItem : (String) -> Unit,
     onShareButtonClick : (String) -> Unit
 ) {
-    Text(text = kakaoVideoData.toString())
+    Column(
+        modifier = Modifier.fillMaxWidth()
+        .clickable { onClickItem(kakaoVideoData.url) }
+    ) {
+        AsyncImage(model = kakaoVideoData.thumbNailUrl, contentDescription = kakaoVideoData.thumbNailUrl,modifier = Modifier.fillMaxWidth().size(137.dp,78.dp))
+        ShareImage(onShareButtonClick,kakaoVideoData.url)
+        Text(text = kakaoVideoData.title, fontSize = 20.sp)
+        Text(text = kakaoVideoData.getVideoInfo(),fontSize = 13.sp)
+    }
 }
 
 @Composable
@@ -147,17 +174,29 @@ private fun KakaoWeb(
     onShareButtonClick : (String) -> Unit
 ) {
     Column(
-        modifier = Modifier.fillMaxWidth().clickable { onClickItem(kakaoWebData.url) }
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable { onClickItem(kakaoWebData.url) }
     ) {
         Text(text = kakaoWebData.getUrlDomain(), fontSize = 15.sp,color = Color.LightGray)
         Text(text = kakaoWebData.title.toHtmlText(),fontSize = 20.sp)
         Text(text = kakaoWebData.dateTime,fontSize = 15.sp,color = Color.LightGray)
-        Image(painter = painterResource(id = R.drawable.ic_share_24),
-            contentDescription = "공유하기",
-            modifier = Modifier.clickable { onShareButtonClick(kakaoWebData.url) }.size(30.dp)
-        )
+        ShareImage(onShareButtonClick = onShareButtonClick, url = kakaoWebData.url)
         Text(text = kakaoWebData.contents.toHtmlText())
     }
+}
+
+@Composable
+private fun ShareImage(
+    onShareButtonClick: (String) -> Unit,
+    url : String
+) {
+    Image(painter = painterResource(id = R.drawable.ic_share_24),
+        contentDescription = "공유하기",
+        modifier = Modifier
+            .clickable { onShareButtonClick(url) }
+            .size(30.dp)
+    )
 }
 
 private fun String.toHtmlText() : String = Jsoup.parse(this).text()
