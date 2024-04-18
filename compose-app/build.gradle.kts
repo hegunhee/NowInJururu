@@ -21,7 +21,7 @@ dependencies {
     implementation(project(":core:data"))
     implementation(project(":core:domain"))
 
-    implementation(project(":compose:jururu"))
+    implementation(project(":compose:searchKakao"))
     implementation(project(":compose:streamer"))
     implementation(project(":compose:search"))
     implementation(project(":compose:ui-component"))

@@ -3,9 +3,10 @@ plugins {
 }
 
 android {
-    namespace = "com.hegunhee.compose.jururu"
+    namespace = "com.hegunhee.compose.searchkakao"
 }
 
 dependencies{
     implementation(project(":compose:ui-component"))
+
 }
