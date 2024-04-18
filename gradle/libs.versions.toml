@@ -42,6 +42,8 @@ picasso = "2.8"
 coil = "2.4.0"
 lottie = "6.0.1"
 
+jsoup = "1.14.2"
+
 
 [libraries]
 androidGradlePlugin = { module = "com.android.tools.build:gradle", version.ref = "androidGradleVersion" }
@@ -111,6 +113,8 @@ picasso = {module = "com.squareup.picasso:picasso",version.ref="picasso"}
 coil = {module = "io.coil-kt:coil-compose",version.ref = "coil"}
 
 lottie = {module = "com.airbnb.android:lottie",version.ref="lottie"}
+
+jsoup = {module = "org.jsoup:jsoup",version.ref = "jsoup"}
 
 [bundles]
 

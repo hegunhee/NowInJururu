@@ -9,4 +9,5 @@ android {
 dependencies{
     implementation(project(":compose:ui-component"))
 
+    implementation(libs.jsoup)
 }
