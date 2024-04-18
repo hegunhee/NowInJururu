@@ -12,21 +12,23 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.text.BasicText
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.paging.compose.collectAsLazyPagingItems
 import coil.compose.AsyncImage
 import com.hegunhee.domain.model.kakao.KakaoSearchData
+import com.hegunhee.nowinjururu.core.navigation.deeplink.DeepLink
+import com.hegunhee.nowinjururu.core.navigation.deeplink.handleDeepLink
 import com.hegunhee.resource_common.R
 import com.hegunhee.ui_component.text.ScreenHeaderText
 import org.jsoup.Jsoup
@@ -41,6 +43,12 @@ fun SearchKakaoScreenRoot(
         uiState = viewModel.uiState.value,
         onAction = viewModel::onAction
     )
+    val context = LocalContext.current
+    LaunchedEffect(key1 = viewModel.deepLink) {
+        viewModel.deepLink.collect{
+            context.handleDeepLink(it)
+        }
+    }
 }
 
 @Composable
@@ -67,8 +75,7 @@ private fun SearchKakaoScreen(
                     item?.let {
                         KakaoSearchItem(
                             kakaoSearchData = it,
-                            onClickItem = {},
-                            onShareButtonClick = { }
+                            onAction = onAction
                         )
                     }
                 }
@@ -97,29 +104,25 @@ private fun SearchTypeButtons(
 @Composable
 private fun KakaoSearchItem(
     kakaoSearchData: KakaoSearchData,
-    onClickItem : (String) -> Unit,
-    onShareButtonClick : (String) -> Unit
+    onAction: (SearchEvent) -> Unit
 ) {
     when(kakaoSearchData) {
         is KakaoSearchData.Image -> {
             KakaoImage(
                 kakaoImageData = kakaoSearchData,
-                onClickItem = onClickItem,
-                onShareButtonClick = onShareButtonClick
+                onAction = onAction
             )
         }
         is KakaoSearchData.Video ->{
             KakaoVideo(
                 kakaoVideoData = kakaoSearchData,
-                onClickItem = onClickItem,
-                onShareButtonClick = onShareButtonClick
+                onAction = onAction
             )
         }
         is KakaoSearchData.Web -> {
             KakaoWeb(
                 kakaoWebData = kakaoSearchData,
-                onClickItem = onClickItem,
-                onShareButtonClick = onShareButtonClick
+                onAction = onAction
             )
         }
     }
@@ -128,13 +131,12 @@ private fun KakaoSearchItem(
 @Composable
 private fun KakaoImage(
     kakaoImageData : KakaoSearchData.Image,
-    onClickItem : (String) -> Unit,
-    onShareButtonClick : (String) -> Unit
+    onAction: (SearchEvent) -> Unit
 ) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .clickable { onClickItem(kakaoImageData.url) }
+            .clickable { onAction(SearchEvent.WebLinkClick(DeepLink.Kakao(kakaoImageData.url))) }
     ) {
         AsyncImage(
             model = kakaoImageData.imageUrl,
@@ -145,7 +147,7 @@ private fun KakaoImage(
         Column {
             Text(text = kakaoImageData.displaySiteName, color = Color.Black)
             Text(text = kakaoImageData.dateTime,color = Color.Gray)
-            ShareImage(onShareButtonClick = onShareButtonClick, url = kakaoImageData.url)
+            ShareImage(onShareButtonClick = onAction, url = kakaoImageData.url,kakaoImageData.displaySiteName)
         }
     }
 }
@@ -153,15 +155,17 @@ private fun KakaoImage(
 @Composable
 private fun KakaoVideo(
     kakaoVideoData : KakaoSearchData.Video,
-    onClickItem : (String) -> Unit,
-    onShareButtonClick : (String) -> Unit
+    onAction: (SearchEvent) -> Unit
 ) {
     Column(
-        modifier = Modifier.fillMaxWidth()
-        .clickable { onClickItem(kakaoVideoData.url) }
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable { onAction(SearchEvent.WebLinkClick(DeepLink.Kakao(kakaoVideoData.url))) }
     ) {
-        AsyncImage(model = kakaoVideoData.thumbNailUrl, contentDescription = kakaoVideoData.thumbNailUrl,modifier = Modifier.fillMaxWidth().size(137.dp,78.dp))
-        ShareImage(onShareButtonClick,kakaoVideoData.url)
+        AsyncImage(model = kakaoVideoData.thumbNailUrl, contentDescription = kakaoVideoData.thumbNailUrl,modifier = Modifier
+            .fillMaxWidth()
+            .size(137.dp, 78.dp))
+        ShareImage(onAction,kakaoVideoData.url,kakaoVideoData.title)
         Text(text = kakaoVideoData.title, fontSize = 20.sp)
         Text(text = kakaoVideoData.getVideoInfo(),fontSize = 13.sp)
     }
@@ -170,31 +174,31 @@ private fun KakaoVideo(
 @Composable
 private fun KakaoWeb(
     kakaoWebData : KakaoSearchData.Web,
-    onClickItem : (String) -> Unit,
-    onShareButtonClick : (String) -> Unit
+    onAction: (SearchEvent) -> Unit
 ) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .clickable { onClickItem(kakaoWebData.url) }
+            .clickable { onAction(SearchEvent.WebLinkClick(DeepLink.Kakao(kakaoWebData.url))) }
     ) {
         Text(text = kakaoWebData.getUrlDomain(), fontSize = 15.sp,color = Color.LightGray)
         Text(text = kakaoWebData.title.toHtmlText(),fontSize = 20.sp)
         Text(text = kakaoWebData.dateTime,fontSize = 15.sp,color = Color.LightGray)
-        ShareImage(onShareButtonClick = onShareButtonClick, url = kakaoWebData.url)
+        ShareImage(onShareButtonClick = onAction, url = kakaoWebData.url,kakaoWebData.title)
         Text(text = kakaoWebData.contents.toHtmlText())
     }
 }
 
 @Composable
 private fun ShareImage(
-    onShareButtonClick: (String) -> Unit,
-    url : String
+    onShareButtonClick: (SearchEvent) -> Unit,
+    url : String,
+    title : String
 ) {
     Image(painter = painterResource(id = R.drawable.ic_share_24),
         contentDescription = "공유하기",
         modifier = Modifier
-            .clickable { onShareButtonClick(url) }
+            .clickable { onShareButtonClick(SearchEvent.ShareClick(DeepLink.Share(url,title))) }
             .size(30.dp)
     )
 }
