@@ -5,7 +5,6 @@ import android.content.Intent
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
 import android.net.Uri
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -16,14 +15,13 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.hegunhee.compose.app.ui.theme.NowInJururuTheme
-import com.hegunhee.compose.jururu.JururuNavGraph
-import com.hegunhee.compose.jururu.jururuNavGraph
 import com.hegunhee.compose.search.searchNavGraph
 import com.hegunhee.compose.streamer.streamerNavGraph
+import com.hegunhee.maplefinder.searchkakao.SearchKakaoNavGraph
+import com.hegunhee.maplefinder.searchkakao.searchKakaoNavGraph
 import com.hegunhee.resource_common.R
 import kotlinx.coroutines.CoroutineScope
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun NowInJururuApp(
     jururuAppScaffoldState : JururuAppScaffoldState = rememberJururuAppScaffoldState(),
@@ -31,10 +29,9 @@ fun NowInJururuApp(
 ) {
     NowInJururuTheme() {
         Scaffold(bottomBar = { JururuBottomNavigation(backStackEntry = jururuAppScaffoldState.navController.currentBackStackEntryAsState(), onBottomClick = jururuAppScaffoldState::navigateBottomNavigation)}) { paddingValues ->
-            NavHost(navController = jururuAppScaffoldState.navController, startDestination = JururuNavGraph.jururuRoute){
-                jururuNavGraph(
-                    paddingValues =  paddingValues,
-                    onNavigateTwitchChannelClick = twitchNavigationController::navigate
+            NavHost(navController = jururuAppScaffoldState.navController, startDestination = SearchKakaoNavGraph.searchKakaoRoute){
+                searchKakaoNavGraph(
+                    paddingValues =  paddingValues
                 )
 
                 streamerNavGraph(

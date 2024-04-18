@@ -30,8 +30,8 @@ include(":compose-app")
 
 include(":compose:search")
 include(":compose:streamer")
-include(":compose:jururu")
 include(":compose:ui-component")
 
 include(":resource_common")
 include(":core:navigation")
+include(":compose:searchKakao")

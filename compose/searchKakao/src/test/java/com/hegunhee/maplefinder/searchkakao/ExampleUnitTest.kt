@@ -1,4 +1,4 @@
-package com.hegunhee.compose.jururu
+package com.hegunhee.maplefinder.searchkakao
 
 import org.junit.Test
 
