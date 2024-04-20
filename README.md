@@ -22,7 +22,9 @@ Presentation Layer만 새로 작성했습니다.
   멀티 모듈 프로젝트에서 의존성을 쉽게 주입 가능합니다.  
 - VersionCatalog + customPlugin
   VersionCatalog로 외부 라이브러리를 한 toml파일에서 관리합니다.  
-  멀티모듈로 인해 동일한 gradle설정을 여러번 해야되는 수고로움을 덜어줍니다.  
+  멀티모듈로 인해 동일한 gradle설정을 여러번 해야되는 수고로움을 덜어줍니다.
+- Paging3 (compose도 적용)
+  시스템 리소스를 효율적으로 사용하며 많은양의 데이터를 가져오기위해 Paging을 사용했습니다.  
 ## 비즈니스 로직 설명  
 [api 명세](https://github.com/hegunhee/NowInJururu/issues/5)  
 [Json/Entity 명세](https://github.com/hegunhee/NowInJururu/issues/4)  
