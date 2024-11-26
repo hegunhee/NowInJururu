@@ -6,3 +6,6 @@ plugins {
 android {
     namespace = "com.hegunhee.resource_common"
 }
+dependencies {
+    implementation(libs.junit.ktx)
+}

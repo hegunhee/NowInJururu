@@ -44,6 +44,7 @@ coil = "2.4.0"
 lottie = "6.0.1"
 
 jsoup = "1.14.2"
+junitKtxVersion = "1.2.1"
 
 
 [libraries]
@@ -119,6 +120,7 @@ coil = {module = "io.coil-kt:coil-compose",version.ref = "coil"}
 lottie = {module = "com.airbnb.android:lottie",version.ref="lottie"}
 
 jsoup = {module = "org.jsoup:jsoup",version.ref = "jsoup"}
+junit-ktx = { group = "androidx.test.ext", name = "junit-ktx", version.ref = "junitKtxVersion" }
 
 [bundles]
 
