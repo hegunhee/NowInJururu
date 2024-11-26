@@ -15,6 +15,7 @@ import kotlinx.coroutines.runBlocking
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Response
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import javax.inject.Named
@@ -79,11 +80,19 @@ class NetworkModule {
     }
 
 
-    private fun provideOkHttpClient(vararg interceptor: Interceptor) : OkHttpClient =
-        OkHttpClient.Builder().run {
-            interceptor.forEach { addInterceptor(it) }
+    private fun provideOkHttpClient(vararg interceptors: Interceptor): OkHttpClient {
+        val debugInterceptor = HttpLoggingInterceptor()
+        debugInterceptor.level = if (BuildConfig.DEBUG) {
+            HttpLoggingInterceptor.Level.BODY
+        } else {
+            HttpLoggingInterceptor.Level.NONE
+        }
+        return OkHttpClient.Builder().run {
+            addNetworkInterceptor(debugInterceptor)
+            interceptors.forEach { addInterceptor(it) }
             build()
         }
+    }
 
     // OkHttp는 메인쓰레드가 아닌 여러개의 스레드를 사용하므로
     // runBlocking을 사용해도 안전함

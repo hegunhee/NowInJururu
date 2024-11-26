@@ -21,6 +21,8 @@ dependencies {
     androidTestImplementation(libs.espresso.core)
 
     implementation(libs.bundles.retrofit2)
+    implementation(libs.okhttp)
+    implementation(libs.okhttp.logging)
     implementation(libs.bundles.moshi)
 
     implementation(libs.room.runtime)
