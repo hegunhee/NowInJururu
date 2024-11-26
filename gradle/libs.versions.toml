@@ -24,7 +24,7 @@ espresso-core = "3.5.1"
 coroutine = "1.6.4"
 lifecycleScope = "2.4.0"
 
-dagger = "2.44"
+hilt = "2.44"
 
 kotlin-libs = "1.7.10"
 javax-inject = "1"
@@ -50,7 +50,7 @@ junitKtxVersion = "1.2.1"
 [libraries]
 androidGradlePlugin = { module = "com.android.tools.build:gradle", version.ref = "androidGradleVersion" }
 kotlinGradlePlugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlinGradleVersion" }
-hiltGradlePlugin = { group = "com.google.dagger", name = "hilt-android-gradle-plugin", version.ref = "dagger" }
+hiltGradlePlugin = { group = "com.google.dagger", name = "hilt-android-gradle-plugin", version.ref = "hilt" }
 
 core-ktx = {module = "androidx.core:core-ktx",version.ref = "core"}
 appcompat = {module = "androidx.appcompat:appcompat",version.ref = "appcompat"}
@@ -87,8 +87,9 @@ coroutine-core = {module = "org.jetbrains.kotlinx:kotlinx-coroutines-core",versi
 viewModel-lifecycleScope = {module = "androidx.lifecycle:lifecycle-viewmodel-ktx",version.ref="lifecycleScope"}
 lifecycle-lifecycleScope = {module = "androidx.lifecycle:lifecycle-runtime-ktx",version.ref="lifecycleScope"}
 
-daggerHiltAndroid = { module = "com.google.dagger:hilt-android", version.ref = "dagger" }
-daggerHiltAndroidCompiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "dagger" }
+hilt-compiler = { group = "com.google.dagger", name = "hilt-compiler", version.ref = "hilt" }
+hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
+hilt-core = { group = "com.google.dagger", name = "hilt-core", version.ref = "hilt"}
 
 
 javax-inject = {module ="javax.inject:javax.inject",version.ref ="javax-inject"}
