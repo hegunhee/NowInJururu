@@ -41,9 +41,9 @@ gradlePlugin{
             id = "hegunhee.android.compose"
             implementationClass = "com.hegunhee.plugins.feature.AndroidComposePlugin"
         }
-        register("AndroidHilt"){
-            id = "hegunhee.android.hilt"
-            implementationClass = "com.hegunhee.plugins.AndroidHiltPlugin"
+        register("Hilt"){
+            id = "hegunhee.hilt"
+            implementationClass = "com.hegunhee.plugins.HiltPlugin"
         }
     }
 }

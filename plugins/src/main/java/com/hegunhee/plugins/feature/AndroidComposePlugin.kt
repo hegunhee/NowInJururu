@@ -13,7 +13,7 @@ class AndroidComposePlugin : Plugin<Project> {
         with(target){
             with(pluginManager){
                 apply("hegunhee.android")
-                apply("hegunhee.android.hilt")
+                apply("hegunhee.hilt")
             }
             setupAndroidCompose()
 

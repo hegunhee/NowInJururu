@@ -1,6 +1,6 @@
 plugins {
     id("hegunhee.android")
-    id("hegunhee.android.hilt")
+    id("hegunhee.hilt")
     id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
 }
 

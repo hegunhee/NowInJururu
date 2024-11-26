@@ -1,6 +1,7 @@
 plugins {
     id("java-library")
     id("org.jetbrains.kotlin.jvm")
+    id("hegunhee.hilt")
 }
 
 java {
@@ -9,8 +10,6 @@ java {
 }
 
 dependencies {
-    implementation(libs.kotlin.stdlib)
-    implementation(libs.javax.inject)
     implementation(libs.coroutine.core)
     implementation(libs.paging.common)
 }
