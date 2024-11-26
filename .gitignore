@@ -203,3 +203,5 @@ fabric.properties
 .idea/gradle.xml
 .idea/androidTestResultsUserPreferences.xml
 .idea/kotlinc.xml
+
+secrets.defaults.properties
