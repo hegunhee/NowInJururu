@@ -52,7 +52,7 @@ class AndroidComposeApplicationPlugin : Plugin<Project> {
                 add("androidTestImplementation",libs.findLibrary("ext-junit").get())
                 add("androidTestImplementation",libs.findLibrary("espresso-core").get())
 
-                add("androidTestImplementation",platform(libs.findLibrary("compose-test-bom").get()))
+                add("androidTestImplementation",platform(libs.findLibrary("compose-bom").get()))
                 add("androidTestImplementation",libs.findLibrary("compose-ui-test-junit").get())
                 add("debugImplementation",libs.findLibrary("compose-ui-tooling").get())
                 add("debugImplementation",libs.findLibrary("compose-ui-test-manifest").get())

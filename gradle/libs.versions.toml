@@ -26,9 +26,6 @@ lifecycleScope = "2.4.0"
 
 hilt = "2.44"
 
-kotlin-libs = "1.7.10"
-javax-inject = "1"
-
 retrofit = "2.9.0"
 okhttp = "4.12.0"
 gson = "2.5.0"
@@ -72,8 +69,6 @@ navigation-compose = { group = "androidx.navigation", name = "navigation-compose
 hilt-viewmodel = { group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "hilt-viewmodel" }
 compose-bottomsheetdialog = { group = "com.holix.android", name = "bottomsheetdialog-compose", version.ref = "compose-bottomsheetdialog" }
 
-
-compose-test-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "compose-bom" }
 compose-ui-test-junit = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
 compose-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
