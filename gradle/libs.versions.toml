@@ -1,4 +1,6 @@
 [versions]
+applicationGradleVersion = "8.0.2"
+
 androidGradleVersion = "7.4.2"
 kotlinGradleVersion = "1.8.0"
 
@@ -43,6 +45,7 @@ lottie = "6.0.1"
 jsoup = "1.14.2"
 junitKtxVersion = "1.2.1"
 
+secrets-gradleVersion = "2.0.1"
 
 [libraries]
 androidGradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "androidGradleVersion" }
@@ -125,3 +128,12 @@ paging = ["paging-runtime", "paging-common", "paging-ktx"]
 lifecycleScope = ["viewModel-lifecycleScope", "lifecycle-lifecycleScope"]
 
 compose-ui = ["compose-ui", "compose-graphics", "compose-tooling-preview", "compose-material", "compose-material3"]
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "applicationGradleVersion" }
+android-library = { id = "com.android.library", version.ref = "androidGradleVersion" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlinGradleVersion" }
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlinGradleVersion" }
+hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
+secrets-gradle = { id = "com.google.android.libraries.mapsplatform.secrets-gradle-plugin", version.ref = "secrets-gradleVersion" }
+
