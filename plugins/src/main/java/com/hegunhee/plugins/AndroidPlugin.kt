@@ -1,9 +1,10 @@
 package com.hegunhee.plugins
 
-import com.hegunhee.plugins.setup.androidLibrary
+import com.android.build.gradle.LibraryExtension
 import com.hegunhee.plugins.setup.setupAndroid
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import org.gradle.kotlin.dsl.configure
 
 class AndroidPlugin : Plugin<Project> {
 
@@ -14,7 +15,7 @@ class AndroidPlugin : Plugin<Project> {
                 apply("org.jetbrains.kotlin.android")
             }
 
-            androidLibrary {
+            extensions.configure<LibraryExtension> {
                 setupAndroid()
                 buildTypes {
                     getByName("release"){

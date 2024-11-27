@@ -1,6 +1,6 @@
 plugins {
     id("hegunhee.android")
-    id("hegunhee.android.hilt")
+    id("hegunhee.hilt")
 }
 
 android {
