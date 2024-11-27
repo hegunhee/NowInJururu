@@ -1,11 +1,12 @@
 package com.hegunhee.plugins
 
-import com.hegunhee.plugins.setup.androidApplication
+import com.android.build.api.dsl.ApplicationExtension
 import com.hegunhee.plugins.setup.setupAndroid
 import com.hegunhee.plugins.setup.setupViewDataBinding
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.artifacts.VersionCatalogsExtension
+import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.getByType
 
@@ -18,7 +19,7 @@ class AndroidApplicationPlugin : Plugin<Project> {
                 apply("org.jetbrains.kotlin.android")
                 apply("hegunhee.hilt")
             }
-            androidApplication {
+            extensions.configure<ApplicationExtension> {
                 setupAndroid()
                 setupViewDataBinding()
 
@@ -29,6 +30,7 @@ class AndroidApplicationPlugin : Plugin<Project> {
                     }
                 }
             }
+
             val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
 
             dependencies {

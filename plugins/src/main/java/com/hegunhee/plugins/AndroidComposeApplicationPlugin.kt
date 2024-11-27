@@ -1,12 +1,12 @@
 package com.hegunhee.plugins
 
-import com.hegunhee.plugins.setup.androidApplication
+import com.android.build.api.dsl.ApplicationExtension
+import com.hegunhee.plugins.feature.configureAndroidCompose
 import com.hegunhee.plugins.setup.setupAndroid
-import com.hegunhee.plugins.setup.setupAndroidCompose
-import com.hegunhee.plugins.setup.setupAndroidComposeApplication
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.artifacts.VersionCatalogsExtension
+import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.getByType
 
@@ -19,9 +19,9 @@ class AndroidComposeApplicationPlugin : Plugin<Project> {
                 apply("org.jetbrains.kotlin.android")
                 apply("hegunhee.hilt")
             }
-            androidApplication {
+            extensions.configure<ApplicationExtension> {
                 setupAndroid()
-                setupAndroidComposeApplication()
+                configureAndroidCompose(this)
 
                 buildTypes {
                     release {
@@ -36,6 +36,7 @@ class AndroidComposeApplicationPlugin : Plugin<Project> {
                     }
                 }
             }
+
             val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
 
             dependencies {
@@ -66,5 +67,4 @@ class AndroidComposeApplicationPlugin : Plugin<Project> {
             }
         }
     }
-
 }
