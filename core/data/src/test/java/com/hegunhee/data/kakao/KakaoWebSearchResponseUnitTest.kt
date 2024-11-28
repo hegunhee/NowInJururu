@@ -1,5 +1,8 @@
-package com.hegunhee.data
+package com.hegunhee.data.kakao
 
+import com.hegunhee.data.getKakaoRetrofit
+import com.hegunhee.data.getKakaoService
+import com.hegunhee.data.getMoshi
 import com.hegunhee.data.mapper.toModel
 import com.hegunhee.data.network.KakaoService
 import com.hegunhee.domain.model.kakao.KakaoSearchSortType
