@@ -3,6 +3,9 @@ package com.hegunhee.data
 import com.hegunhee.data.network.TwitchAuthService
 import com.hegunhee.data.network.TwitchService
 import kotlinx.coroutines.runBlocking
+import org.junit.Assert
+import org.junit.Assert.assertEquals
+import org.junit.Assert.fail
 import org.junit.Before
 import org.junit.Test
 
@@ -42,21 +45,16 @@ class TwitchStreamerDataResponseUnitTest {
     @Test
     fun `two streamer data (cotton__123, viichan6)` () {
         runBlocking {
+            val streamer = listOf("cotton__123","viichan6")
             runCatching {
-                val streamer = listOf<String>("cotton__123","viichan6")
-                val token = twitchAuthService.getAuthToken().getFormattedToken()
                 twitchService.getStreamerData(streamerId =streamer.toTypedArray())
             }.onSuccess {response ->
                 println(response.toString())
-                val displayNameList = response.streamerApiDataList.map { it.streamerName }
-                if(displayNameList[0] == "주르르" && displayNameList[1] == "비챤_"){
-                    assert(true)
-                }else{
-                    assert(false)
-                }
+                val findStreamerId = response.streamerApiDataList.map { it.streamerId }
+                assertEquals(streamer,findStreamerId)
             }.onFailure {
                 println(it.message)
-                assert(false)
+                fail()
             }
         }
     }
