@@ -1,5 +1,8 @@
-package com.hegunhee.data
+package com.hegunhee.data.twitch
 
+import com.hegunhee.data.getMoshi
+import com.hegunhee.data.getTwitchAuthRetrofit
+import com.hegunhee.data.getTwitchAuthService
 import com.hegunhee.data.network.TwitchAuthService
 import kotlinx.coroutines.runBlocking
 import org.junit.Before

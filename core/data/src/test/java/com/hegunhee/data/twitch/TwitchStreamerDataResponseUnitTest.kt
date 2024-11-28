@@ -1,9 +1,13 @@
-package com.hegunhee.data
+package com.hegunhee.data.twitch
 
+import com.hegunhee.data.getMoshi
+import com.hegunhee.data.getTwitchAuthRetrofit
+import com.hegunhee.data.getTwitchAuthService
+import com.hegunhee.data.getTwitchGetRetrofit
+import com.hegunhee.data.getTwitchService
 import com.hegunhee.data.network.TwitchAuthService
 import com.hegunhee.data.network.TwitchService
 import kotlinx.coroutines.runBlocking
-import org.junit.Assert
 import org.junit.Assert.assertEquals
 import org.junit.Assert.fail
 import org.junit.Before
