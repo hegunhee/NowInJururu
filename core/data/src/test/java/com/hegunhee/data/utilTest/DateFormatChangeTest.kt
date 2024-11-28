@@ -19,7 +19,7 @@ class DateFormatChangeTest {
         val changeFormatDateString = transferFormat.format(changeFormatDate)
 
         // Then
-        Assert.assertEquals(changeFormatDateString,formattedDateString)
-
+        Assert.assertEquals(changeFormatDateString, formattedDateString)
     }
+
 }

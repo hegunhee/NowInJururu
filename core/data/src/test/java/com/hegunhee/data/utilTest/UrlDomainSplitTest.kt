@@ -6,7 +6,6 @@ import java.net.URL
 
 class UrlDomainSplitTest {
 
-
     @Test
     fun givenUrl_WhenGetDomainName_ThenReturnDomainName() {
         // Given
@@ -17,6 +16,7 @@ class UrlDomainSplitTest {
         val urlDomain = URL(url).host.removePrefix("www.")
 
         // Then
-        Assert.assertEquals(urlDomain,domainName)
+        Assert.assertEquals(urlDomain, domainName)
     }
+
 }
