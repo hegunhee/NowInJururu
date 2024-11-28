@@ -1,8 +1,8 @@
-package com.hegunhee.data.twitch
+package com.hegunhee.data.repository
 
-import com.hegunhee.data.getMoshi
-import com.hegunhee.data.getTwitchGetRetrofit
-import com.hegunhee.data.getTwitchService
+import com.hegunhee.data.api.getMoshi
+import com.hegunhee.data.api.getTwitchGetRetrofit
+import com.hegunhee.data.api.getTwitchService
 import com.hegunhee.data.mapper.toSearchData
 import com.hegunhee.data.network.TwitchService
 import kotlinx.coroutines.runBlocking

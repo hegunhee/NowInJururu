@@ -1,5 +1,6 @@
-package com.hegunhee.data
+package com.hegunhee.data.api
 
+import com.hegunhee.data.BuildConfig
 import com.hegunhee.data.network.KakaoService
 import com.hegunhee.data.network.TwitchAuthService
 import com.hegunhee.data.network.TwitchService

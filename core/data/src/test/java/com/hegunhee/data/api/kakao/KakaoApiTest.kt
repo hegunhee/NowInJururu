@@ -1,8 +1,8 @@
-package com.hegunhee.data.kakao
+package com.hegunhee.data.api.kakao
 
-import com.hegunhee.data.getKakaoRetrofit
-import com.hegunhee.data.getKakaoService
-import com.hegunhee.data.getMoshi
+import com.hegunhee.data.api.getKakaoRetrofit
+import com.hegunhee.data.api.getKakaoService
+import com.hegunhee.data.api.getMoshi
 import com.hegunhee.data.network.KakaoService
 import com.hegunhee.domain.model.kakao.KakaoSearchSortType
 import kotlinx.coroutines.runBlocking
