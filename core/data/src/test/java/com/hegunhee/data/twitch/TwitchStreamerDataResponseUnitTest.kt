@@ -1,11 +1,8 @@
 package com.hegunhee.data.twitch
 
 import com.hegunhee.data.getMoshi
-import com.hegunhee.data.getTwitchAuthRetrofit
-import com.hegunhee.data.getTwitchAuthService
 import com.hegunhee.data.getTwitchGetRetrofit
 import com.hegunhee.data.getTwitchService
-import com.hegunhee.data.network.TwitchAuthService
 import com.hegunhee.data.network.TwitchService
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
@@ -15,22 +12,18 @@ import org.junit.Test
 
 class TwitchStreamerDataResponseUnitTest {
 
-    private lateinit var twitchAuthService : TwitchAuthService
     private lateinit var twitchService: TwitchService
 
     @Before
     fun initMoshiAndApi() {
-        val moshi = getMoshi()
-        twitchAuthService = getTwitchAuthRetrofit(moshi = moshi).getTwitchAuthService()
-        twitchService = getTwitchGetRetrofit(moshi = moshi).getTwitchService()
+        twitchService = getTwitchGetRetrofit(getMoshi()).getTwitchService()
     }
 
     @Test
     fun `one streamer data (cotton__123)`() {
         runBlocking {
             runCatching {
-                val streamer = listOf<String>("cotton__123")
-                val token = twitchAuthService.getAuthToken().getFormattedToken()
+                val streamer = listOf("cotton__123")
                 twitchService.getStreamerData(streamerId =streamer.toTypedArray())
             }.onSuccess {response ->
                 println(response.toString())
@@ -62,4 +55,5 @@ class TwitchStreamerDataResponseUnitTest {
             }
         }
     }
+
 }
