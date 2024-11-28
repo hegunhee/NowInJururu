@@ -1,4 +1,4 @@
-package com.hegunhee.data
+package com.hegunhee.data.utilTest
 
 /**
  * 현재 상황 유저 정보를 가지고
@@ -12,7 +12,7 @@ package com.hegunhee.data
 class ClassMapTest {
 
     private fun mapTest() {
-        val studentInfoList = listOf<StudentInfo>(StudentInfo(1,"",""),StudentInfo(2,"",""))
+        val studentInfoList = listOf<StudentInfo>(StudentInfo(1,"",""), StudentInfo(2,"",""))
         runCatching {
             studentInfoList.map {
                 val response = testApiResponse(it.studentId)
@@ -39,6 +39,6 @@ data class StudentData(val studentSubject : String,val profileUrl : String)
 
 data class StudentApiResponse(val studentSubject : String)
 
-private fun testApiResponse(studentId : Int) : StudentApiResponse{
+private fun testApiResponse(studentId : Int) : StudentApiResponse {
     return StudentApiResponse("$studentId 수학")
 }

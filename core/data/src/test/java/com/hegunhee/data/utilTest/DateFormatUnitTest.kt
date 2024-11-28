@@ -1,8 +1,7 @@
-package com.hegunhee.data
+package com.hegunhee.data.utilTest
 
 import org.junit.Test
 import java.text.SimpleDateFormat
-import java.util.Date
 
 class DateFormatUnitTest {
 
