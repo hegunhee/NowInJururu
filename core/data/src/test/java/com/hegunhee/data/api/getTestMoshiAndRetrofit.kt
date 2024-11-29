@@ -1,10 +1,12 @@
-package com.hegunhee.data
+package com.hegunhee.data.api
 
+import com.hegunhee.data.BuildConfig
 import com.hegunhee.data.network.KakaoService
 import com.hegunhee.data.network.TwitchAuthService
 import com.hegunhee.data.network.TwitchService
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import kotlinx.coroutines.runBlocking
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Response
@@ -64,8 +66,11 @@ private class KakaoAuthInterceptor : Interceptor {
 
 private class TwitchAuthInterceptor : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response = with(chain) {
+        val twitchAuthService = getTwitchAuthRetrofit(getMoshi()).getTwitchAuthService()
+        val token = runBlocking { twitchAuthService.getAuthToken() }
         val newRequest = request().newBuilder()
             .addHeader("client-id", BuildConfig.TwitchClientId)
+            .addHeader("Authorization",token.getFormattedToken())
             .build()
         proceed(newRequest)
     }

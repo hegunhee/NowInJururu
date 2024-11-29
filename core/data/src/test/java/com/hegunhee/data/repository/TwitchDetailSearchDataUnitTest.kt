@@ -1,7 +1,9 @@
-package com.hegunhee.data
+package com.hegunhee.data.repository
 
+import com.hegunhee.data.api.getMoshi
+import com.hegunhee.data.api.getTwitchGetRetrofit
+import com.hegunhee.data.api.getTwitchService
 import com.hegunhee.data.mapper.toSearchData
-import com.hegunhee.data.network.TwitchAuthService
 import com.hegunhee.data.network.TwitchService
 import kotlinx.coroutines.runBlocking
 import org.junit.Before
@@ -9,14 +11,11 @@ import org.junit.Test
 
 class TwitchDetailSearchDataUnitTest {
 
-    private lateinit var tokenApi : TwitchAuthService
-    private lateinit var twitchService : TwitchService
+    private lateinit var twitchService: TwitchService
 
     @Before
-    fun initMoshiAndRetrofit()  {
-        val moshi = getMoshi()
-        tokenApi = getTwitchAuthRetrofit(moshi = moshi).getTwitchAuthService()
-        twitchService = getTwitchGetRetrofit(moshi = moshi).getTwitchService()
+    fun initMoshiAndRetrofit() {
+        twitchService = getTwitchGetRetrofit(getMoshi()).getTwitchService()
     }
 
     @Test
@@ -24,7 +23,6 @@ class TwitchDetailSearchDataUnitTest {
         val query = "cotton__123"
         runBlocking {
             runCatching {
-                val token = tokenApi.getAuthToken().getFormattedToken()
                 twitchService.getSearchData(streamerName = query).searchApiDataList.first { it.streamerId == query }.toSearchData()
             }.onSuccess {
                 println(it.toString())
@@ -35,4 +33,5 @@ class TwitchDetailSearchDataUnitTest {
             }
         }
     }
+
 }
