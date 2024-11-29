@@ -1,8 +1,8 @@
 package com.hegunhee.data.repository
 
-import com.hegunhee.data.api.getMoshi
-import com.hegunhee.data.api.getTwitchGetRetrofit
-import com.hegunhee.data.api.getTwitchService
+import com.hegunhee.data.di.NetworkModule.provideTwitchAuthMoshi
+import com.hegunhee.data.di.NetworkModule.provideTwitchAuthService
+import com.hegunhee.data.di.NetworkModule.provideTwitchService
 import com.hegunhee.data.mapper.toSearchData
 import com.hegunhee.data.network.TwitchService
 import kotlinx.coroutines.runBlocking
@@ -15,7 +15,10 @@ class TwitchDetailSearchDataUnitTest {
 
     @Before
     fun initMoshiAndRetrofit() {
-        twitchService = getTwitchGetRetrofit(getMoshi()).getTwitchService()
+        twitchService =  provideTwitchService(
+            moshi = provideTwitchAuthMoshi(),
+            twitchAuthService = provideTwitchAuthService(provideTwitchAuthMoshi()),
+        )
     }
 
     @Test

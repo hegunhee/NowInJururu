@@ -1,8 +1,7 @@
 package com.hegunhee.data.api.kakao
 
-import com.hegunhee.data.api.getKakaoRetrofit
-import com.hegunhee.data.api.getKakaoService
-import com.hegunhee.data.api.getMoshi
+import com.hegunhee.data.di.NetworkModule.provideKakaoSearchServiceMoshi
+import com.hegunhee.data.di.NetworkModule.provideKakaoService
 import com.hegunhee.data.network.KakaoService
 import com.hegunhee.domain.model.kakao.KakaoSearchSortType
 import kotlinx.coroutines.runBlocking
@@ -19,7 +18,7 @@ class KakaoApiTest {
 
     @Before
     fun initKakaoService() {
-        sut = getKakaoRetrofit(getMoshi()).getKakaoService()
+        sut = provideKakaoService(provideKakaoSearchServiceMoshi())
     }
 
     @Test

@@ -1,8 +1,8 @@
 package com.hegunhee.data.api.twitch
 
-import com.hegunhee.data.api.getMoshi
-import com.hegunhee.data.api.getTwitchGetRetrofit
-import com.hegunhee.data.api.getTwitchService
+import com.hegunhee.data.di.NetworkModule.provideTwitchAuthMoshi
+import com.hegunhee.data.di.NetworkModule.provideTwitchAuthService
+import com.hegunhee.data.di.NetworkModule.provideTwitchService
 import com.hegunhee.data.network.TwitchService
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert
@@ -16,7 +16,10 @@ class StreamDataTest {
 
     @Before
     fun initMoshiAndRetrofit()  {
-        sut = getTwitchGetRetrofit(getMoshi()).getTwitchService()
+        sut =  provideTwitchService(
+            moshi = provideTwitchAuthMoshi(),
+            twitchAuthService = provideTwitchAuthService(provideTwitchAuthMoshi()),
+        )
     }
 
     // 현재 주르르는 트위치 방송을 중단한 상태, 그러므로 앞으로 값이 조회될 일 없음
@@ -27,7 +30,6 @@ class StreamDataTest {
 
         // When
         val streamData = sut.getStreamData(streamerId = streamerId).streamApiData
-        println(streamData)
 
         // Then
         Assert.assertTrue(streamData.isEmpty())
