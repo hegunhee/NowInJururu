@@ -1,8 +1,7 @@
 package com.hegunhee.data.api.twitch
 
-import com.hegunhee.data.api.getMoshi
-import com.hegunhee.data.api.getTwitchAuthRetrofit
-import com.hegunhee.data.api.getTwitchAuthService
+import com.hegunhee.data.di.NetworkModule.provideTwitchAuthMoshi
+import com.hegunhee.data.di.NetworkModule.provideTwitchAuthService
 import com.hegunhee.data.network.TwitchAuthService
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert
@@ -15,7 +14,7 @@ class AuthTokenTest {
 
     @Before
     fun initMoshiAndRetrofit() {
-        sut = getTwitchAuthRetrofit(getMoshi()).getTwitchAuthService()
+        sut = provideTwitchAuthService(provideTwitchAuthMoshi())
     }
 
     @Test

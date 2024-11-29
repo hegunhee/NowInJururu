@@ -1,8 +1,8 @@
 package com.hegunhee.data.api.twitch
 
-import com.hegunhee.data.api.getMoshi
-import com.hegunhee.data.api.getTwitchGetRetrofit
-import com.hegunhee.data.api.getTwitchService
+import com.hegunhee.data.di.NetworkModule.provideTwitchAuthMoshi
+import com.hegunhee.data.di.NetworkModule.provideTwitchAuthService
+import com.hegunhee.data.di.NetworkModule.provideTwitchService
 import com.hegunhee.data.network.TwitchService
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert
@@ -17,7 +17,10 @@ class StreamerDataTest {
 
     @Before
     fun initMoshiAndApi() {
-        sut = getTwitchGetRetrofit(getMoshi()).getTwitchService()
+        sut =  provideTwitchService(
+            moshi = provideTwitchAuthMoshi(),
+            twitchAuthService = provideTwitchAuthService(provideTwitchAuthMoshi()),
+        )
     }
 
     @Test
