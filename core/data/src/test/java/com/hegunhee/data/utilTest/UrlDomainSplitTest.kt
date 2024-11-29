@@ -10,7 +10,7 @@ class UrlDomainSplitTest {
     fun givenUrl_WhenGetDomainName_ThenReturnDomainName() {
         // Given
         val domainName = "gameinsight.co.kr"
-        val url = "http://www.gameinsight.co.kr/news/articleView.html?idxno=30985"
+        val url = "http://www.${domainName}/news/articleView.html?idxno=30985"
 
         // When
         val urlDomain = URL(url).host.removePrefix("www.")
