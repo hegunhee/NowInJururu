@@ -16,10 +16,6 @@ dependencies {
 
     implementation(project(":core:domain"))
 
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.ext.junit)
-    androidTestImplementation(libs.espresso.core)
-
     implementation(libs.bundles.retrofit2)
     implementation(libs.okhttp)
     implementation(libs.okhttp.logging)
