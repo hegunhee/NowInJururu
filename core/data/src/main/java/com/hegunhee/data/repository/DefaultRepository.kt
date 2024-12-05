@@ -69,10 +69,12 @@ class DefaultRepository @Inject constructor(
             val gameStreamList = remoteDataSource.getGameStreamDataResponse(gameId).streamApiData.sortedBy { it.streamerId }
 
             if(gameStreamList.isEmpty()) {
-                return@runCatching emptyList<StreamDataType.OnlineData>()
+                return@runCatching emptyList()
             }
 
-            val streamerInfoList = remoteDataSource.getStreamerDataResponse(streamerId = gameStreamList.map { it.streamerId }.toTypedArray()).streamerApiDataList.sortedBy { it.streamerId }
+            val streamerInfoList = remoteDataSource
+                .getStreamerDataResponse(streamerId = gameStreamList.map { it.streamerId }.toTypedArray())
+                .streamerApiDataList.sortedBy { it.streamerId }
 
             return@runCatching gameStreamList.zip(streamerInfoList).sortedByDescending { it.first.viewerCount }.map {
                 it.first.toStreamData(it.second.profileImageUrl,RecommendStreamThumbNailWidth, RecommendStreamThumbNailHeight)
@@ -82,7 +84,9 @@ class DefaultRepository @Inject constructor(
 
     override suspend fun getSearchStreamerData(streamerId: String): Result<SearchData> {
         return runCatching {
-            remoteDataSource.getSearchDataResponse(streamerName = streamerId).searchApiDataList.first { it.streamerId == streamerId}.toSearchData()
+            remoteDataSource
+                .getSearchDataResponse(streamerName = streamerId)
+                .searchApiDataList.first { it.streamerId == streamerId}.toSearchData()
         }
     }
 
@@ -91,6 +95,7 @@ class DefaultRepository @Inject constructor(
         runCatching {
             val response = async { remoteDataSource.getSearchDataResponse(streamerName = streamerId) }
             val loadedStreamerLoginData = localDataSource.getAllStreamerList().map { it.streamerLogin }
+
             response.await().searchApiDataList.toSearchDataList().filterNot { loadedStreamerLoginData.contains(it.streamerId)}
         }
     }
@@ -111,14 +116,15 @@ class DefaultRepository @Inject constructor(
         return remoteDataSource
             .getSearchPagingDataResponse(streamerName, size)
             .map {
-                val loadedStreamerData = localDataSource.getAllStreamerList().map { it.streamerLogin }
+                val loadedStreamerData = localDataSource.getAllStreamerList().map { streamerInfo -> streamerInfo.streamerLogin }
                 it.filter { searchData ->
                     !loadedStreamerData.contains(searchData.streamerId)
                 }
             }
     }
 
-    override suspend fun getKakaoSearchPagingData(query: String, sortType: KakaoSearchSortType, searchType: KakaoSearchType, size: Int
+    override suspend fun getKakaoSearchPagingData(
+        query: String, sortType: KakaoSearchSortType, searchType: KakaoSearchType, size: Int
     ): Flow<PagingData<KakaoSearchData>> {
         return remoteDataSource.getKakaoSearchPagingData(query,sortType,searchType,size)
     }
