@@ -1,7 +1,6 @@
 package com.hegunhee.domain.usecase.twitch
 
 import com.hegunhee.domain.model.twitch.SearchData
-import com.hegunhee.domain.repository.Repository
 import com.hegunhee.domain.repository.twitch.TwitchSearchStreamerRepository
 import javax.inject.Inject
 

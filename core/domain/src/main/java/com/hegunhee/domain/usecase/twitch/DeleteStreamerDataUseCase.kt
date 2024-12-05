@@ -1,7 +1,6 @@
 package com.hegunhee.domain.usecase.twitch
 
 import com.hegunhee.domain.model.twitch.StreamerData
-import com.hegunhee.domain.repository.Repository
 import com.hegunhee.domain.repository.twitch.TwitchUpdateStreamerRepository
 import javax.inject.Inject
 

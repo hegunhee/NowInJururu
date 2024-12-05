@@ -7,7 +7,6 @@ import com.hegunhee.data.data.json.twitch.StreamerApiDataResponse
 import com.hegunhee.data.dataSource.local.LocalDataSource
 import com.hegunhee.data.dataSource.remote.RemoteDataSource
 import com.hegunhee.data.database.entity.StreamerEntity
-import com.hegunhee.data.repository.DefaultRepository
 import com.hegunhee.domain.model.twitch.StreamDataType
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals

@@ -3,7 +3,6 @@ package com.hegunhee.data.repository.twitch
 import androidx.paging.PagingData
 import com.hegunhee.data.dataSource.local.LocalDataSource
 import com.hegunhee.data.dataSource.remote.RemoteDataSource
-import com.hegunhee.data.repository.DefaultRepository
 import com.hegunhee.domain.model.twitch.SearchData
 import kotlinx.coroutines.flow.count
 import kotlinx.coroutines.flow.flowOf
