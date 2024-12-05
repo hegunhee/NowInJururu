@@ -24,7 +24,7 @@ import org.mockito.kotlin.whenever
 class StreamDataTest {
 
     @InjectMocks
-    private lateinit var sut: DefaultRepository
+    private lateinit var sut: DefaultTwitchStreamRepository
 
     @Mock
     private lateinit var remoteDataSource: RemoteDataSource

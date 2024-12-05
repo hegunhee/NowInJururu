@@ -1,7 +1,9 @@
 package com.hegunhee.data.di
 
 import com.hegunhee.data.repository.DefaultRepository
+import com.hegunhee.data.repository.twitch.DefaultTwitchStreamRepository
 import com.hegunhee.domain.repository.Repository
+import com.hegunhee.domain.repository.twitch.TwitchStreamRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -14,5 +16,9 @@ abstract class RepositoryModule {
 
     @Binds
     @Singleton
-    abstract fun provideRepository(defaultRepository : DefaultRepository) : Repository
+    abstract fun provideRepository(defaultRepository: DefaultRepository): Repository
+
+    @Binds
+    @Singleton
+    abstract fun provideTwitchStreamRepository(defaultTwitchStreamRepository: DefaultTwitchStreamRepository): TwitchStreamRepository
 }

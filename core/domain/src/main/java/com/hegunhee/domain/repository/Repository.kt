@@ -11,10 +11,6 @@ import kotlinx.coroutines.flow.Flow
 
 interface Repository {
 
-    suspend fun getStreamData(streamerId : String) : Result<StreamDataType>
-
-    suspend fun getStreamDataList() : Result<List<StreamDataType>>
-
     suspend fun getGameStreamDataList(gameId : String) : Result<List<StreamDataType.OnlineData>>
 
     suspend fun getSearchStreamerData(streamerId : String) : Result<SearchData>
