@@ -29,24 +29,6 @@ class DefaultRepository @Inject constructor(
     private val localDataSource : LocalDataSource
 ) : Repository {
 
-    override suspend fun getGameStreamDataList(gameId: String): Result<List<StreamDataType.OnlineData>> {
-        return runCatching {
-            val gameStreamList = remoteDataSource.getGameStreamDataResponse(gameId).streamApiData.sortedBy { it.streamerId }
-
-            if(gameStreamList.isEmpty()) {
-                return@runCatching emptyList()
-            }
-
-            val streamerInfoList = remoteDataSource
-                .getStreamerDataResponse(streamerId = gameStreamList.map { it.streamerId }.toTypedArray())
-                .streamerApiDataList.sortedBy { it.streamerId }
-
-            return@runCatching gameStreamList.zip(streamerInfoList).sortedByDescending { it.first.viewerCount }.map {
-                it.first.toStreamData(it.second.profileImageUrl,RecommendStreamThumbNailWidth, RecommendStreamThumbNailHeight)
-            }
-        }
-    }
-
     override suspend fun getSearchStreamerData(streamerId: String): Result<SearchData> {
         return runCatching {
             remoteDataSource

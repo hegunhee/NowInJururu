@@ -5,13 +5,10 @@ import com.hegunhee.domain.model.kakao.KakaoSearchData
 import com.hegunhee.domain.model.kakao.KakaoSearchSortType
 import com.hegunhee.domain.model.kakao.KakaoSearchType
 import com.hegunhee.domain.model.twitch.SearchData
-import com.hegunhee.domain.model.twitch.StreamDataType
 import com.hegunhee.domain.model.twitch.StreamerData
 import kotlinx.coroutines.flow.Flow
 
 interface Repository {
-
-    suspend fun getGameStreamDataList(gameId : String) : Result<List<StreamDataType.OnlineData>>
 
     suspend fun getSearchStreamerData(streamerId : String) : Result<SearchData>
 
