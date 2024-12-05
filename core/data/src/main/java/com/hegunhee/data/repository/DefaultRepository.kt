@@ -4,12 +4,10 @@ import androidx.paging.PagingData
 import androidx.paging.filter
 import com.hegunhee.data.dataSource.local.LocalDataSource
 import com.hegunhee.data.dataSource.remote.RemoteDataSource
-import com.hegunhee.data.mapper.toStreamerEntity
 import com.hegunhee.domain.model.kakao.KakaoSearchData
 import com.hegunhee.domain.model.kakao.KakaoSearchSortType
 import com.hegunhee.domain.model.kakao.KakaoSearchType
 import com.hegunhee.domain.model.twitch.SearchData
-import com.hegunhee.domain.model.twitch.StreamerData
 import com.hegunhee.domain.repository.Repository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -19,18 +17,6 @@ class DefaultRepository @Inject constructor(
     private val remoteDataSource: RemoteDataSource,
     private val localDataSource : LocalDataSource
 ) : Repository {
-
-    override suspend fun insertStreamer(streamerData: StreamerData) : Result<Unit> {
-        return runCatching {
-            localDataSource.insertStreamer(streamerData.toStreamerEntity())
-        }
-    }
-
-    override suspend fun deleteStreamer(streamerData: StreamerData): Result<Unit> {
-        return kotlin.runCatching {
-            localDataSource.deleteStreamer(streamerData.toStreamerEntity())
-        }
-    }
 
     override suspend fun searchPagingSource(streamerName: String,size : Int): Flow<PagingData<SearchData>> {
         return remoteDataSource

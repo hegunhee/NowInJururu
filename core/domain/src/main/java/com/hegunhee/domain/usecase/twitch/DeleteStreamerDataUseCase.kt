@@ -2,12 +2,13 @@ package com.hegunhee.domain.usecase.twitch
 
 import com.hegunhee.domain.model.twitch.StreamerData
 import com.hegunhee.domain.repository.Repository
+import com.hegunhee.domain.repository.twitch.TwitchUpdateStreamerRepository
 import javax.inject.Inject
 
-class DeleteStreamerDataUseCase @Inject constructor(private val repository: Repository){
+class DeleteStreamerDataUseCase @Inject constructor(private val twitchUpdateStreamerRepository: TwitchUpdateStreamerRepository){
 
     suspend operator fun invoke(streamerData: StreamerData) : Result<Unit>{
-        return repository.deleteStreamer(streamerData)
+        return twitchUpdateStreamerRepository.deleteStreamer(streamerData)
     }
     
 }
