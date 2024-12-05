@@ -1,7 +1,6 @@
 package com.hegunhee.data.repository.kakao
 
 import androidx.paging.PagingData
-import com.hegunhee.data.dataSource.local.LocalDataSource
 import com.hegunhee.data.dataSource.remote.RemoteDataSource
 import com.hegunhee.domain.model.kakao.KakaoSearchData
 import com.hegunhee.domain.model.kakao.KakaoSearchSortType
@@ -26,9 +25,6 @@ class SearchPagingDataTest {
 
     @Mock
     private lateinit var remoteDataSource: RemoteDataSource
-
-    @Mock
-    private lateinit var localDataSource: LocalDataSource
 
     @Test
     fun givenPagerInfo_whenSearchPagingData_thenReturnPagingData() {

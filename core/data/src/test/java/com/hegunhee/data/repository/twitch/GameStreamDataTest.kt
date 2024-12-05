@@ -4,7 +4,6 @@ import com.hegunhee.data.data.json.twitch.StreamApiData
 import com.hegunhee.data.data.json.twitch.StreamApiDataResponse
 import com.hegunhee.data.data.json.twitch.StreamerApiData
 import com.hegunhee.data.data.json.twitch.StreamerApiDataResponse
-import com.hegunhee.data.dataSource.local.LocalDataSource
 import com.hegunhee.data.dataSource.remote.RemoteDataSource
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertTrue
@@ -24,9 +23,6 @@ class GameStreamDataTest {
 
     @Mock
     private lateinit var remoteDataSource: RemoteDataSource
-
-    @Mock
-    private lateinit var localDataSource: LocalDataSource
 
     @Test
     fun givenEmptyGameId_whenGetStreamData_thenReturnEmptyList() {

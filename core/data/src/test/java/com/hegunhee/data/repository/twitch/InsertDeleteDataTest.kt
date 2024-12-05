@@ -1,7 +1,6 @@
 package com.hegunhee.data.repository.twitch
 
 import com.hegunhee.data.dataSource.local.LocalDataSource
-import com.hegunhee.data.dataSource.remote.RemoteDataSource
 import com.hegunhee.data.mapper.toStreamerEntity
 import com.hegunhee.domain.model.twitch.StreamerData
 import kotlinx.coroutines.runBlocking
@@ -19,9 +18,6 @@ class InsertDeleteDataTest {
 
     @InjectMocks
     private lateinit var sut: DefaultTwitchUpdateStreamerRepository
-
-    @Mock
-    private lateinit var remoteDataSource: RemoteDataSource
 
     @Mock
     private lateinit var localDataSource: LocalDataSource
