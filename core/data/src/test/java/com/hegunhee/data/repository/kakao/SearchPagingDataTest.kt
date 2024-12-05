@@ -55,6 +55,7 @@ class SearchPagingDataTest {
 
             // Then
             assertTrue(pagingData.count() == 1)
+
             verify(remoteDataSource).getKakaoSearchPagingData(query, sortType, searchType, size)
         }
     }

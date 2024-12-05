@@ -31,16 +31,18 @@ class InsertDeleteDataTest {
     fun given_whenInsertStreamerData_thenInsertStreamerData() {
         runBlocking {
             // Given
-            val streamerData = StreamerData("cotton__123",false)
-            whenever(localDataSource.insertStreamer(streamerData.toStreamerEntity())).thenReturn(Unit)
+            val streamerData = StreamerData("cotton__123", false)
+            whenever(localDataSource.insertStreamer(streamerData.toStreamerEntity())).thenReturn(
+                Unit
+            )
 
             // When
             val insertResponse = sut.insertStreamer(streamerData).getOrThrow()
 
             // Then
-            assertEquals(insertResponse,Unit)
-            verify(localDataSource).insertStreamer(streamerData.toStreamerEntity())
+            assertEquals(insertResponse, Unit)
 
+            verify(localDataSource).insertStreamer(streamerData.toStreamerEntity())
         }
     }
 
@@ -48,14 +50,17 @@ class InsertDeleteDataTest {
     fun given_whenDeleteStreamerData_thenDeleteStreamerData() {
         runBlocking {
             // Given
-            val streamerData = StreamerData("cotton__123",false)
-            whenever(localDataSource.deleteStreamer(streamerData.toStreamerEntity())).thenReturn(Unit)
+            val streamerData = StreamerData("cotton__123", false)
+            whenever(localDataSource.deleteStreamer(streamerData.toStreamerEntity())).thenReturn(
+                Unit
+            )
 
             // When
             val deleteResponse = sut.deleteStreamer(streamerData).getOrThrow()
 
             // Then
-            assertEquals(deleteResponse,Unit)
+            assertEquals(deleteResponse, Unit)
+
             verify(localDataSource).deleteStreamer(streamerData.toStreamerEntity())
         }
     }

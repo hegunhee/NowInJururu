@@ -33,13 +33,15 @@ class SearchDataTest {
         runBlocking {
             // Given
             val streamerId = "cotton__123"
-            whenever(remoteDataSource.getSearchDataResponse(streamerId)).thenReturn(createSearchApiDataResponse(streamerId))
+            whenever(remoteDataSource.getSearchDataResponse(streamerId)).thenReturn(
+                createSearchApiDataResponse(streamerId)
+            )
 
             // When
             val searchData = sut.getSearchStreamerData(streamerId).getOrThrow()
 
             // Then
-            assertEquals(searchData.streamerId,streamerId)
+            assertEquals(searchData.streamerId, streamerId)
 
             verify(remoteDataSource).getSearchDataResponse(streamerId)
         }
@@ -50,7 +52,9 @@ class SearchDataTest {
         runBlocking {
             // Given
             val streamerId = "cotton__123"
-            whenever(remoteDataSource.getSearchDataResponse(streamerId)).thenReturn(createSearchApiDataResponse(streamerId))
+            whenever(remoteDataSource.getSearchDataResponse(streamerId)).thenReturn(
+                createSearchApiDataResponse(streamerId)
+            )
             whenever(localDataSource.getAllStreamerList()).thenReturn(listOf())
 
             // When

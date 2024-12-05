@@ -5,7 +5,6 @@ import com.hegunhee.data.dataSource.local.LocalDataSource
 import com.hegunhee.data.dataSource.remote.RemoteDataSource
 import com.hegunhee.data.repository.DefaultRepository
 import com.hegunhee.domain.model.twitch.SearchData
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.count
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.runBlocking
@@ -36,15 +35,18 @@ class SearchPagingDataTest {
             // Given
             val streamerName = "주르르"
             val size = 20
-            whenever(remoteDataSource.getSearchPagingDataResponse(streamerName,size)).thenReturn(flowOf(createPagingData(streamerName)))
+            whenever(remoteDataSource.getSearchPagingDataResponse(streamerName, size)).thenReturn(
+                flowOf(createPagingData(streamerName))
+            )
             whenever(localDataSource.getAllStreamerList()).thenReturn(emptyList())
 
             // When
-            val pagingData = sut.searchPagingSource(streamerName,size)
+            val pagingData = sut.searchPagingSource(streamerName, size)
 
             // Then
             Assert.assertTrue(pagingData.count() == 1)
-            verify(remoteDataSource).getSearchPagingDataResponse(streamerName,size)
+
+            verify(remoteDataSource).getSearchPagingDataResponse(streamerName, size)
             verify(localDataSource).getAllStreamerList()
         }
     }
@@ -54,6 +56,6 @@ class SearchPagingDataTest {
     }
 
     private fun createSearchData(streamerName: String): SearchData {
-        return SearchData("",streamerName,"",false, emptyList(),"","")
+        return SearchData("", streamerName, "", false, emptyList(), "", "")
     }
 }

@@ -8,7 +8,6 @@ import com.hegunhee.data.dataSource.local.LocalDataSource
 import com.hegunhee.data.dataSource.remote.RemoteDataSource
 import com.hegunhee.data.repository.DefaultRepository
 import kotlinx.coroutines.runBlocking
-import org.junit.Assert
 import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -35,13 +34,16 @@ class GameStreamDataTest {
         runBlocking {
             // Given
             val gameId = ""
-            whenever(remoteDataSource.getGameStreamDataResponse(gameId)).thenReturn(StreamApiDataResponse(listOf(),null))
+            whenever(remoteDataSource.getGameStreamDataResponse(gameId)).thenReturn(
+                StreamApiDataResponse(listOf(), null)
+            )
 
             // When
             val gameStreamDataList = sut.getGameStreamDataList(gameId).getOrThrow()
 
             // Then
             assertTrue(gameStreamDataList.isEmpty())
+
             verify(remoteDataSource).getGameStreamDataResponse(gameId)
         }
     }
@@ -51,8 +53,12 @@ class GameStreamDataTest {
         runBlocking {
             // Given
             val gameId = "17767"
-            whenever(remoteDataSource.getGameStreamDataResponse(gameId)).thenReturn(gameStreamDataResponse(gameId))
-            whenever(remoteDataSource.getStreamerDataResponse("")).thenReturn(streamerApiDataResponse(streamerId = ""))
+            whenever(remoteDataSource.getGameStreamDataResponse(gameId)).thenReturn(
+                createGameStreamDataResponse(gameId)
+            )
+            whenever(remoteDataSource.getStreamerDataResponse("")).thenReturn(
+                createStreamerApiDataResponse(streamerId = "")
+            )
 
             // When
             val gameStreamDataList = sut.getGameStreamDataList(gameId).getOrThrow()
@@ -66,7 +72,7 @@ class GameStreamDataTest {
         }
     }
 
-    private fun gameStreamDataResponse(gameId: String): StreamApiDataResponse {
+    private fun createGameStreamDataResponse(gameId: String): StreamApiDataResponse {
         return StreamApiDataResponse(
             listOf(
                 StreamApiData(
@@ -78,7 +84,7 @@ class GameStreamDataTest {
         )
     }
 
-    private fun streamerApiDataResponse(streamerId: String): StreamerApiDataResponse {
+    private fun createStreamerApiDataResponse(streamerId: String): StreamerApiDataResponse {
         return StreamerApiDataResponse(
             listOf(
                 StreamerApiData(

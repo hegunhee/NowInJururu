@@ -37,15 +37,20 @@ class StreamDataTest {
         runBlocking {
             // Given
             val streamerId = "cotton__123"
-            whenever(remoteDataSource.getStreamerDataResponse(*arrayOf(streamerId))).thenReturn(streamerApiDataResponse(streamerId))
-            whenever(remoteDataSource.getStreamDataResponse(streamerId)).thenReturn(streamApiDataResponse(streamerId))
+            whenever(remoteDataSource.getStreamerDataResponse(*arrayOf(streamerId))).thenReturn(
+                streamerApiDataResponse(streamerId)
+            )
+            whenever(remoteDataSource.getStreamDataResponse(streamerId)).thenReturn(
+                streamApiDataResponse(streamerId)
+            )
 
             // When
             val streamData = sut.getStreamData(streamerId).getOrThrow()
 
             // Then
             streamData as StreamDataType.OnlineData
-            assertEquals(streamData.streamerId,streamerId)
+            assertEquals(streamData.streamerId, streamerId)
+
             verify(remoteDataSource).getStreamerDataResponse(*arrayOf(streamerId))
             verify(remoteDataSource).getStreamDataResponse(streamerId)
         }
@@ -56,8 +61,12 @@ class StreamDataTest {
         runBlocking {
             // Given
             val streamerId = "cotton__123"
-            whenever(remoteDataSource.getStreamerDataResponse(*arrayOf(streamerId))).thenReturn(streamerApiDataResponse(streamerId))
-            whenever(remoteDataSource.getStreamDataResponse(streamerId)).thenReturn(emptyStreamApiDataResponse(streamerId))
+            whenever(remoteDataSource.getStreamerDataResponse(*arrayOf(streamerId))).thenReturn(
+                streamerApiDataResponse(streamerId)
+            )
+            whenever(remoteDataSource.getStreamDataResponse(streamerId)).thenReturn(
+                emptyStreamApiDataResponse(streamerId)
+            )
 
             // When
             val streamData = sut.getStreamData(streamerId).getOrThrow()
@@ -65,10 +74,10 @@ class StreamDataTest {
             // Then
             streamData as StreamDataType.OfflineData
 
-            assertEquals(streamData.streamerId,streamerId)
+            assertEquals(streamData.streamerId, streamerId)
+
             verify(remoteDataSource).getStreamerDataResponse(*arrayOf(streamerId))
             verify(remoteDataSource).getStreamDataResponse(streamerId)
-
         }
     }
 
@@ -83,6 +92,7 @@ class StreamDataTest {
 
             // Then
             assertTrue(streamDataList.isEmpty())
+
             verify(localDataSource).getAllStreamerList()
         }
     }
@@ -92,10 +102,12 @@ class StreamDataTest {
         runBlocking {
             // Given
             val streamerId = "cotton__123"
-            val streamerEntityList = listOf(StreamerEntity(streamerId,false))
+            val streamerEntityList = listOf(StreamerEntity(streamerId, false))
             whenever(localDataSource.getAllStreamerList()).thenReturn(streamerEntityList)
-            whenever(remoteDataSource.getStreamerDataResponse(streamerId = streamerEntityList.map { it.streamerLogin }.toTypedArray())).thenReturn(streamerApiDataResponse(streamerId))
-            whenever(remoteDataSource.getStreamDataListResponse(streamerId = streamerEntityList.map { it.streamerLogin }.toTypedArray())).thenReturn(streamApiDataResponse(streamerId))
+            whenever(remoteDataSource.getStreamerDataResponse(streamerId = streamerEntityList.map { it.streamerLogin }
+                .toTypedArray())).thenReturn(streamerApiDataResponse(streamerId))
+            whenever(remoteDataSource.getStreamDataListResponse(streamerId = streamerEntityList.map { it.streamerLogin }
+                .toTypedArray())).thenReturn(streamApiDataResponse(streamerId))
 
             // When
             val streamerDataList = sut.getStreamDataList().getOrThrow()
@@ -115,18 +127,34 @@ class StreamDataTest {
     }
 
     private fun streamerApiData(streamerId: String): StreamerApiData {
-        return StreamerApiData("",streamerId,"","","","","","",0,"")
+        return StreamerApiData("", streamerId, "", "", "", "", "", "", 0, "")
     }
 
     private fun streamApiDataResponse(streamerId: String): StreamApiDataResponse {
         return StreamApiDataResponse(listOf(streamApiData(streamerId)), pagination = null)
     }
 
-    private fun streamApiData(streamerId: String) : StreamApiData {
-        return StreamApiData("","","",false,"","", emptyList(), emptyList(),"","","","",streamerId,"",0)
+    private fun streamApiData(streamerId: String): StreamApiData {
+        return StreamApiData(
+            "",
+            "",
+            "",
+            false,
+            "",
+            "",
+            emptyList(),
+            emptyList(),
+            "",
+            "",
+            "",
+            "",
+            streamerId,
+            "",
+            0
+        )
     }
 
     private fun emptyStreamApiDataResponse(streamerId: String): StreamApiDataResponse {
-        return StreamApiDataResponse(listOf(),null)
+        return StreamApiDataResponse(listOf(), null)
     }
 }
