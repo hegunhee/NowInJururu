@@ -2,11 +2,13 @@ package com.hegunhee.data.di
 
 import com.hegunhee.data.repository.DefaultRepository
 import com.hegunhee.data.repository.twitch.DefaultTwitchGameStreamRepository
+import com.hegunhee.data.repository.twitch.DefaultTwitchPagingRepository
 import com.hegunhee.data.repository.twitch.DefaultTwitchSearchStreamerRepository
 import com.hegunhee.data.repository.twitch.DefaultTwitchStreamRepository
 import com.hegunhee.data.repository.twitch.DefaultTwitchUpdateStreamerRepository
 import com.hegunhee.domain.repository.Repository
 import com.hegunhee.domain.repository.twitch.TwitchGameStreamRepository
+import com.hegunhee.domain.repository.twitch.TwitchPagingRepository
 import com.hegunhee.domain.repository.twitch.TwitchSearchStreamerRepository
 import com.hegunhee.domain.repository.twitch.TwitchStreamRepository
 import com.hegunhee.domain.repository.twitch.TwitchUpdateStreamerRepository
@@ -34,10 +36,13 @@ abstract class RepositoryModule {
 
     @Binds
     @Singleton
-    abstract fun provideTwitchSearchStreamerDataRepository(defaultTwitchSearchStreamerRepository: DefaultTwitchSearchStreamerRepository) : TwitchSearchStreamerRepository
+    abstract fun provideTwitchSearchStreamerDataRepository(defaultTwitchSearchStreamerRepository: DefaultTwitchSearchStreamerRepository): TwitchSearchStreamerRepository
 
     @Binds
     @Singleton
     abstract fun provideTwitchUpdateStreamerRepository(defaultTwitchUpdateStreamerRepository: DefaultTwitchUpdateStreamerRepository): TwitchUpdateStreamerRepository
 
+    @Binds
+    @Singleton
+    abstract fun provideTwitchPagingRepository(defaultTwitchPagingRepository: DefaultTwitchPagingRepository): TwitchPagingRepository
 }

@@ -21,7 +21,7 @@ import org.mockito.kotlin.whenever
 class SearchPagingDataTest {
 
     @InjectMocks
-    private lateinit var sut: DefaultRepository
+    private lateinit var sut: DefaultTwitchPagingRepository
 
     @Mock
     private lateinit var remoteDataSource: RemoteDataSource
@@ -41,7 +41,7 @@ class SearchPagingDataTest {
             whenever(localDataSource.getAllStreamerList()).thenReturn(emptyList())
 
             // When
-            val pagingData = sut.searchPagingSource(streamerName, size)
+            val pagingData = sut.getSearchPagingSource(streamerName, size)
 
             // Then
             Assert.assertTrue(pagingData.count() == 1)
