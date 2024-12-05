@@ -5,6 +5,10 @@ import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
 data class StreamApiDataResponse(
-    @Json(name = "data")val streamApiData: List<StreamApiData> = emptyList(),
-    @Json(name = "pagination")val pagination: Pagination?
-)
+    @Json(name = "data") val streamApiData: List<StreamApiData> = emptyList(),
+    @Json(name = "pagination") val pagination: Pagination?
+) {
+    fun isEmpty(): Boolean {
+        return streamApiData.isEmpty()
+    }
+}

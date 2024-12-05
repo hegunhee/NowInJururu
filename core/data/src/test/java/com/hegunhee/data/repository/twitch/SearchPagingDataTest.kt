@@ -3,7 +3,6 @@ package com.hegunhee.data.repository.twitch
 import androidx.paging.PagingData
 import com.hegunhee.data.dataSource.local.LocalDataSource
 import com.hegunhee.data.dataSource.remote.RemoteDataSource
-import com.hegunhee.data.repository.DefaultRepository
 import com.hegunhee.domain.model.twitch.SearchData
 import kotlinx.coroutines.flow.count
 import kotlinx.coroutines.flow.flowOf
@@ -21,7 +20,7 @@ import org.mockito.kotlin.whenever
 class SearchPagingDataTest {
 
     @InjectMocks
-    private lateinit var sut: DefaultRepository
+    private lateinit var sut: DefaultTwitchPagingRepository
 
     @Mock
     private lateinit var remoteDataSource: RemoteDataSource
@@ -41,7 +40,7 @@ class SearchPagingDataTest {
             whenever(localDataSource.getAllStreamerList()).thenReturn(emptyList())
 
             // When
-            val pagingData = sut.searchPagingSource(streamerName, size)
+            val pagingData = sut.getSearchPagingSource(streamerName, size)
 
             // Then
             Assert.assertTrue(pagingData.count() == 1)

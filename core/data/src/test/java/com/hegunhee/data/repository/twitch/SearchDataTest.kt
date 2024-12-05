@@ -4,7 +4,6 @@ import com.hegunhee.data.data.json.twitch.SearchApiData
 import com.hegunhee.data.data.json.twitch.SearchApiDataResponse
 import com.hegunhee.data.dataSource.local.LocalDataSource
 import com.hegunhee.data.dataSource.remote.RemoteDataSource
-import com.hegunhee.data.repository.DefaultRepository
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
@@ -20,7 +19,7 @@ import org.mockito.kotlin.whenever
 class SearchDataTest {
 
     @InjectMocks
-    private lateinit var sut: DefaultRepository
+    private lateinit var sut: DefaultTwitchSearchStreamerRepository
 
     @Mock
     private lateinit var remoteDataSource: RemoteDataSource

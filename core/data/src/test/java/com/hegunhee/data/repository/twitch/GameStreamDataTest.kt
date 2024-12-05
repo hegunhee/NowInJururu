@@ -4,9 +4,7 @@ import com.hegunhee.data.data.json.twitch.StreamApiData
 import com.hegunhee.data.data.json.twitch.StreamApiDataResponse
 import com.hegunhee.data.data.json.twitch.StreamerApiData
 import com.hegunhee.data.data.json.twitch.StreamerApiDataResponse
-import com.hegunhee.data.dataSource.local.LocalDataSource
 import com.hegunhee.data.dataSource.remote.RemoteDataSource
-import com.hegunhee.data.repository.DefaultRepository
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertTrue
 import org.junit.Test
@@ -21,13 +19,10 @@ import org.mockito.kotlin.whenever
 class GameStreamDataTest {
 
     @InjectMocks
-    private lateinit var sut: DefaultRepository
+    private lateinit var sut: DefaultTwitchGameStreamRepository
 
     @Mock
     private lateinit var remoteDataSource: RemoteDataSource
-
-    @Mock
-    private lateinit var localDataSource: LocalDataSource
 
     @Test
     fun givenEmptyGameId_whenGetStreamData_thenReturnEmptyList() {
