@@ -31,11 +31,15 @@ class DefaultRepository @Inject constructor(
 
     override suspend fun getStreamData(streamerId: String): Result<StreamDataType> {
         return runCatching {
-            val streamerInfo = remoteDataSource.getStreamerDataResponse(streamerId = arrayOf(streamerId)).streamerApiDataList[0]
+            val streamerInfo = remoteDataSource
+                .getStreamerDataResponse(streamerId = arrayOf(streamerId))
+                .findByStreamerId(streamerId)
+
             val streamData = remoteDataSource.getStreamDataResponse(streamerId = streamerInfo.streamerId)
-            if(streamData.streamApiData.isEmpty()){
+
+            if (streamData.isEmpty()) {
                 streamerInfo.toOfflineData()
-            }else{
+            } else {
                 streamData.streamApiData[0].toStreamData(streamerInfo.profileImageUrl)
             }
         }
@@ -44,11 +48,15 @@ class DefaultRepository @Inject constructor(
     override suspend fun getStreamDataList(): Result<List<StreamDataType>> {
         return runCatching {
             val loadedStreamerLoginArray = localDataSource.getAllStreamerList().map { it.streamerLogin }.toTypedArray()
-            if(loadedStreamerLoginArray.isEmpty()){
+
+            if (loadedStreamerLoginArray.isEmpty()) {
                 return@runCatching emptyList<StreamDataType>()
             }
+
             val streamerInfoList = remoteDataSource.getStreamerDataResponse(streamerId = loadedStreamerLoginArray).streamerApiDataList
-            val streamInfoList = remoteDataSource.getStreamDataListResponse(streamerId = loadedStreamerLoginArray).streamApiData
+            val streamInfoList =
+                remoteDataSource.getStreamDataListResponse(streamerId = loadedStreamerLoginArray).streamApiData
+
             streamerInfoList.map { streamerInfo ->
                 val streamDataOrNull = streamInfoList.find { it.streamerId == streamerInfo.streamerId }
                 return@map streamDataOrNull?.toStreamData(streamerInfo.profileImageUrl) ?: streamerInfo.toOfflineData()
@@ -59,10 +67,13 @@ class DefaultRepository @Inject constructor(
     override suspend fun getGameStreamDataList(gameId: String): Result<List<StreamDataType.OnlineData>> {
         return runCatching {
             val gameStreamList = remoteDataSource.getGameStreamDataResponse(gameId).streamApiData.sortedBy { it.streamerId }
+
             if(gameStreamList.isEmpty()) {
                 return@runCatching emptyList<StreamDataType.OnlineData>()
             }
+
             val streamerInfoList = remoteDataSource.getStreamerDataResponse(streamerId = gameStreamList.map { it.streamerId }.toTypedArray()).streamerApiDataList.sortedBy { it.streamerId }
+
             return@runCatching gameStreamList.zip(streamerInfoList).sortedByDescending { it.first.viewerCount }.map {
                 it.first.toStreamData(it.second.profileImageUrl,RecommendStreamThumbNailWidth, RecommendStreamThumbNailHeight)
             }
