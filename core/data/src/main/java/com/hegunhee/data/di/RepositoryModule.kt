@@ -2,9 +2,11 @@ package com.hegunhee.data.di
 
 import com.hegunhee.data.repository.DefaultRepository
 import com.hegunhee.data.repository.twitch.DefaultTwitchGameStreamRepository
+import com.hegunhee.data.repository.twitch.DefaultTwitchSearchStreamerRepository
 import com.hegunhee.data.repository.twitch.DefaultTwitchStreamRepository
 import com.hegunhee.domain.repository.Repository
 import com.hegunhee.domain.repository.twitch.TwitchGameStreamRepository
+import com.hegunhee.domain.repository.twitch.TwitchSearchStreamerRepository
 import com.hegunhee.domain.repository.twitch.TwitchStreamRepository
 import dagger.Binds
 import dagger.Module
@@ -27,4 +29,8 @@ abstract class RepositoryModule {
     @Binds
     @Singleton
     abstract fun provideTwitchGameStreamRepository(defaultTwitchGameStreamRepository: DefaultTwitchGameStreamRepository): TwitchGameStreamRepository
+
+    @Binds
+    @Singleton
+    abstract fun provideTwitchSearchStreamerDataRepository(defaultTwitchSearchStreamerRepository: DefaultTwitchSearchStreamerRepository) : TwitchSearchStreamerRepository
 }

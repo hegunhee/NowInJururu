@@ -10,10 +10,6 @@ import kotlinx.coroutines.flow.Flow
 
 interface Repository {
 
-    suspend fun getSearchStreamerData(streamerId : String) : Result<SearchData>
-
-    suspend fun getSearchStreamerDataList(streamerId : String) : Result<List<SearchData>>
-
     suspend fun insertStreamer(streamerData: StreamerData) : Result<Unit>
 
     suspend fun deleteStreamer(streamerData: StreamerData) : Result<Unit>

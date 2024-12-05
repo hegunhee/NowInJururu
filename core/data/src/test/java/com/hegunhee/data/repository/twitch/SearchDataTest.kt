@@ -20,7 +20,7 @@ import org.mockito.kotlin.whenever
 class SearchDataTest {
 
     @InjectMocks
-    private lateinit var sut: DefaultRepository
+    private lateinit var sut: DefaultTwitchSearchStreamerRepository
 
     @Mock
     private lateinit var remoteDataSource: RemoteDataSource
