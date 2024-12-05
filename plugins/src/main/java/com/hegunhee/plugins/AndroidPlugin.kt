@@ -34,6 +34,7 @@ class AndroidPlugin : Plugin<Project> {
                 add("androidTestImplementation",libs.findLibrary("test-core").get())
                 add("androidTestImplementation",libs.findLibrary("ext-junit").get())
                 add("androidTestImplementation",libs.findLibrary("espresso-core").get())
+                add("testImplementation",libs.findLibrary("mockito-kotlin").get())
             }
         }
     }
