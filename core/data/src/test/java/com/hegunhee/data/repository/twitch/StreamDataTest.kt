@@ -6,10 +6,12 @@ import com.hegunhee.data.data.json.twitch.StreamerApiData
 import com.hegunhee.data.data.json.twitch.StreamerApiDataResponse
 import com.hegunhee.data.dataSource.local.LocalDataSource
 import com.hegunhee.data.dataSource.remote.RemoteDataSource
+import com.hegunhee.data.database.entity.StreamerEntity
 import com.hegunhee.data.repository.DefaultRepository
 import com.hegunhee.domain.model.twitch.StreamDataType
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.InjectMocks
@@ -67,6 +69,44 @@ class StreamDataTest {
             verify(remoteDataSource).getStreamerDataResponse(*arrayOf(streamerId))
             verify(remoteDataSource).getStreamDataResponse(streamerId)
 
+        }
+    }
+
+    @Test
+    fun givenEmptyStreamerId_whenGetStreamDataList_thenReturnEmptyList() {
+        runBlocking {
+            // Given
+            whenever(localDataSource.getAllStreamerList()).thenReturn(emptyList())
+
+            // When
+            val streamDataList = sut.getStreamDataList().getOrThrow()
+
+            // Then
+            assertTrue(streamDataList.isEmpty())
+            verify(localDataSource).getAllStreamerList()
+        }
+    }
+
+    @Test
+    fun givenStreamEntityList_whenGetStreamDataList_thenReturnStreamDataList() {
+        runBlocking {
+            // Given
+            val streamerId = "cotton__123"
+            val streamerEntityList = listOf(StreamerEntity(streamerId,false))
+            whenever(localDataSource.getAllStreamerList()).thenReturn(streamerEntityList)
+            whenever(remoteDataSource.getStreamerDataResponse(streamerId = streamerEntityList.map { it.streamerLogin }.toTypedArray())).thenReturn(streamerApiDataResponse(streamerId))
+            whenever(remoteDataSource.getStreamDataListResponse(streamerId = streamerEntityList.map { it.streamerLogin }.toTypedArray())).thenReturn(streamApiDataResponse(streamerId))
+
+            // When
+            val streamerDataList = sut.getStreamDataList().getOrThrow()
+
+            // Then
+            assertTrue(streamerDataList.isNotEmpty())
+            assertTrue(streamerDataList.size == 1)
+
+            verify(localDataSource).getAllStreamerList()
+            verify(remoteDataSource).getStreamDataListResponse(streamerId)
+            verify(remoteDataSource).getStreamDataListResponse(streamerId)
         }
     }
 
