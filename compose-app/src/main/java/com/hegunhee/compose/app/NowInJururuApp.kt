@@ -17,8 +17,8 @@ import androidx.navigation.compose.rememberNavController
 import com.hegunhee.compose.app.ui.theme.NowInJururuTheme
 import com.hegunhee.compose.search.searchNavGraph
 import com.hegunhee.compose.streamer.streamerNavGraph
-import com.hegunhee.maplefinder.searchkakao.SearchKakaoNavGraph
-import com.hegunhee.maplefinder.searchkakao.searchKakaoNavGraph
+import com.hegunhee.maplefinder.searchkakao.navigation.SEARCH_KAKAO_ROUTE
+import com.hegunhee.maplefinder.searchkakao.navigation.searchKakaoNavGraph
 import com.hegunhee.resource_common.R
 import kotlinx.coroutines.CoroutineScope
 
@@ -29,7 +29,7 @@ fun NowInJururuApp(
 ) {
     NowInJururuTheme() {
         Scaffold(bottomBar = { JururuBottomNavigation(backStackEntry = jururuAppScaffoldState.navController.currentBackStackEntryAsState(), onBottomClick = jururuAppScaffoldState::navigateBottomNavigation)}) { paddingValues ->
-            NavHost(navController = jururuAppScaffoldState.navController, startDestination = SearchKakaoNavGraph.searchKakaoRoute){
+            NavHost(navController = jururuAppScaffoldState.navController, startDestination = SEARCH_KAKAO_ROUTE){
                 searchKakaoNavGraph(
                     paddingValues =  paddingValues
                 )
