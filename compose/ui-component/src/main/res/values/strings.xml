@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="jururu">주르르</string>
+    <string name="kakao_search">카카오 검색</string>
     <string name="streamer">스트리머</string>
     <string name="search">검색</string>
 </resources>
