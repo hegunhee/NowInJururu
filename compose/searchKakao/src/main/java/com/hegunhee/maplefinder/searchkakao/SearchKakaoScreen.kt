@@ -1,6 +1,5 @@
 package com.hegunhee.maplefinder.searchkakao
 
-import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -44,16 +43,12 @@ fun SearchKakaoScreenRoot(
 ) {
     val context = LocalContext.current
     val (searchQuery, onQueryChanged) = remember { mutableStateOf("") }
-    val onClickSearch = { str : String->
-        Toast.makeText(context, str, Toast.LENGTH_SHORT).show()
-    }
     SearchKakaoScreen(
         paddingValues,
         uiState = viewModel.uiState.value,
         searchQuery,
         onAction = viewModel::onAction,
         onQueryChanged,
-        onClickSearch,
     )
     LaunchedEffect(key1 = viewModel.deepLink) {
         viewModel.deepLink.collect{
@@ -67,17 +62,16 @@ private fun SearchKakaoScreen(
     paddingValues: PaddingValues,
     uiState : SearchKakaoUiState,
     searchQuery: String,
-    onAction : (SearchUiEvent) -> Unit,
+    onAction : (SearchKakaoUiEvent) -> Unit,
     onQueryChanged: (String) -> Unit,
-    onClickSearch: (String) -> Unit,
 ) {
     Column(
         modifier = Modifier
             .fillMaxSize()
             .padding(paddingValues)
     ) {
-        ScreenHeaderText(text = "주르르")
-        SearchBar(Modifier, searchQuery, onQueryChanged, onClickSearch)
+        ScreenHeaderText(text = "카카오 검색")
+        SearchBar(Modifier, searchQuery, onQueryChanged, { onAction(SearchKakaoUiEvent.Search(query = searchQuery))})
         SearchTypeButtons(onSearchSortTypeClick = onAction)
         when(uiState) {
             is SearchKakaoUiState.Loading -> {}
@@ -105,16 +99,16 @@ private fun SearchKakaoScreen(
 
 @Composable
 private fun SearchTypeButtons(
-    onSearchSortTypeClick : (SearchUiEvent) -> Unit
+    onSearchSortTypeClick : (SearchKakaoUiEvent) -> Unit
 ) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
     ) {
-        Button(onClick = { onSearchSortTypeClick(SearchUiEvent.SearchUiAccuracy) }) {
+        Button(onClick = { onSearchSortTypeClick(SearchKakaoUiEvent.SearchTypeAccuracy) }) {
             Text("기본 검색")
         }
-        Button(onClick = { onSearchSortTypeClick(SearchUiEvent.SearchUiAccuracy)}) {
+        Button(onClick = { onSearchSortTypeClick(SearchKakaoUiEvent.SearchTypeAccuracy)}) {
             Text("최신순")
         }
     }
@@ -123,7 +117,7 @@ private fun SearchTypeButtons(
 @Composable
 private fun KakaoSearchItem(
     kakaoSearchData: KakaoSearchData,
-    onAction: (SearchUiEvent) -> Unit
+    onAction: (SearchKakaoUiEvent) -> Unit
 ) {
     when(kakaoSearchData) {
         is KakaoSearchData.Image -> {
@@ -150,12 +144,12 @@ private fun KakaoSearchItem(
 @Composable
 private fun KakaoImage(
     kakaoImageData : KakaoSearchData.Image,
-    onAction: (SearchUiEvent) -> Unit
+    onAction: (SearchKakaoUiEvent) -> Unit
 ) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .clickable { onAction(SearchUiEvent.WebLinkClick(DeepLink.Kakao(kakaoImageData.url))) }
+            .clickable { onAction(SearchKakaoUiEvent.WebLinkClick(DeepLink.Kakao(kakaoImageData.url))) }
     ) {
         AsyncImage(
             model = kakaoImageData.imageUrl,
@@ -174,12 +168,12 @@ private fun KakaoImage(
 @Composable
 private fun KakaoVideo(
     kakaoVideoData : KakaoSearchData.Video,
-    onAction: (SearchUiEvent) -> Unit
+    onAction: (SearchKakaoUiEvent) -> Unit
 ) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .clickable { onAction(SearchUiEvent.WebLinkClick(DeepLink.Kakao(kakaoVideoData.url))) }
+            .clickable { onAction(SearchKakaoUiEvent.WebLinkClick(DeepLink.Kakao(kakaoVideoData.url))) }
     ) {
         AsyncImage(model = kakaoVideoData.thumbNailUrl, contentDescription = kakaoVideoData.thumbNailUrl,modifier = Modifier
             .fillMaxWidth()
@@ -193,12 +187,12 @@ private fun KakaoVideo(
 @Composable
 private fun KakaoWeb(
     kakaoWebData : KakaoSearchData.Web,
-    onAction: (SearchUiEvent) -> Unit
+    onAction: (SearchKakaoUiEvent) -> Unit
 ) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .clickable { onAction(SearchUiEvent.WebLinkClick(DeepLink.Kakao(kakaoWebData.url))) }
+            .clickable { onAction(SearchKakaoUiEvent.WebLinkClick(DeepLink.Kakao(kakaoWebData.url))) }
     ) {
         Text(text = kakaoWebData.getUrlDomain(), fontSize = 15.sp,color = Color.LightGray)
         Text(text = kakaoWebData.title.toHtmlText(),fontSize = 20.sp)
@@ -210,14 +204,14 @@ private fun KakaoWeb(
 
 @Composable
 private fun ShareImage(
-    onShareButtonClick: (SearchUiEvent) -> Unit,
+    onShareButtonClick: (SearchKakaoUiEvent) -> Unit,
     url : String,
     title : String
 ) {
     Image(painter = painterResource(id = R.drawable.ic_share_24),
         contentDescription = "공유하기",
         modifier = Modifier
-            .clickable { onShareButtonClick(SearchUiEvent.ShareClick(DeepLink.Share(url, title))) }
+            .clickable { onShareButtonClick(SearchKakaoUiEvent.ShareClick(DeepLink.Share(url, title))) }
             .size(30.dp)
     )
 }

@@ -9,6 +9,7 @@ sealed interface SearchKakaoUiState {
     object Loading : SearchKakaoUiState
 
     data class Success(
+        val query: String,
         val kakaoPagingData: Flow<PagingData<KakaoSearchData>>
     ) : SearchKakaoUiState
 
