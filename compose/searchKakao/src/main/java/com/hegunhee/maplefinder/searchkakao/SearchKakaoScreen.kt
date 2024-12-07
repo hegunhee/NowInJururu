@@ -1,5 +1,6 @@
 package com.hegunhee.maplefinder.searchkakao
 
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -16,6 +17,8 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
@@ -30,6 +33,7 @@ import com.hegunhee.domain.model.kakao.KakaoSearchData
 import com.hegunhee.nowinjururu.core.navigation.deeplink.DeepLink
 import com.hegunhee.nowinjururu.core.navigation.deeplink.handleDeepLink
 import com.hegunhee.resource_common.R
+import com.hegunhee.ui_component.item.SearchBar
 import com.hegunhee.ui_component.text.ScreenHeaderText
 import org.jsoup.Jsoup
 
@@ -38,12 +42,19 @@ fun SearchKakaoScreenRoot(
     paddingValues: PaddingValues,
     viewModel : SearchKakaoViewModel = hiltViewModel()
 ) {
+    val context = LocalContext.current
+    val (searchQuery, onQueryChanged) = remember { mutableStateOf("") }
+    val onClickSearch = { str : String->
+        Toast.makeText(context, str, Toast.LENGTH_SHORT).show()
+    }
     SearchKakaoScreen(
         paddingValues,
         uiState = viewModel.uiState.value,
-        onAction = viewModel::onAction
+        searchQuery,
+        onAction = viewModel::onAction,
+        onQueryChanged,
+        onClickSearch,
     )
-    val context = LocalContext.current
     LaunchedEffect(key1 = viewModel.deepLink) {
         viewModel.deepLink.collect{
             context.handleDeepLink(it)
@@ -55,7 +66,10 @@ fun SearchKakaoScreenRoot(
 private fun SearchKakaoScreen(
     paddingValues: PaddingValues,
     uiState : SearchKakaoUiState,
-    onAction : (SearchUiEvent) -> Unit
+    searchQuery: String,
+    onAction : (SearchUiEvent) -> Unit,
+    onQueryChanged: (String) -> Unit,
+    onClickSearch: (String) -> Unit,
 ) {
     Column(
         modifier = Modifier
@@ -63,6 +77,7 @@ private fun SearchKakaoScreen(
             .padding(paddingValues)
     ) {
         ScreenHeaderText(text = "주르르")
+        SearchBar(Modifier, searchQuery, onQueryChanged, onClickSearch)
         SearchTypeButtons(onSearchSortTypeClick = onAction)
         when(uiState) {
             is SearchKakaoUiState.Loading -> {}
@@ -202,7 +217,7 @@ private fun ShareImage(
     Image(painter = painterResource(id = R.drawable.ic_share_24),
         contentDescription = "공유하기",
         modifier = Modifier
-            .clickable { onShareButtonClick(SearchUiEvent.ShareClick(DeepLink.Share(url,title))) }
+            .clickable { onShareButtonClick(SearchUiEvent.ShareClick(DeepLink.Share(url, title))) }
             .size(30.dp)
     )
 }
