@@ -4,6 +4,13 @@ import androidx.paging.PagingData
 import com.hegunhee.domain.model.kakao.KakaoSearchData
 import kotlinx.coroutines.flow.Flow
 
-data class SearchUiState(
-    val kakaoPagingData : Flow<PagingData<KakaoSearchData>>?
-)
+sealed interface SearchKakaoUiState {
+
+    object Loading : SearchKakaoUiState
+
+    data class Success(
+        val kakaoPagingData: Flow<PagingData<KakaoSearchData>>
+    ) : SearchKakaoUiState
+
+    data class Error(val exception: Throwable) : SearchKakaoUiState
+}

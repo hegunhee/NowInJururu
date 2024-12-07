@@ -21,25 +21,25 @@ class SearchKakaoViewModel @Inject constructor(
     private val getKakaoSearchPagingDataUseCase: GetKakaoSearchPagingDataUseCase
 ) : ViewModel() {
 
-    var uiState : MutableState<SearchUiState> = mutableStateOf(SearchUiState(null))
+    var uiState : MutableState<SearchKakaoUiState> = mutableStateOf(SearchKakaoUiState.Loading)
         private set
 
-    private val _deepLink : MutableSharedFlow<DeepLink> = MutableSharedFlow<DeepLink>()
+    private val _deepLink : MutableSharedFlow<DeepLink> = MutableSharedFlow()
     val deepLink : SharedFlow<DeepLink> = _deepLink.asSharedFlow()
 
     init {
         viewModelScope.launch {
-            uiState.value = SearchUiState(getKakaoSearchPagingDataUseCase("주르르",KakaoSearchSortType.Accuracy, KakaoSearchType.Default,30).cachedIn(viewModelScope))
+            uiState.value = SearchKakaoUiState.Success(getKakaoSearchPagingDataUseCase("주르르",KakaoSearchSortType.Accuracy, KakaoSearchType.Default,30).cachedIn(viewModelScope))
         }
     }
-    fun onAction(action : SearchEvent) {
+    fun onAction(action : SearchUiEvent) {
         when(action) {
-            SearchEvent.SearchAccuracy -> { searchAccuracy()}
-            SearchEvent.SearchRecency -> {searchRecency() }
-            is SearchEvent.ShareClick -> {
+            SearchUiEvent.SearchUiAccuracy -> { searchAccuracy()}
+            SearchUiEvent.SearchUiRecency -> {searchRecency() }
+            is SearchUiEvent.ShareClick -> {
                 shareClick(action.deepLink)
             }
-            is SearchEvent.WebLinkClick -> {
+            is SearchUiEvent.WebLinkClick -> {
                 webLinkClick(action.deepLink)
             }
         }
@@ -47,13 +47,13 @@ class SearchKakaoViewModel @Inject constructor(
 
     private fun searchAccuracy() {
         viewModelScope.launch {
-            uiState.value = SearchUiState(getKakaoSearchPagingDataUseCase("주르르",KakaoSearchSortType.Accuracy, KakaoSearchType.Default,30).cachedIn(viewModelScope))
+            uiState.value = SearchKakaoUiState.Success(getKakaoSearchPagingDataUseCase("주르르",KakaoSearchSortType.Accuracy, KakaoSearchType.Default,30).cachedIn(viewModelScope))
         }
     }
 
     private fun searchRecency() {
         viewModelScope.launch {
-            uiState.value = SearchUiState(getKakaoSearchPagingDataUseCase("주르르",KakaoSearchSortType.Recency, KakaoSearchType.Default,30).cachedIn(viewModelScope))
+            uiState.value = SearchKakaoUiState.Success(getKakaoSearchPagingDataUseCase("주르르",KakaoSearchSortType.Recency, KakaoSearchType.Default,30).cachedIn(viewModelScope))
         }
     }
 
