@@ -33,6 +33,8 @@ import com.hegunhee.nowinjururu.core.navigation.deeplink.DeepLink
 import com.hegunhee.nowinjururu.core.navigation.deeplink.handleDeepLink
 import com.hegunhee.resource_common.R
 import com.hegunhee.ui_component.item.SearchBar
+import com.hegunhee.ui_component.screen.ErrorScreen
+import com.hegunhee.ui_component.screen.LoadingScreen
 import com.hegunhee.ui_component.text.ScreenHeaderText
 import org.jsoup.Jsoup
 
@@ -71,10 +73,17 @@ private fun SearchKakaoScreen(
             .padding(paddingValues)
     ) {
         ScreenHeaderText(text = "카카오 검색")
-        SearchBar(Modifier, searchQuery, onQueryChanged, { onAction(SearchKakaoUiEvent.Search(query = searchQuery))})
+        SearchBar(
+            Modifier,
+            searchQuery,
+            onQueryChanged,
+            { onAction(SearchKakaoUiEvent.Search(query = searchQuery)) })
         SearchTypeButtons(onSearchSortTypeClick = onAction)
-        when(uiState) {
-            is SearchKakaoUiState.Loading -> {}
+        when (uiState) {
+            is SearchKakaoUiState.Loading -> {
+                LoadingScreen()
+            }
+
             is SearchKakaoUiState.Success -> {
                 val pagingData = uiState.kakaoPagingData.collectAsLazyPagingItems()
                 LazyColumn(
@@ -92,7 +101,10 @@ private fun SearchKakaoScreen(
                     }
                 }
             }
-            is SearchKakaoUiState.Error -> {}
+
+            is SearchKakaoUiState.Error -> {
+                ErrorScreen(exception = uiState.exception, onRetryClick = null)
+            }
         }
     }
 }
