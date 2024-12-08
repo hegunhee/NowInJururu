@@ -223,7 +223,16 @@ private fun ShareImage(
     Image(painter = painterResource(id = R.drawable.ic_share_24),
         contentDescription = "공유하기",
         modifier = Modifier
-            .clickable { onShareButtonClick(SearchKakaoUiEvent.ShareClick(DeepLink.Share(url, title))) }
+            .clickable {
+                onShareButtonClick(
+                    SearchKakaoUiEvent.ShareClick(
+                        DeepLink.Share(
+                            url,
+                            title
+                        )
+                    )
+                )
+            }
             .size(30.dp)
     )
 }
