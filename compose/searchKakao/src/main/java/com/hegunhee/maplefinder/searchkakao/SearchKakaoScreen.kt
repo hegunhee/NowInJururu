@@ -35,6 +35,8 @@ import com.hegunhee.resource_common.R
 import com.hegunhee.ui_component.item.SearchBar
 import com.hegunhee.ui_component.screen.ErrorScreen
 import com.hegunhee.ui_component.screen.LoadingScreen
+import com.hegunhee.ui_component.style.AccuracyText
+import com.hegunhee.ui_component.style.RecencyText
 import com.hegunhee.ui_component.text.ScreenHeaderText
 import org.jsoup.Jsoup
 
@@ -122,10 +124,10 @@ private fun SearchTypeButtons(
             .fillMaxWidth()
     ) {
         Button(onClick = { onSearchSortTypeClick(SearchKakaoUiEvent.SearchTypeAccuracy) }) {
-            Text("기본 검색")
+            Text(AccuracyText)
         }
         Button(onClick = { onSearchSortTypeClick(SearchKakaoUiEvent.SearchTypeRecency)}) {
-            Text("최신순")
+            Text(RecencyText)
         }
     }
 }
