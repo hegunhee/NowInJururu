@@ -6,8 +6,6 @@ import kotlinx.coroutines.flow.Flow
 
 sealed interface SearchKakaoUiState {
 
-    object Init : SearchKakaoUiState
-
     object Loading : SearchKakaoUiState
 
     data class Success(
