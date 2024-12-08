@@ -6,3 +6,5 @@ const val RetryMessage = "재시도"
 
 const val AccuracyText = "연관순"
 const val RecencyText = "최신순"
+
+const val ShareText = "공유하기"

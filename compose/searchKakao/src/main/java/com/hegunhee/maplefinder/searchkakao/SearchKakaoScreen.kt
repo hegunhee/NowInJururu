@@ -37,6 +37,7 @@ import com.hegunhee.ui_component.screen.ErrorScreen
 import com.hegunhee.ui_component.screen.LoadingScreen
 import com.hegunhee.ui_component.style.AccuracyText
 import com.hegunhee.ui_component.style.RecencyText
+import com.hegunhee.ui_component.style.ShareText
 import com.hegunhee.ui_component.text.ScreenHeaderText
 import org.jsoup.Jsoup
 
@@ -227,7 +228,7 @@ private fun ShareImage(
     title : String
 ) {
     Image(painter = painterResource(id = R.drawable.ic_share_24),
-        contentDescription = "공유하기",
+        contentDescription = ShareText,
         modifier = Modifier
             .clickable {
                 onShareButtonClick(
