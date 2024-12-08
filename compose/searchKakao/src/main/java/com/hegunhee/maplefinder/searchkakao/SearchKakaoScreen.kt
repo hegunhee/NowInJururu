@@ -120,7 +120,7 @@ private fun SearchTypeButtons(
         Button(onClick = { onSearchSortTypeClick(SearchKakaoUiEvent.SearchTypeAccuracy) }) {
             Text("기본 검색")
         }
-        Button(onClick = { onSearchSortTypeClick(SearchKakaoUiEvent.SearchTypeAccuracy)}) {
+        Button(onClick = { onSearchSortTypeClick(SearchKakaoUiEvent.SearchTypeRecency)}) {
             Text("최신순")
         }
     }
