@@ -17,7 +17,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
@@ -33,13 +33,6 @@ import com.hegunhee.nowinjururu.core.navigation.deeplink.DeepLink
 import com.hegunhee.nowinjururu.core.navigation.deeplink.handleDeepLink
 import com.hegunhee.resource_common.R
 import com.hegunhee.ui_component.item.SearchBar
-import com.hegunhee.ui_component.screen.ErrorScreen
-import com.hegunhee.ui_component.screen.LoadingScreen
-import com.hegunhee.ui_component.style.AccuracyText
-import com.hegunhee.ui_component.style.BottomSheetTitle
-import com.hegunhee.ui_component.style.BottomSheetTitle.KakaoSearchTitle
-import com.hegunhee.ui_component.style.RecencyText
-import com.hegunhee.ui_component.style.ShareText
 import com.hegunhee.ui_component.text.ScreenHeaderText
 import org.jsoup.Jsoup
 
@@ -49,12 +42,7 @@ fun SearchKakaoScreenRoot(
     viewModel : SearchKakaoViewModel = hiltViewModel()
 ) {
     val context = LocalContext.current
-    LaunchedEffect(key1 = viewModel.deepLink) {
-        viewModel.deepLink.collect{
-            context.handleDeepLink(it)
-        }
-    }
-    val (searchQuery, onQueryChanged) = rememberSaveable { mutableStateOf("") }
+    val (searchQuery, onQueryChanged) = remember { mutableStateOf("") }
     SearchKakaoScreen(
         paddingValues,
         uiState = viewModel.uiState.value,
@@ -62,10 +50,15 @@ fun SearchKakaoScreenRoot(
         onAction = viewModel::onAction,
         onQueryChanged,
     )
+    LaunchedEffect(key1 = viewModel.deepLink) {
+        viewModel.deepLink.collect{
+            context.handleDeepLink(it)
+        }
+    }
 }
 
 @Composable
-fun SearchKakaoScreen(
+private fun SearchKakaoScreen(
     paddingValues: PaddingValues,
     uiState : SearchKakaoUiState,
     searchQuery: String,
@@ -77,22 +70,11 @@ fun SearchKakaoScreen(
             .fillMaxSize()
             .padding(paddingValues)
     ) {
-        ScreenHeaderText(text = KakaoSearchTitle)
-        SearchBar(
-            Modifier,
-            searchQuery,
-            onQueryChanged,
-            { onAction(SearchKakaoUiEvent.Search(query = searchQuery)) })
+        ScreenHeaderText(text = "카카오 검색")
+        SearchBar(Modifier, searchQuery, onQueryChanged, { onAction(SearchKakaoUiEvent.Search(query = searchQuery))})
         SearchTypeButtons(onSearchSortTypeClick = onAction)
-        when (uiState) {
-            is SearchKakaoUiState.Init -> {
-
-            }
-            
-            is SearchKakaoUiState.Loading -> {
-                LoadingScreen()
-            }
-
+        when(uiState) {
+            is SearchKakaoUiState.Loading -> {}
             is SearchKakaoUiState.Success -> {
                 val pagingData = uiState.kakaoPagingData.collectAsLazyPagingItems()
                 LazyColumn(
@@ -110,10 +92,7 @@ fun SearchKakaoScreen(
                     }
                 }
             }
-
-            is SearchKakaoUiState.Error -> {
-                ErrorScreen(exception = uiState.exception, onRetryClick = null)
-            }
+            is SearchKakaoUiState.Error -> {}
         }
     }
 }
@@ -127,10 +106,10 @@ private fun SearchTypeButtons(
             .fillMaxWidth()
     ) {
         Button(onClick = { onSearchSortTypeClick(SearchKakaoUiEvent.SearchTypeAccuracy) }) {
-            Text(AccuracyText)
+            Text("기본 검색")
         }
-        Button(onClick = { onSearchSortTypeClick(SearchKakaoUiEvent.SearchTypeRecency)}) {
-            Text(RecencyText)
+        Button(onClick = { onSearchSortTypeClick(SearchKakaoUiEvent.SearchTypeAccuracy)}) {
+            Text("최신순")
         }
     }
 }
@@ -230,18 +209,9 @@ private fun ShareImage(
     title : String
 ) {
     Image(painter = painterResource(id = R.drawable.ic_share_24),
-        contentDescription = ShareText,
+        contentDescription = "공유하기",
         modifier = Modifier
-            .clickable {
-                onShareButtonClick(
-                    SearchKakaoUiEvent.ShareClick(
-                        DeepLink.Share(
-                            url,
-                            title
-                        )
-                    )
-                )
-            }
+            .clickable { onShareButtonClick(SearchKakaoUiEvent.ShareClick(DeepLink.Share(url, title))) }
             .size(30.dp)
     )
 }
