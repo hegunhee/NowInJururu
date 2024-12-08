@@ -57,7 +57,7 @@ class SearchKakaoViewModel @Inject constructor(
                 query,
                 getKakaoSearchPagingDataUseCase(
                     query,
-                    KakaoSearchSortType.Accuracy,
+                    KakaoSearchSortType.DEFAULT,
                     KakaoSearchType.Default,
                     30
                 ).cachedIn(viewModelScope)

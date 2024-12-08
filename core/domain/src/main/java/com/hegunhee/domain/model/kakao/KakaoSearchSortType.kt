@@ -15,6 +15,8 @@ sealed class KakaoSearchSortType(val name : String,val sort : String) : KakaoFil
     companion object {
         val TYPE = "정렬순"
 
+        val DEFAULT = Accuracy
+
         fun findType(name : String) : KakaoSearchSortType {
             return when(name) {
                 Recency.name -> Recency
