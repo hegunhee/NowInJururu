@@ -21,7 +21,7 @@ class SearchKakaoViewModel @Inject constructor(
     private val getKakaoSearchPagingDataUseCase: GetKakaoSearchPagingDataUseCase
 ) : ViewModel() {
 
-    var uiState: MutableState<SearchKakaoUiState> = mutableStateOf(SearchKakaoUiState.Loading)
+    var uiState: MutableState<SearchKakaoUiState> = mutableStateOf(SearchKakaoUiState.Init)
         private set
 
     private val _deepLink: MutableSharedFlow<DeepLink> = MutableSharedFlow()

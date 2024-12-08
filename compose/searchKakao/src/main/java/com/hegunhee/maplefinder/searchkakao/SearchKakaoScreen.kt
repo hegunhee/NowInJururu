@@ -80,6 +80,10 @@ private fun SearchKakaoScreen(
             { onAction(SearchKakaoUiEvent.Search(query = searchQuery)) })
         SearchTypeButtons(onSearchSortTypeClick = onAction)
         when (uiState) {
+            is SearchKakaoUiState.Init -> {
+
+            }
+            
             is SearchKakaoUiState.Loading -> {
                 LoadingScreen()
             }
