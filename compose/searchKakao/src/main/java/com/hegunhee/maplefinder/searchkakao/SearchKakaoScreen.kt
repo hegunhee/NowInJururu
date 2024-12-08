@@ -47,6 +47,11 @@ fun SearchKakaoScreenRoot(
     viewModel : SearchKakaoViewModel = hiltViewModel()
 ) {
     val context = LocalContext.current
+    LaunchedEffect(key1 = viewModel.deepLink) {
+        viewModel.deepLink.collect{
+            context.handleDeepLink(it)
+        }
+    }
     val (searchQuery, onQueryChanged) = rememberSaveable { mutableStateOf("") }
     SearchKakaoScreen(
         paddingValues,
@@ -55,11 +60,6 @@ fun SearchKakaoScreenRoot(
         onAction = viewModel::onAction,
         onQueryChanged,
     )
-    LaunchedEffect(key1 = viewModel.deepLink) {
-        viewModel.deepLink.collect{
-            context.handleDeepLink(it)
-        }
-    }
 }
 
 @Composable
