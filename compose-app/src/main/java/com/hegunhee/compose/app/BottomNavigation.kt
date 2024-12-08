@@ -8,7 +8,6 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.State
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavBackStackEntry
 
@@ -21,8 +20,8 @@ fun JururuBottomNavigation(backStackEntry : State<NavBackStackEntry?>, onBottomC
         val currentRoute = backStackEntry.value?.destination?.route
         bottomNavItems.forEachIndexed { index, item ->
             BottomNavigationItem(
-                label = { Text(text = stringResource(item.title), fontSize = 9.sp) },
-                icon =  { Icon(painter = painterResource(id = item.icon), contentDescription = stringResource(id = item.title)) },
+                label = { Text(item.title, fontSize = 9.sp) },
+                icon =  { Icon(painter = painterResource(id = item.icon), contentDescription = item.title) },
                 selectedContentColor = Color.Black,
                 unselectedContentColor = Color.Black.copy(0.4f),
                 alwaysShowLabel = true,

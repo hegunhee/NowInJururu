@@ -36,6 +36,8 @@ import com.hegunhee.ui_component.item.SearchBar
 import com.hegunhee.ui_component.screen.ErrorScreen
 import com.hegunhee.ui_component.screen.LoadingScreen
 import com.hegunhee.ui_component.style.AccuracyText
+import com.hegunhee.ui_component.style.BottomSheetTitle
+import com.hegunhee.ui_component.style.BottomSheetTitle.KakaoSearchTitle
 import com.hegunhee.ui_component.style.RecencyText
 import com.hegunhee.ui_component.style.ShareText
 import com.hegunhee.ui_component.text.ScreenHeaderText
@@ -63,7 +65,7 @@ fun SearchKakaoScreenRoot(
 }
 
 @Composable
-private fun SearchKakaoScreen(
+fun SearchKakaoScreen(
     paddingValues: PaddingValues,
     uiState : SearchKakaoUiState,
     searchQuery: String,
@@ -75,7 +77,7 @@ private fun SearchKakaoScreen(
             .fillMaxSize()
             .padding(paddingValues)
     ) {
-        ScreenHeaderText(text = "카카오 검색")
+        ScreenHeaderText(text = KakaoSearchTitle)
         SearchBar(
             Modifier,
             searchQuery,

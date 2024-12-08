@@ -8,3 +8,9 @@ const val AccuracyText = "연관순"
 const val RecencyText = "최신순"
 
 const val ShareText = "공유하기"
+
+object BottomSheetTitle {
+    const val KakaoSearchTitle = "카카오 검색"
+    const val StreamerTitle = "스트리머"
+    const val TwitchSearchTitle = "스트리머 검색"
+}
