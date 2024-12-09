@@ -4,7 +4,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.hegunhee.compose.streamer.StreamerUiState.Error
 import com.hegunhee.compose.streamer.StreamerUiState.Success
-import com.hegunhee.domain.model.twitch.StreamDataType
 import com.hegunhee.domain.model.twitch.StreamerData
 import com.hegunhee.domain.usecase.twitch.DeleteStreamerDataUseCase
 import com.hegunhee.domain.usecase.twitch.GetBookmarkedStreamDataListUseCase
@@ -33,27 +32,27 @@ class StreamerViewModel @Inject constructor(
     private fun fetchStreamerData() = viewModelScope.launch {
         getBookmarkedStreamDataListUseCase()
             .onSuccess { streamDataList ->
-                val onlineStreamItem = streamDataList.filterIsInstance<StreamDataType.OnlineData>().toOnlineStreamItem()
-                val offlineStreamItem = streamDataList.filterIsInstance<StreamDataType.OfflineData>().toOfflineStreamItem()
-                if(onlineStreamItem.items.isNotEmpty()) {
-                    val mostFollowGameId = onlineStreamItem.items.getMostFollowedGameId()
-                    getGameStreamDataListUseCase(mostFollowGameId)
-                        .onSuccess { recommendStreamDataList ->
-                            val recommendStreamItem = recommendStreamDataList.toRecommendStreamItem(recommendStreamDataList[0].gameName)
-                            _uiState.value = Success(listOf(onlineStreamItem, offlineStreamItem, recommendStreamItem))
-                        }.onFailure {
-                            _uiState.value = Error
-                        }
-                }else{
-                    _uiState.value = Success(listOf(onlineStreamItem, offlineStreamItem, emptyRecommendStreamItem()))
+                val onlineStreamItem = streamDataList.filterMapOnlineStreamItems()
+                val offlineStreamItem = streamDataList.filterMapOfflineStreamItems()
+
+                if(onlineStreamItem.items.isEmpty()) {
+                    _uiState.value = Success(listOf(onlineStreamItem,offlineStreamItem, emptyRecommendStreamItem()))
+                    return@launch
                 }
+
+                val mostFollowGameId = onlineStreamItem.items.getMostFollowedGameId()
+
+                getGameStreamDataListUseCase(mostFollowGameId)
+                    .onSuccess { recommendStreamDataList ->
+                        val recommendStreamItem = recommendStreamDataList.toRecommendStreamItem(mostFollowGameId)
+                        _uiState.value = Success(listOf(onlineStreamItem, offlineStreamItem, recommendStreamItem))
+                    }.onFailure {
+                        _uiState.value = Error
+                    }
+
             }.onFailure {
                 _uiState.value = Error
             }
-    }
-
-    private fun List<StreamDataType.OnlineData>.getMostFollowedGameId() : String {
-        return this.map {it.gameId}.groupBy { it }.maxBy { it.value.size }.key
     }
 
     fun onUnfollowStreamerClick(streamerId : String) {
