@@ -133,69 +133,86 @@ fun LazyListScope.streamerItem(
     onNavigateTwitchChannelClick: (String) -> Unit,
     onMoreButtonClick : (String) -> Unit
 ) {
-    if(streamItem.isItemsNotEmpty) {
-        when(streamItem) {
-            is StreamItem.Online -> {
-                item {
-                    Text(text = "온라인",fontSize = largeTextFontSize,modifier = Modifier.padding(horizontal = dimensionResource(com.hegunhee.resource_common.R.dimen.header_start_padding)))
-                }
-                items(items = streamItem.items, key = {it.streamerId}) {
-                    OnlineStream(
-                        streamerId = it.streamerId,
-                        streamerName = it.streamerName,
-                        title = it.title,
-                        gameName = it.gameName,
-                        tags = it.tags,
-                        thumbNailUrl = it.thumbnailUrl,
-                        profileUrl = it.profileUrl,
-                        viewerCount = it.viewerCount,
-                        onTwitchStreamClick = onNavigateTwitchChannelClick,
-                        onMoreButtonClick = onMoreButtonClick
-                    )
-                }
+    if (streamItem.isEmpty) {
+        return
+    }
+    when (streamItem) {
+        is StreamItem.Online -> {
+            item {
+                Text(
+                    text = "온라인",
+                    fontSize = largeTextFontSize,
+                    modifier = Modifier.padding(horizontal = dimensionResource(com.hegunhee.resource_common.R.dimen.header_start_padding))
+                )
             }
-            is StreamItem.Offline -> {
-                item {
-                    Text(text = "오프라인",fontSize = largeTextFontSize,modifier = Modifier.padding(horizontal = dimensionResource(com.hegunhee.resource_common.R.dimen.header_start_padding)))
-                }
-                items(items = streamItem.items, key = {it.streamerId}) {
-                    OfflineStream(
-                        streamerId = it.streamerId,
-                        streamerName = it.streamerName,
-                        streamerProfileUrl = it.profileUrl,
-                        onTwitchStreamClick = onNavigateTwitchChannelClick,
-                        onMoreButtonClick = onMoreButtonClick
-                    )
-                }
+            items(items = streamItem.items, key = { it.streamerId }) {
+                OnlineStream(
+                    streamerId = it.streamerId,
+                    streamerName = it.streamerName,
+                    title = it.title,
+                    gameName = it.gameName,
+                    tags = it.tags,
+                    thumbNailUrl = it.thumbnailUrl,
+                    profileUrl = it.profileUrl,
+                    viewerCount = it.viewerCount,
+                    onTwitchStreamClick = onNavigateTwitchChannelClick,
+                    onMoreButtonClick = onMoreButtonClick
+                )
             }
-            is StreamItem.Recommend -> {
-                item {
-                    Row(
-                        modifier = Modifier.fillMaxWidth().padding(horizontal = dimensionResource(com.hegunhee.resource_common.R.dimen.header_start_padding)),
-                        horizontalArrangement = Arrangement.spacedBy(dimensionResource(com.hegunhee.resource_common.R.dimen.item_between_middle)),
-                        verticalAlignment = Alignment.Bottom
-                    ) {
-                        Text(text = "추천 생방송 채널",fontSize = largeTextFontSize)
-                        Text(text = "트위치 앱에서 보기",fontSize = middleTextFontSize, color = colorResource(id = com.hegunhee.resource_common.R.color.violet),modifier = Modifier.clickable {
+        }
+
+        is StreamItem.Offline -> {
+            item {
+                Text(
+                    text = "오프라인",
+                    fontSize = largeTextFontSize,
+                    modifier = Modifier.padding(horizontal = dimensionResource(com.hegunhee.resource_common.R.dimen.header_start_padding))
+                )
+            }
+            items(items = streamItem.items, key = { it.streamerId }) {
+                OfflineStream(
+                    streamerId = it.streamerId,
+                    streamerName = it.streamerName,
+                    streamerProfileUrl = it.profileUrl,
+                    onTwitchStreamClick = onNavigateTwitchChannelClick,
+                    onMoreButtonClick = onMoreButtonClick
+                )
+            }
+        }
+
+        is StreamItem.Recommend -> {
+            item {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = dimensionResource(com.hegunhee.resource_common.R.dimen.header_start_padding)),
+                    horizontalArrangement = Arrangement.spacedBy(dimensionResource(com.hegunhee.resource_common.R.dimen.item_between_middle)),
+                    verticalAlignment = Alignment.Bottom
+                ) {
+                    Text(text = "추천 생방송 채널", fontSize = largeTextFontSize)
+                    Text(
+                        text = "트위치 앱에서 보기",
+                        fontSize = middleTextFontSize,
+                        color = colorResource(id = com.hegunhee.resource_common.R.color.violet),
+                        modifier = Modifier.clickable {
                             onNavigateTwitchChannelClick("twitch://open?game=${streamItem.gameName}")
                         })
-                    }
                 }
-                item {
-                    LazyRow(horizontalArrangement = Arrangement.spacedBy(dimensionResource(com.hegunhee.resource_common.R.dimen.item_between_large))) {
-                        items(items = streamItem.items, key = { "recommend" + it.streamerId}) {
-                            RecommendStream(
-                                streamerId = it.streamerId,
-                                streamerName = it.streamerName,
-                                title = it.title,
-                                gameName = it.gameName,
-                                tags = it.tags,
-                                thumbNailUrl = it.thumbnailUrl,
-                                profileUrl = it.profileUrl,
-                                viewerCount = it.viewerCount,
-                                onTwitchStreamClick = onNavigateTwitchChannelClick
-                            )
-                        }
+            }
+            item {
+                LazyRow(horizontalArrangement = Arrangement.spacedBy(dimensionResource(com.hegunhee.resource_common.R.dimen.item_between_large))) {
+                    items(items = streamItem.items, key = { "recommend" + it.streamerId }) {
+                        RecommendStream(
+                            streamerId = it.streamerId,
+                            streamerName = it.streamerName,
+                            title = it.title,
+                            gameName = it.gameName,
+                            tags = it.tags,
+                            thumbNailUrl = it.thumbnailUrl,
+                            profileUrl = it.profileUrl,
+                            viewerCount = it.viewerCount,
+                            onTwitchStreamClick = onNavigateTwitchChannelClick
+                        )
                     }
                 }
             }

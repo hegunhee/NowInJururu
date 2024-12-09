@@ -2,20 +2,20 @@ package com.hegunhee.compose.streamer
 
 import com.hegunhee.domain.model.twitch.StreamDataType
 
-sealed class StreamItem(val isItemsNotEmpty: Boolean) {
+sealed class StreamItem(val isEmpty: Boolean) {
 
     data class Online(
         val items: List<StreamDataType.OnlineData>
-    ) : StreamItem(items.isNotEmpty())
+    ) : StreamItem(items.isEmpty())
 
     data class Offline(
         val items: List<StreamDataType.OfflineData>
-    ) : StreamItem(items.isNotEmpty())
+    ) : StreamItem(items.isEmpty())
 
     data class Recommend(
         val gameName: String,
         val items: List<StreamDataType.OnlineData>
-    ) : StreamItem(items.isNotEmpty())
+    ) : StreamItem(items.isEmpty())
 }
 
 fun List<StreamDataType.OnlineData>.toOnlineStreamItem(): StreamItem.Online {
