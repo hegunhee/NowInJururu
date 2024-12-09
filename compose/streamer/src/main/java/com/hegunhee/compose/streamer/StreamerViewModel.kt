@@ -2,6 +2,8 @@ package com.hegunhee.compose.streamer
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.hegunhee.compose.streamer.StreamerUiState.Error
+import com.hegunhee.compose.streamer.StreamerUiState.Success
 import com.hegunhee.domain.model.twitch.StreamDataType
 import com.hegunhee.domain.model.twitch.StreamerData
 import com.hegunhee.domain.usecase.twitch.DeleteStreamerDataUseCase
@@ -38,15 +40,15 @@ class StreamerViewModel @Inject constructor(
                     getGameStreamDataListUseCase(mostFollowGameId)
                         .onSuccess { recommendStreamDataList ->
                             val recommendStreamItem = recommendStreamDataList.toRecommendStreamItem(recommendStreamDataList[0].gameName)
-                            _uiState.value = StreamerUiState.Success(listOf(onlineStreamItem, offlineStreamItem, recommendStreamItem))
+                            _uiState.value = Success(listOf(onlineStreamItem, offlineStreamItem, recommendStreamItem))
                         }.onFailure {
-                            _uiState.value = StreamerUiState.Error
+                            _uiState.value = Error
                         }
                 }else{
-                    _uiState.value = StreamerUiState.Success(listOf(onlineStreamItem, offlineStreamItem, emptyRecommendStreamItem()))
+                    _uiState.value = Success(listOf(onlineStreamItem, offlineStreamItem, emptyRecommendStreamItem()))
                 }
             }.onFailure {
-                _uiState.value = StreamerUiState.Error
+                _uiState.value = Error
             }
     }
 
@@ -60,7 +62,7 @@ class StreamerViewModel @Inject constructor(
                 .onSuccess {
                     fetchStreamerData()
                 }.onFailure {
-                    _uiState.value = StreamerUiState.Error
+                    _uiState.value = Error
                 }
         }
     }
