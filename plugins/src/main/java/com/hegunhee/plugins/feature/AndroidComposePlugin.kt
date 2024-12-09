@@ -26,6 +26,7 @@ class AndroidComposePlugin : Plugin<Project> {
                 add("implementation",libs.findLibrary("core-ktx").get())
                 add("implementation",platform(libs.findLibrary("kotlin-bom").get()))
                 add("implementation",libs.findLibrary("lifecycle-lifecycleScope").get())
+                add("implementation",libs.findLibrary("compose-lifecycleScope").get())
                 add("implementation",libs.findLibrary("activity-compose").get())
                 add("implementation",platform(libs.findLibrary("compose-bom").get()))
                 add("implementation",libs.findBundle("compose-ui").get())
