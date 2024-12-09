@@ -1,8 +1,5 @@
 package com.hegunhee.compose.streamer
 
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.State
-import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.hegunhee.domain.model.twitch.StreamDataType
@@ -11,6 +8,9 @@ import com.hegunhee.domain.usecase.twitch.DeleteStreamerDataUseCase
 import com.hegunhee.domain.usecase.twitch.GetBookmarkedStreamDataListUseCase
 import com.hegunhee.domain.usecase.twitch.GetGameStreamDataListUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -24,9 +24,9 @@ class StreamerViewModel @Inject constructor(
     init {
         fetchStreamerData()
     }
-    private val _uiModel : MutableState<StreamerUiState> = mutableStateOf(StreamerUiState.Loading)
-    val uiModel : State<StreamerUiState>
-        get() = _uiModel
+
+    private val _uiModel : MutableStateFlow<StreamerUiState> = MutableStateFlow(StreamerUiState.Loading)
+    val uiModel : StateFlow<StreamerUiState> = _uiModel.asStateFlow()
 
     private fun fetchStreamerData() = viewModelScope.launch {
         getBookmarkedStreamDataListUseCase()

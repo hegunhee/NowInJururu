@@ -30,6 +30,7 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.hegunhee.compose.streamer.navigation.LocalPaddingValues
 import com.hegunhee.ui_component.item.OfflineStream
 import com.hegunhee.ui_component.item.OnlineStream
@@ -46,7 +47,7 @@ fun StreamerScreenRoot(
     viewModel : StreamerViewModel = hiltViewModel()
 ) {
     StreamerScreen(
-        uiModel = viewModel.uiModel.value,
+        uiModel = viewModel.uiModel.collectAsStateWithLifecycle().value,
         onNavigateTwitchChannelClick = onNavigateTwitchChannelClick,
         onUnfollowStreamerClick = viewModel::onUnfollowStreamerClick,
         request = viewModel::request
