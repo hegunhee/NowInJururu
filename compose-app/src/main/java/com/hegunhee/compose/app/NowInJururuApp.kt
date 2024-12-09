@@ -16,7 +16,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.hegunhee.compose.app.ui.theme.NowInJururuTheme
 import com.hegunhee.compose.search.searchNavGraph
-import com.hegunhee.compose.streamer.streamerNavGraph
+import com.hegunhee.compose.streamer.navigation.streamerNavGraph
 import com.hegunhee.maplefinder.searchkakao.navigation.SEARCH_KAKAO_ROUTE
 import com.hegunhee.maplefinder.searchkakao.navigation.searchKakaoNavGraph
 import com.hegunhee.resource_common.R
