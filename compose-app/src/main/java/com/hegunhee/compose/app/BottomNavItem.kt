@@ -11,9 +11,7 @@ sealed class BottomNavItem(
     val title : String,val icon : Int, val screenRoute : String
 ) {
     object KakaoSearch : BottomNavItem(KakaoSearchTitle, com.hegunhee.ui_component.R.drawable.ic_star_24, SEARCH_KAKAO_ROUTE)
-    object Streamer : BottomNavItem(StreamerTitle,com.hegunhee.ui_component.R.drawable.ic_streamer_24,
-        StreamerRoute
-    )
+    object Streamer : BottomNavItem(StreamerTitle,com.hegunhee.ui_component.R.drawable.ic_streamer_24, StreamerRoute)
     object Search : BottomNavItem(TwitchSearchTitle,com.hegunhee.resource_common.R.drawable.ic_search_24,SearchNavGraph.searchRoute)
 
 }
