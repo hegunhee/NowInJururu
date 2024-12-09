@@ -47,7 +47,7 @@ fun StreamerScreenRoot(
     viewModel : StreamerViewModel = hiltViewModel()
 ) {
     StreamerScreen(
-        uiModel = viewModel.uiModel.collectAsStateWithLifecycle().value,
+        uiModel = viewModel.uiState.collectAsStateWithLifecycle().value,
         onNavigateTwitchChannelClick = onNavigateTwitchChannelClick,
         onUnfollowStreamerClick = viewModel::onUnfollowStreamerClick,
         request = viewModel::request

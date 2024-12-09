@@ -25,8 +25,8 @@ class StreamerViewModel @Inject constructor(
         fetchStreamerData()
     }
 
-    private val _uiModel : MutableStateFlow<StreamerUiState> = MutableStateFlow(StreamerUiState.Loading)
-    val uiModel : StateFlow<StreamerUiState> = _uiModel.asStateFlow()
+    private val _uiState : MutableStateFlow<StreamerUiState> = MutableStateFlow(StreamerUiState.Loading)
+    val uiState : StateFlow<StreamerUiState> = _uiState.asStateFlow()
 
     private fun fetchStreamerData() = viewModelScope.launch {
         getBookmarkedStreamDataListUseCase()
@@ -38,15 +38,15 @@ class StreamerViewModel @Inject constructor(
                     getGameStreamDataListUseCase(mostFollowGameId)
                         .onSuccess { recommendStreamDataList ->
                             val recommendStreamItem = recommendStreamDataList.toRecommendStreamItem(recommendStreamDataList[0].gameName)
-                            _uiModel.value = StreamerUiState.Success(listOf(onlineStreamItem, offlineStreamItem, recommendStreamItem))
+                            _uiState.value = StreamerUiState.Success(listOf(onlineStreamItem, offlineStreamItem, recommendStreamItem))
                         }.onFailure {
-                            _uiModel.value = StreamerUiState.Error
+                            _uiState.value = StreamerUiState.Error
                         }
                 }else{
-                    _uiModel.value = StreamerUiState.Success(listOf(onlineStreamItem, offlineStreamItem, emptyRecommendStreamItem()))
+                    _uiState.value = StreamerUiState.Success(listOf(onlineStreamItem, offlineStreamItem, emptyRecommendStreamItem()))
                 }
             }.onFailure {
-                _uiModel.value = StreamerUiState.Error
+                _uiState.value = StreamerUiState.Error
             }
     }
 
@@ -60,7 +60,7 @@ class StreamerViewModel @Inject constructor(
                 .onSuccess {
                     fetchStreamerData()
                 }.onFailure {
-                    _uiModel.value = StreamerUiState.Error
+                    _uiState.value = StreamerUiState.Error
                 }
         }
     }
