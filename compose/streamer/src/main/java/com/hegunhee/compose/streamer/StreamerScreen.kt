@@ -39,6 +39,13 @@ import com.holix.android.bottomsheetdialog.compose.BottomSheetDialog
 import com.hegunhee.ui_component.R
 import com.hegunhee.ui_component.screen.ErrorScreen
 import com.hegunhee.ui_component.screen.LoadingScreen
+import com.hegunhee.ui_component.style.BottomSheetTitle.StreamerTitle
+import com.hegunhee.ui_component.style.OfflineText
+import com.hegunhee.ui_component.style.OnlineText
+import com.hegunhee.ui_component.style.RecommendOnlineMessage
+import com.hegunhee.ui_component.style.RequestText
+import com.hegunhee.ui_component.style.TwitchShowMessage
+import com.hegunhee.ui_component.style.followCancelMessage
 import com.hegunhee.ui_component.style.largeTextFontSize
 import com.hegunhee.ui_component.style.middleTextFontSize
 
@@ -80,10 +87,10 @@ fun StreamerScreen(
             .padding(LocalPaddingValues.current)
     ) {
         Row(modifier = Modifier.fillMaxWidth()) {
-            ScreenHeaderText(text = "스트리머")
+            ScreenHeaderText(text = StreamerTitle)
             Image(
                 painter = painterResource(id = R.drawable.ic_request_24),
-                contentDescription = "데이터 요청",
+                contentDescription = RequestText,
                 modifier = Modifier
                     .clickable { request() }
                     .size(50.dp)
@@ -128,7 +135,7 @@ fun StreamerBottomSheet(
                 verticalArrangement = Arrangement.Bottom,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Text(text = "$streamerId 를 팔로우 취소하겠습니까?", modifier = Modifier.clickable {
+                Text(text = followCancelMessage(streamerId), modifier = Modifier.clickable {
                     onUnfollowStreamerClick(streamerId)
                     dismissDialog()
                 })
@@ -149,7 +156,7 @@ fun LazyListScope.streamerItem(
         is StreamItem.Online -> {
             item {
                 Text(
-                    text = "온라인",
+                    text = OnlineText,
                     fontSize = largeTextFontSize,
                     modifier = Modifier.padding(horizontal = dimensionResource(com.hegunhee.resource_common.R.dimen.header_start_padding))
                 )
@@ -173,7 +180,7 @@ fun LazyListScope.streamerItem(
         is StreamItem.Offline -> {
             item {
                 Text(
-                    text = "오프라인",
+                    text = OfflineText,
                     fontSize = largeTextFontSize,
                     modifier = Modifier.padding(horizontal = dimensionResource(com.hegunhee.resource_common.R.dimen.header_start_padding))
                 )
@@ -198,9 +205,9 @@ fun LazyListScope.streamerItem(
                     horizontalArrangement = Arrangement.spacedBy(dimensionResource(com.hegunhee.resource_common.R.dimen.item_between_middle)),
                     verticalAlignment = Alignment.Bottom
                 ) {
-                    Text(text = "추천 생방송 채널", fontSize = largeTextFontSize)
+                    Text(text = RecommendOnlineMessage, fontSize = largeTextFontSize)
                     Text(
-                        text = "트위치 앱에서 보기",
+                        text = TwitchShowMessage,
                         fontSize = middleTextFontSize,
                         color = colorResource(id = com.hegunhee.resource_common.R.color.violet),
                         modifier = Modifier.clickable {
