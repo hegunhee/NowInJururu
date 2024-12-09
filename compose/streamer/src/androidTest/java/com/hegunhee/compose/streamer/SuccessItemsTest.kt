@@ -3,8 +3,11 @@ package com.hegunhee.compose.streamer
 import androidx.activity.ComponentActivity
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
+import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
+import androidx.compose.ui.test.performClick
 import com.hegunhee.domain.model.twitch.StreamDataType
+import com.hegunhee.ui_component.style.followCancelMessage
 import org.junit.Rule
 import org.junit.Test
 
@@ -58,6 +61,22 @@ class SuccessItemsTest {
 
         composeTestRule
             .onNodeWithText(gameName)
+            .assertIsDisplayed()
+    }
+
+    @Test
+    fun givenOfflineStreamer_whenClickMoreButton_showUnfollowBottomSheet() {
+        val streamerName = "주르르"
+        composeTestRule.setContent {
+            StreamerScreen(uiState = StreamerUiState.Success(listOf(createOfflineStreamItem(streamerName))),{},{},{})
+        }
+
+        composeTestRule
+            .onNodeWithContentDescription("more Button")
+            .performClick()
+
+        composeTestRule
+            .onNodeWithText(followCancelMessage(""))
             .assertIsDisplayed()
     }
 
