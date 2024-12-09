@@ -7,6 +7,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
+import com.hegunhee.compose.search.SearchUiState.Error
+import com.hegunhee.compose.search.SearchUiState.Loading
+import com.hegunhee.compose.search.SearchUiState.Success
 import com.hegunhee.domain.model.twitch.SearchData
 import com.hegunhee.domain.model.twitch.StreamerData
 import com.hegunhee.domain.usecase.twitch.GetSearchPagingDataUseCase
@@ -25,9 +28,9 @@ class SearchViewModel @Inject constructor(
 
     val searchQuery : MutableState<String> = mutableStateOf("")
 
-    private val _uiModel : MutableState<SearchUiModel> = mutableStateOf(SearchUiModel.Loading)
-    val uiModel : State<SearchUiModel>
-        get() = _uiModel
+    private val _uiState : MutableState<SearchUiState> = mutableStateOf(Loading)
+    val uiState : State<SearchUiState>
+        get() = _uiState
 
     var searchResult : Flow<PagingData<SearchData>> = emptyFlow()
     private set
@@ -38,17 +41,17 @@ class SearchViewModel @Inject constructor(
         if(query.isBlank()) return
         viewModelScope.launch {
             searchResult = getSearchPagingDataUseCase(query,20).cachedIn(viewModelScope)
-            _uiModel.value = SearchUiModel.Success
+            _uiState.value = Success
         }
     }
 
     fun onFollowStreamerClick(streamerId : String) = viewModelScope.launch{
-        (uiModel.value as? SearchUiModel.Success)?.let {
+        (uiState.value as? Success)?.let {
             insertStreamerDataUseCase(StreamerData(streamerId))
                 .onSuccess {
-                    _uiModel.value = SearchUiModel.Success
+                    _uiState.value = Success
                 }.onFailure {
-                    _uiModel.value = SearchUiModel.Error
+                    _uiState.value = Error(it)
                 }
         }
     }

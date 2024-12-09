@@ -23,7 +23,7 @@ class SearchStreamerTest {
         val streamerId = "cotton__123"
         composeTestRule.setContent {
             val pagingItems = createPagingData(streamerId,query).collectAsLazyPagingItems()
-            SearchScreen(uiModel = SearchUiModel.Success, searchQuery = query, searchResult = pagingItems,{},{},{},{})
+            SearchScreen(uiState = SearchUiState.Success, searchQuery = query, searchResult = pagingItems,{},{},{},{})
         }
 
         composeTestRule

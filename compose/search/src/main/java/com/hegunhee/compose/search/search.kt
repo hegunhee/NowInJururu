@@ -36,7 +36,7 @@ fun SearchScreenRoot(
     viewModel : SearchViewModel = hiltViewModel(),
     onNavigateTwitchChannelClick : (String) -> Unit
 ) {
-    val uiModel = viewModel.uiModel.value
+    val uiState = viewModel.uiState.value
     val (searchQuery, onValueChanged) = viewModel.searchQuery
     val searchResult = viewModel.searchResult.collectAsLazyPagingItems()
     val onFollowButtonClick : ((String) -> Unit) = { streamerId ->
@@ -44,7 +44,7 @@ fun SearchScreenRoot(
         searchResult.refresh()
     }
     SearchScreen(
-        uiModel = uiModel,
+        uiState = uiState,
         searchQuery = searchQuery,
         searchResult = searchResult,
         onValueChanged = onValueChanged,
@@ -57,7 +57,7 @@ fun SearchScreenRoot(
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun SearchScreen(
-    uiModel : SearchUiModel,
+    uiState : SearchUiState,
     searchQuery : String,
     searchResult : LazyPagingItems<SearchData>,
     onValueChanged : (String) -> Unit,
@@ -95,11 +95,11 @@ fun SearchScreen(
                 .padding(horizontal = dimensionResource(R.dimen.header_start_padding))
         )
         Spacer(modifier = Modifier.height(dimensionResource(R.dimen.item_top_margin)))
-        when(uiModel){
-            is SearchUiModel.Loading -> {
+        when(uiState){
+            is SearchUiState.Loading -> {
 
             }
-            is SearchUiModel.Success -> {
+            is SearchUiState.Success -> {
                 LazyColumn(
                     modifier = Modifier.fillMaxWidth(),
                     verticalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.item_between_middle))
@@ -118,7 +118,7 @@ fun SearchScreen(
                     }
                 }
             }
-            is SearchUiModel.Error -> {
+            is SearchUiState.Error -> {
 
             }
         }
