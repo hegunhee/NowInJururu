@@ -37,6 +37,8 @@ import com.hegunhee.ui_component.item.RecommendStream
 import com.hegunhee.ui_component.text.ScreenHeaderText
 import com.holix.android.bottomsheetdialog.compose.BottomSheetDialog
 import com.hegunhee.ui_component.R
+import com.hegunhee.ui_component.screen.ErrorScreen
+import com.hegunhee.ui_component.screen.LoadingScreen
 import com.hegunhee.ui_component.style.largeTextFontSize
 import com.hegunhee.ui_component.style.middleTextFontSize
 
@@ -89,7 +91,9 @@ fun StreamerScreen(
         }
 
         when (uiState) {
-            StreamerUiState.Loading -> {}
+            StreamerUiState.Loading -> {
+                LoadingScreen()
+            }
             is StreamerUiState.Success -> {
                 LazyColumn(
                     modifier = Modifier.fillMaxWidth(),
@@ -101,10 +105,11 @@ fun StreamerScreen(
                 }
             }
 
-            StreamerUiState.Error -> {}
+            is StreamerUiState.Error -> {
+                ErrorScreen(exception = uiState.exception, onRetryClick = request)
+            }
 
         }
-        uiState.toString()
     }
 }
 

@@ -47,11 +47,11 @@ class StreamerViewModel @Inject constructor(
                         val recommendStreamItem = recommendStreamDataList.toRecommendStreamItem(mostFollowGameId)
                         _uiState.value = Success(listOf(onlineStreamItem, offlineStreamItem, recommendStreamItem))
                     }.onFailure {
-                        _uiState.value = Error
+                        _uiState.value = Error(it)
                     }
 
             }.onFailure {
-                _uiState.value = Error
+                _uiState.value = Error(it)
             }
     }
 
@@ -61,7 +61,7 @@ class StreamerViewModel @Inject constructor(
                 .onSuccess {
                     fetchStreamerData()
                 }.onFailure {
-                    _uiState.value = Error
+                    _uiState.value = Error(it)
                 }
         }
     }

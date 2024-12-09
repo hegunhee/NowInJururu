@@ -5,8 +5,8 @@ sealed class StreamerUiState {
     object Loading : StreamerUiState()
 
     data class Success(
-        val streamItem : List<StreamItem>
+        val streamItem: List<StreamItem>
     ) : StreamerUiState()
 
-    object Error : StreamerUiState()
+    data class Error(val exception: Throwable) : StreamerUiState()
 }
