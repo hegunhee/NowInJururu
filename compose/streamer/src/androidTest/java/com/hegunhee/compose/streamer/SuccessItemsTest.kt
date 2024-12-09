@@ -17,7 +17,7 @@ class SuccessItemsTest {
     fun givenOnlineItem_whenStreamerScreen_showOnlineTextStreamerName() {
         val streamerName = "주르르"
         composeTestRule.setContent {
-            StreamerScreen(uiModel = StreamerUiState.Success(listOf(createOnlineStreamItem(streamerName))),{},{},{})
+            StreamerScreen(uiState = StreamerUiState.Success(listOf(createOnlineStreamItem(streamerName))),{},{},{})
         }
 
         composeTestRule
@@ -33,7 +33,7 @@ class SuccessItemsTest {
     fun givenOfflineItem_whenStreamerScreen_showOfflineTextAndStreamerName() {
         val streamerName = "주르르"
         composeTestRule.setContent {
-            StreamerScreen(uiModel = StreamerUiState.Success(listOf(createOfflineStreamItem(streamerName))),{},{},{})
+            StreamerScreen(uiState = StreamerUiState.Success(listOf(createOfflineStreamItem(streamerName))),{},{},{})
         }
 
         composeTestRule
@@ -49,7 +49,7 @@ class SuccessItemsTest {
     fun givenGameStream_whenStreamerScreen_showRecommendTextAndGameName() {
         val gameName = "메이플스토리"
         composeTestRule.setContent {
-            StreamerScreen(uiModel = StreamerUiState.Success(listOf(createGameStreamItem(gameName))),{},{},{})
+            StreamerScreen(uiState = StreamerUiState.Success(listOf(createGameStreamItem(gameName))),{},{},{})
         }
 
         composeTestRule

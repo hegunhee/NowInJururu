@@ -24,7 +24,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
@@ -47,7 +46,7 @@ fun StreamerScreenRoot(
     viewModel : StreamerViewModel = hiltViewModel(),
 ) {
     StreamerScreen(
-        uiModel = viewModel.uiState.collectAsStateWithLifecycle().value,
+        uiState = viewModel.uiState.collectAsStateWithLifecycle().value,
         onNavigateTwitchChannelClick = onNavigateTwitchChannelClick,
         onUnfollowStreamerClick = viewModel::onUnfollowStreamerClick,
         request = viewModel::request
@@ -56,7 +55,7 @@ fun StreamerScreenRoot(
 
 @Composable
 fun StreamerScreen(
-    uiModel : StreamerUiState,
+    uiState : StreamerUiState,
     onNavigateTwitchChannelClick: (String) -> Unit,
     onUnfollowStreamerClick : (String) -> Unit,
     request : () -> Unit,
@@ -89,14 +88,14 @@ fun StreamerScreen(
                     .padding(top = 10.dp))
         }
 
-        when (uiModel) {
+        when (uiState) {
             StreamerUiState.Loading -> {}
             is StreamerUiState.Success -> {
                 LazyColumn(
                     modifier = Modifier.fillMaxWidth(),
                     verticalArrangement = Arrangement.spacedBy(dimensionResource(com.hegunhee.resource_common.R.dimen.item_between_middle))
                 ) {
-                    uiModel.streamItem.forEach {
+                    uiState.streamItem.forEach {
                         streamerItem(it, onNavigateTwitchChannelClick, showDialog)
                     }
                 }
@@ -105,7 +104,7 @@ fun StreamerScreen(
             StreamerUiState.Error -> {}
 
         }
-        uiModel.toString()
+        uiState.toString()
     }
 }
 
