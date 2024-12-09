@@ -11,9 +11,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.dimensionResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -26,7 +24,7 @@ import com.hegunhee.resource_common.R
 import com.hegunhee.ui_component.item.SearchBar
 import com.hegunhee.ui_component.screen.ErrorScreen
 import com.hegunhee.ui_component.screen.LoadingScreen
-import kotlin.math.exp
+import com.hegunhee.ui_component.style.BottomSheetTitle.TwitchSearchTitle
 
 @Composable
 fun SearchScreenRoot(
@@ -58,7 +56,7 @@ fun SearchScreen(
             .fillMaxSize()
             .padding(LocalPaddingValues.current)
     ) {
-        ScreenHeaderText(text = "검색")
+        ScreenHeaderText(text = TwitchSearchTitle)
         SearchBar(
             searchQuery = searchQuery,
             onSearchQueryChanged = onQueryChanged,
