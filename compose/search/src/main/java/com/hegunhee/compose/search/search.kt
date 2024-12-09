@@ -25,6 +25,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemKey
+import com.hegunhee.compose.search.navigation.LocalPaddingValues
 import com.hegunhee.domain.model.twitch.SearchData
 import com.hegunhee.ui_component.item.SearchStreamer
 import com.hegunhee.ui_component.text.ScreenHeaderText
