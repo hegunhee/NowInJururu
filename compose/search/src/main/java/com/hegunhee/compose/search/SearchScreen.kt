@@ -30,8 +30,8 @@ import kotlin.math.exp
 
 @Composable
 fun SearchScreenRoot(
-    viewModel : SearchViewModel = hiltViewModel(),
-    onNavigateTwitchChannelClick : (String) -> Unit
+    viewModel: SearchViewModel = hiltViewModel(),
+    onNavigateTwitchChannelClick: (String) -> Unit
 ) {
     val (searchQuery, onQueryChanged) = rememberSaveable { mutableStateOf("") }
     SearchScreen(
@@ -46,12 +46,12 @@ fun SearchScreenRoot(
 
 @Composable
 fun SearchScreen(
-    uiState : SearchUiState,
-    searchQuery : String,
-    onQueryChanged : (String) -> Unit,
+    uiState: SearchUiState,
+    searchQuery: String,
+    onQueryChanged: (String) -> Unit,
     onNavigateTwitchChannelClick: (String) -> Unit,
-    onSearchStreamDataClick : (String) -> Unit,
-    onFollowButtonClick : (String) -> Unit,
+    onSearchStreamDataClick: (String) -> Unit,
+    onFollowButtonClick: (String) -> Unit,
 ) {
     Column(
         modifier = Modifier
@@ -65,13 +65,14 @@ fun SearchScreen(
             onClickSearch = onSearchStreamDataClick,
         )
         Spacer(modifier = Modifier.height(dimensionResource(R.dimen.item_top_margin)))
-        when(uiState){
+        when (uiState) {
             is SearchUiState.Loading -> {
                 LoadingScreen()
             }
+
             is SearchUiState.Success -> {
                 val pagingData = uiState.twitchPagingData.collectAsLazyPagingItems()
-                val onFollowAndRefreshClick : (String) -> Unit = { streamerId ->
+                val onFollowAndRefreshClick: (String) -> Unit = { streamerId ->
                     onFollowButtonClick(streamerId)
                     pagingData.refresh()
                 }
@@ -79,9 +80,12 @@ fun SearchScreen(
                     modifier = Modifier.fillMaxWidth(),
                     verticalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.item_between_middle))
                 ) {
-                    items(count = pagingData.itemCount,key = pagingData.itemKey(key = {searchData -> searchData.streamerName})) {index ->
+                    items(
+                        count = pagingData.itemCount,
+                        key = pagingData.itemKey(key = { searchData -> searchData.streamerName })
+                    ) { index ->
                         val item = pagingData[index]
-                        item?.let {  searchData ->
+                        item?.let { searchData ->
                             SearchStreamer(
                                 streamerId = searchData.streamerId,
                                 streamerName = searchData.streamerName,
@@ -93,6 +97,7 @@ fun SearchScreen(
                     }
                 }
             }
+
             is SearchUiState.Error -> {
                 ErrorScreen(exception = uiState.exception, onRetryClick = null)
             }
