@@ -18,6 +18,7 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.hegunhee.resource_common.R
 
 @OptIn(ExperimentalComposeUiApi::class)
@@ -49,7 +50,7 @@ fun SearchBar(
         }),
         modifier = modifier
             .fillMaxWidth()
-            .padding(horizontal = dimensionResource(R.dimen.header_start_padding))
+            .padding(horizontal = dimensionResource(R.dimen.header_start_padding), vertical = 10.dp)
     )
 }
 

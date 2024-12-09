@@ -1,6 +1,6 @@
 package com.hegunhee.compose.app
 
-import com.hegunhee.compose.search.SearchNavGraph
+import com.hegunhee.compose.search.navigation.SearchTwitch
 import com.hegunhee.compose.streamer.navigation.StreamerRoute
 import com.hegunhee.maplefinder.searchkakao.navigation.SEARCH_KAKAO_ROUTE
 import com.hegunhee.ui_component.style.BottomSheetTitle.KakaoSearchTitle
@@ -12,7 +12,7 @@ sealed class BottomNavItem(
 ) {
     object KakaoSearch : BottomNavItem(KakaoSearchTitle, com.hegunhee.ui_component.R.drawable.ic_star_24, SEARCH_KAKAO_ROUTE)
     object Streamer : BottomNavItem(StreamerTitle,com.hegunhee.ui_component.R.drawable.ic_streamer_24, StreamerRoute)
-    object Search : BottomNavItem(TwitchSearchTitle,com.hegunhee.resource_common.R.drawable.ic_search_24,SearchNavGraph.searchRoute)
+    object Search : BottomNavItem(TwitchSearchTitle,com.hegunhee.resource_common.R.drawable.ic_search_24,SearchTwitch)
 
 }
 
