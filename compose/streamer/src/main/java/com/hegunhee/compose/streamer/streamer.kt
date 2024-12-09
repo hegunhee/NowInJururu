@@ -55,7 +55,7 @@ fun StreamerScreenRoot(
 
 @Composable
 fun StreamerScreen(
-    uiModel : StreamerUiModel,
+    uiModel : StreamerUiState,
     onNavigateTwitchChannelClick: (String) -> Unit,
     onUnfollowStreamerClick : (String) -> Unit,
     request : () -> Unit
@@ -83,8 +83,8 @@ fun StreamerScreen(
                 modifier = Modifier.clickable { request() }.size(50.dp).padding(top = 10.dp))
         }
         when(uiModel) {
-            StreamerUiModel.Loading -> {}
-            is StreamerUiModel.Success -> {
+            StreamerUiState.Loading -> {}
+            is StreamerUiState.Success -> {
                 LazyColumn(
                     modifier = Modifier.fillMaxWidth(),
                     verticalArrangement = Arrangement.spacedBy(dimensionResource(com.hegunhee.resource_common.R.dimen.item_between_middle))
@@ -94,7 +94,7 @@ fun StreamerScreen(
                     }
                 }
             }
-            StreamerUiModel.Error -> {}
+            StreamerUiState.Error -> {}
 
         }
         uiModel.toString()

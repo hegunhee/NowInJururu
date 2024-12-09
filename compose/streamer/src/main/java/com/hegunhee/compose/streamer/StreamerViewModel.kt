@@ -24,8 +24,8 @@ class StreamerViewModel @Inject constructor(
     init {
         fetchStreamerData()
     }
-    private val _uiModel : MutableState<StreamerUiModel> = mutableStateOf(StreamerUiModel.Loading)
-    val uiModel : State<StreamerUiModel>
+    private val _uiModel : MutableState<StreamerUiState> = mutableStateOf(StreamerUiState.Loading)
+    val uiModel : State<StreamerUiState>
         get() = _uiModel
 
     private fun fetchStreamerData() = viewModelScope.launch {
@@ -38,15 +38,15 @@ class StreamerViewModel @Inject constructor(
                     getGameStreamDataListUseCase(mostFollowGameId)
                         .onSuccess { recommendStreamDataList ->
                             val recommendStreamItem = recommendStreamDataList.toRecommendStreamItem(recommendStreamDataList[0].gameName)
-                            _uiModel.value = StreamerUiModel.Success(listOf(onlineStreamItem, offlineStreamItem, recommendStreamItem))
+                            _uiModel.value = StreamerUiState.Success(listOf(onlineStreamItem, offlineStreamItem, recommendStreamItem))
                         }.onFailure {
-                            _uiModel.value = StreamerUiModel.Error
+                            _uiModel.value = StreamerUiState.Error
                         }
                 }else{
-                    _uiModel.value = StreamerUiModel.Success(listOf(onlineStreamItem, offlineStreamItem, emptyRecommendStreamItem()))
+                    _uiModel.value = StreamerUiState.Success(listOf(onlineStreamItem, offlineStreamItem, emptyRecommendStreamItem()))
                 }
             }.onFailure {
-                _uiModel.value = StreamerUiModel.Error
+                _uiModel.value = StreamerUiState.Error
             }
     }
 
@@ -60,7 +60,7 @@ class StreamerViewModel @Inject constructor(
                 .onSuccess {
                     fetchStreamerData()
                 }.onFailure {
-                    _uiModel.value = StreamerUiModel.Error
+                    _uiModel.value = StreamerUiState.Error
                 }
         }
     }

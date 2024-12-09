@@ -15,7 +15,7 @@ class StreamScreenTest {
     @Test
     fun givenUiStateLoading_whenStreamerScreen_showLoadingScreen() {
         composeTestRule.setContent {
-            StreamerScreen(uiModel = StreamerUiModel.Loading,{},{},{})
+            StreamerScreen(uiModel = StreamerUiState.Loading,{},{},{})
         }
 
         composeTestRule
@@ -26,7 +26,7 @@ class StreamScreenTest {
     @Test
     fun givenUiStateError_whenStreamerScreen_showErrorScreen() {
         composeTestRule.setContent {
-            StreamerScreen(uiModel = StreamerUiModel.Error,{},{},{})
+            StreamerScreen(uiModel = StreamerUiState.Error,{},{},{})
         }
 
         composeTestRule
