@@ -1,7 +1,5 @@
 package com.hegunhee.compose.search
 
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
@@ -28,8 +26,6 @@ class SearchViewModel @Inject constructor(
     private val getSearchPagingDataUseCase : GetSearchPagingDataUseCase,
 ) : ViewModel() {
 
-    val searchQuery : MutableState<String> = mutableStateOf("")
-
     private val _uiState : MutableStateFlow<SearchUiState> = MutableStateFlow(Loading)
     val uiState : StateFlow<SearchUiState> = _uiState.asStateFlow()
 
@@ -37,8 +33,7 @@ class SearchViewModel @Inject constructor(
     private set
 
 
-    fun fetchStreamData() {
-        val query = searchQuery.value
+    fun fetchStreamData(query: String) {
         if(query.isBlank()) return
         viewModelScope.launch {
             searchResult = getSearchPagingDataUseCase(query,20).cachedIn(viewModelScope)

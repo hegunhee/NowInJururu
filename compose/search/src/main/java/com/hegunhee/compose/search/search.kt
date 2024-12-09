@@ -15,6 +15,8 @@ import androidx.compose.material.Icon
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
@@ -37,7 +39,7 @@ fun SearchScreenRoot(
     viewModel : SearchViewModel = hiltViewModel(),
     onNavigateTwitchChannelClick : (String) -> Unit
 ) {
-    val (searchQuery, onValueChanged) = viewModel.searchQuery
+    val (searchQuery, onValueChanged) = rememberSaveable { mutableStateOf("") }
     val searchResult = viewModel.searchResult.collectAsLazyPagingItems()
     val onFollowButtonClick : ((String) -> Unit) = { streamerId ->
         viewModel.onFollowStreamerClick(streamerId)
@@ -62,7 +64,7 @@ fun SearchScreen(
     searchResult : LazyPagingItems<SearchData>,
     onValueChanged : (String) -> Unit,
     onNavigateTwitchChannelClick: (String) -> Unit,
-    onSearchStreamDataClick : () -> Unit,
+    onSearchStreamDataClick : (String) -> Unit,
     onFollowButtonClick : (String) -> Unit
 ) {
     val keyboardController = LocalSoftwareKeyboardController.current
@@ -82,12 +84,12 @@ fun SearchScreen(
                 Icon(
                     painter = painterResource(R.drawable.ic_search_24),
                     contentDescription = null,
-                    modifier = Modifier.clickable { onSearchStreamDataClick() }
+                    modifier = Modifier.clickable { onSearchStreamDataClick(searchQuery) }
                 )
             },
             keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Search),
             keyboardActions = KeyboardActions(onSearch = {
-                onSearchStreamDataClick()
+                onSearchStreamDataClick(searchQuery)
                 keyboardController?.hide()
             }),
             modifier = Modifier
