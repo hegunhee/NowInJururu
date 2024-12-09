@@ -22,6 +22,7 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemKey
@@ -36,7 +37,6 @@ fun SearchScreenRoot(
     viewModel : SearchViewModel = hiltViewModel(),
     onNavigateTwitchChannelClick : (String) -> Unit
 ) {
-    val uiState = viewModel.uiState.value
     val (searchQuery, onValueChanged) = viewModel.searchQuery
     val searchResult = viewModel.searchResult.collectAsLazyPagingItems()
     val onFollowButtonClick : ((String) -> Unit) = { streamerId ->
@@ -44,7 +44,7 @@ fun SearchScreenRoot(
         searchResult.refresh()
     }
     SearchScreen(
-        uiState = uiState,
+        uiState = viewModel.uiState.collectAsStateWithLifecycle().value,
         searchQuery = searchQuery,
         searchResult = searchResult,
         onValueChanged = onValueChanged,

@@ -1,7 +1,6 @@
 package com.hegunhee.compose.search
 
 import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -16,6 +15,9 @@ import com.hegunhee.domain.usecase.twitch.GetSearchPagingDataUseCase
 import com.hegunhee.domain.usecase.twitch.InsertStreamerDataUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.emptyFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -28,9 +30,8 @@ class SearchViewModel @Inject constructor(
 
     val searchQuery : MutableState<String> = mutableStateOf("")
 
-    private val _uiState : MutableState<SearchUiState> = mutableStateOf(Loading)
-    val uiState : State<SearchUiState>
-        get() = _uiState
+    private val _uiState : MutableStateFlow<SearchUiState> = MutableStateFlow(Loading)
+    val uiState : StateFlow<SearchUiState> = _uiState.asStateFlow()
 
     var searchResult : Flow<PagingData<SearchData>> = emptyFlow()
     private set
