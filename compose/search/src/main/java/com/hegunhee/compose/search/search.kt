@@ -25,11 +25,9 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemKey
 import com.hegunhee.compose.search.navigation.LocalPaddingValues
-import com.hegunhee.domain.model.twitch.SearchData
 import com.hegunhee.ui_component.item.SearchStreamer
 import com.hegunhee.ui_component.text.ScreenHeaderText
 import com.hegunhee.resource_common.R
@@ -40,19 +38,13 @@ fun SearchScreenRoot(
     onNavigateTwitchChannelClick : (String) -> Unit
 ) {
     val (searchQuery, onValueChanged) = rememberSaveable { mutableStateOf("") }
-    val searchResult = viewModel.searchResult.collectAsLazyPagingItems()
-    val onFollowButtonClick : ((String) -> Unit) = { streamerId ->
-        viewModel.onFollowStreamerClick(streamerId)
-        searchResult.refresh()
-    }
     SearchScreen(
         uiState = viewModel.uiState.collectAsStateWithLifecycle().value,
         searchQuery = searchQuery,
-        searchResult = searchResult,
         onValueChanged = onValueChanged,
         onNavigateTwitchChannelClick = onNavigateTwitchChannelClick,
         onSearchStreamDataClick = viewModel::fetchStreamData,
-        onFollowButtonClick = onFollowButtonClick
+        onFollowButtonClick = viewModel::onFollowStreamerClick
     )
 }
 
@@ -61,7 +53,6 @@ fun SearchScreenRoot(
 fun SearchScreen(
     uiState : SearchUiState,
     searchQuery : String,
-    searchResult : LazyPagingItems<SearchData>,
     onValueChanged : (String) -> Unit,
     onNavigateTwitchChannelClick: (String) -> Unit,
     onSearchStreamDataClick : (String) -> Unit,
@@ -102,19 +93,24 @@ fun SearchScreen(
 
             }
             is SearchUiState.Success -> {
+                val pagingData = uiState.twitchPagingData.collectAsLazyPagingItems()
+                val onFollowAndRefreshClick : (String) -> Unit = { streamerId ->
+                    onFollowButtonClick(streamerId)
+                    pagingData.refresh()
+                }
                 LazyColumn(
                     modifier = Modifier.fillMaxWidth(),
                     verticalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.item_between_middle))
                 ) {
-                    items(count = searchResult.itemCount,key = searchResult.itemKey(key = {searchData -> searchData.streamerName})) {index ->
-                        val item = searchResult[index]
+                    items(count = pagingData.itemCount,key = pagingData.itemKey(key = {searchData -> searchData.streamerName})) {index ->
+                        val item = pagingData[index]
                         item?.let {  searchData ->
                             SearchStreamer(
                                 streamerId = searchData.streamerId,
                                 streamerName = searchData.streamerName,
                                 profileUrl = searchData.profileUrl,
                                 onItemClick = onNavigateTwitchChannelClick,
-                                onFollowButtonClick = onFollowButtonClick
+                                onFollowButtonClick = onFollowAndRefreshClick
                             )
                         }
                     }
