@@ -24,6 +24,9 @@ import com.hegunhee.ui_component.item.SearchStreamer
 import com.hegunhee.ui_component.text.ScreenHeaderText
 import com.hegunhee.resource_common.R
 import com.hegunhee.ui_component.item.SearchBar
+import com.hegunhee.ui_component.screen.ErrorScreen
+import com.hegunhee.ui_component.screen.LoadingScreen
+import kotlin.math.exp
 
 @Composable
 fun SearchScreenRoot(
@@ -64,7 +67,7 @@ fun SearchScreen(
         Spacer(modifier = Modifier.height(dimensionResource(R.dimen.item_top_margin)))
         when(uiState){
             is SearchUiState.Loading -> {
-
+                LoadingScreen()
             }
             is SearchUiState.Success -> {
                 val pagingData = uiState.twitchPagingData.collectAsLazyPagingItems()
@@ -91,7 +94,7 @@ fun SearchScreen(
                 }
             }
             is SearchUiState.Error -> {
-
+                ErrorScreen(exception = uiState.exception, onRetryClick = null)
             }
         }
     }
