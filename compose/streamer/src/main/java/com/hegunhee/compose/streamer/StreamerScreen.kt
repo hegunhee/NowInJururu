@@ -44,7 +44,7 @@ import com.hegunhee.ui_component.style.middleTextFontSize
 @Composable
 fun StreamerScreenRoot(
     onNavigateTwitchChannelClick : (String) -> Unit,
-    viewModel : StreamerViewModel = hiltViewModel()
+    viewModel : StreamerViewModel = hiltViewModel(),
 ) {
     StreamerScreen(
         uiModel = viewModel.uiState.collectAsStateWithLifecycle().value,
@@ -59,18 +59,20 @@ fun StreamerScreen(
     uiModel : StreamerUiState,
     onNavigateTwitchChannelClick: (String) -> Unit,
     onUnfollowStreamerClick : (String) -> Unit,
-    request : () -> Unit
+    request : () -> Unit,
 ) {
-    var dialogShow by remember{ mutableStateOf(Pair<Boolean, String>(false, "")) }
-    val showDialog : (String) -> Unit= { streamerId -> dialogShow = Pair(true,streamerId) }
-    val dismissDialog = { dialogShow = Pair(false,"")}
-    if(dialogShow.first) {
+    var dialogShow by remember { mutableStateOf(Pair(false, "")) }
+    val showDialog: (String) -> Unit = { streamerId -> dialogShow = Pair(true, streamerId) }
+    val dismissDialog = { dialogShow = Pair(false, "") }
+
+    if (dialogShow.first) {
         StreamerBottomSheet(
             streamerId = dialogShow.second,
             dismissDialog = dismissDialog,
             onUnfollowStreamerClick = onUnfollowStreamerClick
         )
     }
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -81,9 +83,13 @@ fun StreamerScreen(
             Image(
                 painter = painterResource(id = R.drawable.ic_request_24),
                 contentDescription = "데이터 요청",
-                modifier = Modifier.clickable { request() }.size(50.dp).padding(top = 10.dp))
+                modifier = Modifier
+                    .clickable { request() }
+                    .size(50.dp)
+                    .padding(top = 10.dp))
         }
-        when(uiModel) {
+
+        when (uiModel) {
             StreamerUiState.Loading -> {}
             is StreamerUiState.Success -> {
                 LazyColumn(
@@ -91,10 +97,11 @@ fun StreamerScreen(
                     verticalArrangement = Arrangement.spacedBy(dimensionResource(com.hegunhee.resource_common.R.dimen.item_between_middle))
                 ) {
                     uiModel.streamItem.forEach {
-                        streamerItem(it,onNavigateTwitchChannelClick,showDialog)
+                        streamerItem(it, onNavigateTwitchChannelClick, showDialog)
                     }
                 }
             }
+
             StreamerUiState.Error -> {}
 
         }
@@ -106,11 +113,10 @@ fun StreamerScreen(
 fun StreamerBottomSheet(
     streamerId : String,
     dismissDialog : () -> Unit,
-    onUnfollowStreamerClick : (String) -> Unit
+    onUnfollowStreamerClick : (String) -> Unit,
 ) {
-    val context = LocalContext.current
     BottomSheetDialog(onDismissRequest = dismissDialog) {
-        Surface(shape = RoundedCornerShape(topStart = 12.dp,topEnd = 12.dp)) {
+        Surface(shape = RoundedCornerShape(topStart = 12.dp, topEnd = 12.dp)) {
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -118,20 +124,19 @@ fun StreamerBottomSheet(
                 verticalArrangement = Arrangement.Bottom,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Text(text = "$streamerId 를 팔로우 취소하겠습니까?",modifier = Modifier.clickable {
+                Text(text = "$streamerId 를 팔로우 취소하겠습니까?", modifier = Modifier.clickable {
                     onUnfollowStreamerClick(streamerId)
                     dismissDialog()
                 })
             }
         }
-
     }
 }
 
 fun LazyListScope.streamerItem(
-    streamItem : StreamItem,
+    streamItem: StreamItem,
     onNavigateTwitchChannelClick: (String) -> Unit,
-    onMoreButtonClick : (String) -> Unit
+    onMoreButtonClick: (String) -> Unit,
 ) {
     if (streamItem.isEmpty) {
         return
