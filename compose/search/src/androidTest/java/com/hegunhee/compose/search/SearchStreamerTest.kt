@@ -5,7 +5,6 @@ import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithText
 import androidx.paging.PagingData
-import androidx.paging.compose.collectAsLazyPagingItems
 import com.hegunhee.domain.model.twitch.SearchData
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
@@ -22,8 +21,8 @@ class SearchStreamerTest {
         val query = "주르르"
         val streamerId = "cotton__123"
         composeTestRule.setContent {
-            val pagingItems = createPagingData(streamerId,query).collectAsLazyPagingItems()
-            SearchScreen(uiModel = SearchUiModel.Success, searchQuery = query, searchResult = pagingItems,{},{},{},{})
+            val pagingItems = createPagingData(streamerId,query)
+            SearchScreen(uiState = SearchUiState.Success(pagingItems), searchQuery = query, {},{},{},{})
         }
 
         composeTestRule

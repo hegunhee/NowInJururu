@@ -1,19 +1,18 @@
 package com.hegunhee.compose.search
 
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.State
-import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.paging.PagingData
 import androidx.paging.cachedIn
-import com.hegunhee.domain.model.twitch.SearchData
+import com.hegunhee.compose.search.SearchUiState.Error
+import com.hegunhee.compose.search.SearchUiState.Loading
+import com.hegunhee.compose.search.SearchUiState.Success
 import com.hegunhee.domain.model.twitch.StreamerData
 import com.hegunhee.domain.usecase.twitch.GetSearchPagingDataUseCase
 import com.hegunhee.domain.usecase.twitch.InsertStreamerDataUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.emptyFlow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -23,32 +22,24 @@ class SearchViewModel @Inject constructor(
     private val getSearchPagingDataUseCase : GetSearchPagingDataUseCase,
 ) : ViewModel() {
 
-    val searchQuery : MutableState<String> = mutableStateOf("")
+    private val _uiState : MutableStateFlow<SearchUiState> = MutableStateFlow(Loading)
+    val uiState : StateFlow<SearchUiState> = _uiState.asStateFlow()
 
-    private val _uiModel : MutableState<SearchUiModel> = mutableStateOf(SearchUiModel.Loading)
-    val uiModel : State<SearchUiModel>
-        get() = _uiModel
-
-    var searchResult : Flow<PagingData<SearchData>> = emptyFlow()
-    private set
-
-
-    fun fetchStreamData() {
-        val query = searchQuery.value
+    fun fetchStreamData(query: String) {
         if(query.isBlank()) return
         viewModelScope.launch {
-            searchResult = getSearchPagingDataUseCase(query,20).cachedIn(viewModelScope)
-            _uiModel.value = SearchUiModel.Success
+            _uiState.value = Success(getSearchPagingDataUseCase(query,20).cachedIn(viewModelScope))
         }
     }
 
     fun onFollowStreamerClick(streamerId : String) = viewModelScope.launch{
-        (uiModel.value as? SearchUiModel.Success)?.let {
+        val state = uiState.value
+        (state as? Success)?.let {
             insertStreamerDataUseCase(StreamerData(streamerId))
                 .onSuccess {
-                    _uiModel.value = SearchUiModel.Success
+                    _uiState.value = Success(state.twitchPagingData)
                 }.onFailure {
-                    _uiModel.value = SearchUiModel.Error
+                    _uiState.value = Error(it)
                 }
         }
     }
