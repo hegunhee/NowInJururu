@@ -34,10 +34,10 @@ class GameStreamDataTest {
             )
 
             // When
-            val gameStreamDataList = sut.getGameStreamDataList(gameId).getOrThrow()
+            val recommendStreamData = sut.getGameStreamDataList(gameId).getOrThrow()
 
             // Then
-            assertTrue(gameStreamDataList.isEmpty())
+            assertTrue(recommendStreamData.streams.isEmpty())
 
             verify(remoteDataSource).getGameStreamDataResponse(gameId)
         }
@@ -56,11 +56,11 @@ class GameStreamDataTest {
             )
 
             // When
-            val gameStreamDataList = sut.getGameStreamDataList(gameId).getOrThrow()
+            val recommendStreamData = sut.getGameStreamDataList(gameId).getOrThrow()
 
             // Then
-            assertTrue(gameStreamDataList.size == 1)
-            assertTrue(gameStreamDataList[0].gameId == gameId)
+            assertTrue(recommendStreamData.streams.size == 1)
+            assertTrue(recommendStreamData.streams[0].gameId == gameId)
 
             verify(remoteDataSource).getGameStreamDataResponse(gameId)
             verify(remoteDataSource).getStreamerDataResponse("")

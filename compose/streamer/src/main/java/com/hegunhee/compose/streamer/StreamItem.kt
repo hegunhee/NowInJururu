@@ -1,5 +1,8 @@
 package com.hegunhee.compose.streamer
 
+import com.hegunhee.domain.model.platform.StreamPlatform
+import com.hegunhee.domain.model.platform.TwitchGame
+import com.hegunhee.domain.model.twitch.RecommendStreamData
 import com.hegunhee.domain.model.twitch.StreamDataType
 
 sealed class StreamItem(val isEmpty: Boolean) {
@@ -13,7 +16,8 @@ sealed class StreamItem(val isEmpty: Boolean) {
     ) : StreamItem(items.isEmpty())
 
     data class Recommend(
-        val gameName: String,
+        val gameId: String,
+        val platform: StreamPlatform,
         val items: List<StreamDataType.OnlineData>
     ) : StreamItem(items.isEmpty())
 }
@@ -26,12 +30,12 @@ fun List<StreamDataType.OfflineData>.toOfflineStreamItem(): StreamItem.Offline {
     return StreamItem.Offline(items = this)
 }
 
-fun List<StreamDataType.OnlineData>.toRecommendStreamItem(gameName: String): StreamItem.Recommend {
-    return StreamItem.Recommend(gameName = gameName, items = this)
+fun RecommendStreamData.toRecommendStreamItem() : StreamItem.Recommend {
+    return StreamItem.Recommend(gameId = gameId, platform = platform,items = streams)
 }
 
 fun emptyRecommendStreamItem(): StreamItem.Recommend {
-    return StreamItem.Recommend(gameName = "", items = emptyList())
+    return StreamItem.Recommend(gameId = "", platform = TwitchGame(""),items = emptyList())
 }
 
 fun List<StreamDataType>.filterMapOnlineStreamItems(): StreamItem.Online {

@@ -33,7 +33,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.hegunhee.compose.streamer.navigation.LocalPaddingValues
-import com.hegunhee.nowinjururu.core.navigation.deeplink.type.DeepLink
+import com.hegunhee.nowinjururu.core.navigation.deeplink.mapper.toDeepLink
 import com.hegunhee.ui_component.item.OfflineStream
 import com.hegunhee.ui_component.item.OnlineStream
 import com.hegunhee.ui_component.item.RecommendStream
@@ -214,7 +214,7 @@ fun LazyListScope.streamerItem(
                         fontSize = middleTextFontSize,
                         color = colorResource(id = com.hegunhee.resource_common.R.color.violet),
                         modifier = Modifier.clickable {
-                            DeepLink.TwitchGame(streamItem.gameName).handleDeepLink(context)
+                            streamItem.platform.toDeepLink().handleDeepLink(context)
                         })
                 }
             }
