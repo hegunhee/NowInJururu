@@ -1,8 +1,11 @@
 package com.hegunhee.domain.model.twitch
 
 import com.hegunhee.domain.model.ImageUrl
+import com.hegunhee.domain.model.platform.StreamPlatform
+import com.hegunhee.domain.model.platform.TwitchStreamer
 
 data class SearchData(
+    val platform: StreamPlatform,
     val streamerId: String,
     val streamerName: String,
     val gameName: String,
@@ -16,6 +19,6 @@ data class SearchData(
         return this == EMPTY
     }
     companion object {
-        val EMPTY = SearchData("","","",false, emptyList(),"","")
+        val EMPTY = SearchData(TwitchStreamer(""),"","","",false, emptyList(),"","")
     }
 }

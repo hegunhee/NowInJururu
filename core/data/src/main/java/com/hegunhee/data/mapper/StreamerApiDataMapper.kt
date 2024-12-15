@@ -2,6 +2,7 @@ package com.hegunhee.data.mapper
 
 import com.hegunhee.data.data.json.twitch.StreamerApiData
 import com.hegunhee.data.database.entity.StreamerEntity
+import com.hegunhee.domain.model.platform.TwitchStreamer
 import com.hegunhee.domain.model.twitch.StreamDataType
 import com.hegunhee.domain.model.twitch.StreamerData
 
@@ -18,5 +19,5 @@ fun StreamerData.toStreamerEntity() : StreamerEntity {
 }
 
 fun StreamerApiData.toOfflineData() : StreamDataType.OfflineData {
-    return StreamDataType.OfflineData(streamerId,streamerName,profileImageUrl)
+    return StreamDataType.OfflineData(TwitchStreamer(streamerId),streamerId,streamerName,profileImageUrl)
 }

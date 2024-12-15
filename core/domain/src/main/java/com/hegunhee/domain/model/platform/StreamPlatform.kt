@@ -4,10 +4,10 @@ sealed interface StreamPlatform {
 
 }
 
-class TwitchStreamer(private val streamerId: String) : StreamPlatform {
+class TwitchStreamer(val streamerId: String) : StreamPlatform {
 
 }
 
-class TwitchGame(private val gameId: String) : StreamPlatform {
+class TwitchGame(val gameName: String) : StreamPlatform {
 
 }
