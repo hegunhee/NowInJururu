@@ -1,6 +1,6 @@
 package com.hegunhee.ui_component.item
 
-import android.widget.Toast
+import android.content.Context
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -28,11 +28,15 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import coil.compose.AsyncImage
+import com.hegunhee.domain.model.platform.StreamPlatform
+import com.hegunhee.domain.model.platform.TwitchStreamer
+import com.hegunhee.nowinjururu.core.navigation.deeplink.mapper.toDeepLink
 import com.hegunhee.resource_common.R
 import com.hegunhee.ui_component.style.middleTextFontSize
 
 @Composable
 fun RecommendStream(
+    platform: StreamPlatform,
     streamerId : String,
     streamerName : String,
     title : String,
@@ -41,11 +45,10 @@ fun RecommendStream(
     thumbNailUrl : String,
     profileUrl : String,
     viewerCount : String,
-    onTwitchStreamClick : (String) -> Unit,
+    context: Context,
 ) {
-    val context = LocalContext.current
     Column(modifier = Modifier
-        .clickable {  onTwitchStreamClick(String.format(context.getString(R.string.twitchChannelUrl),streamerId)) }
+        .clickable {  platform.toDeepLink().handleDeepLink(context) }
         .padding(horizontal = dimensionResource(R.dimen.header_start_padding))
     ) {
         ThumbNailFormatImage(thumbNailUrl = thumbNailUrl, viewerCount = viewerCount)
@@ -108,6 +111,7 @@ private fun ThumbNailFormatImage(
 private fun TestRecommendStream() {
     val context = LocalContext.current
     RecommendStream(
+        platform = TwitchStreamer("cotton__123"),
         streamerId = "cotton__123",
         streamerName = "주르르",
         title = "방송입니다.",
@@ -116,6 +120,6 @@ private fun TestRecommendStream() {
         thumbNailUrl = "https://static-cdn.jtvnw.net/jtv_user_pictures/aea85c64-5e28-4d15-81a1-db1a7a3cc1ec-channel_offline_image-1920x1080.png",
         profileUrl = "https://static-cdn.jtvnw.net/jtv_user_pictures/919e1ba0-e13e-49ae-a660-181817e3970d-profile_image-70x70.png",
         viewerCount = "1000",
-        onTwitchStreamClick = { streamerId -> Toast.makeText(context,"click Item ", Toast.LENGTH_SHORT).show() },
+        context = context,
     )
 }

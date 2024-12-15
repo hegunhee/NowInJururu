@@ -1,5 +1,6 @@
 package com.hegunhee.ui_component.item
 
+import android.content.Context
 import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -19,21 +20,24 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import coil.compose.AsyncImage
+import com.hegunhee.domain.model.platform.StreamPlatform
+import com.hegunhee.domain.model.platform.TwitchStreamer
+import com.hegunhee.nowinjururu.core.navigation.deeplink.mapper.toDeepLink
 import com.hegunhee.resource_common.R
 import com.hegunhee.ui_component.style.largeTextFontSize
 
 @Composable
 fun OfflineStream(
+    platform: StreamPlatform,
     streamerId : String,
     streamerName : String,
     streamerProfileUrl : String,
-    onTwitchStreamClick : (String) -> Unit,
-    onMoreButtonClick : (String) -> Unit
+    onMoreButtonClick : (String) -> Unit,
+    context : Context,
 ) {
-    val context = LocalContext.current
     Row(modifier = Modifier
         .fillMaxWidth()
-        .clickable { onTwitchStreamClick(String.format(context.getString(R.string.twitchChannelUrl),streamerId)) }
+        .clickable { platform.toDeepLink().handleDeepLink(context) }
         .padding(
             start = dimensionResource(id = R.dimen.header_start_padding),
             top = dimensionResource(id = R.dimen.header_top_padding),
@@ -59,10 +63,11 @@ fun OfflineStream(
 private fun TestOfflineStream() {
     val context = LocalContext.current
     OfflineStream(
+        platform = TwitchStreamer("cotton__123"),
         streamerId = "cotton__123",
         streamerName = "주르르",
         streamerProfileUrl = "https://static-cdn.jtvnw.net/jtv_user_pictures/919e1ba0-e13e-49ae-a660-181817e3970d-profile_image-300x300.png",
-        onTwitchStreamClick = { streamerId -> Toast.makeText(context,"click Item ",Toast.LENGTH_SHORT).show() },
-        onMoreButtonClick =  { streamerId -> Toast.makeText(context,"click unfollowButton",Toast.LENGTH_SHORT).show()}
+        onMoreButtonClick =  { streamerId -> Toast.makeText(context,"click unfollowButton",Toast.LENGTH_SHORT).show()},
+        context = context,
     )
 }

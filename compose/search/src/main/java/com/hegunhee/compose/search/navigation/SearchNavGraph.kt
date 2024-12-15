@@ -14,11 +14,10 @@ val LocalPaddingValues = compositionLocalOf { PaddingValues(0.dp) }
 
 fun NavGraphBuilder.searchNavGraph(
     paddingValues : PaddingValues,
-    onNavigateTwitchChannelClick : (String) -> Unit
 ) {
     composable(route = SearchTwitch) {
         CompositionLocalProvider(LocalPaddingValues provides paddingValues) {
-            SearchScreenRoot(onNavigateTwitchChannelClick = onNavigateTwitchChannelClick)
+            SearchScreenRoot()
         }
     }
 }

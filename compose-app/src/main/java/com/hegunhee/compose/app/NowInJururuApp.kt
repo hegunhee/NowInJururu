@@ -1,10 +1,6 @@
 package com.hegunhee.compose.app
 
 import android.content.Context
-import android.content.Intent
-import android.content.pm.PackageInfo
-import android.content.pm.PackageManager
-import android.net.Uri
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -19,7 +15,6 @@ import com.hegunhee.compose.search.navigation.searchNavGraph
 import com.hegunhee.compose.streamer.navigation.streamerNavGraph
 import com.hegunhee.maplefinder.searchkakao.navigation.SEARCH_KAKAO_ROUTE
 import com.hegunhee.maplefinder.searchkakao.navigation.searchKakaoNavGraph
-import com.hegunhee.resource_common.R
 import kotlinx.coroutines.CoroutineScope
 
 @Composable
@@ -36,12 +31,10 @@ fun NowInJururuApp(
 
                 streamerNavGraph(
                     paddingValues = paddingValues,
-                    onNavigateTwitchChannelClick = twitchNavigationController::navigate
                 )
 
                 searchNavGraph(
                     paddingValues =  paddingValues,
-                    onNavigateTwitchChannelClick = twitchNavigationController::navigate
                 )
             }
         }
@@ -87,21 +80,5 @@ fun rememberTwitchNavigationController() : TwitchNavigationController {
 class TwitchNavigationController(
     private val context : Context
 ) {
-    fun navigate(url : String) {
-        val isTwitchAppInstalled = runCatching { isInstalledTwitchAppOrException() }.isSuccess
-        Intent().apply {
-            data = if(isTwitchAppInstalled) {
-                Uri.parse(url)
-            }else{
-                Uri.parse(context.getString(R.string.playStoreTwitchDeepLink))
-            }
-            context.startActivity(this)
-        }
-    }
 
-    private fun isInstalledTwitchAppOrException() : PackageInfo {
-        return context.run {
-            packageManager.getPackageInfo(getString(R.string.twitchPackageName), PackageManager.PackageInfoFlags.of(0L))
-        }
-    }
 }

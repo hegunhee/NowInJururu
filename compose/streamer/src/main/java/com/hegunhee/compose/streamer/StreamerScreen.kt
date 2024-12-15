@@ -1,5 +1,6 @@
 package com.hegunhee.compose.streamer
 
+import android.content.Context
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -24,6 +25,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
@@ -31,6 +33,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.hegunhee.compose.streamer.navigation.LocalPaddingValues
+import com.hegunhee.nowinjururu.core.navigation.deeplink.type.DeepLink
 import com.hegunhee.ui_component.item.OfflineStream
 import com.hegunhee.ui_component.item.OnlineStream
 import com.hegunhee.ui_component.item.RecommendStream
@@ -51,12 +54,10 @@ import com.hegunhee.ui_component.style.middleTextFontSize
 
 @Composable
 fun StreamerScreenRoot(
-    onNavigateTwitchChannelClick : (String) -> Unit,
     viewModel : StreamerViewModel = hiltViewModel(),
 ) {
     StreamerScreen(
         uiState = viewModel.uiState.collectAsStateWithLifecycle().value,
-        onNavigateTwitchChannelClick = onNavigateTwitchChannelClick,
         onUnfollowStreamerClick = viewModel::onUnfollowStreamerClick,
         request = viewModel::request
     )
@@ -65,13 +66,13 @@ fun StreamerScreenRoot(
 @Composable
 fun StreamerScreen(
     uiState : StreamerUiState,
-    onNavigateTwitchChannelClick: (String) -> Unit,
     onUnfollowStreamerClick : (String) -> Unit,
     request : () -> Unit,
 ) {
     var dialogShow by remember { mutableStateOf(Pair(false, "")) }
     val showDialog: (String) -> Unit = { streamerId -> dialogShow = Pair(true, streamerId) }
     val dismissDialog = { dialogShow = Pair(false, "") }
+    val context = LocalContext.current
 
     if (dialogShow.first) {
         StreamerBottomSheet(
@@ -107,7 +108,7 @@ fun StreamerScreen(
                     verticalArrangement = Arrangement.spacedBy(dimensionResource(com.hegunhee.resource_common.R.dimen.item_between_middle))
                 ) {
                     uiState.streamItem.forEach {
-                        streamerItem(it, onNavigateTwitchChannelClick, showDialog)
+                        streamerItem(it,showDialog,context)
                     }
                 }
             }
@@ -146,8 +147,8 @@ fun StreamerBottomSheet(
 
 fun LazyListScope.streamerItem(
     streamItem: StreamItem,
-    onNavigateTwitchChannelClick: (String) -> Unit,
     onMoreButtonClick: (String) -> Unit,
+    context: Context,
 ) {
     if (streamItem.isEmpty) {
         return
@@ -163,6 +164,7 @@ fun LazyListScope.streamerItem(
             }
             items(items = streamItem.items, key = { it.streamerId }) {
                 OnlineStream(
+                    platform = it.platform,
                     streamerId = it.streamerId,
                     streamerName = it.streamerName,
                     title = it.title,
@@ -171,8 +173,8 @@ fun LazyListScope.streamerItem(
                     thumbNailUrl = it.thumbnailUrl,
                     profileUrl = it.profileUrl,
                     viewerCount = it.viewerCount,
-                    onTwitchStreamClick = onNavigateTwitchChannelClick,
-                    onMoreButtonClick = onMoreButtonClick
+                    onMoreButtonClick = onMoreButtonClick,
+                    context = context,
                 )
             }
         }
@@ -187,11 +189,12 @@ fun LazyListScope.streamerItem(
             }
             items(items = streamItem.items, key = { it.streamerId }) {
                 OfflineStream(
+                    platform = it.platform,
                     streamerId = it.streamerId,
                     streamerName = it.streamerName,
                     streamerProfileUrl = it.profileUrl,
-                    onTwitchStreamClick = onNavigateTwitchChannelClick,
-                    onMoreButtonClick = onMoreButtonClick
+                    onMoreButtonClick = onMoreButtonClick,
+                    context = context,
                 )
             }
         }
@@ -211,7 +214,7 @@ fun LazyListScope.streamerItem(
                         fontSize = middleTextFontSize,
                         color = colorResource(id = com.hegunhee.resource_common.R.color.violet),
                         modifier = Modifier.clickable {
-                            onNavigateTwitchChannelClick("twitch://open?game=${streamItem.gameName}")
+                            DeepLink.TwitchGame(streamItem.gameName).handleDeepLink(context)
                         })
                 }
             }
@@ -219,6 +222,7 @@ fun LazyListScope.streamerItem(
                 LazyRow(horizontalArrangement = Arrangement.spacedBy(dimensionResource(com.hegunhee.resource_common.R.dimen.item_between_large))) {
                     items(items = streamItem.items, key = { "recommend" + it.streamerId }) {
                         RecommendStream(
+                            platform = it.platform,
                             streamerId = it.streamerId,
                             streamerName = it.streamerName,
                             title = it.title,
@@ -227,7 +231,7 @@ fun LazyListScope.streamerItem(
                             thumbNailUrl = it.thumbnailUrl,
                             profileUrl = it.profileUrl,
                             viewerCount = it.viewerCount,
-                            onTwitchStreamClick = onNavigateTwitchChannelClick
+                            context = context,
                         )
                     }
                 }
