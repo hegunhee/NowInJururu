@@ -37,7 +37,7 @@ private fun Context.shareUrl(url : String) {
     }
 }
 
-private fun Context.handleTwitchDeepLink(url : String) {
+internal fun Context.handleTwitchDeepLink(url : String) {
     runCatching {
         isInstalledTwitchAppOrException()
     }.onSuccess {

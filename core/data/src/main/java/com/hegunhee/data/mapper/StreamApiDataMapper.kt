@@ -1,10 +1,12 @@
 package com.hegunhee.data.mapper
 
 import com.hegunhee.data.data.json.twitch.StreamApiData
+import com.hegunhee.domain.model.platform.TwitchStreamer
 import com.hegunhee.domain.model.twitch.StreamDataType
 
 fun StreamApiData.toStreamData(profileUrl : String, thumbNailWidth : Int = 100, thumbNailHeight : Int = 100): StreamDataType.OnlineData {
     return StreamDataType.OnlineData(
+        platform = TwitchStreamer(streamerId),
         gameId = gameId,
         gameName = gameName,
         id = id,
@@ -19,7 +21,7 @@ fun StreamApiData.toStreamData(profileUrl : String, thumbNailWidth : Int = 100, 
         userId = userId,
         streamerId = streamerId,
         streamerName = streamerName,
-        viewerCount = viewerCount.toString()
+        viewerCount = viewerCount.toString(),
     )
 }
 

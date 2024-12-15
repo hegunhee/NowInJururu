@@ -1,18 +1,20 @@
 package com.hegunhee.data.mapper
 
 import com.hegunhee.data.data.json.twitch.SearchApiData
+import com.hegunhee.domain.model.platform.TwitchStreamer
 import com.hegunhee.domain.model.twitch.SearchData
 
 
 fun SearchApiData.toSearchData(): SearchData {
     return SearchData(
+        platform = TwitchStreamer(streamerId),
         streamerId = streamerId,
         streamerName = streamerName,
         gameName = gameName,
         isLive = isLive,
         tags = tags,
         profileUrl = profileUrl.toThumbNailSize(),
-        title = title
+        title = title,
     )
 }
 
