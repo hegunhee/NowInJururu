@@ -7,6 +7,8 @@ import kotlinx.coroutines.flow.Flow
 
 sealed class SearchUiState {
 
+    object Init : SearchUiState()
+
     object Loading : SearchUiState()
 
     data class Success(
