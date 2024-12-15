@@ -1,9 +1,8 @@
-package com.hegunhee.nowinjururu.core.navigation.deeplink.type
+package com.hegunhee.nowinjururu.core.navigation.deeplink
 
 import android.content.Context
 import android.content.Intent
 import androidx.core.net.toUri
-import com.hegunhee.nowinjururu.core.navigation.deeplink.handleTwitchDeepLink
 
 sealed interface DeepLink {
 

@@ -3,7 +3,7 @@ package com.hegunhee.nowinjururu.core.navigation.deeplink.mapper
 import com.hegunhee.domain.model.platform.StreamPlatform
 import com.hegunhee.domain.model.platform.TwitchGame
 import com.hegunhee.domain.model.platform.TwitchStreamer
-import com.hegunhee.nowinjururu.core.navigation.deeplink.type.DeepLink
+import com.hegunhee.nowinjururu.core.navigation.deeplink.DeepLink
 
 fun StreamPlatform.toDeepLink(): DeepLink {
     return when (this) {

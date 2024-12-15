@@ -1,6 +1,6 @@
 package com.hegunhee.maplefinder.searchkakao
 
-import com.hegunhee.nowinjururu.core.navigation.deeplink.type.DeepLink
+import com.hegunhee.nowinjururu.core.navigation.deeplink.DeepLink
 
 
 sealed interface SearchKakaoUiEvent {

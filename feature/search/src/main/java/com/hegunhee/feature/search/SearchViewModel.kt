@@ -8,7 +8,7 @@ import com.hegunhee.domain.model.twitch.SearchData
 import com.hegunhee.domain.model.twitch.StreamerData
 import com.hegunhee.domain.usecase.twitch.GetSearchPagingDataUseCase
 import com.hegunhee.domain.usecase.twitch.InsertStreamerDataUseCase
-import com.hegunhee.nowinjururu.core.navigation.deeplink.type.DeepLink
+import com.hegunhee.nowinjururu.core.navigation.deeplink.DeepLink
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow

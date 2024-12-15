@@ -9,7 +9,7 @@ import com.hegunhee.nowinjururu.core.designsystem.adapter.recommend.RecommendAct
 import com.hegunhee.nowinjururu.core.designsystem.adapter.streamer.StreamActionHandler
 import com.hegunhee.nowinjururu.core.designsystem.adapter.streamer.StreamerViewType
 import com.hegunhee.nowinjururu.core.designsystem.adapter.streamer.toStreamViewTypeData
-import com.hegunhee.nowinjururu.core.navigation.deeplink.type.DeepLink
+import com.hegunhee.nowinjururu.core.navigation.deeplink.DeepLink
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
