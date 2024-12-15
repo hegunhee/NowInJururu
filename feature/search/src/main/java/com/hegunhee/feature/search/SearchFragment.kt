@@ -16,7 +16,6 @@ import androidx.paging.LoadState
 import com.hegunhee.nowinjururu.core.navigation.fragmentResultKeys.streamRequestKey
 import com.hegunhee.nowinjururu.core.designsystem.dialog.lottie.LottieDialog
 import com.hegunhee.feature.search.databinding.FragmentSearchBinding
-import com.hegunhee.nowinjururu.core.navigation.deeplink.handleDeepLink
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -83,7 +82,7 @@ class SearchFragment : Fragment(){
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 launch {
                     viewModel.navigateDeepLink.collect{ deepLink ->
-                        requireContext().handleDeepLink(deepLink)
+                        deepLink.handleDeepLink(requireContext())
                     }
                 }
                 launch{

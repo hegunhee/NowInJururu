@@ -16,9 +16,6 @@ fun Context.handleDeepLink(deepLink : DeepLink) {
         is DeepLink.Share -> {
             shareUrl(deepLink.url)
         }
-        is DeepLink.Twitch ->{
-            handleTwitchDeepLink(deepLink.url)
-        }
     }
 }
 

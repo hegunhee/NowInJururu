@@ -9,14 +9,5 @@ sealed interface DeepLink {
         override val url: String
             get() = "$baseUrl $title"
     }
-    data class Twitch(val query : TwitchDeepLinkQuery) : DeepLink {
-        override val url: String
-            get() = "twitch://open" + query.getDeepLinkQuery()
-    }
 
 }
-
-
-
-
-

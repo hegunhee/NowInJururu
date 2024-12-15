@@ -8,10 +8,8 @@ import com.hegunhee.domain.usecase.twitch.GetGameStreamDataListUseCase
 import com.hegunhee.nowinjururu.core.designsystem.adapter.recommend.RecommendActionHandler
 import com.hegunhee.nowinjururu.core.designsystem.adapter.streamer.StreamActionHandler
 import com.hegunhee.nowinjururu.core.designsystem.adapter.streamer.StreamerViewType
-import com.hegunhee.nowinjururu.core.designsystem.adapter.streamer.toOnlineStreamer
 import com.hegunhee.nowinjururu.core.designsystem.adapter.streamer.toStreamViewTypeData
-import com.hegunhee.nowinjururu.core.navigation.deeplink.DeepLink
-import com.hegunhee.nowinjururu.core.navigation.deeplink.TwitchDeepLinkQuery
+import com.hegunhee.nowinjururu.core.navigation.deeplink.type.DeepLink
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -57,7 +55,7 @@ class StreamerViewModel @Inject constructor(
             val gameId = onlineStreamList.map { it.gameId }.groupBy { it }.maxBy { it.value.size }.key
             getGameStreamDataListUseCase(gameId)
                 .onSuccess {
-                    _recommendStreamDataList.emit(it.map { it.toOnlineStreamer() })
+                    _recommendStreamDataList.emit(it.streams.toStreamViewTypeData().filterIsInstance<StreamerViewType.OnlineStreamer>())
                 }.onFailure {
                     
                 }
@@ -79,7 +77,7 @@ class StreamerViewModel @Inject constructor(
 
     override fun onGameDeepLinkClick(gameName: String) {
         viewModelScope.launch {
-            _navigateDeepLink.emit(DeepLink.Twitch(TwitchDeepLinkQuery.Game(gameName)))
+            _navigateDeepLink.emit(DeepLink.TwitchGame(gameName))
         }
     }
 }

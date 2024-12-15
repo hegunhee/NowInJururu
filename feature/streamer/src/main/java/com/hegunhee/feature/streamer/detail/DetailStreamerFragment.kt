@@ -1,7 +1,6 @@
 package com.hegunhee.feature.streamer.detail
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,7 +14,6 @@ import com.hegunhee.domain.model.kakao.KakaoSearchSortType
 import com.hegunhee.domain.model.kakao.KakaoSearchType
 import com.hegunhee.feature.streamer.R
 import com.hegunhee.feature.streamer.databinding.FragmentDetailStreamerBinding
-import com.hegunhee.nowinjururu.core.navigation.deeplink.handleDeepLink
 import com.hegunhee.nowinjururu.core.navigation.fragmentResultKeys.SearchTypeRequestKey
 import com.hegunhee.nowinjururu.core.navigation.fragmentResultKeys.SortTypeRequestKey
 import com.hegunhee.nowinjururu.feature.searchkakao.KakaoSearchAdapter
@@ -86,7 +84,7 @@ class DetailStreamerFragment : Fragment() {
                 }
                 launch {
                     viewModel.navigateDeepLink.collect{ deepLink ->
-                        requireContext().handleDeepLink(deepLink)
+                        deepLink.handleDeepLink(requireContext())
                     }
                 }
                 launch {

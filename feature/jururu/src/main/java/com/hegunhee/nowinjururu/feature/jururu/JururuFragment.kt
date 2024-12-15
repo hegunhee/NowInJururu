@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.ConcatAdapter
 import com.hegunhee.domain.model.kakao.KakaoSearchSortType
 import com.hegunhee.domain.model.kakao.KakaoSearchType
 import com.hegunhee.nowinjururu.core.designsystem.adapter.streamer.StreamerAdapter
-import com.hegunhee.nowinjururu.core.navigation.deeplink.handleDeepLink
 import com.hegunhee.nowinjururu.core.navigation.fragmentResultKeys.SearchTypeRequestKey
 import com.hegunhee.nowinjururu.core.navigation.fragmentResultKeys.SortTypeRequestKey
 import com.hegunhee.nowinjururu.feature.jururu.databinding.FragmentJururuBinding
@@ -69,7 +68,7 @@ class JururuFragment : Fragment() {
                 }
                 launch {
                     viewModel.navigateDeepLink.collect{ deepLink ->
-                        requireContext().handleDeepLink(deepLink)
+                        deepLink.handleDeepLink(requireContext())
                     }
                 }
                 launch {
