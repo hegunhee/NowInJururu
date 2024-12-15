@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.dimensionResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -29,14 +30,12 @@ import com.hegunhee.ui_component.style.BottomSheetTitle.TwitchSearchTitle
 @Composable
 fun SearchScreenRoot(
     viewModel: SearchViewModel = hiltViewModel(),
-    onNavigateTwitchChannelClick: (String) -> Unit
 ) {
     val (searchQuery, onQueryChanged) = rememberSaveable { mutableStateOf("") }
     SearchScreen(
         uiState = viewModel.uiState.collectAsStateWithLifecycle().value,
         searchQuery = searchQuery,
         onQueryChanged = onQueryChanged,
-        onNavigateTwitchChannelClick = onNavigateTwitchChannelClick,
         onSearchStreamDataClick = viewModel::fetchStreamData,
         onFollowButtonClick = viewModel::onFollowStreamerClick,
     )
@@ -47,10 +46,10 @@ fun SearchScreen(
     uiState: SearchUiState,
     searchQuery: String,
     onQueryChanged: (String) -> Unit,
-    onNavigateTwitchChannelClick: (String) -> Unit,
     onSearchStreamDataClick: (String) -> Unit,
     onFollowButtonClick: (String) -> Unit,
 ) {
+    val context = LocalContext.current
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -85,11 +84,12 @@ fun SearchScreen(
                         val item = pagingData[index]
                         item?.let { searchData ->
                             SearchStreamer(
+                                platform = searchData.platform,
                                 streamerId = searchData.streamerId,
                                 streamerName = searchData.streamerName,
                                 profileUrl = searchData.profileUrl,
-                                onItemClick = onNavigateTwitchChannelClick,
-                                onFollowButtonClick = onFollowAndRefreshClick
+                                onFollowButtonClick = onFollowAndRefreshClick,
+                                context = context,
                             )
                         }
                     }

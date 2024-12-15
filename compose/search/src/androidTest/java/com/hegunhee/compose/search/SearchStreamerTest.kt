@@ -5,6 +5,7 @@ import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithText
 import androidx.paging.PagingData
+import com.hegunhee.domain.model.platform.TwitchStreamer
 import com.hegunhee.domain.model.twitch.SearchData
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
@@ -22,7 +23,7 @@ class SearchStreamerTest {
         val streamerId = "cotton__123"
         composeTestRule.setContent {
             val pagingItems = createPagingData(streamerId,query)
-            SearchScreen(uiState = SearchUiState.Success(pagingItems), searchQuery = query, {},{},{},{})
+            SearchScreen(uiState = SearchUiState.Success(pagingItems), searchQuery = query, {},{},{})
         }
 
         composeTestRule
@@ -36,6 +37,7 @@ class SearchStreamerTest {
             PagingData.from(
                 listOf(
                     SearchData(
+                        platform = TwitchStreamer(streamerId),
                         streamerId,
                         query,
                         "",

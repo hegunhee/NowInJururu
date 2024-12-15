@@ -1,5 +1,6 @@
 package com.hegunhee.ui_component.item
 
+import android.content.Context
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -17,22 +18,24 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
+import com.hegunhee.domain.model.platform.StreamPlatform
+import com.hegunhee.nowinjururu.core.navigation.deeplink.mapper.toDeepLink
 import com.hegunhee.resource_common.R
 import com.hegunhee.ui_component.style.middleButtonFontSize
 import com.hegunhee.ui_component.style.middleTextFontSize
 
 @Composable
 fun SearchStreamer(
-    streamerId : String,
-    streamerName : String,
-    profileUrl : String,
-    onItemClick : (String) -> Unit,
-    onFollowButtonClick : (String) -> Unit
+    platform: StreamPlatform,
+    streamerId: String,
+    streamerName: String,
+    profileUrl: String,
+    onFollowButtonClick: (String) -> Unit,
+    context: Context,
 ) {
-    val context = LocalContext.current
     Row(modifier = Modifier
         .fillMaxWidth()
-        .clickable { onItemClick(String.format(context.getString(R.string.twitchChannelUrl),streamerId)) }
+        .clickable { platform.toDeepLink().handleDeepLink(context) }
         .padding(horizontal = dimensionResource(R.dimen.header_start_padding))) {
         AsyncImage(
             model = profileUrl,
