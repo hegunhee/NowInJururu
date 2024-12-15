@@ -14,11 +14,10 @@ const val StreamerRoute = "streamer"
 
 fun NavGraphBuilder.streamerNavGraph(
     paddingValues : PaddingValues,
-    onNavigateTwitchChannelClick : (String) -> Unit
 ) {
     composable(route = StreamerRoute) {
         CompositionLocalProvider(LocalPaddingValues provides paddingValues) {
-            StreamerScreenRoot(onNavigateTwitchChannelClick = onNavigateTwitchChannelClick)
+            StreamerScreenRoot()
         }
 
     }

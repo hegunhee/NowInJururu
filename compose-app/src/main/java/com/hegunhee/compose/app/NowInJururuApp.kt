@@ -36,7 +36,6 @@ fun NowInJururuApp(
 
                 streamerNavGraph(
                     paddingValues = paddingValues,
-                    onNavigateTwitchChannelClick = twitchNavigationController::navigate
                 )
 
                 searchNavGraph(

@@ -33,6 +33,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.hegunhee.compose.streamer.navigation.LocalPaddingValues
+import com.hegunhee.nowinjururu.core.navigation.deeplink.type.DeepLink
 import com.hegunhee.ui_component.item.OfflineStream
 import com.hegunhee.ui_component.item.OnlineStream
 import com.hegunhee.ui_component.item.RecommendStream
@@ -53,12 +54,10 @@ import com.hegunhee.ui_component.style.middleTextFontSize
 
 @Composable
 fun StreamerScreenRoot(
-    onNavigateTwitchChannelClick : (String) -> Unit,
     viewModel : StreamerViewModel = hiltViewModel(),
 ) {
     StreamerScreen(
         uiState = viewModel.uiState.collectAsStateWithLifecycle().value,
-        onNavigateTwitchChannelClick = onNavigateTwitchChannelClick,
         onUnfollowStreamerClick = viewModel::onUnfollowStreamerClick,
         request = viewModel::request
     )
@@ -67,7 +66,6 @@ fun StreamerScreenRoot(
 @Composable
 fun StreamerScreen(
     uiState : StreamerUiState,
-    onNavigateTwitchChannelClick: (String) -> Unit,
     onUnfollowStreamerClick : (String) -> Unit,
     request : () -> Unit,
 ) {
@@ -110,7 +108,7 @@ fun StreamerScreen(
                     verticalArrangement = Arrangement.spacedBy(dimensionResource(com.hegunhee.resource_common.R.dimen.item_between_middle))
                 ) {
                     uiState.streamItem.forEach {
-                        streamerItem(it, onNavigateTwitchChannelClick, showDialog,context)
+                        streamerItem(it,showDialog,context)
                     }
                 }
             }
@@ -149,7 +147,6 @@ fun StreamerBottomSheet(
 
 fun LazyListScope.streamerItem(
     streamItem: StreamItem,
-    onNavigateTwitchChannelClick: (String) -> Unit,
     onMoreButtonClick: (String) -> Unit,
     context: Context,
 ) {
@@ -217,7 +214,7 @@ fun LazyListScope.streamerItem(
                         fontSize = middleTextFontSize,
                         color = colorResource(id = com.hegunhee.resource_common.R.color.violet),
                         modifier = Modifier.clickable {
-                            onNavigateTwitchChannelClick("twitch://open?game=${streamItem.gameName}")
+                            DeepLink.TwitchGame(streamItem.gameName).handleDeepLink(context)
                         })
                 }
             }
