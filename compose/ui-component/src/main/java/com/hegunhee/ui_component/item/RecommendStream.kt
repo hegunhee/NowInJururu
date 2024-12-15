@@ -1,5 +1,6 @@
 package com.hegunhee.ui_component.item
 
+import android.content.Context
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -44,8 +45,8 @@ fun RecommendStream(
     thumbNailUrl : String,
     profileUrl : String,
     viewerCount : String,
+    context: Context,
 ) {
-    val context = LocalContext.current
     Column(modifier = Modifier
         .clickable {  platform.toDeepLink().handleDeepLink(context) }
         .padding(horizontal = dimensionResource(R.dimen.header_start_padding))
@@ -119,5 +120,6 @@ private fun TestRecommendStream() {
         thumbNailUrl = "https://static-cdn.jtvnw.net/jtv_user_pictures/aea85c64-5e28-4d15-81a1-db1a7a3cc1ec-channel_offline_image-1920x1080.png",
         profileUrl = "https://static-cdn.jtvnw.net/jtv_user_pictures/919e1ba0-e13e-49ae-a660-181817e3970d-profile_image-70x70.png",
         viewerCount = "1000",
+        context = context,
     )
 }
