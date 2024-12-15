@@ -6,6 +6,7 @@ import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
+import com.hegunhee.domain.model.platform.TwitchStreamer
 import com.hegunhee.domain.model.twitch.StreamDataType
 import com.hegunhee.ui_component.style.followCancelMessage
 import org.junit.Rule
@@ -85,7 +86,7 @@ class SuccessItemsTest {
     }
 
     private fun createOfflineStreamItem(streamerName: String): StreamItem {
-        return StreamItem.Offline(listOf(StreamDataType.OfflineData("",streamerName,"")))
+        return StreamItem.Offline(listOf(StreamDataType.OfflineData(TwitchStreamer(""),"",streamerName,"")))
     }
 
     private fun createGameStreamItem(gameName: String): StreamItem {
@@ -93,7 +94,7 @@ class SuccessItemsTest {
     }
 
     private fun createOnlineStreamData(streamerName: String = "", gameName: String = ""): StreamDataType.OnlineData {
-        return StreamDataType.OnlineData("",gameName,"",false,"","", emptyList(),"","","","","","",streamerName,"")
+        return StreamDataType.OnlineData(TwitchStreamer(""),"",gameName,"",false,"","", emptyList(),"","","","","","",streamerName,"")
     }
 
 }

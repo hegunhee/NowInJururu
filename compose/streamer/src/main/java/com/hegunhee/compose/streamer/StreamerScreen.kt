@@ -163,6 +163,7 @@ fun LazyListScope.streamerItem(
             }
             items(items = streamItem.items, key = { it.streamerId }) {
                 OnlineStream(
+                    platform = it.platform,
                     streamerId = it.streamerId,
                     streamerName = it.streamerName,
                     title = it.title,
@@ -171,7 +172,6 @@ fun LazyListScope.streamerItem(
                     thumbNailUrl = it.thumbnailUrl,
                     profileUrl = it.profileUrl,
                     viewerCount = it.viewerCount,
-                    onTwitchStreamClick = onNavigateTwitchChannelClick,
                     onMoreButtonClick = onMoreButtonClick
                 )
             }
@@ -187,10 +187,10 @@ fun LazyListScope.streamerItem(
             }
             items(items = streamItem.items, key = { it.streamerId }) {
                 OfflineStream(
+                    platform = it.platform,
                     streamerId = it.streamerId,
                     streamerName = it.streamerName,
                     streamerProfileUrl = it.profileUrl,
-                    onTwitchStreamClick = onNavigateTwitchChannelClick,
                     onMoreButtonClick = onMoreButtonClick
                 )
             }
@@ -219,6 +219,7 @@ fun LazyListScope.streamerItem(
                 LazyRow(horizontalArrangement = Arrangement.spacedBy(dimensionResource(com.hegunhee.resource_common.R.dimen.item_between_large))) {
                     items(items = streamItem.items, key = { "recommend" + it.streamerId }) {
                         RecommendStream(
+                            platform = it.platform,
                             streamerId = it.streamerId,
                             streamerName = it.streamerName,
                             title = it.title,
@@ -227,7 +228,6 @@ fun LazyListScope.streamerItem(
                             thumbNailUrl = it.thumbnailUrl,
                             profileUrl = it.profileUrl,
                             viewerCount = it.viewerCount,
-                            onTwitchStreamClick = onNavigateTwitchChannelClick
                         )
                     }
                 }
