@@ -8,4 +8,5 @@ android {
 }
 dependencies {
     implementation(project(":resource_common"))
+    implementation(project(":core:domain"))
 }
