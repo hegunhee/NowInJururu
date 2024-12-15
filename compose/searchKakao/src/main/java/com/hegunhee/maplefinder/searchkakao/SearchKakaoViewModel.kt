@@ -8,7 +8,7 @@ import androidx.paging.cachedIn
 import com.hegunhee.domain.model.kakao.KakaoSearchSortType
 import com.hegunhee.domain.model.kakao.KakaoSearchType
 import com.hegunhee.domain.usecase.kakao.GetKakaoSearchPagingDataUseCase
-import com.hegunhee.nowinjururu.core.navigation.deeplink.DeepLink
+import com.hegunhee.nowinjururu.core.navigation.deeplink.type.DeepLink
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow

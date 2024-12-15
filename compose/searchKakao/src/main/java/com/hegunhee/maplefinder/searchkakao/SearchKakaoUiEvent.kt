@@ -1,6 +1,7 @@
 package com.hegunhee.maplefinder.searchkakao
 
-import com.hegunhee.nowinjururu.core.navigation.deeplink.DeepLink
+import com.hegunhee.nowinjururu.core.navigation.deeplink.type.DeepLink
+
 
 sealed interface SearchKakaoUiEvent {
 
@@ -10,7 +11,7 @@ sealed interface SearchKakaoUiEvent {
 
     object SearchTypeRecency : SearchKakaoUiEvent
 
-    data class ShareClick(val deepLink : DeepLink.Share) : SearchKakaoUiEvent
+    data class ShareClick(val deepLink: DeepLink.Share) : SearchKakaoUiEvent
 
-    data class WebLinkClick(val deepLink : DeepLink.Kakao) : SearchKakaoUiEvent
+    data class WebLinkClick(val deepLink: DeepLink.Kakao) : SearchKakaoUiEvent
 }
