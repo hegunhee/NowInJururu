@@ -8,32 +8,6 @@ import android.net.Uri
 import androidx.core.net.toUri
 import com.hegunhee.resource_common.R
 
-fun Context.handleDeepLink(deepLink : DeepLink) {
-    when(deepLink) {
-        is DeepLink.Kakao -> {
-            openDeepLink(deepLink.url)
-        }
-        is DeepLink.Share -> {
-            shareUrl(deepLink.url)
-        }
-    }
-}
-
-private fun Context.openDeepLink(url : String) {
-    Intent(Intent.ACTION_VIEW).apply {
-        data = url.toUri()
-        startActivity(this)
-    }
-}
-
-private fun Context.shareUrl(url : String) {
-    Intent(Intent.ACTION_SEND).apply {
-        type = "text/plain"
-        putExtra(Intent.EXTRA_TEXT,url)
-        startActivity(Intent.createChooser(this,url))
-    }
-}
-
 internal fun Context.handleTwitchDeepLink(url : String) {
     runCatching {
         isInstalledTwitchAppOrException()
@@ -41,6 +15,13 @@ internal fun Context.handleTwitchDeepLink(url : String) {
         openDeepLink(url)
     }.onFailure {
         openPlayStore()
+    }
+}
+
+private fun Context.openDeepLink(url : String) {
+    Intent(Intent.ACTION_VIEW).apply {
+        data = url.toUri()
+        startActivity(this)
     }
 }
 
