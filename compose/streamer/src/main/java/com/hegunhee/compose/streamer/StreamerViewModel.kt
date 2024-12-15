@@ -43,8 +43,8 @@ class StreamerViewModel @Inject constructor(
                 val mostFollowGameId = onlineStreamItem.items.getMostFollowedGameId()
 
                 getGameStreamDataListUseCase(mostFollowGameId)
-                    .onSuccess { recommendStreamDataList ->
-                        val recommendStreamItem = recommendStreamDataList.toRecommendStreamItem(mostFollowGameId)
+                    .onSuccess { recommendStreamData ->
+                        val recommendStreamItem = recommendStreamData.toRecommendStreamItem()
                         _uiState.value = Success(listOf(onlineStreamItem, offlineStreamItem, recommendStreamItem))
                     }.onFailure {
                         _uiState.value = Error(it)
