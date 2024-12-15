@@ -63,6 +63,10 @@ fun SearchScreen(
         )
         Spacer(modifier = Modifier.height(dimensionResource(R.dimen.item_top_margin)))
         when (uiState) {
+            is SearchUiState.Init -> {
+
+            }
+
             is SearchUiState.Loading -> {
                 LoadingScreen()
             }
