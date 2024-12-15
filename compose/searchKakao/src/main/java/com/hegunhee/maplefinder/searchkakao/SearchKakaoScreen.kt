@@ -29,14 +29,12 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.paging.compose.collectAsLazyPagingItems
 import coil.compose.AsyncImage
 import com.hegunhee.domain.model.kakao.KakaoSearchData
-import com.hegunhee.nowinjururu.core.navigation.deeplink.DeepLink
-import com.hegunhee.nowinjururu.core.navigation.deeplink.handleDeepLink
+import com.hegunhee.nowinjururu.core.navigation.deeplink.type.DeepLink
 import com.hegunhee.resource_common.R
 import com.hegunhee.ui_component.item.SearchBar
 import com.hegunhee.ui_component.screen.ErrorScreen
 import com.hegunhee.ui_component.screen.LoadingScreen
 import com.hegunhee.ui_component.style.AccuracyText
-import com.hegunhee.ui_component.style.BottomSheetTitle
 import com.hegunhee.ui_component.style.BottomSheetTitle.KakaoSearchTitle
 import com.hegunhee.ui_component.style.RecencyText
 import com.hegunhee.ui_component.style.ShareText
@@ -51,7 +49,7 @@ fun SearchKakaoScreenRoot(
     val context = LocalContext.current
     LaunchedEffect(key1 = viewModel.deepLink) {
         viewModel.deepLink.collect{
-            context.handleDeepLink(it)
+            it.handleDeepLink(context)
         }
     }
     val (searchQuery, onQueryChanged) = rememberSaveable { mutableStateOf("") }
@@ -236,8 +234,8 @@ private fun ShareImage(
                 onShareButtonClick(
                     SearchKakaoUiEvent.ShareClick(
                         DeepLink.Share(
-                            url,
-                            title
+                            baseUrl = url,
+                            title = title
                         )
                     )
                 )
