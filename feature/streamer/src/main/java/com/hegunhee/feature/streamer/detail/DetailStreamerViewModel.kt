@@ -13,7 +13,6 @@ import com.hegunhee.domain.model.twitch.SearchData
 import com.hegunhee.domain.usecase.kakao.GetKakaoSearchPagingDataUseCase
 import com.hegunhee.domain.usecase.twitch.GetSearchStreamerDataUseCase
 import com.hegunhee.nowinjururu.core.navigation.deeplink.DeepLink
-import com.hegunhee.nowinjururu.core.navigation.deeplink.TwitchDeepLinkQuery
 import com.hegunhee.nowinjururu.feature.searchkakao.KakaoSearchActionHandler
 import com.hegunhee.nowinjururu.feature.searchkakao.filterHandler.KakaoSearchFilterActionHandler
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -89,7 +88,7 @@ class DetailStreamerViewModel @Inject constructor(
         val streamerData = streamerData.value
         viewModelScope.launch {
             if(!streamerData.isEmpty()) {
-                _navigateDeepLink.emit(DeepLink.Twitch(TwitchDeepLinkQuery.Streamer(streamerData.streamerId)))
+                _navigateDeepLink.emit(DeepLink.TwitchStreamer(streamerData.streamerId))
             }
         }
 

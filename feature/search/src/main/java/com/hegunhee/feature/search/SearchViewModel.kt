@@ -9,7 +9,6 @@ import com.hegunhee.domain.model.twitch.StreamerData
 import com.hegunhee.domain.usecase.twitch.GetSearchPagingDataUseCase
 import com.hegunhee.domain.usecase.twitch.InsertStreamerDataUseCase
 import com.hegunhee.nowinjururu.core.navigation.deeplink.DeepLink
-import com.hegunhee.nowinjururu.core.navigation.deeplink.TwitchDeepLinkQuery
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -49,7 +48,7 @@ class SearchViewModel @Inject constructor(
 
     override fun onClickStreamerItem(streamerId : String) {
         viewModelScope.launch {
-            _navigateDeepLink.emit(DeepLink.Twitch(TwitchDeepLinkQuery.Streamer(streamerId)))
+            _navigateDeepLink.emit(DeepLink.TwitchStreamer(streamerId))
         }
     }
 

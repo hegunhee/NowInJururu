@@ -17,7 +17,6 @@ import com.hegunhee.nowinjururu.core.designsystem.adapter.streamer.StreamerViewT
 import com.hegunhee.nowinjururu.core.designsystem.adapter.streamer.toOnlineStreamer
 import com.hegunhee.nowinjururu.core.designsystem.adapter.streamer.toOfflineStreamer
 import com.hegunhee.nowinjururu.core.navigation.deeplink.DeepLink
-import com.hegunhee.nowinjururu.core.navigation.deeplink.TwitchDeepLinkQuery
 import com.hegunhee.nowinjururu.feature.searchkakao.KakaoSearchActionHandler
 import com.hegunhee.nowinjururu.feature.searchkakao.filterHandler.KakaoSearchFilterActionHandler
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -84,7 +83,7 @@ class JururuViewModel @Inject constructor(
 
     override fun onTwitchStreamerItemClick(streamerId: String) {
         viewModelScope.launch {
-            _navigateDeepLink.emit(DeepLink.Twitch(TwitchDeepLinkQuery.Streamer(streamerId)))
+            _navigateDeepLink.emit(DeepLink.TwitchStreamer(streamerId))
         }
     }
 

@@ -29,7 +29,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.paging.compose.collectAsLazyPagingItems
 import coil.compose.AsyncImage
 import com.hegunhee.domain.model.kakao.KakaoSearchData
-import com.hegunhee.nowinjururu.core.navigation.deeplink.type.DeepLink
+import com.hegunhee.nowinjururu.core.navigation.deeplink.DeepLink
 import com.hegunhee.resource_common.R
 import com.hegunhee.ui_component.item.SearchBar
 import com.hegunhee.ui_component.screen.ErrorScreen
