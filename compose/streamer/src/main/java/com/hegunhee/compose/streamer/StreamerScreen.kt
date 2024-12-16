@@ -87,17 +87,21 @@ fun StreamerScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(LocalPaddingValues.current)
+            .padding(LocalPaddingValues.current),
+        verticalArrangement = Arrangement.Center,
     ) {
         Row(modifier = Modifier.fillMaxWidth()) {
-            ScreenHeaderText(text = StreamerTitle)
+            ScreenHeaderText(
+                text = StreamerTitle,
+            )
             Image(
                 painter = painterResource(id = R.drawable.ic_request_24),
                 contentDescription = RequestText,
                 modifier = Modifier
                     .clickable { request() }
                     .size(50.dp)
-                    .padding(top = 10.dp))
+                    .padding(top = 20.dp)
+            )
         }
 
         when (uiState) {
