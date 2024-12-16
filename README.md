@@ -37,7 +37,8 @@ interceptor 함수 내에서 트위치 토큰을 불러오기(runBlocking)
 (https://github.com/hegunhee/NowInJururu/issues/15)
 
 ## 진척도  
-https://github.com/hegunhee/NowInJururu/issues/51
+[칸반 링크](https://github.com/users/hegunhee/projects/5/views/1)  
+[마일스톤 링크](https://github.com/hegunhee/NowInJururu/milestones)  
 
 ## 앱 사진  
 ![JururuFragment](https://github.com/hegunhee/NowInJururu/assets/57277631/bb71653c-ff1e-44aa-9e86-03627db31444)
