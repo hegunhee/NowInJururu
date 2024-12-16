@@ -239,14 +239,19 @@ fun LazyListScope.streamerItem(
                     horizontalArrangement = Arrangement.spacedBy(dimensionResource(com.hegunhee.resource_common.R.dimen.item_between_middle)),
                     verticalAlignment = Alignment.Bottom
                 ) {
-                    Text(text = RecommendOnlineMessage, fontSize = largeTextFontSize)
+                    Text(
+                        text = RecommendOnlineMessage,
+                        fontSize = largeTextFontSize,
+                        modifier = Modifier.alignByBaseline(),
+                    )
                     Text(
                         text = TwitchShowMessage,
                         fontSize = middleTextFontSize,
+                        fontWeight = Bold,
                         color = colorResource(id = com.hegunhee.resource_common.R.color.violet),
                         modifier = Modifier.clickable {
                             streamItem.platform.toDeepLink().handleDeepLink(context)
-                        })
+                        }.alignByBaseline())
                 }
             }
             item {
