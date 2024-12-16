@@ -7,3 +7,5 @@ val largeTextFontSize = 25.sp
 val middleTextFontSize = 15.sp
 
 val middleButtonFontSize = 13.sp
+
+val countTextFontSize = 20.sp
