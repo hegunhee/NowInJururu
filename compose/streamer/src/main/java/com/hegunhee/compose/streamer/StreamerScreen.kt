@@ -29,6 +29,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight.Companion.Bold
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -48,6 +49,7 @@ import com.hegunhee.ui_component.style.OnlineText
 import com.hegunhee.ui_component.style.RecommendOnlineMessage
 import com.hegunhee.ui_component.style.RequestText
 import com.hegunhee.ui_component.style.TwitchShowMessage
+import com.hegunhee.ui_component.style.countTextFontSize
 import com.hegunhee.ui_component.style.followCancelMessage
 import com.hegunhee.ui_component.style.largeTextFontSize
 import com.hegunhee.ui_component.style.middleTextFontSize
@@ -156,11 +158,26 @@ fun LazyListScope.streamerItem(
     when (streamItem) {
         is StreamItem.Online -> {
             item {
-                Text(
-                    text = OnlineText,
-                    fontSize = largeTextFontSize,
-                    modifier = Modifier.padding(horizontal = dimensionResource(com.hegunhee.resource_common.R.dimen.header_start_padding))
-                )
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = dimensionResource(com.hegunhee.resource_common.R.dimen.header_start_padding)),
+                    verticalAlignment = Alignment.Bottom
+                ) {
+                    Text(
+                        text = OnlineText,
+                        fontSize = largeTextFontSize,
+                        modifier = Modifier.alignByBaseline()
+                    )
+                    Text(
+                        text = streamItem.items.size.toString(),
+                        fontSize = countTextFontSize,
+                        color = colorResource(id = com.hegunhee.resource_common.R.color.violet),
+                        fontWeight = Bold,
+                        modifier = Modifier.padding(start = 10.dp).alignByBaseline(),
+                    )
+                }
+
             }
             items(items = streamItem.items, key = { it.streamerId }) {
                 OnlineStream(
@@ -181,11 +198,25 @@ fun LazyListScope.streamerItem(
 
         is StreamItem.Offline -> {
             item {
-                Text(
-                    text = OfflineText,
-                    fontSize = largeTextFontSize,
-                    modifier = Modifier.padding(horizontal = dimensionResource(com.hegunhee.resource_common.R.dimen.header_start_padding))
-                )
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = dimensionResource(com.hegunhee.resource_common.R.dimen.header_start_padding)),
+                    verticalAlignment = Alignment.Bottom
+                ) {
+                    Text(
+                        text = OfflineText,
+                        fontSize = largeTextFontSize,
+                        modifier = Modifier.alignByBaseline()
+                    )
+                    Text(
+                        text = streamItem.items.size.toString(),
+                        fontSize = countTextFontSize,
+                        color = colorResource(id = com.hegunhee.resource_common.R.color.violet),
+                        fontWeight = Bold,
+                        modifier = Modifier.padding(start = 10.dp).alignByBaseline(),
+                    )
+                }
             }
             items(items = streamItem.items, key = { it.streamerId }) {
                 OfflineStream(
