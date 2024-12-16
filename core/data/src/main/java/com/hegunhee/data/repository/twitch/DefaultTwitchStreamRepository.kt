@@ -6,6 +6,8 @@ import com.hegunhee.data.mapper.toOfflineData
 import com.hegunhee.data.mapper.toStreamData
 import com.hegunhee.domain.model.twitch.StreamDataType
 import com.hegunhee.domain.repository.twitch.TwitchStreamRepository
+import kotlinx.coroutines.async
+import kotlinx.coroutines.coroutineScope
 import javax.inject.Inject
 
 class DefaultTwitchStreamRepository @Inject constructor(
@@ -29,19 +31,19 @@ class DefaultTwitchStreamRepository @Inject constructor(
         }
     }
 
-    override suspend fun getStreamDataList(): Result<List<StreamDataType>> {
-        return runCatching {
+    override suspend fun getStreamDataList(): Result<List<StreamDataType>> = coroutineScope {
+        runCatching {
             val loadedStreamerLoginArray = localDataSource.getAllStreamerList().map { it.streamerLogin }.toTypedArray()
 
             if (loadedStreamerLoginArray.isEmpty()) {
                 return@runCatching emptyList<StreamDataType>()
             }
 
-            val streamerInfoList = remoteDataSource.getStreamerDataResponse(streamerId = loadedStreamerLoginArray).streamerApiDataList
-            val streamInfoList =
-                remoteDataSource.getStreamDataListResponse(streamerId = loadedStreamerLoginArray).streamApiData
+            val streamerInfoList = async { remoteDataSource.getStreamerDataResponse(streamerId = loadedStreamerLoginArray).streamerApiDataList }
 
-            streamerInfoList.map { streamerInfo ->
+            val streamInfoList = remoteDataSource.getStreamDataListResponse(streamerId = loadedStreamerLoginArray).streamApiData
+
+            streamerInfoList.await().map { streamerInfo ->
                 val streamDataOrNull = streamInfoList.find { it.streamerId == streamerInfo.streamerId }
                 return@map streamDataOrNull?.toStreamData(streamerInfo.profileImageUrl) ?: streamerInfo.toOfflineData()
             }
