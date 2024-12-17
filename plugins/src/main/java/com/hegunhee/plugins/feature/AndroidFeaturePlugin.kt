@@ -1,11 +1,10 @@
 package com.hegunhee.plugins.feature
 
+import com.hegunhee.plugins.setup.libs
 import com.hegunhee.plugins.setup.setupViewDataBinding
 import org.gradle.api.Plugin
 import org.gradle.api.Project
-import org.gradle.api.artifacts.VersionCatalogsExtension
 import org.gradle.kotlin.dsl.dependencies
-import org.gradle.kotlin.dsl.getByType
 
 class AndroidFeaturePlugin : Plugin<Project>{
 
@@ -16,8 +15,6 @@ class AndroidFeaturePlugin : Plugin<Project>{
                 apply("hegunhee.hilt")
             }
             setupViewDataBinding()
-
-            val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
 
             dependencies {
                 add("implementation",libs.findLibrary("core-ktx").get())

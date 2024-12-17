@@ -2,13 +2,12 @@ package com.hegunhee.plugins
 
 import com.android.build.api.dsl.ApplicationExtension
 import com.hegunhee.plugins.feature.configureAndroidCompose
+import com.hegunhee.plugins.setup.libs
 import com.hegunhee.plugins.setup.setupAndroid
 import org.gradle.api.Plugin
 import org.gradle.api.Project
-import org.gradle.api.artifacts.VersionCatalogsExtension
 import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.dependencies
-import org.gradle.kotlin.dsl.getByType
 
 class AndroidComposeApplicationPlugin : Plugin<Project> {
 
@@ -36,8 +35,6 @@ class AndroidComposeApplicationPlugin : Plugin<Project> {
                     }
                 }
             }
-
-            val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
 
             dependencies {
                 add("implementation",libs.findLibrary("core-ktx").get())
