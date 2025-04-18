@@ -1,28 +1,46 @@
 # NowInJururu  
 ## 소개  
-이세계 아이돌 주르르의 현재 방송 정보와 각종 검색 결과를 알려주는 앱이었으나
-트위치 스트리머 검색 및 카카오 검색을 하는 앱입니다.
+트위치 스트리머 검색 및 카카오 검색을 하는 앱입니다.  
 트위치 코리아 철수 이후 SOOP 혹은 치지직 검색도 추가할 예정입니다.
-## 앱 모식도  
+## 모듈 구조  
 본 프로젝트는 multi-module 구조이며 각 feature마다 모듈의 형태로 구성되어있습니다.  
-엉클 밥의 클린아키텍쳐를 차용하였습니다.
-![image](https://github.com/hegunhee/NowInJururu/assets/57277631/c743cba0-95ed-4077-8759-de86c71933d3) 
+📦plugins(build-logic)  
+📦app  
+📦feature(Compose)  
+┣ 📂search  
+┣ 📂searchKakao  
+┣ 📂streamer  
+┣ 📂ui-component  
+📦core  
+┣ 📂data  
+┣ 📂designsystem  
+┣ 📂domain  
+┗ 📂navigation  
 
-## 기술 정보  
+## 기술스택  
+- network
+  - Retrofit2, Moshi, Coroutine
+- UI
+  - Jetpack Compose, AAC-ViewModel, Coroutine Flows
+- DI  
+  - Hilt
+- Test
+  - Junit4, mockito-kotlin, Espresso
+ 
+## 기술정보  
 - Retrofit  
-  트위치 api를 통해 현재 방송정보, 스트리머 정보를 불러와야하기때문에  
-  Retrofit을 사용중입니다.  
+  http 통신을 보다 편하게 하기 위해 사용했습니다.  
 - Hilt  
   의존성 주입을 사용하여 종속성이 감소하여 보다 유연하고 테스트에 용이합니다.  
   멀티 모듈 프로젝트에서 의존성을 쉽게 주입 가능합니다.  
-- VersionCatalog + gradle convention plugins
+- VersionCatalog + gradle convention plugins  
   VersionCatalog로 외부 라이브러리를 한 toml파일에서 관리합니다.  
-  멀티모듈로 인해 동일한 gradle설정을 여러번 해야되는 수고로움을 덜어줍니다.
-- Paging3 (compose도 적용)
-  많은 양의 데이터를 효율적으로 분산시키기 위해 Paging3를 사용했습니다.
-- Jetpack Compose
-  선언형 UI인 Jetpack Compose를 사용했습니다.
-  직관적이며 코드 재사용률이 높습니다. 보다 쉽게 UI를 꾸밀 수 있습니다.
+  멀티모듈로 인해 동일한 gradle설정을 여러번 해야되는 수고로움을 덜어줍니다.  
+- Paging3 (compose도 적용)  
+  많은 양의 데이터를 효율적으로 분산시키기 위해 Paging3를 사용했습니다.  
+- Jetpack Compose  
+  선언형 UI인 Jetpack Compose를 사용했습니다.  
+  직관적이며 코드 재사용률이 높습니다. 보다 쉽게 UI를 꾸밀 수 있습니다.  
 
 ## 비즈니스 로직 설명  
 [api 명세](https://github.com/hegunhee/NowInJururu/issues/5)  
@@ -44,8 +62,8 @@
 [마일스톤 링크](https://github.com/hegunhee/NowInJururu/milestones)  
 
 ## 앱 사진  
-![JururuFragment](https://github.com/hegunhee/NowInJururu/assets/57277631/bb71653c-ff1e-44aa-9e86-03627db31444)
-![StreamerFragment](https://github.com/hegunhee/NowInJururu/assets/57277631/6ede4209-890d-4f58-a30b-0caaf6075b6b)
-![DetailStreamerFragment](https://github.com/hegunhee/NowInJururu/assets/57277631/f81508ad-13e3-4db8-99d7-b35c49595635)
-![SearchFragment](https://github.com/hegunhee/NowInJururu/assets/57277631/96134ed8-1696-4109-99ac-87427e00d5fb)
-
+| 카카오 검색 | 스트리머 생방송 | 스트리머 추천 |
+| -------- | ----------- | --------- |
+| ![JururuFragment](https://github.com/hegunhee/NowInJururu/assets/57277631/bb71653c-ff1e-44aa-9e86-03627db31444) |![StreamerFragment](https://github.com/hegunhee/NowInJururu/assets/57277631/6ede4209-890d-4f58-a30b-0caaf6075b6b) | ![DetailStreamerFragment](https://github.com/hegunhee/NowInJururu/assets/57277631/f81508ad-13e3-4db8-99d7-b35c49595635) |
+| 스트리머 검색 |           |           |
+| ![SearchFragment](https://github.com/hegunhee/NowInJururu/assets/57277631/96134ed8-1696-4109-99ac-87427e00d5fb) |
