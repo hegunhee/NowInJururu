@@ -64,6 +64,6 @@
 ## 앱 사진  
 | 카카오 검색 | 스트리머 생방송 | 스트리머 추천 |
 | -------- | ----------- | --------- |
-| ![JururuFragment](https://github.com/hegunhee/NowInJururu/assets/57277631/bb71653c-ff1e-44aa-9e86-03627db31444) |![StreamerFragment](https://github.com/hegunhee/NowInJururu/assets/57277631/6ede4209-890d-4f58-a30b-0caaf6075b6b) | ![DetailStreamerFragment](https://github.com/hegunhee/NowInJururu/assets/57277631/f81508ad-13e3-4db8-99d7-b35c49595635) |
+| ![카카오 검색](https://github.com/user-attachments/assets/00d470c3-bf6d-4ae1-b992-6bfa31a0494e) | ![스트리머 생방송](https://github.com/user-attachments/assets/de4e9cb3-4be8-44de-875d-f7fdc5c4e7f6) | ![스트리머 추천](https://github.com/user-attachments/assets/f04eadd2-0aa8-4c00-94de-a355a0cfdeb8) |
 | 스트리머 검색 |           |           |
-| ![SearchFragment](https://github.com/hegunhee/NowInJururu/assets/57277631/96134ed8-1696-4109-99ac-87427e00d5fb) |
+| ![스트리머 검색](https://github.com/user-attachments/assets/7b775012-ebfa-49a8-9e7a-2e4c49055f8c) |
