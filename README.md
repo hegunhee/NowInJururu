@@ -1,7 +1,12 @@
 # NowInJururu  
 ## 소개  
 트위치 스트리머 검색 및 카카오 검색을 하는 앱입니다.  
-트위치 코리아 철수 이후 SOOP 혹은 치지직 검색도 추가할 예정입니다.
+트위치 코리아 철수 이후 SOOP 혹은 치지직 검색도 추가할 예정입니다.  
+## 개발환경
+Kotlin : 1.8.0  
+Java : 17  
+gradle : 8.4.0  
+AGP : 8.3.2  
 ## 모듈 구조  
 본 프로젝트는 multi-module 구조이며 각 feature마다 모듈의 형태로 구성되어있습니다.  
 📦plugins(build-logic)  
