@@ -1,5 +1,6 @@
 package com.hegunhee.maplefinder.searchkakao
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -122,11 +123,12 @@ private fun SearchTypeButtons(
 ) {
     Row(
         modifier = Modifier
-            .fillMaxWidth()
+            .fillMaxWidth().padding(start = 20.dp)
     ) {
         Button(onClick = { onSearchSortTypeClick(SearchKakaoUiEvent.SearchTypeAccuracy) }) {
             Text(AccuracyText)
         }
+        Spacer(modifier = Modifier.padding(start = 10.dp))
         Button(onClick = { onSearchSortTypeClick(SearchKakaoUiEvent.SearchTypeRecency)}) {
             Text(RecencyText)
         }
